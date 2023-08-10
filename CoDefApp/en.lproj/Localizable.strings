@@ -1,0 +1,243 @@
+/*
+ Defect and Issue Tracker
+ App for tracking plan based defects and issues
+ Copyright: Michael Rönnau mr@elbe5.de 2023
+ */
+
+"add"="Add";
+"save"="Save";
+"done"="Done";
+"yes"="Yes";
+"true"="Yes";
+"no"="No";
+"false"="No";
+"new"="New";
+"for"="for";
+"id"="ID";
+"created"="Created";
+"creator"="Creator";
+"creationDate"="Creation Date";
+"on"="on";
+"by"="by";
+
+/*Alert*/
+"alert"="Alert";
+"pleaseApprove"="Please Approve";
+"deleteInfo"="You are going to delete this item.\nThis cannot be undone.\nDo want to proceed?";
+"confirmDeleteImage"="Do you want to completely delete this image?";
+"ok"="Ok";
+"accept"="Accept";
+"cancel"="Cancel";
+"success"="Success";
+"filesDeleted"="Deleted Files";
+
+/*Èrror*/
+"error"="Error";
+"mandatoryFieldsError"="Please fille all mandatory fields (*)";
+"userDeleteError"="You cannot delete this person/company (already assigned).";
+
+"name"="Name";
+"description"="Description";
+"image"="Image";
+"images"="Images";
+
+"pdf"="PDF";
+"report"="Report";
+"context"="Context";
+"send"="Send by Email";
+"reportSubject"="Report from Bandika Issue Tracker";
+"reportAttached"="The report is attached as PDF file.";
+"saveReport"="Save Report";
+"selectReportFile"="Select a file name for this report";
+"mailNotConfigured"="There no mail app available or not configured for sending.";
+
+"info"="Information";
+"symbolHeader"="Symbols";
+"menuSymbolHeader"="Menu Symbols";
+"infoSymbolText"="Show informations about the current view.";
+
+/*Main*/
+"overview"="Overview";
+
+"mainInfoHeader"="About this App";
+"mainInfoGeneral"="This app has been created for tracking issues like e.g. construction defects or maintenance tasks.\nThe server software is available as open source at Github under the name 'Bandika Issue Tracker'.";
+/*"mainInfoGeneral"="This app has been created for tracking issues like e.g. construction defects or maintenance tasks.\nThe server software is available as open source at Github under the name 'Bandika Issue Tracker'.\nThe app can be connected to a dedicated cloud server. Yet this is only needed if you want to store your data at a central location. You can get support for creating and running a dedicated cloud server at www.elbe5.de.";*/
+"cloudSymbolText"="Open cloud synchronization (only if cloud has been connected).";
+"backupSymbolText"="Backup all data as a zip file or restore (and replace) all data from a backup zip file.";
+"settingsSymbolText"="Open settings like cloud connection and others.";
+"mainInfoStructureHeader"="Structure";
+"mainInfoStructureText"="The structure includes projects, scopes and issues rsp. defects.
+Additionally it includes a pool of persons or companies like e.g. craftsmen for assigning them to one or more projects and there to tasks.
+
+Projects can be e.g. construction tasks or buildings. From the pool of all persons and companies the relevant ones are assigned to each project.
+
+Scopes are parts of the project like a floor or a room. Scopes can have a (ground) plan, where issues can be marked on.
+
+Issues include a name or short description, a description of the issue, a status, an assignment to a person or company, a target date, a position and images and/or photos.
+
+Issues are processed using feedbacks with comment, new status, new assignment and new images or photos.
+";
+"mainProjectsInfoHeader"="Projects";
+"mainProjectsInfoText"="Here you can select a projector create a new project.";
+"mainUsersInfoHeader"="Persons and Companies";
+"mainUsersInfoText"="Here you can select a person or company or create a new one.
+All of them make a pool of persons and companies which can each be attached to a project.";
+
+/*Projects*/
+"projects"="Projects";
+"project"="Project";
+"newProject"="New Project";
+"selectUsers"="Select Persons and Companies";
+"projectReport"="Project Report";
+
+"projectFilterSymbolText"="Filter project items.";
+"projectReportInfoText"="Create a report of the project (PDF)";
+"projectEditSymbolText"="Change data of a project.";
+"projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
+"projectEditInfoHeader"="Edit a project";
+"projectEditInfoText"="The name is mandatory.
+Selected Persons or Companies are part of this project and can be assigned to tasks. At least one is mandatory.";
+"projectScopesInfoHeader"="Project Scopes";
+"projectScopesInfoText"="Scopes are parts of the project like a floor or a room.
+Scopes can have a (ground) plan, where issues can be marked on.";
+"projectSealSymbolText"="This marks a scope when no filter is active.";
+"projectCheckmarkSealSymbolText"="This marks a scope when has filtered items.";
+"projectXmarkSealSymbolText"="This marks a scope when it has no filtered items. You cannot select it.";
+
+/*Filter*/
+"filter"="Filter for Viewing Issues";
+"onlyOpenIssues"="Open issues only";
+"onlyOverdueIssues"="Overdue issues only";
+"onlyForUser"="Only for the following person or company";
+
+"filterInfoHeader"="Filters";
+"filterInfoText"="The filter restricts views of projects, scopes and issues and their reports.
+
+Open issues only: Only issues which are not yet closed/done
+Overdue issues only: Only issues with due dates in the past
+Only for the following person or company: Only issues where the checked person or company is assigned to";
+
+/*Scopes*/
+"scopes"="sScopes";
+"scope"="sScope";
+"newScope"="New Scope";
+"plan"="Plan";
+"planReplaceInfo"="Replacing the plan invalidates all issue positions.\nDo want to proceed?";
+"scopeReport"="Scope Report";
+"scopeContext"="Project: %@";
+
+"scopeEditSymbolText"="Change data of a scope.";
+"scopeReportInfoText"="Create a report of the scope (PDF)";
+"scopeDeleteSymbolText"="Delete a scope. This will also delete all subelements.";
+"scopePlanInfoHeader"="Scope plan";
+"scopePlanInfoText"="If a scope has a plan, the positions of the issues of that scope are marked with red arrows. Selecting an arrow opens the respective issue.";
+"scopeIssuesHeader"="Problems and Issues";
+"scopeIssuesInfoText"="Issues include a name or short description, a description of the issue, a status, an assignment to a person or company, a target date, a position and images and/or photos.";
+"scopeSealSymbolText"="This marks an issue when no filter is active.";
+"scopeCheckmarkSealSymbolText"="This marks an issue when it has been selected by the filter.";
+"scopeXmarkSealSymbolText"="This marks an issue when it han been selected by the filter. You cannot select it.";
+
+"scopeEditInfoHeader"="Create or change a scope";
+"scopeEditInfoText"="The name is mandatory.";
+
+/*Issues*/
+"issues"="Issues";
+"issue"="Issue";
+"newIssue"="New Issue";
+"lot"="Lot";
+"status"="Status";
+"assignedTo"="Assigned to";
+"notified"="Notified";
+"dueDate"="Due Date";
+"position"="Position";
+"selectPosition"="Select Position";
+"savePosition"="Save Position";
+"open"="open";
+"disputed"="disputed";
+"rejected"="rejected";
+"done"="done";
+"issueReport"="Issue Report";
+"issueContext"="Project: %@, scope: %@";
+
+"issueEditSymbolText"="Change data of an issue.";
+"issueReportSymbolText"="Create a report of the issue (PDF)";
+"issueDeleteSymbolText"="Delete an issue. This will also delete all images and feedbacks.";
+"issueFeedbacksInfoHeader"="Feedbacks";
+"issueFeedbacksInfoText"="Feedbacks are follow-ups of issues when somebody made some progress or there is a new status. They include comment, new status, new assignment and new images or photos.";
+
+"issueEditInfoHeader"="Create or change an issue";
+"issueEditInfoText"="The name is mandatory. It should be a short description.";
+"issuePositionInfoHeader"="Mark a position";
+"issuePositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
+
+/*Feedbacks*/
+"feedbacks"="Feedbacks";
+"feedback"="Feedback";
+"addFeedback"="Add Feedback";
+"comment"="Comment";
+"previousAssignment"="Assignmnt";
+"newAssignment"="New Assignment";
+"feedbackContext"="Project: %@, Scope: %@, Issue: %@";
+
+"feedbackEditInfoHeader"="Create a feedback";
+"feedbackEditInfoText"="The comment is mandatory.";
+
+/*Users*/
+"users"="Persons and Companies";
+"user"="Person/Company";
+"newUser"="New Person or Company";
+"street"="Street";
+"zipCode"="Zip Code";
+"city"="City";
+"email"="Email";
+"phone"="Phone";
+"notes"="Notes";
+"nobody"="Nobody";
+"anonymous"="N.N.";
+
+"userEditSymbolText"="Change data of a person or company.";
+"userDeleteSymbolText"="Delete a person or company. This is not possible, if there is already an assignment to a project or issue.";
+"userEditInfoHeader"="Create or edit a person or company";
+"userEditInfoText"="A name is mandatory.
+
+An email should be entered, if the person or company should be notified or receive documents by email.
+
+All other data are for addressing or information.";
+
+/*Cloud*/
+"cloud"="Cloud";
+"connectionState"="Connection State";
+"connected"="Connected";
+"disconnected"="Disconnected";
+
+"cloudInfoHeader"="Cloud Synchronisation";
+"cloudInfoText"="todo";
+
+/*Settings*/
+"settings"="Settings";
+"loginData"="Login Data";
+"serverURL"="Server URL";
+"loginName"="Login Name";
+"password"="Password";
+"login"="Log In";
+"logout"="Log Out";
+"cleanup"="Cleanup";
+"tip"="Tip";
+"tipText"="If you like this app, a tip is welcome but not mandatory. No features are hidden without it.";
+"tipPurchased"="Thank you for the tip '%@'!";
+"purchase"="Purchase";
+
+
+"settingsInfoLoginHeader"="Cloud Login";
+"settingsInfoLoginText"="Fill the URL, login name and password of the IssueTracker server you want to use as cloud server.";
+"settingsInfoCleanupHeader"="Cleanup";
+"settingsInfoCleanupText"="Here you can delete all images, which are not in use any more.";
+
+/*Backup*/
+"backup"="Backup";
+"createBackup"="Create Backup";
+"restore"="Restore";
+"restoreBackup"="Restore Backup";
+"restoreHint"="During restore all previous data will be deleted. Do you want to continue?";
+"restoreDone"="The backup has been restored.";
+

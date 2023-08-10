@@ -1,0 +1,250 @@
+/*
+ Defect and Issue Tracker
+ App for tracking plan based defects and issues
+ Copyright: Michael Rönnau mr@elbe5.de 2023
+ */
+
+"add"="Hinzufügen";
+"save"="Speichern";
+"done"="Fertig";
+"yes"="Ja";
+"true"="Ja";
+"no"="Nein";
+"false"="Nein";
+"new"="Neu";
+"for"="für";
+"id"="ID";
+"created"="Erstellt";
+"creator"="Ersteller";
+"creationDate"="Erstellungsdatum";
+"on"="am";
+"by"="von";
+
+/*Alert*/
+"alert"="Achtung";
+"pleaseApprove"="Bitte bestätigen";
+"deleteInfo"="Sie sind dabei, dieses Element zu löschen.
+Dies kann nicht rückgängig gemacht werden.
+Wollen Sie fortfahren?";
+"confirmDeleteImage"="Wollen Sie dieses Bild endgültig löschen?";
+"filesDeleted"="Gelöschte Dateien";
+"ok"="Ok";
+"accept"="Übernehmen";
+"cancel"="Abbrechen";
+"success"="Erfolg";
+
+/*Èrror*/
+"error"="Fehler";
+"mandatoryFieldsError"="Bitte füllen Sie alle Pflichtfelder (*) aus.";
+"noUsersError"="Dieses Projekt hat keine auswählbaren Personen oder Firmen.";
+"userDeleteError"="Sie können diese Person/Firma nicht löschen (bereits zugeordnet).";
+
+"name"="Name";
+"description"="Beschreibung";
+"image"="Bild";
+"images"="Bilder";
+
+
+"pdf"="PDF";
+"report"="Bericht";
+"context"="Kontext";
+"send"="Per Email verschicken";
+"reportSubject"="Bericht vom Bandika Issue Tracker";
+"reportAttached"="Der Bericht ist als PDF-Datei angehängt.";
+"saveReport"="Bericht speichern";
+"selectReportFile"="Wählen Sie einen Datei zum Speichern.";
+"mailNotConfigured"="Es konnte keine Email-App gefunden werden oder sie ist nicht zum Versenden konfiguriert.";
+
+"info"="Information";
+"symbolHeader"="Symbole";
+"menuSymbolHeader"="Menüsymbole";
+"infoSymbolText"="Informationen zu der aktuellen Ansicht anzeigen.";
+
+/*Main*/
+"overview"="Übersicht";
+
+"mainInfoHeader"="Über diese App";
+"mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Problemen wie z.B. Baumängel oder Hausmeisteraufgaben konzipiert.
+Die Software steht als Open Source bei Github unter dem Namen 'BandikaIssueTrackerApp' zur Verfügung.";
+/*"mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Problemen wie z.B. Baumängel oder Hausmeisteraufgaben konzipiert.
+Die Software steht als Open Source bei Github unter dem Namen 'BandikaIssueTrackerApp' zur Verfügung.
+Die App kann mit einem zugehörigen Cloudserver verbunden werden. Notwendig ist das allerdings nur, wenn Sie Ihre Daten zentral speichern wollen.
+Unterstützung für die Einrichtung und Nutzung eines zugehörigen Cloud-Servers können Sie bei www.elbe5.de erhalten.";*/
+"cloudSymbolText"="Einstellungen für eine Cloud-Verbindung und Synchronisation öffnen (nur bei erfolgter Cloud-Verbindung).";
+"backupSymbolText"="Alle Daten als Zip-Datei sichern oder alle Daten von einer Sicherungs-Zip-Datei wiederherstellen (ersetzen).";
+"settingsSymbolText"="Einstellungen wie die Cloud-Verbindung und andere öffnen.";
+"mainInfoStructureHeader"="Struktur";
+"mainInfoStructureText"="Die Struktur umfasst Projekte, Bereiche und Probleme bzw. Mängel.
+Weiterhin existiert ein Pool von Personen und Firmen wie z.B. Handwerker, die einem oder mehreren Projekten und dort einer Aufgabe zugeordnet werden können.
+
+Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Personen und Firmen zugeordnet.
+
+Bereiche sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Bereiche können einen Plan/Grundriss haben, auf dem die Probleme/Mängel markiert werden.
+
+Probleme bzw. Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Person bzw. Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
+
+Die Bearbeitung von Problemen erfolgt als Rückmeldung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
+";
+"mainProjectsInfoHeader"="Projekte";
+"mainProjectsInfoText"="Hier können Sie Projekte auswählen oder neue Projekte erstellen.";
+"mainUsersInfoHeader"="Personen und Firmen";
+"mainUsersInfoText"="Hier können Sie Personen und Firmen auswählen oder neue erstellen.
+Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet werden können.";
+
+/*Projects*/
+"projects"="Projekte";
+"project"="Projekt";
+"newProject"="Neues Projekt";
+"selectUsers"="Personen und Firmen auswählen";
+"projectReport"="Projektbericht";
+
+"projectFilterSymbolText"="Projektelemente filtern.";
+"projectReportInfoText"="Einen Report des Projekts erstellen (PDF).";
+"projectEditSymbolText"="Die Daten eines Projekts ändern.";
+"projectDeleteSymbolText"="Ein Projekt löschen. Dies ist löscht auch sämtliche Unterelemente.";
+"projectEditInfoHeader"="Ein Projekt erstellen oder ändern";
+"projectEditInfoText"="Der Name ist ein Pflichtfeld.
+Ausgewählte Personen und Firmen sind Teil des Projekts und können Aufgaben zugeordnet werden. Mindestens eine/r  ist Pflicht.";
+"projectScopesInfoHeader"="Projektbereiche";
+"projectScopesInfoText"="Bereiche sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Bereiche können einen Plan/Grundriss haben, auf dem die Probleme/Mängel markiert werden.";
+"projectSealSymbolText"="Dies markiert einen Bereich, wenn kein Filter aktiv ist.";
+"projectCheckmarkSealSymbolText"="Dies markiert einen Bereich, wenn er gefilterte Elemente enthält.";
+"projectXmarkSealSymbolText"="Dies markiert einen Bereich, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
+
+/*Filter*/
+"filter"="Filter für die Anzeige von Mängeln";
+"onlyOpenIssues"="Nur offene Mängel";
+"onlyOverdueIssues"="Nur überfällige Mängel";
+"onlyForUser"="Nur für die folgende Person oder Firma";
+
+"filterInfoHeader"="Filters";
+"filterInfoText"=" Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
+
+Nur offene Mängel: Nur Mängel, die noch nicht abschlossen/erledigt sind
+Nur überfällige Mängel: Nur Mängel, deren Zieldatum verstrichen ist
+Nur für die folgenden Person oder Firma: Nur Mängel, die der markierten Person bzw.Firma zugeordnet sind";
+
+/*Scopes*/
+"scopes"="Bereiche";
+"scope"="Bereich";
+"newScope"="Neuer Bereich";
+"plan"="Plan";
+"planReplaceInfo"="Das Ersetzen des Plans macht alle Mangelpositionen ungültig.
+Wollen Sie fortfahren?";
+"scopeReport"="Bereichsbericht";
+"scopeContext"="Projekt: %@";
+
+"scopeEditSymbolText"="Die Daten eines Bereichs ändern.";
+"scopeReportInfoText"="Einen Report des Bereichs erstellen (PDF).";
+"scopeDeleteSymbolText"="Einen Bereich löschen. Dies ist löscht auch sämtliche Unterelemente.";
+"scopePlanInfoHeader"="Bereichsplan/Grundriss";
+"scopePlanInfoText"="Wenn ein Bereich einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
+"scopeIssuesHeader"="Probleme und Mängel";
+"scopeIssuesInfoText"="Probleme bzw. Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Person bzw. Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.";
+"scopeSealSymbolText"="Dies markiert einen Mangel, wenn kein Filter aktiv ist.";
+"scopeCheckmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter ausgewählt ist.";
+"scopeXmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
+
+"scopeEditInfoHeader"="Einen Bereich erstellen oder ändern";
+"scopeEditInfoText"="Der Name ist ein Pflichtfeld.";
+
+/*Issues*/
+"issues"="Mängel";
+"issue"="Mangel";
+"newIssue"="Neuer Mangel";
+"lot"="Gewerk";
+"status"="Status";
+"assignedTo"="Zugeordnet an";
+"notified"="Benachrichtigt";
+"dueDate"="Zieldatum";
+"position"="Position";
+"selectPosition"="Position markieren";
+"savePosition"="Position speichern";
+"open"="offen";
+"disputed"="strittig";
+"rejected"="abgelehnt";
+"done"="erledigt";
+"issueReport"="Mängelbericht";
+"issueContext"="Projekt: %@, Bereich: %@";
+
+"issueEditSymbolText"="Die Daten eines Problems ändern.";
+"issueReportSymbolText"="Einen Report des Problems erstellen (PDF).";
+"issueDeleteSymbolText"="Ein Problem löschen. Dies ist löscht auch sämtliche Bilder und Rückmeldungen.";
+"issueFeedbacksInfoHeader"="Rückmeldungen";
+"issueFeedbacksInfoText"="Rückmeldungen sind Folgeeinträge für einen Mangel wenn jemand einen Fortschritt erzielt hat oder sich der Status anders geändert hat.Sie enthalten einen Kommentar, neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
+
+"issueEditInfoHeader"="Ein Problem/Mangel erstellen oder ändern";
+"issueEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
+"issuePositionInfoHeader"="Eine Position markieren";
+"issuePositionInfoText"="Tippen Sie auf den Plan/Grundriss, bis der rote Pfeil die Position richtiog markiert.";
+
+/*Feedbacks*/
+"feedbacks"="Rückmeldungen";
+"feedback"="Rückmeldung";
+"addFeedback"="Rückmeldung hinzufügen";
+"comment"="Kommentar";
+"previousAssignment"="Zuordnung";
+"newAssignment"="Neue Zuordnung";
+"feedbackContext"="Projekt: %@, Bereich: %@, Mangel: %@";
+
+"feedbackEditInfoHeader"="Eine Rückmeldung erstellen";
+"feedbackEditInfoText"="Der Kommentar ist ein Pflichtfeld.";
+
+/*Users*/
+"users"="Personen und Firmen";
+"user"="Person/Firma";
+"newUser"="Neue Person oder Firma";
+"street"="Straße";
+"zipCode"="Plz";
+"city"="Stadt";
+"email"="Email";
+"phone"="Telefon";
+"notes"="Bemerkungen";
+"nobody"="Niemand";
+"anonymous"="N.N.";
+
+"userEditSymbolText"="Die Daten einer Person oder Firma ändern.";
+"userDeleteSymbolText"="Eine Person oder Firma löschen. Dies ist nur möglich, wenn noch keine Zuordnung zu einem Projekt oder Mangel vorliegt.";
+"userEditInfoHeader"="Person oder Firma erstellen oder ändern";
+"userEditInfoText"="Der Name ist ein Pflichtfeld.
+
+Eine Email sollte eingetragen werden, wenn die Person oder Firma per Email benachrichtigt oder Dokumente geschickt bekommen soll.
+
+Alle anderen Daten dienen der Adressierung oder Information.";
+
+/*Cloud*/
+"cloud"="Cloud";
+"connectionState"="Verbindungsstatus";
+"connected"="Verbunden";
+"disconnected"="Nicht verbunden";
+"cloudInfoHeader"="Cloud-Synchronisation";
+"cloudInfoText"="todo";
+
+/*Settings*/
+"settings"="Einstellungen";
+"loginData"="Anmeldedaten";
+"serverURL"="Server URL";
+"loginName"="Anmeldename";
+"password"="Passwort";
+"login"="Anmelden";
+"logout"="Abmelden";
+"cleanup"="Aufräumen";
+"tip"="Trinkgeld";
+"tipText"="Wenn Sie diese App nützlich finden, ist ein Trinkgeld willkommen aber nicht obligatorisch. Es stehen in jedem Fall alle Funktionen zur Verfügung.";
+"tipPurchased"="Danke für das Trinkgeld '%@'!";
+"purchase"="Kaufen";
+
+"settingsInfoLoginHeader"="Cloud-Anmeldung";
+"settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des IssueTracker-Servers ein, den Sie als Cloud benutzen möchten.";
+"settingsInfoCleanupHeader"="Aufräumen";
+"settingsInfoCleanupText"="Hier können Sie alle Bilder löschen, die nicht mehr benutzt werden.";
+
+/*Backup*/
+"backup"="Backup";
+"createBackup"="Backup erstellen";
+"restore"="Wiederherstellen";
+"restoreBackup"="Backup wiederherstellen";
+"restoreHint"="Beim Wiederhestellen werden alle anderen Daten gelöscht.
+Wollen Sie fortfahren?";
+"restoreDone"="Das Backup wurde eingespielt.";
+
