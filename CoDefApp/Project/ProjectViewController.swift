@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues 
+ Construction Defect Tracker
+ App for tracking construction defects  
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -103,7 +103,7 @@ class ProjectViewController: ScrollViewController {
 
         for scope in project.scopes{
             let sectionLine = FilteredSectionLine(name: scope.name, filtered: filterActive, enabled: filteredScopes.contains(scope), action: UIAction(){ action in
-                let controller = ScopeViewController(scope: scope)
+                let controller = UnitViewController(scope: scope)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             })
@@ -112,9 +112,9 @@ class ProjectViewController: ScrollViewController {
         }
         let addScopeButton = TextButton(text: "newScope".localize())
         addScopeButton.addAction(UIAction(){ (action) in
-            let scope = ScopeData()
+            let scope = UnitData()
             scope.project = self.project
-            let controller = EditScopeViewController(scope: scope)
+            let controller = EditUnitViewController(scope: scope)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }, for: .touchDown)

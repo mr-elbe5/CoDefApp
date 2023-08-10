@@ -1,34 +1,34 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 import AVFoundation
 
-class CreateFeedbackViewController: EditViewController {
+class CreateProcessingStatusViewController: EditViewController {
     
-    var issue: IssueData
-    var feedback : FeedbackData
+    var defect: DefectData
+    var processingStatus : ProcessingStatusData
     
-    var delegate: FeedbackDelegate? = nil
+    var delegate: ProcessingStatusDelegate? = nil
     
     var commentField = LabeledTextareaInput()
-    var statusField = LabeledIssueStatusSelectView()
+    var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledUserSelectField()
     var notifiedField = LabeledCheckbox()
     
     let imageCollectionView: ImageCollectionView
     
     override var infoViewController: InfoViewController?{
-        CreateFeedbackInfoViewController()
+        CreateProcessingStatusInfoViewController()
     }
     
-    init(issue: IssueData){
-        feedback = FeedbackData(issue: issue)
-        self.issue = issue
-        imageCollectionView = ImageCollectionView(images: feedback.images, enableDelete: true)
+    init(defect: DefectData){
+        processingStatus = ProcessingStatusData(defect: defect)
+        self.defect = defect
+        imageCollectionView = ImageCollectionView(images: processingStatus.images, enableDelete: true)
         super.init()
     }
     
@@ -37,20 +37,20 @@ class CreateFeedbackViewController: EditViewController {
     }
     
     override func loadView() {
-        title = "feedback".localize()
+        title = "processingStatus".localize()
         super.loadView()
     }
     
     override func setupContentView() {
-        commentField.setupView(labelText: "comment".localizeWithColonAsMandatory(), text: feedback.comment)
+        commentField.setupView(labelText: "comment".localizeWithColonAsMandatory(), text: processingStatus.comment)
         contentView.addSubviewAtTop(commentField)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: feedback.status)
+        statusField.setupStatuses(currentStatus: processingStatus.status)
         contentView.addSubviewAtTop(statusField, topView: commentField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupUsers(users: feedback.projectUsers, currentUserId: feedback.assignedUserId)
+        assignField.setupUsers(users: processingStatus.projectUsers, currentUserId: processingStatus.assignedUserId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -61,26 +61,26 @@ class CreateFeedbackViewController: EditViewController {
     }
     
     override func deleteImageData(image: ImageFile) {
-        feedback.images.remove(obj: image)
-        feedback.changed()
-        feedback.saveData()
+        processingStatus.images.remove(obj: image)
+        processingStatus.changed()
+        processingStatus.saveData()
         self.imageCollectionView.images.remove(obj: image)
         self.imageCollectionView.reloadData()
     }
     
     override func save() -> Bool{
         if !commentField.text.isEmpty{
-            feedback.comment = commentField.text
-            feedback.status = statusField.selectedStatus
-            feedback.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
-            issue.feedbacks.append(feedback)
-            issue.status = feedback.status
-            issue.assignedUserId = feedback.assignedUserId
-            issue.notified = notifiedField.isOn
-            feedback.isNew = false
-            issue.changed()
-            issue.saveData()
-            delegate?.feedbackChanged()
+            processingStatus.comment = commentField.text
+            processingStatus.status = statusField.selectedStatus
+            processingStatus.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
+            defect.processingStatuses.append(processingStatus)
+            defect.status = processingStatus.status
+            defect.assignedUserId = processingStatus.assignedUserId
+            defect.notified = notifiedField.isOn
+            processingStatus.isNew = false
+            defect.changed()
+            defect.saveData()
+            delegate?.statusChanged()
             return true
         }
         else{
@@ -94,10 +94,10 @@ class CreateFeedbackViewController: EditViewController {
         let image = ImageFile()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            feedback.images.append(image)
-            feedback.changed()
+            processingStatus.images.append(image)
+            processingStatus.changed()
             imageCollectionView.images.append(image)
-            feedback.saveData()
+            processingStatus.saveData()
             imageCollectionView.updateHeightConstraint()
             imageCollectionView.reloadData()
         }
@@ -105,22 +105,22 @@ class CreateFeedbackViewController: EditViewController {
     }
     
     override func photoCaptured(photo: ImageFile) {
-        feedback.images.append(photo)
-        feedback.changed()
+        processingStatus.images.append(photo)
+        processingStatus.changed()
         imageCollectionView.images.append(photo)
-        feedback.saveData()
+        processingStatus.saveData()
         imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()
     }
     
 }
 
-class CreateFeedbackInfoViewController: InfoViewController {
+class CreateProcessingStatusInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("feedbackEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("feedbackEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("processingStatusEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("processingStatusEditInfoText".localize()))
     }
     
 }

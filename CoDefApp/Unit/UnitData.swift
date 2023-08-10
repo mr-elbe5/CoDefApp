@@ -1,13 +1,13 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import Foundation
 import UIKit
 
-class ScopeData : BaseData{
+class UnitData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -19,7 +19,7 @@ class ScopeData : BaseData{
     var name = ""
     var description = ""
     var plan: ImageFile? = nil
-    var issues = Array<IssueData>()
+    var issues = Array<DefectData>()
     
     var project: ProjectData? = nil
     
@@ -31,12 +31,12 @@ class ScopeData : BaseData{
         project?.isFilterActive ?? false
     }
     
-    var filteredIssues: Array<IssueData>{
+    var filteredIssues: Array<DefectData>{
         if let project = project{
             if !project.filter.active{
                 return issues
             }
-            var list = Array<IssueData>()
+            var list = Array<DefectData>()
             for issue in issues {
                 if  issue.isInFilter(filter: project.filter){
                     list.append(issue)
@@ -44,7 +44,7 @@ class ScopeData : BaseData{
             }
             return list
         }
-        return Array<IssueData>()
+        return Array<DefectData>()
     }
     
     override init(){
@@ -57,9 +57,9 @@ class ScopeData : BaseData{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? "name"
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         plan = try values.decodeIfPresent(ImageFile.self, forKey: .plan)
-        issues = try values.decodeIfPresent(Array<IssueData>.self, forKey: .issues) ?? Array<IssueData>()
+        issues = try values.decodeIfPresent(Array<DefectData>.self, forKey: .issues) ?? Array<DefectData>()
         for issue in issues{
-            issue.scope = self
+            issue.unit = self
         }
     }
 
@@ -81,7 +81,7 @@ class ScopeData : BaseData{
         return dict
     }
     
-    func removeIssue(_ issue: IssueData){
+    func removeIssue(_ issue: DefectData){
         issue.removeAll()
         issues.remove(obj: issue)
     }

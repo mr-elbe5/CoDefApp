@@ -1,6 +1,6 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ Construction Defect Tracker
+ App for tracking construction defects
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 

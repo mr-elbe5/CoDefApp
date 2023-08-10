@@ -1,15 +1,15 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 import AVFoundation
 
-class EditScopeViewController: EditViewController {
+class EditUnitViewController: EditViewController {
     
-    var scope: ScopeData
+    var scope: UnitData
     
     var delegate: ScopeDelegate? = nil
     
@@ -22,7 +22,7 @@ class EditScopeViewController: EditViewController {
         EditScopeInfoViewController()
     }
     
-    init(scope: ScopeData){
+    init(scope: UnitData){
         self.scope = scope
         super.init()
         

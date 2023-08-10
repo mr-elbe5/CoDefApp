@@ -1,17 +1,17 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 
-class LabeledIssueStatusSelectView : LabeledRadioGroup{
+class LabeledDefectStatusSelectView : LabeledRadioGroup{
     
-    func setupStatuses( currentStatus: IssueStatus? = nil){
+    func setupStatuses( currentStatus: DefectStatus? = nil){
         var values = Array<String>()
         var currentIndex = 0
-        for statuses in IssueStatus.allCases{
+        for statuses in DefectStatus.allCases{
             values.append(statuses.rawValue.localize())
             if statuses == currentStatus{
                 currentIndex = values.count - 1
@@ -21,8 +21,8 @@ class LabeledIssueStatusSelectView : LabeledRadioGroup{
         radioGroup.select(index: currentIndex)
     }
     
-    var selectedStatus: IssueStatus{
-        let statuses = IssueStatus.allCases
+    var selectedStatus: DefectStatus{
+        let statuses = DefectStatus.allCases
         return statuses[selectedIndex]
     }
     

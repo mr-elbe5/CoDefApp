@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -118,7 +118,7 @@ class CloudSynchronizer{
                                 }
                             }
                         }
-                        for feedback in issue.feedbacks{
+                        for feedback in issue.processingStatuses{
                             for image in feedback.images{
                                 taskGroup.addTask{
                                     do{
@@ -150,7 +150,7 @@ class CloudSynchronizer{
                     if !issue.synchronized{
                         count += 1
                     }
-                    for feedback in issue.feedbacks{
+                    for feedback in issue.processingStatuses{
                         if !feedback.synchronized{
                             count += 1
                         }
@@ -182,7 +182,7 @@ class CloudSynchronizer{
                             }
                         }
                         else{
-                            for feedback in issue.feedbacks{
+                            for feedback in issue.processingStatuses{
                                 if !feedback.synchronized{
                                     taskGroup.addTask{
                                         do{
@@ -206,7 +206,7 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadIssue(issue: IssueData, scopeCloudId: Int, syncResult: SyncResult) async throws{
+    func uploadIssue(issue: DefectData, scopeCloudId: Int, syncResult: SyncResult) async throws{
         let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewIssue/" + String(scopeCloudId)
         var params = issue.asDictionary()
         params["creationDate"] = String(issue.creationDate.millisecondsSince1970)
@@ -239,7 +239,7 @@ class CloudSynchronizer{
                         }
                     }
                 }
-                for feeedback in issue.feedbacks{
+                for feeedback in issue.processingStatuses{
                     if !feeedback.synchronized{
                         do{
                             try await uploadFeedback(feedback: feeedback, issueCloudId: response.id, syncResult: syncResult)
@@ -260,7 +260,7 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadFeedback(feedback: FeedbackData, issueCloudId: Int, syncResult: SyncResult) async throws{
+    func uploadFeedback(feedback: ProcessingStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
         let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
         var params = feedback.getUploadParams()
         params["creationDate"] = String(feedback.creationDate.millisecondsSince1970)

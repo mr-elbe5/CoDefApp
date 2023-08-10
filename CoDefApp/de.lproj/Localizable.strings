@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -229,10 +229,6 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "login"="Anmelden";
 "logout"="Abmelden";
 "cleanup"="Aufräumen";
-"tip"="Trinkgeld";
-"tipText"="Wenn Sie diese App nützlich finden, ist ein Trinkgeld willkommen aber nicht obligatorisch. Es stehen in jedem Fall alle Funktionen zur Verfügung.";
-"tipPurchased"="Danke für das Trinkgeld '%@'!";
-"purchase"="Kaufen";
 
 "settingsInfoLoginHeader"="Cloud-Anmeldung";
 "settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des IssueTracker-Servers ein, den Sie als Cloud benutzen möchten.";

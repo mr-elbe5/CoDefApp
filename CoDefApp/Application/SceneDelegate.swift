@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -15,13 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileController.initialize()
         FileController.initializeDirectories()
         //FileController.logFileInfo()
-        IssueData.loadNextDisplayId()
+        DefectData.loadNextDisplayId()
         CurrentUser.load()
         CloudData.load()
         AppData.load()
-        Task{
-            await Store.shared.load()
-        }
         guard let windowScene = (scene as? UIWindowScene) else { return }
         mainWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window = mainWindow

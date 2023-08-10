@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -23,8 +23,6 @@ class SettingsViewController: ScrollViewController {
     var logoutButton = TextButton(text: "logout".localize(), tintColor: .systemRed, withBorder: true)
     
     var cleanupSection = SectionView()
-    var purchaseSection = SectionView()
-    var purchaseRadioGroup = RadioGroup()
     
     var delegate: SettingsDelegate? = nil
     
@@ -42,15 +40,12 @@ class SettingsViewController: ScrollViewController {
     }
     
     override func setupContentView() {
-        /*contentView.addSubviewAtTop(loginSection)
+        contentView.addSubviewAtTop(loginSection)
         setupLoginSection()
         logoutButton.isEnabled = CloudData.shared.isLoggedIn()
-        */
-        contentView.addSubviewAtTop(cleanupSection) //, topView: loginSection)
-        setupCleanupSection()
-        contentView.addSubviewAtTop(purchaseSection, topView: cleanupSection)
+        contentView.addSubviewAtTop(cleanupSection, topView: loginSection)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
-        setupPurchaseSection()
+        setupCleanupSection()
     }
     
     func setupLoginSection(){
@@ -103,41 +98,6 @@ class SettingsViewController: ScrollViewController {
             .bottom(cleanupSection.bottomAnchor, inset: -defaultInset)
     }
     
-    func setupPurchaseSection(){
-        let label  = UILabel(header: "tip".localize())
-        purchaseSection.addSubviewAtTopCentered(label)
-        let text  = UILabel(text: "tipText".localize())
-        purchaseSection.addSubviewAtTop(text, topView: label)
-        if !Store.shared.loaded{
-            print("store not loaded")
-        }
-        Store.shared.delegate = self
-        var lastView : UIView = text
-        if let purchasedProduct = Store.shared.purchasedProduct{
-            let purchasedLabel = UILabel(header: "tipPurchased".localize(param: purchasedProduct.product.displayName))
-            purchaseSection.addSubviewAtTopCentered(purchasedLabel, topView: lastView, insets: Insets.doubleInsets)
-            lastView = purchasedLabel
-        }
-        else{
-            purchaseSection.addSubviewAtTop(purchaseRadioGroup, topView: lastView)
-            purchaseRadioGroup.setup(values: Store.shared.productDescriptions)
-            
-            let purchaseButton = TextButton(text: "purchase".localize(), withBorder: true)
-            purchaseButton.addAction(UIAction(){ action in
-                self.purchase()
-            }, for: .touchDown)
-            purchaseSection.addSubviewAtTopCentered(purchaseButton, topView: purchaseRadioGroup)
-            lastView = purchaseButton
-        }
-        lastView.bottom(purchaseSection.bottomAnchor, inset: -defaultInset)
-    }
-    
-    func updatePurchaseSection(){
-        purchaseSection.removeAllSubviews()
-        purchaseRadioGroup = RadioGroup()
-        setupPurchaseSection()
-    }
-    
     func doLogin(serverURL: String, login: String, password: String) async throws -> Bool{
         var url = serverURL
         if url.hasSuffix("/"){
@@ -168,26 +128,7 @@ class SettingsViewController: ScrollViewController {
         showDone(title: "success".localize(), text: "filesDeleted".localizeWithColon() + " " + String(count))
     }
     
-    func purchase(){
-        let value = purchaseRadioGroup.selectedIndex
-        if value != -1{
-            let selectedProductInfo = Store.shared.productInfos[value]
-            selectedProductInfo.purchase()
-        }
-    }
-    
 }
-
-extension SettingsViewController: StoreDelegate{
-    
-    func storeChanged() {
-        DispatchQueue.main.async {
-            self.updatePurchaseSection()
-        }
-    }
-    
-}
-
 
 class SettingsInfoViewController: InfoViewController {
     

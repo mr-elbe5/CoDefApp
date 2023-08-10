@@ -1,17 +1,17 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 import AVFoundation
 
-class CreateIssueViewController: EditIssueViewController {
+class CreateDefectViewController: EditDefectViewController {
     
-    var scope: ScopeData
+    var unit: UnitData
     
-    var statusField = LabeledIssueStatusSelectView()
+    var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledUserSelectField()
     var dueDateField = LabeledDatePicker()
     
@@ -19,11 +19,11 @@ class CreateIssueViewController: EditIssueViewController {
         CreateIssueInfoViewController()
     }
     
-    init(scope: ScopeData){
-        self.scope = scope
-        let issue = IssueData()
-        issue.scope = scope
-        super.init(issue: issue)
+    init(unit: UnitData){
+        self.unit = unit
+        let defect = DefectData()
+        defect.unit = unit
+        super.init(defect: defect)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -37,21 +37,21 @@ class CreateIssueViewController: EditIssueViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: issue.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.name)
         contentView.addSubviewAtTop(nameField)
         
-        descriptionField.setupView(labelText: "description".localizeWithColon(), text: issue.description)
+        descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
-        lotField.setupView(labelText: "lot".localizeWithColon(), text: issue.lot)
+        lotField.setupView(labelText: "lot".localizeWithColon(), text: defect.lot)
         contentView.addSubviewAtTop(lotField, topView: descriptionField)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: issue.status)
+        statusField.setupStatuses(currentStatus: defect.status)
         contentView.addSubviewAtTop(statusField, topView: lotField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupUsers(users: issue.projectUsers, currentUserId: issue.assignedUserId)
+        assignField.setupUsers(users: defect.projectUsers, currentUserId: defect.assignedUserId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -63,20 +63,20 @@ class CreateIssueViewController: EditIssueViewController {
         
         var lastView : UIView = dueDateField
         
-        if let plan = issue.scope?.plan{
+        if let plan = defect.unit?.plan{
             let image = plan.getImage()
             let label = UILabel(header: "position".localizeWithColon())
             contentView.addSubviewWithAnchors(label, top: lastView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             let planButton = IconButton(icon: "pencil", backgroundColor: .systemBackground, withBorder: true)
             planButton.addAction(UIAction(){ action in
-                let controller = EditIssuePositionViewController(issue: self.issue, plan: plan)
+                let controller = EditDefectPositionViewController(defect: self.defect, plan: plan)
                 controller.positionDelegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }, for: .touchDown)
             contentView.addSubviewWithAnchors(planButton, top: lastView.bottomAnchor, insets: wideInsets)
                 .centerX(contentView.centerXAnchor)
-            let planView = ScopePlanView(plan: image)
-            planView.addMarker(issue: issue)
+            let planView = UnitPlanView(plan: image)
+            planView.addMarker(defect: defect)
             contentView.addSubviewAtTop(planView, topView: planButton)
             self.planView = planView
             lastView = planView
@@ -86,28 +86,28 @@ class CreateIssueViewController: EditIssueViewController {
     }
     
     override func deleteImageData(image: ImageFile) {
-        issue.images.remove(obj: image)
-        issue.saveData()
+        defect.images.remove(obj: image)
+        defect.saveData()
         imageCollectionView.images.remove(obj: image)
         imageCollectionView.reloadData()
     }
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            issue.name = nameField.text
-            issue.description = descriptionField.text
-            issue.lot = lotField.text
-            issue.assertDisplayId()
-            issue.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
-            issue.notified = notifiedField.isOn
-            issue.dueDate = dueDateField.date
-            issue.status = statusField.selectedStatus
-            scope.issues.append(issue)
-            issue.isNew = false
-            issue.changed()
-            scope.changed()
-            scope.saveData()
-            delegate?.issueChanged()
+            defect.name = nameField.text
+            defect.description = descriptionField.text
+            defect.lot = lotField.text
+            defect.assertDisplayId()
+            defect.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
+            defect.notified = notifiedField.isOn
+            defect.dueDate = dueDateField.date
+            defect.status = statusField.selectedStatus
+            unit.issues.append(defect)
+            defect.isNew = false
+            defect.changed()
+            unit.changed()
+            unit.saveData()
+            delegate?.defectChanged()
             return true
         }
         else{

@@ -17,22 +17,22 @@
 		4EA397122A854F96006053A0 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970C2A854F96006053A0 /* ProjectViewController.swift */; };
 		4EA397132A854F96006053A0 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970D2A854F96006053A0 /* FilterViewController.swift */; };
 		4EA397142A854F96006053A0 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970E2A854F96006053A0 /* ProjectData.swift */; };
-		4EA3971A2A85501D006053A0 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397152A85501D006053A0 /* ScopeViewController.swift */; };
-		4EA3971B2A85501D006053A0 /* ScopeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397162A85501D006053A0 /* ScopeData.swift */; };
-		4EA3971C2A85501D006053A0 /* ScopePdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397172A85501D006053A0 /* ScopePdfViewController.swift */; };
-		4EA3971D2A85501D006053A0 /* ScopePlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397182A85501D006053A0 /* ScopePlanView.swift */; };
-		4EA3971E2A85501D006053A0 /* EditScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397192A85501D006053A0 /* EditScopeViewController.swift */; };
-		4EA3972A2A85502C006053A0 /* CreateIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3971F2A85502C006053A0 /* CreateIssueViewController.swift */; };
-		4EA3972B2A85502C006053A0 /* IssueMarkerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397202A85502C006053A0 /* IssueMarkerButton.swift */; };
-		4EA3972C2A85502C006053A0 /* IssuePdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397212A85502C006053A0 /* IssuePdfViewController.swift */; };
-		4EA3972D2A85502C006053A0 /* LabeldIssueStateSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397222A85502C006053A0 /* LabeldIssueStateSelectField.swift */; };
-		4EA3972E2A85502C006053A0 /* EditIssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397232A85502C006053A0 /* EditIssueViewController.swift */; };
-		4EA3972F2A85502C006053A0 /* IssueStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397242A85502C006053A0 /* IssueStatus.swift */; };
-		4EA397302A85502C006053A0 /* IssueData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397252A85502C006053A0 /* IssueData.swift */; };
-		4EA397312A85502C006053A0 /* FeedbackData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* FeedbackData.swift */; };
-		4EA397322A85502C006053A0 /* IssueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397272A85502C006053A0 /* IssueViewController.swift */; };
-		4EA397332A85502C006053A0 /* EditIssuePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397282A85502C006053A0 /* EditIssuePositionViewController.swift */; };
-		4EA397342A85502C006053A0 /* CreateFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateFeedbackViewController.swift */; };
+		4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397152A85501D006053A0 /* UnitViewController.swift */; };
+		4EA3971B2A85501D006053A0 /* UnitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397162A85501D006053A0 /* UnitData.swift */; };
+		4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397172A85501D006053A0 /* UnitPdfViewController.swift */; };
+		4EA3971D2A85501D006053A0 /* UnitPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397182A85501D006053A0 /* UnitPlanView.swift */; };
+		4EA3971E2A85501D006053A0 /* EditUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397192A85501D006053A0 /* EditUnitViewController.swift */; };
+		4EA3972A2A85502C006053A0 /* CreateDefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */; };
+		4EA3972B2A85502C006053A0 /* DefectMarkerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397202A85502C006053A0 /* DefectMarkerButton.swift */; };
+		4EA3972C2A85502C006053A0 /* DefectPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397212A85502C006053A0 /* DefectPdfViewController.swift */; };
+		4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */; };
+		4EA3972E2A85502C006053A0 /* EditDefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397232A85502C006053A0 /* EditDefectViewController.swift */; };
+		4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397242A85502C006053A0 /* DefectStatus.swift */; };
+		4EA397302A85502C006053A0 /* DefectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397252A85502C006053A0 /* DefectData.swift */; };
+		4EA397312A85502C006053A0 /* ProcessingStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* ProcessingStatusData.swift */; };
+		4EA397322A85502C006053A0 /* DefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397272A85502C006053A0 /* DefectViewController.swift */; };
+		4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */; };
+		4EA397342A85502C006053A0 /* CreateProcessingStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateProcessingStatusViewController.swift */; };
 		4EA3973C2A85503A006053A0 /* EditUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397352A855039006053A0 /* EditUserViewController.swift */; };
 		4EA3973D2A85503A006053A0 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397362A85503A006053A0 /* UserList.swift */; };
 		4EA3973E2A85503A006053A0 /* LabeledUserSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397372A85503A006053A0 /* LabeledUserSelectField.swift */; };
@@ -121,7 +121,6 @@
 		4EA397E12A8550AD006053A0 /* AuthorizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397D22A8550AD006053A0 /* AuthorizationError.swift */; };
 		4EA397E22A8550AD006053A0 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397D32A8550AD006053A0 /* AsyncOperation.swift */; };
 		4EA397EA2A8550BB006053A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E32A8550BB006053A0 /* SceneDelegate.swift */; };
-		4EA397EB2A8550BB006053A0 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E42A8550BB006053A0 /* Store.swift */; };
 		4EA397EC2A8550BB006053A0 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E52A8550BB006053A0 /* Statics.swift */; };
 		4EA397ED2A8550BB006053A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E62A8550BB006053A0 /* AppDelegate.swift */; };
 		4EA397EE2A8550BB006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E72A8550BB006053A0 /* Log.swift */; };
@@ -145,22 +144,22 @@
 		4EA3970C2A854F96006053A0 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
 		4EA3970D2A854F96006053A0 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		4EA3970E2A854F96006053A0 /* ProjectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
-		4EA397152A85501D006053A0 /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
-		4EA397162A85501D006053A0 /* ScopeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeData.swift; sourceTree = "<group>"; };
-		4EA397172A85501D006053A0 /* ScopePdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopePdfViewController.swift; sourceTree = "<group>"; };
-		4EA397182A85501D006053A0 /* ScopePlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopePlanView.swift; sourceTree = "<group>"; };
-		4EA397192A85501D006053A0 /* EditScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditScopeViewController.swift; sourceTree = "<group>"; };
-		4EA3971F2A85502C006053A0 /* CreateIssueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateIssueViewController.swift; sourceTree = "<group>"; };
-		4EA397202A85502C006053A0 /* IssueMarkerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueMarkerButton.swift; sourceTree = "<group>"; };
-		4EA397212A85502C006053A0 /* IssuePdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuePdfViewController.swift; sourceTree = "<group>"; };
-		4EA397222A85502C006053A0 /* LabeldIssueStateSelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeldIssueStateSelectField.swift; sourceTree = "<group>"; };
-		4EA397232A85502C006053A0 /* EditIssueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIssueViewController.swift; sourceTree = "<group>"; };
-		4EA397242A85502C006053A0 /* IssueStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueStatus.swift; sourceTree = "<group>"; };
-		4EA397252A85502C006053A0 /* IssueData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueData.swift; sourceTree = "<group>"; };
-		4EA397262A85502C006053A0 /* FeedbackData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedbackData.swift; sourceTree = "<group>"; };
-		4EA397272A85502C006053A0 /* IssueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueViewController.swift; sourceTree = "<group>"; };
-		4EA397282A85502C006053A0 /* EditIssuePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditIssuePositionViewController.swift; sourceTree = "<group>"; };
-		4EA397292A85502C006053A0 /* CreateFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateFeedbackViewController.swift; sourceTree = "<group>"; };
+		4EA397152A85501D006053A0 /* UnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitViewController.swift; sourceTree = "<group>"; };
+		4EA397162A85501D006053A0 /* UnitData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitData.swift; sourceTree = "<group>"; };
+		4EA397172A85501D006053A0 /* UnitPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPdfViewController.swift; sourceTree = "<group>"; };
+		4EA397182A85501D006053A0 /* UnitPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPlanView.swift; sourceTree = "<group>"; };
+		4EA397192A85501D006053A0 /* EditUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUnitViewController.swift; sourceTree = "<group>"; };
+		4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDefectViewController.swift; sourceTree = "<group>"; };
+		4EA397202A85502C006053A0 /* DefectMarkerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectMarkerButton.swift; sourceTree = "<group>"; };
+		4EA397212A85502C006053A0 /* DefectPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectPdfViewController.swift; sourceTree = "<group>"; };
+		4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeldDefectStateSelectField.swift; sourceTree = "<group>"; };
+		4EA397232A85502C006053A0 /* EditDefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectViewController.swift; sourceTree = "<group>"; };
+		4EA397242A85502C006053A0 /* DefectStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectStatus.swift; sourceTree = "<group>"; };
+		4EA397252A85502C006053A0 /* DefectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectData.swift; sourceTree = "<group>"; };
+		4EA397262A85502C006053A0 /* ProcessingStatusData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessingStatusData.swift; sourceTree = "<group>"; };
+		4EA397272A85502C006053A0 /* DefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectViewController.swift; sourceTree = "<group>"; };
+		4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectPositionViewController.swift; sourceTree = "<group>"; };
+		4EA397292A85502C006053A0 /* CreateProcessingStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateProcessingStatusViewController.swift; sourceTree = "<group>"; };
 		4EA397352A855039006053A0 /* EditUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUserViewController.swift; sourceTree = "<group>"; };
 		4EA397362A85503A006053A0 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		4EA397372A85503A006053A0 /* LabeledUserSelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledUserSelectField.swift; sourceTree = "<group>"; };
@@ -249,7 +248,6 @@
 		4EA397D22A8550AD006053A0 /* AuthorizationError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationError.swift; sourceTree = "<group>"; };
 		4EA397D32A8550AD006053A0 /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		4EA397E32A8550BB006053A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4EA397E42A8550BB006053A0 /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		4EA397E52A8550BB006053A0 /* Statics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		4EA397E62A8550BB006053A0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EA397E72A8550BB006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				4EA397E92A8550BB006053A0 /* MainViewController.swift */,
 				4EA397E32A8550BB006053A0 /* SceneDelegate.swift */,
 				4EA397E52A8550BB006053A0 /* Statics.swift */,
-				4EA397E42A8550BB006053A0 /* Store.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -477,17 +474,17 @@
 		4EA396FA2A854DBB006053A0 /* Defect */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397292A85502C006053A0 /* CreateFeedbackViewController.swift */,
-				4EA3971F2A85502C006053A0 /* CreateIssueViewController.swift */,
-				4EA397282A85502C006053A0 /* EditIssuePositionViewController.swift */,
-				4EA397232A85502C006053A0 /* EditIssueViewController.swift */,
-				4EA397262A85502C006053A0 /* FeedbackData.swift */,
-				4EA397252A85502C006053A0 /* IssueData.swift */,
-				4EA397202A85502C006053A0 /* IssueMarkerButton.swift */,
-				4EA397212A85502C006053A0 /* IssuePdfViewController.swift */,
-				4EA397242A85502C006053A0 /* IssueStatus.swift */,
-				4EA397272A85502C006053A0 /* IssueViewController.swift */,
-				4EA397222A85502C006053A0 /* LabeldIssueStateSelectField.swift */,
+				4EA397292A85502C006053A0 /* CreateProcessingStatusViewController.swift */,
+				4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */,
+				4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */,
+				4EA397232A85502C006053A0 /* EditDefectViewController.swift */,
+				4EA397262A85502C006053A0 /* ProcessingStatusData.swift */,
+				4EA397252A85502C006053A0 /* DefectData.swift */,
+				4EA397202A85502C006053A0 /* DefectMarkerButton.swift */,
+				4EA397212A85502C006053A0 /* DefectPdfViewController.swift */,
+				4EA397242A85502C006053A0 /* DefectStatus.swift */,
+				4EA397272A85502C006053A0 /* DefectViewController.swift */,
+				4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */,
 			);
 			path = Defect;
 			sourceTree = "<group>";
@@ -495,11 +492,11 @@
 		4EA396FB2A854DD0006053A0 /* Unit */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397192A85501D006053A0 /* EditScopeViewController.swift */,
-				4EA397162A85501D006053A0 /* ScopeData.swift */,
-				4EA397172A85501D006053A0 /* ScopePdfViewController.swift */,
-				4EA397182A85501D006053A0 /* ScopePlanView.swift */,
-				4EA397152A85501D006053A0 /* ScopeViewController.swift */,
+				4EA397192A85501D006053A0 /* EditUnitViewController.swift */,
+				4EA397162A85501D006053A0 /* UnitData.swift */,
+				4EA397172A85501D006053A0 /* UnitPdfViewController.swift */,
+				4EA397182A85501D006053A0 /* UnitPlanView.swift */,
+				4EA397152A85501D006053A0 /* UnitViewController.swift */,
 			);
 			path = Unit;
 			sourceTree = "<group>";
@@ -608,39 +605,38 @@
 				4EA397402A85503A006053A0 /* UserViewController.swift in Sources */,
 				4EA397DD2A8550AD006053A0 /* URL.swift in Sources */,
 				4EA397DC2A8550AD006053A0 /* String.swift in Sources */,
-				4EA397342A85502C006053A0 /* CreateFeedbackViewController.swift in Sources */,
-				4EA3972E2A85502C006053A0 /* EditIssueViewController.swift in Sources */,
+				4EA397342A85502C006053A0 /* CreateProcessingStatusViewController.swift in Sources */,
+				4EA3972E2A85502C006053A0 /* EditDefectViewController.swift in Sources */,
 				4EA3975C2A855061006053A0 /* BaseViewController.swift in Sources */,
-				4EA3971B2A85501D006053A0 /* ScopeData.swift in Sources */,
+				4EA3971B2A85501D006053A0 /* UnitData.swift in Sources */,
 				4EA397932A855072006053A0 /* RadioGroup.swift in Sources */,
 				4EA397D92A8550AD006053A0 /* NSAttributedString.swift in Sources */,
 				4EA397D72A8550AD006053A0 /* Codable.swift in Sources */,
 				4EA397D52A8550AD006053A0 /* TimeInterval.swift in Sources */,
 				4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */,
-				4EA3972D2A85502C006053A0 /* LabeldIssueStateSelectField.swift in Sources */,
-				4EA3971A2A85501D006053A0 /* ScopeViewController.swift in Sources */,
+				4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */,
+				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,
 				4EA397DF2A8550AD006053A0 /* Insets.swift in Sources */,
 				4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */,
 				4EA397102A854F96006053A0 /* Filter.swift in Sources */,
 				4EA397A52A855080006053A0 /* PDFRenderer.swift in Sources */,
 				4EA397982A855072006053A0 /* UITextView.swift in Sources */,
 				4EA397132A854F96006053A0 /* FilterViewController.swift in Sources */,
-				4EA3971C2A85501D006053A0 /* ScopePdfViewController.swift in Sources */,
+				4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */,
 				4EA3973D2A85503A006053A0 /* UserList.swift in Sources */,
 				4EA397992A855072006053A0 /* UIView.swift in Sources */,
 				4EA397D62A8550AD006053A0 /* IdResponse.swift in Sources */,
-				4EA397302A85502C006053A0 /* IssueData.swift in Sources */,
+				4EA397302A85502C006053A0 /* DefectData.swift in Sources */,
 				4EA397EC2A8550BB006053A0 /* Statics.swift in Sources */,
 				4EA397912A855072006053A0 /* LabeledTextInput.swift in Sources */,
-				4EA397EB2A8550BB006053A0 /* Store.swift in Sources */,
 				4EA397422A85503A006053A0 /* CurrentUser.swift in Sources */,
 				4EA397892A855072006053A0 /* UIView+Insets.swift in Sources */,
 				4EA3973C2A85503A006053A0 /* EditUserViewController.swift in Sources */,
-				4EA397322A85502C006053A0 /* IssueViewController.swift in Sources */,
+				4EA397322A85502C006053A0 /* DefectViewController.swift in Sources */,
 				4EA3979D2A855072006053A0 /* LabeledDatePicker.swift in Sources */,
 				4EA397832A855072006053A0 /* LabeledStepperInput.swift in Sources */,
 				4EA397EF2A8550BB006053A0 /* AppData.swift in Sources */,
-				4EA3972C2A85502C006053A0 /* IssuePdfViewController.swift in Sources */,
+				4EA3972C2A85502C006053A0 /* DefectPdfViewController.swift in Sources */,
 				4EA397B32A85508E006053A0 /* ImageScrollView.swift in Sources */,
 				4EA397582A855061006053A0 /* InfoViewController.swift in Sources */,
 				4EA397B82A85508E006053A0 /* ImageCollectionView.swift in Sources */,
@@ -661,14 +657,14 @@
 				4EA397E02A8550AD006053A0 /* BaseData.swift in Sources */,
 				4EA397952A855072006053A0 /* UILabel.swift in Sources */,
 				4EA397942A855072006053A0 /* TextareaInput.swift in Sources */,
-				4EA397312A85502C006053A0 /* FeedbackData.swift in Sources */,
+				4EA397312A85502C006053A0 /* ProcessingStatusData.swift in Sources */,
 				4EA397E22A8550AD006053A0 /* AsyncOperation.swift in Sources */,
 				4EA397972A855072006053A0 /* UIStackView.swift in Sources */,
 				4EA397862A855072006053A0 /* SectionLine.swift in Sources */,
 				4EA397C32A85509E006053A0 /* FileController.swift in Sources */,
 				4EA397B62A85508E006053A0 /* AVCaptureVideoOrientation.swift in Sources */,
-				4EA3972A2A85502C006053A0 /* CreateIssueViewController.swift in Sources */,
-				4EA3972B2A85502C006053A0 /* IssueMarkerButton.swift in Sources */,
+				4EA3972A2A85502C006053A0 /* CreateDefectViewController.swift in Sources */,
+				4EA3972B2A85502C006053A0 /* DefectMarkerButton.swift in Sources */,
 				4EA3979E2A855072006053A0 /* LabeledCheckbox.swift in Sources */,
 				4EA397852A855072006053A0 /* FilteredSectionLine.swift in Sources */,
 				4EA397B72A85508E006053A0 /* ImageInfoViewController.swift in Sources */,
@@ -696,19 +692,19 @@
 				4EA397962A855072006053A0 /* Checkbox.swift in Sources */,
 				4EA397DB2A8550AD006053A0 /* TextAttributes.swift in Sources */,
 				4EA397482A855048006053A0 /* SyncResult.swift in Sources */,
-				4EA397332A85502C006053A0 /* EditIssuePositionViewController.swift in Sources */,
+				4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */,
 				4EA3975B2A855061006053A0 /* UIViewController+Insets.swift in Sources */,
 				4EA397BE2A85508E006053A0 /* ImageFile.swift in Sources */,
 				4EA397B52A85508E006053A0 /* CameraViewController.swift in Sources */,
 				4EA3978D2A855072006053A0 /* IconButton.swift in Sources */,
 				4EA3978B2A855072006053A0 /* IconView.swift in Sources */,
-				4EA3972F2A85502C006053A0 /* IssueStatus.swift in Sources */,
+				4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */,
 				4EA3977F2A855072006053A0 /* UIImageView.swift in Sources */,
 				4EA397812A855072006053A0 /* OnOffIcon.swift in Sources */,
 				4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */,
 				4EA397822A855072006053A0 /* SectionView.swift in Sources */,
-				4EA3971D2A85501D006053A0 /* ScopePlanView.swift in Sources */,
-				4EA3971E2A85501D006053A0 /* EditScopeViewController.swift in Sources */,
+				4EA3971D2A85501D006053A0 /* UnitPlanView.swift in Sources */,
+				4EA3971E2A85501D006053A0 /* EditUnitViewController.swift in Sources */,
 				4EA397A42A855080006053A0 /* PDFTextType.swift in Sources */,
 				4EA397882A855072006053A0 /* UIView+Design.swift in Sources */,
 				4EA397802A855072006053A0 /* LabeledRadioGroup.swift in Sources */,

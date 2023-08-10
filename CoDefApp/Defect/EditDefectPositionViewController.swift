@@ -1,29 +1,29 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 import AVFoundation
 
-class EditIssuePositionViewController: ImageViewController {
+class EditDefectPositionViewController: ImageViewController {
     
-    var issue = IssueData()
+    var defect = DefectData()
     
-    var marker: IssueMarkerButton
+    var marker: DefectMarkerButton
     
-    var positionDelegate: IssuePositionDelegate? = nil
+    var positionDelegate: DefectPositionDelegate? = nil
     
-    init(issue: IssueData, plan: ImageFile){
-        self.issue.position = issue.position
-        marker = IssueMarkerButton(issue: self.issue)
+    init(defect: DefectData, plan: ImageFile){
+        self.defect.position = defect.position
+        marker = DefectMarkerButton(defect: self.defect)
         super.init(imageFile: plan, fitImage: false)
     }
     
     override func setupNavigationBar(){
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "accept".localize(), primaryAction: UIAction(){ action in
-            self.positionDelegate?.positionChanged(position: self.issue.position)
+            self.positionDelegate?.positionChanged(position: self.defect.position)
             self.navigationController?.popViewController(animated: true)
         })
         
@@ -60,7 +60,7 @@ class EditIssuePositionViewController: ImageViewController {
     
     @objc func onTouch(_ sender: UIGestureRecognizer){
         marker.moveTo(pnt: sender.location(in: scrollView.imageView))
-        marker.updateIssue(in: imageFile.getImage().size)
+        marker.updateDefect(in: imageFile.getImage().size)
         marker.updateVisibility()
     }
     

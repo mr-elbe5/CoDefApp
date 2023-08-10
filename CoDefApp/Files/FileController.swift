@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues 
+ Construction Defect Tracker
+ App for tracking construction defects  
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -321,7 +321,7 @@ class FileController {
             let zipFileURL = tmpDirURL.appendingPathComponent(name)
             paths.append(imageDirURL)
             paths.append(privateURL.appendingPathComponent(AppData.storeKey + ".json"))
-            paths.append(IssueData.storeDisplayIdURL)
+            paths.append(DefectData.storeDisplayIdURL)
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
                 print(progress)
             })
@@ -353,8 +353,8 @@ class FileController {
     
     static func restoreBackup() -> Bool{
         deleteImageFiles()
-        copyFile(fromURL: tmpDirURL.appendingPathComponent(IssueData.storeDisplayIdName), toURL: IssueData.storeDisplayIdURL, replace: true)
-        IssueData.loadNextDisplayId()
+        copyFile(fromURL: tmpDirURL.appendingPathComponent(DefectData.storeDisplayIdName), toURL: DefectData.storeDisplayIdURL, replace: true)
+        DefectData.loadNextDisplayId()
         copyFile(fromURL: tmpDirURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
         AppData.load()
         let fileNames = listAllFiles(dirPath: tmpDirURL.appendingPathComponent("images").path)

@@ -1,9 +1,8 @@
-//
-//  AppDelegate.swift
-//  BandikaIssueTrackerApp
-//
-//  Created by Michael Rönnau on 15.04.23.
-//
+/*
+ Construction Defect Tracker
+ App for tracking construction defects
+ Copyright: Michael Rönnau mr@elbe5.de 2023
+ */
 
 import UIKit
 

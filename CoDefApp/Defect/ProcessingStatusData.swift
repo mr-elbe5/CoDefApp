@@ -1,12 +1,12 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import Foundation
 
-class FeedbackData : BaseData{
+class ProcessingStatusData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case comment
@@ -18,17 +18,17 @@ class FeedbackData : BaseData{
     }
     
     var comment = ""
-    var status = IssueStatus.open
+    var status = DefectStatus.open
     var previousAssignedUserId: UUID = .NIL
     var assignedUserId: UUID = .NIL
     var dueDate = Date()
     
     var images = Array<ImageFile>()
     
-    var issue: IssueData? = nil
+    var defect: DefectData? = nil
     
     var project: ProjectData?{
-        issue?.project
+        defect?.project
     }
     
     var projectUsers: UserList{
@@ -59,14 +59,14 @@ class FeedbackData : BaseData{
         projectUsers.name(ofUserWithId: assignedUserId)
     }
     
-    init(issue: IssueData){
+    init(defect: DefectData){
         super.init()
-        self.issue = issue
-        status = issue.status
-        previousAssignedUserId = issue.assignedUserId
+        self.defect = defect
+        status = defect.status
+        previousAssignedUserId = defect.assignedUserId
         assignedUserId = previousAssignedUserId
-        issue.project?.updateUsers()
-        dueDate = issue.dueDate
+        defect.project?.updateUsers()
+        dueDate = defect.dueDate
     }
     
     required init(from decoder: Decoder) throws {
@@ -74,10 +74,10 @@ class FeedbackData : BaseData{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         comment = try values.decodeIfPresent(String.self, forKey: .comment) ?? ""
         if let s = try values.decodeIfPresent(String.self, forKey: .status){
-            status = IssueStatus(rawValue: s) ?? IssueStatus.open
+            status = DefectStatus(rawValue: s) ?? DefectStatus.open
         }
         else{
-            status = IssueStatus.open
+            status = DefectStatus.open
         }
         previousAssignedUserId = try values.decodeIfPresent(UUID.self, forKey: .previousAssignedUserId) ?? .NIL
         assignedUserId = try values.decodeIfPresent(UUID.self, forKey: .assignedUserId) ?? .NIL
@@ -124,7 +124,7 @@ class FeedbackData : BaseData{
     
 }
 
-protocol FeedbackDelegate{
-    func feedbackChanged()
+protocol ProcessingStatusDelegate{
+    func statusChanged()
 }
 

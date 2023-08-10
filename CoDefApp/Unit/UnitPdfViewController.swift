@@ -1,16 +1,16 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 
-class ScopePdfViewController: PDFViewController {
+class UnitPdfViewController: PDFViewController {
     
-    var scope: ScopeData
+    var scope: UnitData
     
-    init(scope: ScopeData){
+    init(scope: UnitData){
         self.scope = scope
         super.init()
     }
@@ -33,9 +33,9 @@ class ScopePdfViewController: PDFViewController {
 
 extension PDFRenderer {
     
-    func createScopePDF(scope: ScopeData) -> Data{
+    func createScopePDF(scope: UnitData) -> Data{
         let pdfMetaData = [
-            kCGPDFContextCreator: "Defect and Issue Tracker",
+            kCGPDFContextCreator: "Construction Defect Tracker",
             kCGPDFContextTitle: scope.name
         ]
         let format = UIGraphicsPDFRendererFormat()
@@ -50,7 +50,7 @@ extension PDFRenderer {
         return data
     }
     
-    func addScopeContent(scope: ScopeData){
+    func addScopeContent(scope: UnitData){
         addLine(label: "name".localize(), text: scope.name)
         if !scope.description.isEmpty{
             addLine(label: "description".localize(), text: scope.description)
@@ -63,7 +63,7 @@ extension PDFRenderer {
             addLine()
             addLine(text: "issue".localize(), type: .header3)
             addLine(label: "context".localize(), text: "issueContext".localize(param1: scope.project?.name ?? "", param2: scope.name))
-            addIssueContent(issue: issue)
+            addDefectContent(defect: issue)
         }
     }
     

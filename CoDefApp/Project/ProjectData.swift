@@ -1,6 +1,6 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
@@ -18,7 +18,7 @@ class ProjectData : BaseData{
     
     var name = ""
     var description = ""
-    var scopes = Array<ScopeData>()
+    var scopes = Array<UnitData>()
     var userIds = Array<UUID>()
     var filter = Filter()
     
@@ -29,11 +29,11 @@ class ProjectData : BaseData{
         filter.active
     }
     
-    var filteredScopes: Array<ScopeData>{
+    var filteredScopes: Array<UnitData>{
         if !isFilterActive{
             return scopes
         }
-        var list = Array<ScopeData>()
+        var list = Array<UnitData>()
         for scope in scopes {
             if  scope.isInFilter(filter: filter){
                 list.append(scope)
@@ -51,7 +51,7 @@ class ProjectData : BaseData{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        scopes = try values.decodeIfPresent(Array<ScopeData>.self, forKey: .scopes) ?? Array<ScopeData>()
+        scopes = try values.decodeIfPresent(Array<UnitData>.self, forKey: .scopes) ?? Array<UnitData>()
         for scope in scopes{
             scope.project = self
         }
@@ -87,7 +87,7 @@ class ProjectData : BaseData{
         filter.updateUserIds(allUserIds: userIds)
     }
     
-    func removeScope(_ scope: ScopeData){
+    func removeScope(_ scope: UnitData){
         scope.removeAll()
         scopes.remove(obj: scope)
         updateUsers()

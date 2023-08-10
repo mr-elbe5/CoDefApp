@@ -1,12 +1,12 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 
-class IssueData : BaseData{
+class DefectData : BaseData{
     
     public static let planCropSize = CGSize(width: 400, height: 400)
     
@@ -48,14 +48,14 @@ class IssueData : BaseData{
         case positionY
         case positionComment
         case images
-        case feedbacks
+        case processingStatuses
     }
     
     var displayId = 0
     var name = ""
     var description = ""
     var lot = ""
-    var status = IssueStatus.open
+    var status = DefectStatus.open
     var assignedUserId: UUID = .NIL
     var notified = false
     var dueDate = Date()
@@ -64,22 +64,22 @@ class IssueData : BaseData{
     
     var images = Array<ImageFile>()
     
-    var feedbacks = Array<FeedbackData>()
+    var processingStatuses = Array<ProcessingStatusData>()
     
     var planImage: UIImage? = nil
     
-    var scope: ScopeData? = nil
+    var unit: UnitData? = nil
     
     var hasValidPosition : Bool{
         position != .zero
     }
     
     var assignedUser : UserData?{
-        feedbacks.last?.assignedUser
+        processingStatuses.last?.assignedUser
     }
     
     var assignedUserName : String{
-        feedbacks.last?.assignedUserName ?? ""
+        processingStatuses.last?.assignedUserName ?? ""
     }
     
     var isOpen: Bool{
@@ -91,7 +91,7 @@ class IssueData : BaseData{
     }
     
     var project: ProjectData?{
-        scope?.project
+        unit?.project
     }
     
     var projectUsers: UserList{
@@ -110,10 +110,10 @@ class IssueData : BaseData{
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         lot = try values.decodeIfPresent(String.self, forKey: .lot) ?? ""
         if let s = try values.decodeIfPresent(String.self, forKey: .status){
-            status = IssueStatus(rawValue: s) ?? IssueStatus.open
+            status = DefectStatus(rawValue: s) ?? DefectStatus.open
         }
         else{
-            status = IssueStatus.open
+            status = DefectStatus.open
         }
         assignedUserId = try values.decodeIfPresent(UUID.self, forKey: .assignedUserId) ?? .NIL
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
@@ -122,9 +122,9 @@ class IssueData : BaseData{
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
         images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
-        feedbacks = try values.decodeIfPresent(Array<FeedbackData>.self, forKey: .feedbacks) ?? Array<FeedbackData>()
-        for feedback in feedbacks{
-            feedback.issue = self
+        processingStatuses = try values.decodeIfPresent(Array<ProcessingStatusData>.self, forKey: .processingStatuses) ?? Array<ProcessingStatusData>()
+        for feedback in processingStatuses{
+            feedback.defect = self
         }
         
     }
@@ -144,7 +144,7 @@ class IssueData : BaseData{
         try container.encode(position.y, forKey: .positionY)
         try container.encode(positionComment, forKey: .positionComment)
         try container.encode(images, forKey: .images)
-        try container.encode(feedbacks, forKey: .feedbacks)
+        try container.encode(processingStatuses, forKey: .processingStatuses)
     }
     
     override func asDictionary() -> Dictionary<String,String>{
@@ -163,13 +163,13 @@ class IssueData : BaseData{
     
     func assertDisplayId(){
         if displayId == 0{
-            displayId = IssueData.getNextDisplayId()
+            displayId = DefectData.getNextDisplayId()
         }
     }
     
-    func removeFeedback(_ feedback: FeedbackData){
+    func removeFeedback(_ feedback: ProcessingStatusData){
         feedback.removeAll()
-        feedbacks.remove(obj: feedback)
+        processingStatuses.remove(obj: feedback)
     }
     
     func removeAll(){
@@ -177,22 +177,22 @@ class IssueData : BaseData{
             img.deleteFile()
         }
         images.removeAll()
-        for feedback in feedbacks{
+        for feedback in processingStatuses{
             feedback.removeAll()
         }
-        feedbacks.removeAll()
+        processingStatuses.removeAll()
     }
     
     func createPlanImage(){
-        if let plan = scope?.plan {
+        if let plan = unit?.plan {
             let image = plan.getImage()
             let origPosX = image.size.width*position.x
             let origPosY = image.size.height*position.y
-            let posX = min(max(origPosX , IssueData.planCropSize.width/2), image.size.width - IssueData.planCropSize.width/2)
-            let posY = min(max(origPosY, IssueData.planCropSize.height/2), image.size.height - IssueData.planCropSize.height/2)
+            let posX = min(max(origPosX , DefectData.planCropSize.width/2), image.size.width - DefectData.planCropSize.width/2)
+            let posY = min(max(origPosY, DefectData.planCropSize.height/2), image.size.height - DefectData.planCropSize.height/2)
             let dx = Int(posX - origPosX)
             let dy = Int(posY - origPosY)
-            let rect = CGRect(x: posX - IssueData.planCropSize.width/2, y: posY - IssueData.planCropSize.height/2, width: IssueData.planCropSize.width, height: IssueData.planCropSize.height)
+            let rect = CGRect(x: posX - DefectData.planCropSize.width/2, y: posY - DefectData.planCropSize.height/2, width: DefectData.planCropSize.width, height: DefectData.planCropSize.height)
             if let cutImageRef = image.cgImage?.cropping(to:rect){
                 if let context = cutImageRef.copyContext(), let arrow = UIImage(named: "redArrow")?.cgImage{
                     context.draw(arrow, in: CGRect(x: Int(rect.width/2) - arrow.width/2 + dx, y: Int(rect.height/2) - arrow.height  + dy, width: arrow.width, height: arrow.height))
@@ -205,7 +205,7 @@ class IssueData : BaseData{
     }
     
     func assertPlanImage(){
-        if planImage == nil && position != .zero && scope?.plan != nil{
+        if planImage == nil && position != .zero && unit?.plan != nil{
             createPlanImage()
         }
     }
@@ -214,7 +214,7 @@ class IssueData : BaseData{
         if assignedUserId == userId{
             return false
         }
-        for feedback in feedbacks{
+        for feedback in processingStatuses{
             if feedback.assignedUserId == userId{
                 return false
             }
@@ -240,22 +240,22 @@ class IssueData : BaseData{
         for image in images{
             names.append(image.fileName)
         }
-        for feedback in feedbacks {
+        for feedback in processingStatuses {
             names.append(contentsOf: feedback.getUsedImageNames())
         }
         return names
     }
     
     override func hasUserEditRights(userId: UUID) -> Bool{
-        super.hasUserEditRights(userId: userId) || (scope?.hasUserEditRights(userId: userId) ?? false)
+        super.hasUserEditRights(userId: userId) || (unit?.hasUserEditRights(userId: userId) ?? false)
     }
     
 }
 
-protocol IssueDelegate{
-    func issueChanged()
+protocol DefectDelegate{
+    func defectChanged()
 }
 
-protocol IssuePositionDelegate{
+protocol DefectPositionDelegate{
     func positionChanged(position: CGPoint)
 }

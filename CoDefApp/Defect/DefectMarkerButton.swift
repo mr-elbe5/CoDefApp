@@ -1,18 +1,18 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ Construction Defect Tracker
+ App for tracking construction defects
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import Foundation
 import UIKit
 
-class IssueMarkerButton: UIButton{
+class DefectMarkerButton: UIButton{
     
-    var issue: IssueData
+    var defect: DefectData
     
-    init(issue: IssueData){
-        self.issue = issue
+    init(defect: DefectData){
+        self.defect = defect
         let img = UIImage(named: "redArrow")!
         super.init(frame: CGRect(x: -img.size.width/2, y: 0, width: img.size.width, height: img.size.height))
         setImage(UIImage(named: "redArrow"), for: .normal)
@@ -28,19 +28,19 @@ class IssueMarkerButton: UIButton{
     
     func updateFrame(in scopeSize: CGSize){
         guard scopeSize.width != 0 && scopeSize.height != 0 else {return}
-        let x : CGFloat = issue.position.x * scopeSize.width - frame.width/2
-        let y : CGFloat = issue.position.y * scopeSize.height
+        let x : CGFloat = defect.position.x * scopeSize.width - frame.width/2
+        let y : CGFloat = defect.position.y * scopeSize.height
         frame = CGRect(x: x, y: y, width: frame.width, height: frame.height)
     }
     
-    func updateIssue(in scopeSize: CGSize){
-        guard scopeSize.width != 0 && scopeSize.height != 0 else {return}
-        issue.position.x = (frame.minX + frame.width/2)/scopeSize.width
-        issue.position.y = frame.minY/scopeSize.height
+    func updateDefect(in unitSize: CGSize){
+        guard unitSize.width != 0 && unitSize.height != 0 else {return}
+        defect.position.x = (frame.minX + frame.width/2)/unitSize.width
+        defect.position.y = frame.minY/unitSize.height
     }
     
     func updateVisibility(){
-        isHidden = issue.position == .zero
+        isHidden = defect.position == .zero
     }
     
 }

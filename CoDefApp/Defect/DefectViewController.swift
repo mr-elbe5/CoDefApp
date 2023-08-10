@@ -1,24 +1,24 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 
-class IssueViewController: ScrollViewController, ImageCollectionDelegate {
+class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     
-    var issue : IssueData
+    var defect : DefectData
     
     var dataSection = ArrangedSectionView()
-    var feedbackSection = UIView()
+    var processingSection = UIView()
     
-    var delegate: IssueDelegate? = nil
+    var delegate: DefectDelegate? = nil
     
-    init(issue: IssueData){
-        self.issue = issue
+    init(defect: DefectData){
+        self.defect = defect
         super.init()
-        issue.assertPlanImage()
+        defect.assertPlanImage()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,28 +26,28 @@ class IssueViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     override func loadView() {
-        title = "issue".localize()
+        title = "defect".localize()
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
-            let controller = IssuePdfViewController(issue: self.issue)
+            let controller = DefectPdfViewController(defect: self.defect)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if CurrentUser.hasEditRight(for: issue){
+        if CurrentUser.hasEditRight(for: defect){
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
-                let controller = EditIssueViewController(issue: self.issue)
+                let controller = EditDefectViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-                if let scope = self.issue.scope{
+                if let scope = self.defect.unit{
                     self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        scope.removeIssue(self.issue)
+                        scope.removeIssue(self.defect)
                         scope.changed()
                         scope.saveData()
-                        self.delegate?.issueChanged()
+                        self.delegate?.defectChanged()
                         self.navigationController?.popViewController(animated: true)
                     }
                 }
@@ -66,52 +66,52 @@ class IssueViewController: ScrollViewController, ImageCollectionDelegate {
     override func setupContentView(){
         contentView.addSubviewAtTop(dataSection, insets: defaultInsets)
         setupDataSection()
-        contentView.addSubviewAtTop(feedbackSection, topView: dataSection, insets: defaultInsets)
+        contentView.addSubviewAtTop(processingSection, topView: dataSection, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
-        setupFeedbackSection()
+        setupProcessingSection()
     }
     
     func setupDataSection(){
         let nameView = LabeledText()
-        nameView.setupView(labelText: "name".localizeWithColon(), text: issue.name)
+        nameView.setupView(labelText: "name".localizeWithColon(), text: defect.name)
         dataSection.addArrangedSubview(nameView)
         
         let idView = LabeledText()
-        idView.setupView(labelText: "id".localizeWithColon(), text: String(issue.displayId))
+        idView.setupView(labelText: "id".localizeWithColon(), text: String(defect.displayId))
         dataSection.addArrangedSubview(idView)
         
         let descriptionView = LabeledText()
-        descriptionView.setupView(labelText: "description".localizeWithColon(), text: issue.description)
+        descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
         
         let statusView = LabeledText()
-        statusView.setupView(labelText: "status".localizeWithColon(), text: issue.status.rawValue.localize())
+        statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
         dataSection.addArrangedSubview(statusView)
         
         let assignedView = LabeledText()
-        assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: issue.assignedUserName)
+        assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedUserName)
         dataSection.addArrangedSubview(assignedView)
         
         let notifiedView = LabeledText()
-        notifiedView.setupView(labelText: "notified".localizeWithColon(), text: issue.notified ? "true".localize() : "false".localize())
+        notifiedView.setupView(labelText: "notified".localizeWithColon(), text: defect.notified ? "true".localize() : "false".localize())
         dataSection.addArrangedSubview(notifiedView)
-        issue.assertPlanImage()
-        if let plan = issue.planImage{
+        defect.assertPlanImage()
+        if let plan = defect.planImage{
             let label = UILabel(header: "position".localizeWithColon())
             dataSection.addArrangedSubview(label)
             dataSection.addSpacer()
             let planView = UIView()
             let imageView = UIImageView(image: plan)
             planView.addSubviewWithAnchors(imageView, top: planView.topAnchor, leading: planView.leadingAnchor, bottom: planView.bottomAnchor)
-                .width(IssueData.planCropSize.width)
-                .height(IssueData.planCropSize.height)
+                .width(DefectData.planCropSize.width)
+                .height(DefectData.planCropSize.height)
             dataSection.addArrangedSubview(planView)
         }
         
         let label = UILabel(header: "images".localizeWithColon())
         dataSection.addArrangedSubview(label)
         
-        let imageCollectionView = ImageCollectionView(images: issue.images, enableDelete: true)
+        let imageCollectionView = ImageCollectionView(images: defect.images, enableDelete: true)
         imageCollectionView.imageDelegate = self
         dataSection.addArrangedSubview(imageCollectionView)
         
@@ -122,21 +122,21 @@ class IssueViewController: ScrollViewController, ImageCollectionDelegate {
         setupDataSection()
     }
     
-    func setupFeedbackSection(){
-        let headerLabel = UILabel(header: "feedbacks".localize())
-        feedbackSection.addSubviewAtTop(headerLabel, insets: defaultInsets)
+    func setupProcessingSection(){
+        let headerLabel = UILabel(header: "processingStatuses".localize())
+        processingSection.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
         
-        for feedback in issue.feedbacks{
+        for feedback in defect.processingStatuses{
             let feeedbackView = ArrangedSectionView()
-            feedbackSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: feedbackSection.leadingAnchor, trailing: feedbackSection.trailingAnchor, insets: verticalInsets)
-            setupFeedbackView(view: feeedbackView, feedback: feedback);
+            processingSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: processingSection.leadingAnchor, trailing: processingSection.trailingAnchor, insets: verticalInsets)
+            setupProcessingStatusView(view: feeedbackView, feedback: feedback);
             lastView = feeedbackView
         }
-        let addFeedbackButton = TextButton(text: "addFeedback".localize())
-        addFeedbackButton.addAction(UIAction(){ (action) in
-            if !self.issue.projectUsers.isEmpty{
-                let controller = CreateFeedbackViewController(issue: self.issue)
+        let addProcessingStatusButton = TextButton(text: "addProcessingStatus".localize())
+        addProcessingStatusButton.addAction(UIAction(){ (action) in
+            if !self.defect.projectUsers.isEmpty{
+                let controller = CreateProcessingStatusViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -144,11 +144,11 @@ class IssueViewController: ScrollViewController, ImageCollectionDelegate {
                 self.showError("noUsersError")
             }
         }, for: .touchDown)
-        feedbackSection.addSubviewAtTopCentered(addFeedbackButton, topView: lastView)
-            .bottom(feedbackSection.bottomAnchor, inset: -2*defaultInset)
+        processingSection.addSubviewAtTopCentered(addProcessingStatusButton, topView: lastView)
+            .bottom(processingSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func setupFeedbackView(view: ArrangedSectionView, feedback: FeedbackData){
+    func setupProcessingStatusView(view: ArrangedSectionView, feedback: ProcessingStatusData){
         let createdLine = LabeledText()
         let txt = "\("on".localize()) \(feedback.creationDate.dateString()) \("by".localize()) \(feedback.creatorName)"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
@@ -185,32 +185,32 @@ class IssueViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     func updateFeedbackSection(){
-        feedbackSection.removeAllSubviews()
-        setupFeedbackSection()
+        processingSection.removeAllSubviews()
+        setupProcessingSection()
     }
     
     override func deleteImageData(image: ImageFile) {
-        issue.images.remove(obj: image)
-        issue.changed()
-        issue.saveData()
+        defect.images.remove(obj: image)
+        defect.changed()
+        defect.saveData()
         updateDataSection()
     }
     
 }
 
-extension IssueViewController: IssueDelegate{
+extension DefectViewController: DefectDelegate{
     
-    func issueChanged() {
+    func defectChanged() {
         updateDataSection()
 
-        delegate?.issueChanged()
+        delegate?.defectChanged()
     }
     
 }
 
-extension IssueViewController: FeedbackDelegate{
+extension DefectViewController: ProcessingStatusDelegate{
     
-    func feedbackChanged() {
+    func statusChanged() {
         updateFeedbackSection()
     }
     

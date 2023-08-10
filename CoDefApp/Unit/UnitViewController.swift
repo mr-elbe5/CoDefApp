@@ -1,14 +1,14 @@
 /*
- Defect and Issue Tracker
- App for tracking plan based defects and issues
+ Construction Defect Tracker
+ App for tracking construction defects 
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import UIKit
 
-class ScopeViewController: ScrollViewController {
+class UnitViewController: ScrollViewController {
     
-    var scope: ScopeData
+    var unit: UnitData
     
     var delegate: ScopeDelegate? = nil
     
@@ -17,8 +17,8 @@ class ScopeViewController: ScrollViewController {
     
     var filterItem: UIBarButtonItem? = nil
     
-    init(scope: ScopeData){
-        self.scope = scope
+    init(scope: UnitData){
+        self.unit = scope
         super.init()
     }
     
@@ -27,12 +27,12 @@ class ScopeViewController: ScrollViewController {
     }
     
     override func loadView() {
-        title = "scope".localize()
+        title = "unit".localize()
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        if let project = scope.project{
+        if let project = unit.project{
             filterItem = UIBarButtonItem(title: "filter".localize(), image: UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal"), primaryAction: UIAction(){ action in
                 let controller = FilterViewController(project: project)
                 controller.delegate = self
@@ -41,19 +41,19 @@ class ScopeViewController: ScrollViewController {
             items.append(filterItem!)
         }
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
-            let controller = ScopePdfViewController(scope: self.scope)
+            let controller = UnitPdfViewController(scope: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if CurrentUser.hasEditRight(for: scope){
+        if CurrentUser.hasEditRight(for: unit){
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
-                let controller = EditScopeViewController(scope: self.scope)
+                let controller = EditUnitViewController(scope: self.unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-                if let project = self.scope.project{
+                if let project = self.unit.project{
                     self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        project.removeScope(self.scope)
+                        project.removeScope(self.unit)
                         project.changed()
                         project.saveData()
                         self.navigationController?.popViewController(animated: true)
@@ -73,7 +73,7 @@ class ScopeViewController: ScrollViewController {
     }
     
     func updateFilterItem(){
-        if let project = self.scope.project{
+        if let project = self.unit.project{
             filterItem?.image =  UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal")
         }
     }
@@ -88,11 +88,11 @@ class ScopeViewController: ScrollViewController {
     
     func setupDataSection() {
         let nameView = LabeledText()
-        nameView.setupView(labelText: "name".localizeWithColon(), text: scope.name)
+        nameView.setupView(labelText: "name".localizeWithColon(), text: unit.name)
         dataSection.addArrangedSubview(nameView)
         
         let descriptionView = LabeledText()
-        descriptionView.setupView(labelText: "description".localizeWithColon(), text: scope.description)
+        descriptionView.setupView(labelText: "description".localizeWithColon(), text: unit.description)
         dataSection.addArrangedSubview(descriptionView)
     }
     
@@ -102,8 +102,8 @@ class ScopeViewController: ScrollViewController {
         
         let addIssueButton = TextButton(text: "newIssue".localize())
         addIssueButton.addAction(UIAction(){ action in
-            if !self.scope.projectUsers.isEmpty{
-                let controller = CreateIssueViewController(scope: self.scope)
+            if !self.unit.projectUsers.isEmpty{
+                let controller = CreateDefectViewController(unit: self.unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -114,12 +114,12 @@ class ScopeViewController: ScrollViewController {
         issueSection.addSubviewCentered(addIssueButton, centerX: issueSection.centerXAnchor, centerY: headerLabel.centerYAnchor)
         
         var lastView: UIView = addIssueButton
-        let filteredIssues = scope.filteredIssues
-        let filterActive = scope.isFilterActive
+        let filteredIssues = unit.filteredIssues
+        let filterActive = unit.isFilterActive
         
-        for issue in scope.issues{
-            let sectionLine = FilteredSectionLine(name: issue.name, filtered: filterActive, enabled: filteredIssues.contains(issue), action: UIAction(){ (action) in
-                let controller = IssueViewController(issue: issue)
+        for defect in unit.issues{
+            let sectionLine = FilteredSectionLine(name: defect.name, filtered: filterActive, enabled: filteredIssues.contains(defect), action: UIAction(){ (action) in
+                let controller = DefectViewController(defect: defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             })
@@ -127,13 +127,13 @@ class ScopeViewController: ScrollViewController {
             lastView = sectionLine
         }
         
-        if let plan = scope.plan{
-            let planView = ScopePlanView(plan: plan.getImage())
-            for issue in filteredIssues{
-                if issue.position != .zero{
-                    let marker = planView.addMarker(issue: issue)
+        if let plan = unit.plan{
+            let planView = UnitPlanView(plan: plan.getImage())
+            for defect in filteredIssues{
+                if defect.position != .zero{
+                    let marker = planView.addMarker(defect: defect)
                     marker.addAction(UIAction(){ action in
-                        let controller = IssueViewController(issue: issue)
+                        let controller = DefectViewController(defect: defect)
                         controller.delegate = self
                         self.navigationController?.pushViewController(controller, animated: true)
                     }, for: .touchDown)
@@ -158,7 +158,7 @@ class ScopeViewController: ScrollViewController {
     
 }
 
-extension ScopeViewController: ScopeDelegate{
+extension UnitViewController: ScopeDelegate{
     
     func scopeChanged() {
         updateDataSection()
@@ -167,15 +167,15 @@ extension ScopeViewController: ScopeDelegate{
     
 }
 
-extension ScopeViewController: IssueDelegate{
+extension UnitViewController: DefectDelegate{
     
-    func issueChanged() {
+    func defectChanged() {
         updateIssueSection()
     }
     
 }
 
-extension ScopeViewController: FilterDelegate{
+extension UnitViewController: FilterDelegate{
     
     func filterChanged() {
         updateIssueSection()

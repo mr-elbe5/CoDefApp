@@ -1,13 +1,13 @@
 /*
- Maps For OSM
- App for display and use of OSM maps without MapKit
+ Construction Defect Tracker
+ App for tracking construction defects
  Copyright: Michael Rönnau mr@elbe5.de 2023
  */
 
 import Foundation
 import UIKit
 
-class ScopePlanView: UIView{
+class UnitPlanView: UIView{
     
     var imageView: UIImageView
     
@@ -33,15 +33,15 @@ class ScopePlanView: UIView{
     
     func removeMarkers(){
         for subview in subviews {
-            if subview is IssueMarkerButton{
+            if subview is DefectMarkerButton{
                 subview.removeFromSuperview()
             }
         }
     }
     
     @discardableResult
-    func addMarker(issue: IssueData) -> IssueMarkerButton{
-        let marker = IssueMarkerButton(issue: issue)
+    func addMarker(defect: DefectData) -> DefectMarkerButton{
+        let marker = DefectMarkerButton(defect: defect)
         addSubview(marker)
         marker.updateFrame(in: imageView.bounds.size)
         return marker
@@ -49,7 +49,7 @@ class ScopePlanView: UIView{
     
     func updateMarkers(){
         for subview in subviews {
-            if let marker = subview as? IssueMarkerButton{
+            if let marker = subview as? DefectMarkerButton{
                 marker.updateFrame(in: imageView.bounds.size)
             }
         }
