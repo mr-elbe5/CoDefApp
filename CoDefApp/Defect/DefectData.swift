@@ -43,18 +43,16 @@ class DefectData : BaseData{
         case assignedCompanyId
         case notified
         case dueDate
-        case lot
         case positionX
         case positionY
         case positionComment
         case images
-        case processingStatuses
+        case statusChanges
     }
     
     var displayId = 0
     var name = ""
     var description = ""
-    var lot = ""
     var status = DefectStatus.open
     var assignedCompanyId: Int = 0
     var notified = false
@@ -64,7 +62,7 @@ class DefectData : BaseData{
     
     var images = Array<ImageFile>()
     
-    var processingStatuses = Array<DefectStatusData>()
+    var statusChanges = Array<StatusChangeData>()
     
     var planImage: UIImage? = nil
     
@@ -75,7 +73,7 @@ class DefectData : BaseData{
     }
     
     var assignedCompany : CompanyData?{
-        processingStatuses.last?.assignedCompany
+        statusChanges.last?.assignedCompany
     }
     
     var assignedCompanyName : String{
@@ -108,7 +106,6 @@ class DefectData : BaseData{
         displayId = try values.decodeIfPresent(Int.self, forKey: .displayId) ?? 0
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        lot = try values.decodeIfPresent(String.self, forKey: .lot) ?? ""
         if let s = try values.decodeIfPresent(String.self, forKey: .status){
             status = DefectStatus(rawValue: s) ?? DefectStatus.open
         }
@@ -122,9 +119,9 @@ class DefectData : BaseData{
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
         images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
-        processingStatuses = try values.decodeIfPresent(Array<DefectStatusData>.self, forKey: .processingStatuses) ?? Array<DefectStatusData>()
-        for feedback in processingStatuses{
-            feedback.defect = self
+        statusChanges = try values.decodeIfPresent(Array<StatusChangeData>.self, forKey: .statusChanges) ?? Array<StatusChangeData>()
+        for statusChange in statusChanges{
+            statusChange.defect = self
         }
         
     }
@@ -135,7 +132,6 @@ class DefectData : BaseData{
         try container.encode(displayId, forKey: .displayId)
         try container.encode(name, forKey: .name)
         try container.encode(description, forKey: .description)
-        try container.encode(lot, forKey: .lot)
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(notified, forKey: .notified)
@@ -144,7 +140,7 @@ class DefectData : BaseData{
         try container.encode(position.y, forKey: .positionY)
         try container.encode(positionComment, forKey: .positionComment)
         try container.encode(images, forKey: .images)
-        try container.encode(processingStatuses, forKey: .processingStatuses)
+        try container.encode(statusChanges, forKey: .statusChanges)
     }
     
     override func asDictionary() -> Dictionary<String,String>{
@@ -152,7 +148,6 @@ class DefectData : BaseData{
         dict["displayId"]=String(displayId)
         dict["name"]=name
         dict["description"]=description
-        dict["lot"]=lot
         dict["status"]=status.rawValue
         dict["dueDate"]=dueDate.isoString()
         dict["positionX"]=String(Double(position.x))
@@ -167,9 +162,9 @@ class DefectData : BaseData{
         }
     }
     
-    func removeFeedback(_ feedback: DefectStatusData){
-        feedback.removeAll()
-        processingStatuses.remove(obj: feedback)
+    func removeStatusChange(_ stausChange: StatusChangeData){
+        stausChange.removeAll()
+        statusChanges.remove(obj: stausChange)
     }
     
     func removeAll(){
@@ -177,10 +172,10 @@ class DefectData : BaseData{
             img.deleteFile()
         }
         images.removeAll()
-        for feedback in processingStatuses{
+        for feedback in statusChanges{
             feedback.removeAll()
         }
-        processingStatuses.removeAll()
+        statusChanges.removeAll()
     }
     
     func createPlanImage(){
@@ -210,12 +205,12 @@ class DefectData : BaseData{
         }
     }
     
-    func canRemoveUser(companyId: Int) -> Bool{
+    func canRemoveCompany(companyId: Int) -> Bool{
         if assignedCompanyId == companyId{
             return false
         }
-        for feedback in processingStatuses{
-            if feedback.assignedCompanyId == companyId{
+        for statusChange in statusChanges{
+            if statusChange.assignedCompanyId == companyId{
                 return false
             }
         }
@@ -240,8 +235,8 @@ class DefectData : BaseData{
         for image in images{
             names.append(image.fileName)
         }
-        for feedback in processingStatuses {
-            names.append(contentsOf: feedback.getUsedImageNames())
+        for statusChange in statusChanges {
+            names.append(contentsOf: statusChange.getUsedImageNames())
         }
         return names
     }

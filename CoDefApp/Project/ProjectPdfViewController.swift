@@ -58,8 +58,8 @@ extension PDFRenderer {
         addSpacer()
         for scope in project.filteredScopes{
             addLine()
-            addLine(text: "scope".localize(), type: .header2)
-            addLine(label: "context".localize(), text: "scopeContext".localize(param: project.name))
+            addLine(text: "unit".localize(), type: .header2)
+            addLine(label: "context".localize(), text: "unitContext".localize(param: project.name))
             addScopeContent(scope: scope)
         }
         addLine()

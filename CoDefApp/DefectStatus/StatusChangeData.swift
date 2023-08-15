@@ -6,7 +6,7 @@
 
 import Foundation
 
-class DefectStatusData : BaseData{
+class StatusChangeData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case comment
@@ -120,7 +120,7 @@ class DefectStatusData : BaseData{
     
 }
 
-protocol ProcessingStatusDelegate{
+protocol ProcessingStatusChangeDelegate{
     func statusChanged()
 }
 

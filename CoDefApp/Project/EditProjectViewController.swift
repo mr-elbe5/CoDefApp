@@ -41,7 +41,7 @@ class EditProjectViewController: EditViewController{
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: project.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
-        labeledCheckboxGroup.setupView(labelText: "users".localizeWithColonAsMandatory())
+        labeledCheckboxGroup.setupView(labelText: "companies".localizeWithColonAsMandatory())
         contentView.addSubviewAtTop(labeledCheckboxGroup,topView: descriptionField, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
         
@@ -59,7 +59,7 @@ class EditProjectViewController: EditViewController{
             project.description = descriptionField.text
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
                 if let company = checkbox.data as? CompanyData, !checkbox.isOn, project.companyIds.contains(company.id), !project.canRemoveCompany(companyId: company.id){
-                    self.showError("userDeleteError")
+                    self.showError("companyDeleteError")
                     return false
                 }
             }

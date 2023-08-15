@@ -129,7 +129,7 @@ class UnitData : BaseData{
     
     func canRemoveCompany(companyId: Int) -> Bool{
         for issue in defects{
-            if !issue.canRemoveUser(companyId: companyId){
+            if !issue.canRemoveCompany(companyId: companyId){
                 return false
             }
         }

@@ -15,7 +15,6 @@ class EditDefectViewController: EditViewController {
     
     var nameField = LabeledTextInput()
     var descriptionField = LabeledTextareaInput()
-    var lotField = LabeledTextInput()
     var notifiedField = LabeledCheckbox()
     
     var planView : UnitPlanView? = nil
@@ -49,12 +48,9 @@ class EditDefectViewController: EditViewController {
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
-        lotField.setupView(labelText: "lot".localizeWithColon(), text: defect.lot)
-        contentView.addSubviewAtTop(lotField, topView: descriptionField)
-        
         let statusView = LabeledText()
         statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
-        contentView.addSubviewAtTop(statusView, topView: lotField)
+        contentView.addSubviewAtTop(statusView, topView: descriptionField)
         
         let assignedView = LabeledText()
         assignedView.setupView(labelText: "assignedTo".localizeWithColonAsMandatory(), text: defect.assignedCompanyName)
@@ -100,7 +96,6 @@ class EditDefectViewController: EditViewController {
         if !nameField.text.isEmpty{
             defect.name = nameField.text
             defect.description = descriptionField.text
-            defect.lot = lotField.text
             defect.notified = notifiedField.isOn
             defect.changed()
             defect.saveData()

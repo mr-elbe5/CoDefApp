@@ -44,7 +44,7 @@ extension PDFRenderer {
         let data = renderer.pdfData { (context) in
             self.context = context
             context.beginPage()
-            start(title: "scopeReport".localize())
+            start(title: "unitReport".localize())
             addScopeContent(scope: scope)
         }
         return data
@@ -56,13 +56,13 @@ extension PDFRenderer {
             addLine(label: "description".localize(), text: scope.description)
         }
         if let img = scope.getPlanImage(){
-            addLine(label: "issues".localize(), image: img, maxHeight: 0)
+            addLine(label: "defects".localize(), image: img, maxHeight: 0)
         }
         addSpacer()
         for issue in scope.filteredDefects{
             addLine()
-            addLine(text: "issue".localize(), type: .header3)
-            addLine(label: "context".localize(), text: "issueContext".localize(param1: scope.project?.name ?? "", param2: scope.name))
+            addLine(text: "defect".localize(), type: .header3)
+            addLine(label: "context".localize(), text: "defectContext".localize(param1: scope.project?.name ?? "", param2: scope.name))
             addDefectContent(defect: issue)
         }
     }

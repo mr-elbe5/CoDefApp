@@ -90,7 +90,7 @@ class MainViewController: ScrollViewController {
     }
     
     func setupUserSection(){
-        let headerLabel = UILabel(header: "users".localizeWithColon())
+        let headerLabel = UILabel(header: "companies".localizeWithColon())
         userSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         
@@ -103,7 +103,7 @@ class MainViewController: ScrollViewController {
             userSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: userSection.leadingAnchor, trailing: userSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
-        let addUserButton = TextButton(text: "newUser".localize(), withBorder: true)
+        let addUserButton = TextButton(text: "newCompany".localize(), withBorder: true)
         addUserButton.addAction(UIAction(){ action in
             self.openAddUser()
         }, for: .touchDown)

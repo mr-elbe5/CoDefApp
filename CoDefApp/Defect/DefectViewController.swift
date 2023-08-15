@@ -56,7 +56,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
-            let controller = IssueInfoViewController()
+            let controller = DefectInfoViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
@@ -123,20 +123,20 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     func setupProcessingSection(){
-        let headerLabel = UILabel(header: "processingStatuses".localize())
+        let headerLabel = UILabel(header: "statusChanges".localize())
         processingSection.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
         
-        for feedback in defect.processingStatuses{
+        for feedback in defect.statusChanges{
             let feeedbackView = ArrangedSectionView()
             processingSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: processingSection.leadingAnchor, trailing: processingSection.trailingAnchor, insets: verticalInsets)
             setupProcessingStatusView(view: feeedbackView, feedback: feedback);
             lastView = feeedbackView
         }
-        let addProcessingStatusButton = TextButton(text: "addProcessingStatus".localize())
+        let addProcessingStatusButton = TextButton(text: "addStatusChange".localize())
         addProcessingStatusButton.addAction(UIAction(){ (action) in
             if !self.defect.projectUsers.isEmpty{
-                let controller = CreateDefectStatusViewController(defect: self.defect)
+                let controller = CreateStatusChangeViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -148,7 +148,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             .bottom(processingSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func setupProcessingStatusView(view: ArrangedSectionView, feedback: DefectStatusData){
+    func setupProcessingStatusView(view: ArrangedSectionView, feedback: StatusChangeData){
         let createdLine = LabeledText()
         let txt = "\("on".localize()) \(feedback.creationDate.dateString()) \("by".localize()) \(feedback.creator?.name ?? "")"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
@@ -208,7 +208,7 @@ extension DefectViewController: DefectDelegate{
     
 }
 
-extension DefectViewController: ProcessingStatusDelegate{
+extension DefectViewController: ProcessingStatusChangeDelegate{
     
     func statusChanged() {
         updateFeedbackSection()
@@ -216,19 +216,19 @@ extension DefectViewController: ProcessingStatusDelegate{
     
 }
 
-class IssueInfoViewController: InfoViewController {
+class DefectInfoViewController: InfoViewController {
     
     override func setupInfos(){
         var block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "pencil", text: "issueEditSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "issueReportSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "trash", text: "issueDeleteSymbolText".localize(), iconColor: .systemRed))
+        block.addArrangedSubview(IconInfoText(icon: "pencil", text: "defectEditSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "defectReportSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "trash", text: "defectDeleteSymbolText".localize(), iconColor: .systemRed))
         block.addArrangedSubview(IconInfoText(icon: "info", text: "infoSymbolText".localize(), iconColor: .systemBlue))
         stackView.addSpacer()
         block = addBlock()
-        block.addArrangedSubview(InfoHeader("issueFeedbacksInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("issueFeedbacksInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("statusChangeInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("statusChangeInfoText".localize()))
     }
     
 }

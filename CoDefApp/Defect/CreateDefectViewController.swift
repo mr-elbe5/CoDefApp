@@ -43,12 +43,9 @@ class CreateDefectViewController: EditDefectViewController {
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
-        lotField.setupView(labelText: "lot".localizeWithColon(), text: defect.lot)
-        contentView.addSubviewAtTop(lotField, topView: descriptionField)
-        
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
         statusField.setupStatuses(currentStatus: defect.status)
-        contentView.addSubviewAtTop(statusField, topView: lotField)
+        contentView.addSubviewAtTop(statusField, topView: descriptionField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
         assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedCompanyId)
@@ -96,7 +93,6 @@ class CreateDefectViewController: EditDefectViewController {
         if !nameField.text.isEmpty{
             defect.name = nameField.text
             defect.description = descriptionField.text
-            defect.lot = lotField.text
             defect.assertDisplayId()
             defect.assignedCompanyId = assignField.selectedCompany?.id ?? 0
             defect.notified = notifiedField.isOn

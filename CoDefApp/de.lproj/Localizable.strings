@@ -64,38 +64,36 @@ Wollen Sie fortfahren?";
 "overview"="Übersicht";
 
 "mainInfoHeader"="Über diese App";
-"mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Problemen wie z.B. Baumängel oder Hausmeisteraufgaben konzipiert.
-Die Software steht als Open Source bei Github unter dem Namen 'BandikaIssueTrackerApp' zur Verfügung.";
-/*"mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Problemen wie z.B. Baumängel oder Hausmeisteraufgaben konzipiert.
-Die Software steht als Open Source bei Github unter dem Namen 'BandikaIssueTrackerApp' zur Verfügung.
+"mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Baumängeln oder Hausmeisteraufgaben konzipiert.
+Die Software steht als Open Source bei Github unter dem Namen 'CoDefApp' zur Verfügung.
 Die App kann mit einem zugehörigen Cloudserver verbunden werden. Notwendig ist das allerdings nur, wenn Sie Ihre Daten zentral speichern wollen.
-Unterstützung für die Einrichtung und Nutzung eines zugehörigen Cloud-Servers können Sie bei www.elbe5.de erhalten.";*/
+Unterstützung für die Einrichtung und Nutzung eines zugehörigen Cloud-Servers können Sie bei www.elbe5.de erhalten.";
 "cloudSymbolText"="Einstellungen für eine Cloud-Verbindung und Synchronisation öffnen (nur bei erfolgter Cloud-Verbindung).";
 "backupSymbolText"="Alle Daten als Zip-Datei sichern oder alle Daten von einer Sicherungs-Zip-Datei wiederherstellen (ersetzen).";
 "settingsSymbolText"="Einstellungen wie die Cloud-Verbindung und andere öffnen.";
 "mainInfoStructureHeader"="Struktur";
-"mainInfoStructureText"="Die Struktur umfasst Projekte, Bereiche und Probleme bzw. Mängel.
-Weiterhin existiert ein Pool von Personen und Firmen wie z.B. Handwerker, die einem oder mehreren Projekten und dort einer Aufgabe zugeordnet werden können.
+"mainInfoStructureText"="Die Struktur umfasst Projekte, Einheiten und Mängel.
+Weiterhin existiert ein Pool von Firmen bzw. Gewerken wie z.B. Handwerksfirmen, die einem oder mehreren Projekten und dort einem Mangel zugeordnet werden können.
 
-Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Personen und Firmen zugeordnet.
+Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Firmen bzw. Gewerken zugeordnet.
 
-Bereiche sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Bereiche können einen Plan/Grundriss haben, auf dem die Probleme/Mängel markiert werden.
+Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Plan/Grundriss haben, auf dem die Mängel markiert werden.
 
-Probleme bzw. Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Person bzw. Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
+Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma bzw. Gewerk, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
 
-Die Bearbeitung von Problemen erfolgt als Rückmeldung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
+Die Bearbeitung von Problemen erfolgt als Statusänderung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
 ";
 "mainProjectsInfoHeader"="Projekte";
 "mainProjectsInfoText"="Hier können Sie Projekte auswählen oder neue Projekte erstellen.";
-"mainUsersInfoHeader"="Personen und Firmen";
-"mainUsersInfoText"="Hier können Sie Personen und Firmen auswählen oder neue erstellen.
+"mainCompaniesInfoHeader"="Firmen";
+"mainCompaniesInfoText"="Hier können Sie Firmen auswählen oder neue erstellen.
 Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet werden können.";
 
 /*Projects*/
 "projects"="Projekte";
 "project"="Projekt";
 "newProject"="Neues Projekt";
-"selectUsers"="Personen und Firmen auswählen";
+"selectCompanies"="Firmen auswählen";
 "projectReport"="Projektbericht";
 
 "projectFilterSymbolText"="Projektelemente filtern.";
@@ -104,18 +102,18 @@ Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet we
 "projectDeleteSymbolText"="Ein Projekt löschen. Dies ist löscht auch sämtliche Unterelemente.";
 "projectEditInfoHeader"="Ein Projekt erstellen oder ändern";
 "projectEditInfoText"="Der Name ist ein Pflichtfeld.
-Ausgewählte Personen und Firmen sind Teil des Projekts und können Aufgaben zugeordnet werden. Mindestens eine/r  ist Pflicht.";
-"projectScopesInfoHeader"="Projektbereiche";
-"projectScopesInfoText"="Bereiche sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Bereiche können einen Plan/Grundriss haben, auf dem die Probleme/Mängel markiert werden.";
-"projectSealSymbolText"="Dies markiert einen Bereich, wenn kein Filter aktiv ist.";
-"projectCheckmarkSealSymbolText"="Dies markiert einen Bereich, wenn er gefilterte Elemente enthält.";
-"projectXmarkSealSymbolText"="Dies markiert einen Bereich, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
+Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werden. Mindestens eine/r  ist Pflicht.";
+"projectUnitsInfoHeader"="Projekteinheiten";
+"projectUnitsInfoText"="Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Plan/Grundriss haben, auf dem die Mängel markiert werden.";
+"projectSealSymbolText"="Dies markiert eine Einheit, wenn kein Filter aktiv ist.";
+"projectCheckmarkSealSymbolText"="Dies markiert eine Einheit, wenn er gefilterte Elemente enthält.";
+"projectXmarkSealSymbolText"="Dies markiert eine Einheit, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
 
 /*Filter*/
 "filter"="Filter für die Anzeige von Mängeln";
-"onlyOpenIssues"="Nur offene Mängel";
-"onlyOverdueIssues"="Nur überfällige Mängel";
-"onlyForUser"="Nur für die folgende Person oder Firma";
+"onlyOpenDefects"="Nur offene Mängel";
+"onlyOverdueDefects"="Nur überfällige Mängel";
+"onlyForCompany"="Nur für die folgende Firma";
 
 "filterInfoHeader"="Filters";
 "filterInfoText"=" Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
@@ -125,33 +123,33 @@ Nur überfällige Mängel: Nur Mängel, deren Zieldatum verstrichen ist
 Nur für die folgenden Person oder Firma: Nur Mängel, die der markierten Person bzw.Firma zugeordnet sind";
 
 /*Scopes*/
-"scopes"="Bereiche";
-"scope"="Bereich";
-"newScope"="Neuer Bereich";
+"units"="Projekteinheiten";
+"unit"="Projekteinheit";
+"newUnit"="Neue Projekteinheit";
 "plan"="Plan";
 "planReplaceInfo"="Das Ersetzen des Plans macht alle Mangelpositionen ungültig.
 Wollen Sie fortfahren?";
-"scopeReport"="Bereichsbericht";
-"scopeContext"="Projekt: %@";
+"unitReport"="Bericht für die Einheit";
+"unitContext"="Projekt: %@";
 
-"scopeEditSymbolText"="Die Daten eines Bereichs ändern.";
-"scopeReportInfoText"="Einen Report des Bereichs erstellen (PDF).";
-"scopeDeleteSymbolText"="Einen Bereich löschen. Dies ist löscht auch sämtliche Unterelemente.";
-"scopePlanInfoHeader"="Bereichsplan/Grundriss";
-"scopePlanInfoText"="Wenn ein Bereich einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
-"scopeIssuesHeader"="Probleme und Mängel";
-"scopeIssuesInfoText"="Probleme bzw. Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Person bzw. Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.";
-"scopeSealSymbolText"="Dies markiert einen Mangel, wenn kein Filter aktiv ist.";
-"scopeCheckmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter ausgewählt ist.";
-"scopeXmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
+"unitEditSymbolText"="Die Daten einer Einheit ändern.";
+"unitReportInfoText"="Einen Report der Einheit erstellen (PDF).";
+"unitDeleteSymbolText"="Eine Einheit löschen. Dies ist löscht auch sämtliche Unterelemente.";
+"unitPlanInfoHeader"="Grundriss";
+"unitPlanInfoText"="Wenn eine Einheit einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
+"unitDefectsHeader"="Mängel";
+"unitDefectsInfoText"="Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.";
+"unitSealSymbolText"="Dies markiert einen Mangel, wenn kein Filter aktiv ist.";
+"unitCheckmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter ausgewählt ist.";
+"unitXmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
 
 "scopeEditInfoHeader"="Einen Bereich erstellen oder ändern";
 "scopeEditInfoText"="Der Name ist ein Pflichtfeld.";
 
 /*Issues*/
-"issues"="Mängel";
-"issue"="Mangel";
-"newIssue"="Neuer Mangel";
+"defects"="Mängel";
+"defect"="Mangel";
+"newDefect"="Neuer Mangel";
 "lot"="Gewerk";
 "status"="Status";
 "assignedTo"="Zugeordnet an";
@@ -164,36 +162,36 @@ Wollen Sie fortfahren?";
 "disputed"="strittig";
 "rejected"="abgelehnt";
 "done"="erledigt";
-"issueReport"="Mängelbericht";
-"issueContext"="Projekt: %@, Bereich: %@";
+"defectReport"="Mängelbericht";
+"defectContext"="Projekt: %@, Einheit: %@";
 
-"issueEditSymbolText"="Die Daten eines Problems ändern.";
-"issueReportSymbolText"="Einen Report des Problems erstellen (PDF).";
-"issueDeleteSymbolText"="Ein Problem löschen. Dies ist löscht auch sämtliche Bilder und Rückmeldungen.";
-"issueFeedbacksInfoHeader"="Rückmeldungen";
-"issueFeedbacksInfoText"="Rückmeldungen sind Folgeeinträge für einen Mangel wenn jemand einen Fortschritt erzielt hat oder sich der Status anders geändert hat.Sie enthalten einen Kommentar, neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
+"defectEditSymbolText"="Die Daten eines Mangels ändern.";
+"defectReportSymbolText"="Einen Report des Mangels erstellen (PDF).";
+"defectDeleteSymbolText"="Einen Mangel löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen.";
+"defectFeedbacksInfoHeader"="Statusänderungen";
+"defectFeedbacksInfoText"="Statusänderungen sind Folgeeinträge für einen Mangel, wenn jemand einen Fortschritt erzielt hat oder sich der Status anderweitig geändert hat. Sie enthalten einen Kommentar, einen neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
 
-"issueEditInfoHeader"="Ein Problem/Mangel erstellen oder ändern";
-"issueEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
-"issuePositionInfoHeader"="Eine Position markieren";
-"issuePositionInfoText"="Tippen Sie auf den Plan/Grundriss, bis der rote Pfeil die Position richtiog markiert.";
+"defectEditInfoHeader"="Einen Mangel dokumentieren oder ändern";
+"defectEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
+"defectPositionInfoHeader"="Eine Position markieren";
+"defectPositionInfoText"="Tippen Sie auf den Plan/Grundriss, bis der rote Pfeil die Position richtiog markiert.";
 
-/*Feedbacks*/
-"feedbacks"="Rückmeldungen";
-"feedback"="Rückmeldung";
-"addFeedback"="Rückmeldung hinzufügen";
+/*Statuses*/
+"statusChanges"="Statusänderungen";
+"statusChange"="Statusänderung";
+"addStatusChange"="Neue Statusänderung hinzufügen";
 "comment"="Kommentar";
 "previousAssignment"="Zuordnung";
 "newAssignment"="Neue Zuordnung";
-"feedbackContext"="Projekt: %@, Bereich: %@, Mangel: %@";
+"statusChangeContext"="Projekt: %@, Einheit: %@, Mangel: %@";
 
-"feedbackEditInfoHeader"="Eine Rückmeldung erstellen";
-"feedbackEditInfoText"="Der Kommentar ist ein Pflichtfeld.";
+"statusChangeEditInfoHeader"="Eine neue Statusänderung dokumentieren";
+"statusChangeEditInfoText"="Der Kommentar ist ein Pflichtfeld.";
 
 /*Users*/
-"users"="Personen und Firmen";
-"user"="Person/Firma";
-"newUser"="Neue Person oder Firma";
+"companies"="Firmen / Gewerke";
+"company"="Firma / Gewerk";
+"newCompany"="Neue Firma / Neues Gewerk";
 "street"="Straße";
 "zipCode"="Plz";
 "city"="Stadt";
@@ -203,12 +201,12 @@ Wollen Sie fortfahren?";
 "nobody"="Niemand";
 "anonymous"="N.N.";
 
-"userEditSymbolText"="Die Daten einer Person oder Firma ändern.";
-"userDeleteSymbolText"="Eine Person oder Firma löschen. Dies ist nur möglich, wenn noch keine Zuordnung zu einem Projekt oder Mangel vorliegt.";
-"userEditInfoHeader"="Person oder Firma erstellen oder ändern";
-"userEditInfoText"="Der Name ist ein Pflichtfeld.
+"companyEditSymbolText"="Die Daten einer Firma / eines Gewerks ändern.";
+"companyDeleteSymbolText"="Firma / Gewerk löschen. Dies ist nur möglich, wenn noch keine Zuordnung zu einem Projekt oder Mangel vorliegt.";
+"companyEditInfoHeader"="Firma / Gewerk erstellen oder ändern";
+"companyEditInfoText"="Der Name ist ein Pflichtfeld.
 
-Eine Email sollte eingetragen werden, wenn die Person oder Firma per Email benachrichtigt oder Dokumente geschickt bekommen soll.
+Eine Email sollte eingetragen werden, wenn die Firma per Email benachrichtigt oder Dokumente geschickt bekommen soll.
 
 Alle anderen Daten dienen der Adressierung oder Information.";
 
@@ -231,7 +229,7 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "cleanup"="Aufräumen";
 
 "settingsInfoLoginHeader"="Cloud-Anmeldung";
-"settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des IssueTracker-Servers ein, den Sie als Cloud benutzen möchten.";
+"settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des Codef-Servers ein, den Sie als Cloud benutzen möchten.";
 "settingsInfoCleanupHeader"="Aufräumen";
 "settingsInfoCleanupText"="Hier können Sie alle Bilder löschen, die nicht mehr benutzt werden.";
 

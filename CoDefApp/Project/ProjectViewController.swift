@@ -95,7 +95,7 @@ class ProjectViewController: ScrollViewController {
     }
     
     func setupScopeSection(){
-        let headerLabel = UILabel(header: "scopes".localizeWithColon())
+        let headerLabel = UILabel(header: "units".localizeWithColon())
         scopeSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         let filteredScopes = project.filteredScopes
@@ -110,7 +110,7 @@ class ProjectViewController: ScrollViewController {
             scopeSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: scopeSection.leadingAnchor, trailing: scopeSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
-        let addScopeButton = TextButton(text: "newScope".localize())
+        let addScopeButton = TextButton(text: "newUnit".localize())
         addScopeButton.addAction(UIAction(){ (action) in
             let scope = UnitData()
             scope.project = self.project
@@ -168,8 +168,8 @@ class ProjectInfoViewController: InfoViewController {
         block.addArrangedSubview(IconInfoText(icon: "info", text: "infoSymbolText".localize(), iconColor: .systemBlue))
         stackView.addSpacer()
         block = addBlock()
-        block.addArrangedSubview(InfoHeader("projectScopesInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("projectScopesInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("projectUnitsInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("projectUnitsInfoText".localize()))
         block.addArrangedSubview(IconInfoText(icon: "seal", text: "projectSealSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "projectCheckmarkSealSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "xmark.seal", text: "projectXmarkSealSymbolText".localize(), iconColor: .systemBlue))

@@ -118,7 +118,7 @@ class CloudSynchronizer{
                                 }
                             }
                         }
-                        for feedback in issue.processingStatuses{
+                        for feedback in issue.statusChanges{
                             for image in feedback.images{
                                 taskGroup.addTask{
                                     do{
@@ -150,7 +150,7 @@ class CloudSynchronizer{
                     if !issue.synchronized{
                         count += 1
                     }
-                    for feedback in issue.processingStatuses{
+                    for feedback in issue.statusChanges{
                         if !feedback.synchronized{
                             count += 1
                         }
@@ -182,7 +182,7 @@ class CloudSynchronizer{
                             }
                         }
                         else{
-                            for feedback in issue.processingStatuses{
+                            for feedback in issue.statusChanges{
                                 if !feedback.synchronized{
                                     taskGroup.addTask{
                                         do{
@@ -239,7 +239,7 @@ class CloudSynchronizer{
                         }
                     }
                 }
-                for feeedback in issue.processingStatuses{
+                for feeedback in issue.statusChanges{
                     if !feeedback.synchronized{
                         do{
                             try await uploadFeedback(feedback: feeedback, issueCloudId: response.id, syncResult: syncResult)
@@ -260,7 +260,7 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadFeedback(feedback: DefectStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
+    func uploadFeedback(feedback: StatusChangeData, issueCloudId: Int, syncResult: SyncResult) async throws{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
         var params = feedback.getUploadParams()
         params["creationDate"] = String(feedback.creationDate.millisecondsSince1970)

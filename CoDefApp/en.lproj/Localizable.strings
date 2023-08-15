@@ -60,34 +60,35 @@
 "overview"="Overview";
 
 "mainInfoHeader"="About this App";
-"mainInfoGeneral"="This app has been created for tracking issues like e.g. construction defects or maintenance tasks.\nThe server software is available as open source at Github under the name 'Bandika Issue Tracker'.";
-/*"mainInfoGeneral"="This app has been created for tracking issues like e.g. construction defects or maintenance tasks.\nThe server software is available as open source at Github under the name 'Bandika Issue Tracker'.\nThe app can be connected to a dedicated cloud server. Yet this is only needed if you want to store your data at a central location. You can get support for creating and running a dedicated cloud server at www.elbe5.de.";*/
+"mainInfoGeneral"="This app has been created for tracking defects like e.g. construction defects or maintenance tasks.
+    The server software is available as open source at Github under the name 'Bandika Issue Tracker'.
+    The app can be connected to a dedicated cloud server. Yet this is only needed if you want to store your data at a central
+    location. You can get support for creating and running a dedicated cloud server at www.elbe5.de.";
 "cloudSymbolText"="Open cloud synchronization (only if cloud has been connected).";
 "backupSymbolText"="Backup all data as a zip file or restore (and replace) all data from a backup zip file.";
 "settingsSymbolText"="Open settings like cloud connection and others.";
 "mainInfoStructureHeader"="Structure";
-"mainInfoStructureText"="The structure includes projects, scopes and issues rsp. defects.
-Additionally it includes a pool of persons or companies like e.g. craftsmen for assigning them to one or more projects and there to tasks.
+"mainInfoStructureText"="The structure includes projects, units and defects.
+Additionally it includes a pool of companies/lots like e.g. craftsmen for assigning them to one or more projects and there to defects.
 
-Projects can be e.g. construction tasks or buildings. From the pool of all persons and companies the relevant ones are assigned to each project.
+Projects can be e.g. construction tasks or buildings. From the pool of all companies/lots the relevant ones are assigned to each project.
 
-Scopes are parts of the project like a floor or a room. Scopes can have a (ground) plan, where issues can be marked on.
+Units are parts of the project like a floor or a room. Units can have a (ground )plan, where defects can be marked on.
 
-Issues include a name or short description, a description of the issue, a status, an assignment to a person or company, a target date, a position and images and/or photos.
+Defects include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.
 
-Issues are processed using feedbacks with comment, new status, new assignment and new images or photos.
-";
+Defects are processed using status changes with comment, new status, new assignment and new images or photos.";
 "mainProjectsInfoHeader"="Projects";
-"mainProjectsInfoText"="Here you can select a projector create a new project.";
-"mainUsersInfoHeader"="Persons and Companies";
-"mainUsersInfoText"="Here you can select a person or company or create a new one.
-All of them make a pool of persons and companies which can each be attached to a project.";
+"mainProjectsInfoText"="Here you can select a project or create a new project.";
+"mainCompaniesInfoHeader"="Companies/Lots";
+"mainCompaniesInfoText"="Here you can select a company/lot or create a new one.
+All of them make a pool of companies/lots, which can each be attached to a project.";
 
 /*Projects*/
 "projects"="Projects";
 "project"="Project";
 "newProject"="New Project";
-"selectUsers"="Select Persons and Companies";
+"selectCompanies"="Select Companies/Lots";
 "projectReport"="Project Report";
 
 "projectFilterSymbolText"="Filter project items.";
@@ -96,55 +97,56 @@ All of them make a pool of persons and companies which can each be attached to a
 "projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
 "projectEditInfoHeader"="Edit a project";
 "projectEditInfoText"="The name is mandatory.
-Selected Persons or Companies are part of this project and can be assigned to tasks. At least one is mandatory.";
-"projectScopesInfoHeader"="Project Scopes";
-"projectScopesInfoText"="Scopes are parts of the project like a floor or a room.
-Scopes can have a (ground) plan, where issues can be marked on.";
-"projectSealSymbolText"="This marks a scope when no filter is active.";
-"projectCheckmarkSealSymbolText"="This marks a scope when has filtered items.";
-"projectXmarkSealSymbolText"="This marks a scope when it has no filtered items. You cannot select it.";
+Selected companies/lots are part of this project and can be assigned to defects. At least one is mandatory.";
+"projectUnitsInfoHeader"="Project Units";
+"projectUnitsInfoText"="Units are parts of the project like a floor or a room.
+Units can have a (ground) plan, where defects can be marked on.";
+"projectSealSymbolText"="This marks a unit when no filter is active.";
+"projectCheckmarkSealSymbolText"="This marks a unit when it has filtered items.";
+"projectXmarkSealSymbolText"="This marks a unit when it has no filtered items. You cannot select it.";
 
 /*Filter*/
-"filter"="Filter for Viewing Issues";
-"onlyOpenIssues"="Open issues only";
-"onlyOverdueIssues"="Overdue issues only";
-"onlyForUser"="Only for the following person or company";
+"filter"="Filter for viewing defects";
+"onlyOpenIssues"="Open defects only";
+"onlyOverdueIssues"="Overdue defects only";
+"onlyForUser"="Only for the following company";
 
 "filterInfoHeader"="Filters";
-"filterInfoText"="The filter restricts views of projects, scopes and issues and their reports.
+"filterInfoText"="The filter restricts views of projects, units and defects and their reports.
 
-Open issues only: Only issues which are not yet closed/done
-Overdue issues only: Only issues with due dates in the past
-Only for the following person or company: Only issues where the checked person or company is assigned to";
+Open defects only: Only defects which are not yet closed/done
+Overdue defects only: Only defects with due dates in the past
+Only for the following company: Only defects where the checked company/lot is assigned to";
 
-/*Scopes*/
-"scopes"="sScopes";
-"scope"="sScope";
-"newScope"="New Scope";
+/*Units*/
+"units"="Units";
+"unit"="Unit";
+"newUnit"="New Unit";
 "plan"="Plan";
-"planReplaceInfo"="Replacing the plan invalidates all issue positions.\nDo want to proceed?";
-"scopeReport"="Scope Report";
-"scopeContext"="Project: %@";
+"planReplaceInfo"="Replacing the plan invalidates all defect positions.
+Do want to proceed?";
+"unitReport"="Unit Report";
+"unitContext"="Project: %@";
 
-"scopeEditSymbolText"="Change data of a scope.";
-"scopeReportInfoText"="Create a report of the scope (PDF)";
-"scopeDeleteSymbolText"="Delete a scope. This will also delete all subelements.";
-"scopePlanInfoHeader"="Scope plan";
-"scopePlanInfoText"="If a scope has a plan, the positions of the issues of that scope are marked with red arrows. Selecting an arrow opens the respective issue.";
-"scopeIssuesHeader"="Problems and Issues";
-"scopeIssuesInfoText"="Issues include a name or short description, a description of the issue, a status, an assignment to a person or company, a target date, a position and images and/or photos.";
-"scopeSealSymbolText"="This marks an issue when no filter is active.";
-"scopeCheckmarkSealSymbolText"="This marks an issue when it has been selected by the filter.";
-"scopeXmarkSealSymbolText"="This marks an issue when it han been selected by the filter. You cannot select it.";
+"unitEditSymbolText"="Change data of a unit.";
+"unitReportInfoText"="Create a report of the unit (PDF)";
+"unitDeleteSymbolText"="Delete a unit. This will also delete all subelements.";
+"unitPlanInfoHeader"="Unit plan";
+"unitPlanInfoText"="If a unit has a plan, the positions of the defects of that unit are marked with red arrows. Selecting an arrow opens the respective defect.";
+"unitDefectsHeader"="Defects";
+"unitDefectsInfoText"="Defects include a name or short description, a description of the defect, a status, an assignment to a company / lot, a target date, a position and images and/or photos.";
+"unitSealSymbolText"="This marks a defect when no filter is active.";
+"unitCheckmarkSealSymbolText"="This marks a defect when it has been selected by the filter.";
+"unitXmarkSealSymbolText"="This marks a defect when it has been deselected by the filter. You cannot select it.";
 
-"scopeEditInfoHeader"="Create or change a scope";
-"scopeEditInfoText"="The name is mandatory.";
+"unitEditInfoHeader"="Create or change a unit";
+"unitEditInfoText"="The name is mandatory.";
 
-/*Issues*/
-"issues"="Issues";
-"issue"="Issue";
-"newIssue"="New Issue";
-"lot"="Lot";
+/*Defects*/
+"defects"="Defects";
+"defect"="Defect";
+"newDefect"="New Defect";
+"note"="Note";
 "status"="Status";
 "assignedTo"="Assigned to";
 "notified"="Notified";
@@ -156,36 +158,35 @@ Only for the following person or company: Only issues where the checked person o
 "disputed"="disputed";
 "rejected"="rejected";
 "done"="done";
-"issueReport"="Issue Report";
-"issueContext"="Project: %@, scope: %@";
+"defectReport"="Defect Report";
+"defectContext"="Project: %@, Unit: %@";
 
-"issueEditSymbolText"="Change data of an issue.";
-"issueReportSymbolText"="Create a report of the issue (PDF)";
-"issueDeleteSymbolText"="Delete an issue. This will also delete all images and feedbacks.";
-"issueFeedbacksInfoHeader"="Feedbacks";
-"issueFeedbacksInfoText"="Feedbacks are follow-ups of issues when somebody made some progress or there is a new status. They include comment, new status, new assignment and new images or photos.";
+"defectEditSymbolText"="Change data of an defect.";
+"defectReportSymbolText"="Create a report of this defect (PDF)";
+"defectDeleteSymbolText"="Delete a defect. This will also delete all images and status changes.";
+"defectStatusChangesInfoHeader"="Status Changes";
+"defectStatusChangesInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
 
-"issueEditInfoHeader"="Create or change an issue";
-"issueEditInfoText"="The name is mandatory. It should be a short description.";
-"issuePositionInfoHeader"="Mark a position";
-"issuePositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
+"defectEditInfoHeader"="Document or change a defect";
+"defectEditInfoText"="The name is mandatory. It should be a short description.";
+"defectPositionInfoHeader"="Mark a position";
+"defectPositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
 
-/*Feedbacks*/
-"feedbacks"="Feedbacks";
-"feedback"="Feedback";
-"addFeedback"="Add Feedback";
-"comment"="Comment";
+/*Statuses*/
+"statusChanges"="Status Changes";
+"statusChange"="Statu Change";
+"addStatusChange"="Document a Status Change";
 "previousAssignment"="Assignmnt";
 "newAssignment"="New Assignment";
-"feedbackContext"="Project: %@, Scope: %@, Issue: %@";
+"statusChangeContext"="Project: %@, Unit: %@, Defect: %@";
 
-"feedbackEditInfoHeader"="Create a feedback";
-"feedbackEditInfoText"="The comment is mandatory.";
+"statusChangeEditInfoHeader"="Document a status change";
+"statusChangeEditInfoText"="The comment is mandatory.";
 
-/*Users*/
-"users"="Persons and Companies";
-"user"="Person/Company";
-"newUser"="New Person or Company";
+/*Companies*/
+"companies"="Companies/Lots";
+"company"="Company/Lot";
+"newCompany"="New Company/Lot";
 "street"="Street";
 "zipCode"="Zip Code";
 "city"="City";
@@ -195,12 +196,12 @@ Only for the following person or company: Only issues where the checked person o
 "nobody"="Nobody";
 "anonymous"="N.N.";
 
-"userEditSymbolText"="Change data of a person or company.";
-"userDeleteSymbolText"="Delete a person or company. This is not possible, if there is already an assignment to a project or issue.";
-"userEditInfoHeader"="Create or edit a person or company";
-"userEditInfoText"="A name is mandatory.
+"companyEditSymbolText"="Change data of a company/lot.";
+"companyDeleteSymbolText"="Delete a company/lot. This is not possible, if there is already an assignment to a project or issue.";
+"companyEditInfoHeader"="Create or edit a company/lot";
+"companyEditInfoText"="A name is mandatory.
 
-An email should be entered, if the person or company should be notified or receive documents by email.
+An email should be entered, if the company should be notified or receive documents by email.
 
 All other data are for addressing or information.";
 

@@ -45,11 +45,11 @@ class FilterViewController: EditViewController {
     }
     
     override func setupContentView() {
-        onlyOpenCheckbox.setup(title: "onlyOpenIssues".localize(), isOn: project.filter.onlyOpen)
+        onlyOpenCheckbox.setup(title: "onlyOpenDefects".localize(), isOn: project.filter.onlyOpen)
         contentView.addSubviewAtTop(onlyOpenCheckbox, insets: defaultInsets)
-        onlyOverdueCheckbox.setup(title: "onlyOverdueIssues".localize(), isOn: project.filter.onlyOverdue)
+        onlyOverdueCheckbox.setup(title: "onlyOverdueDefects".localize(), isOn: project.filter.onlyOverdue)
         contentView.addSubviewAtTop(onlyOverdueCheckbox, topView: onlyOpenCheckbox, insets: defaultInsets)
-        companySelectField.setupView(labelText: "onlyForUser".localize())
+        companySelectField.setupView(labelText: "onlyForCompany".localize())
         companySelectField.setupCompanies(companies: project.companies, currentCompanyId: project.filter.companyId, includingNobody: true)
         contentView.addSubviewAtTop(companySelectField, topView: onlyOverdueCheckbox, insets: defaultInsets)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)

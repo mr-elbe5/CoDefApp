@@ -97,10 +97,10 @@ class UnitViewController: ScrollViewController {
     }
     
     func setupIssueSection(){
-        let headerLabel = UILabel(header: "issues".localizeWithColon())
+        let headerLabel = UILabel(header: "defects".localizeWithColon())
         issueSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         
-        let addIssueButton = TextButton(text: "newIssue".localize())
+        let addIssueButton = TextButton(text: "newDefect".localize())
         addIssueButton.addAction(UIAction(){ action in
             if !self.unit.projectCompanies.isEmpty{
                 let controller = CreateDefectViewController(unit: self.unit)
@@ -189,21 +189,21 @@ class ScopeInfoViewController: InfoViewController {
     override func setupInfos(){
         var block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "pencil", text: "scopeEditSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "scopeReportSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "trash", text: "scopeDeleteSymbolText".localize(), iconColor: .systemRed))
+        block.addArrangedSubview(IconInfoText(icon: "pencil", text: "unitEditSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "unitReportSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "trash", text: "unitDeleteSymbolText".localize(), iconColor: .systemRed))
         block.addArrangedSubview(IconInfoText(icon: "info", text: "infoSymbolText".localize(), iconColor: .systemBlue))
         stackView.addSpacer()
         block = addBlock()
-        block.addArrangedSubview(InfoHeader("scopePlanInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("scopePlanInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("unitPlanInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("unitPlanInfoText".localize()))
         stackView.addSpacer()
         block = addBlock()
-        block.addArrangedSubview(InfoHeader("scopeIssuesHeader".localize()))
-        block.addArrangedSubview(InfoText("scopeIssuesInfoText".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "seal", text: "scopeSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "scopeCheckmarkSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "xmark.seal", text: "scopeXmarkSealSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(InfoHeader("unitDefectsHeader".localize()))
+        block.addArrangedSubview(InfoText("unitDefectsInfoText".localize()))
+        block.addArrangedSubview(IconInfoText(icon: "seal", text: "unitSealSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "unitCheckmarkSealSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "xmark.seal", text: "unitXmarkSealSymbolText".localize(), iconColor: .systemBlue))
     }
     
 }

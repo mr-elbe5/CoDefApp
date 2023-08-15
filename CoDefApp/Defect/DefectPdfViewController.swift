@@ -56,9 +56,6 @@ extension PDFRenderer {
         if !defect.description.isEmpty{
             addLine(label: "description".localize(), text: defect.description)
         }
-        if !defect.lot.isEmpty{
-            addLine(label: "lot".localize(), text: defect.lot)
-        }
         addLine(label: "creator".localize(), text: defect.creatorName)
         addLine(label: "creationDate".localize(), text: defect.creationDate.dateString())
         addLine(label: "status".localize(), text: defect.status.rawValue.localize())
@@ -74,24 +71,24 @@ extension PDFRenderer {
             addLine(label: "", images: defect.images, maxHeight: pageRect.height * 0.2)
         }
         addSpacer()
-        for processingStatus in defect.processingStatuses{
+        for statusChange in defect.statusChanges{
             addLine()
-            addLine(text: "processingStatus".localize(), type: .header3)
-            addLine(label: "context".localize(), text: "processingStatusContext".localize(param1: defect.unit?.project?.name ?? "", param2: defect.unit?.name ?? "", param3: defect.name))
-            addProcessingStatusContent(processingStatus: processingStatus)
+            addLine(text: "statusChange".localize(), type: .header3)
+            addLine(label: "context".localize(), text: "statusChangeContext".localize(param1: defect.unit?.project?.name ?? "", param2: defect.unit?.name ?? "", param3: defect.name))
+            addStatusChangeContent(statusChange: statusChange)
         }
     }
     
-    func addProcessingStatusContent(processingStatus: DefectStatusData){
-        addLine(label: "on".localize(), text: processingStatus.creationDate.dateTimeString())
-        addLine(label: "previousAssignment".localize(), text: processingStatus.previousAssignedCompanyName)
-        addLine(label: "comment".localize(), text: processingStatus.comment)
+    func addStatusChangeContent(statusChange: StatusChangeData){
+        addLine(label: "on".localize(), text: statusChange.creationDate.dateTimeString())
+        addLine(label: "previousAssignment".localize(), text: statusChange.previousAssignedCompanyName)
+        addLine(label: "comment".localize(), text: statusChange.comment)
         
-        addLine(label: "status".localize(), text: processingStatus.status.rawValue.localize())
-        addLine(label: "newAssignment".localize(), text: processingStatus.assignedCompanyName)
-        if !processingStatus.images.isEmpty{
+        addLine(label: "status".localize(), text: statusChange.status.rawValue.localize())
+        addLine(label: "newAssignment".localize(), text: statusChange.assignedCompanyName)
+        if !statusChange.images.isEmpty{
             addLine(label: "images".localize(), text: "")
-            addLine(label: "", images: processingStatus.images, maxHeight: pageRect.height * 0.2)
+            addLine(label: "", images: statusChange.images, maxHeight: pageRect.height * 0.2)
         }
     }
     

@@ -33,7 +33,7 @@ class EditUnitViewController: EditViewController {
     }
     
     override func loadView() {
-        title = "scope".localize()
+        title = "unit".localize()
         super.loadView()
     }
     
@@ -173,8 +173,8 @@ class EditScopeInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("scopeEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("scopeEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("unitEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("unitEditInfoText".localize()))
     }
     
 }
