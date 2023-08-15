@@ -6,11 +6,11 @@
 
 import UIKit
 
-class EditUserViewController: EditViewController {
+class EditCompanyViewController: EditViewController {
     
-    var user: UserData
+    var company: CompanyData
     
-    var delegate: UserDelegate? = nil
+    var delegate: CompanyDelegate? = nil
     
     var nameField = LabeledTextInput()
     var streetField = LabeledTextInput()
@@ -24,8 +24,8 @@ class EditUserViewController: EditViewController {
         EditUserInfoViewController()
     }
     
-    init(user: UserData){
-        self.user = user
+    init(company: CompanyData){
+        self.company = company
         super.init()
         modalPresentationStyle = .fullScreen
     }
@@ -35,31 +35,31 @@ class EditUserViewController: EditViewController {
     }
     
     override func loadView() {
-        title = "user".localize()
+        title = "company".localize()
         super.loadView()
     }
     
     override func setupContentView() {
         
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: user.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: company.name)
         contentView.addSubviewAtTop(nameField)
         
-        streetField.setupView(labelText: "street".localizeWithColon(), text: user.street)
+        streetField.setupView(labelText: "street".localizeWithColon(), text: company.street)
         contentView.addSubviewAtTop(streetField, topView: nameField)
         
-        zipCodeField.setupView(labelText: "zipCode".localizeWithColon(), text: user.zipCode)
+        zipCodeField.setupView(labelText: "zipCode".localizeWithColon(), text: company.zipCode)
         contentView.addSubviewAtTop(zipCodeField, topView: streetField)
         
-        cityField.setupView(labelText: "city".localizeWithColon(), text: user.city)
+        cityField.setupView(labelText: "city".localizeWithColon(), text: company.city)
         contentView.addSubviewAtTop(cityField, topView: zipCodeField)
         
-        emailField.setupView(labelText: "email".localizeWithColon(), text: user.email)
+        emailField.setupView(labelText: "email".localizeWithColon(), text: company.email)
         contentView.addSubviewAtTop(emailField, topView: cityField)
         
-        phoneField.setupView(labelText: "phone".localizeWithColon(), text: user.phone)
+        phoneField.setupView(labelText: "phone".localizeWithColon(), text: company.phone)
         contentView.addSubviewAtTop(phoneField, topView: emailField)
         
-        notesField.setupView(labelText: "notes".localizeWithColon(), text: user.notes)
+        notesField.setupView(labelText: "notes".localizeWithColon(), text: company.notes)
         contentView.addSubviewAtTop(notesField, topView: phoneField)
             .bottom(contentView.bottomAnchor)
         
@@ -67,20 +67,20 @@ class EditUserViewController: EditViewController {
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            user.name = nameField.text
-            user.street = streetField.text
-            user.zipCode = zipCodeField.text
-            user.city = cityField.text
-            user.email = emailField.text
-            user.phone = phoneField.text
-            user.notes = notesField.text
-            user.changed()
-            if user.isNew{
-                AppData.shared.addUser(user)
-                user.isNew = false
+            company.name = nameField.text
+            company.street = streetField.text
+            company.zipCode = zipCodeField.text
+            company.city = cityField.text
+            company.email = emailField.text
+            company.phone = phoneField.text
+            company.notes = notesField.text
+            company.changed()
+            if company.isNew{
+                AppData.shared.addUser(company)
+                company.isNew = false
             }
-            user.saveData()
-            delegate?.userChanged()
+            company.saveData()
+            delegate?.companyChanged()
             return true
         }
         else{
@@ -96,9 +96,9 @@ class EditUserInfoViewController: InfoViewController {
     override func setupInfos(){
         let block = InfoBlock()
         stackView.addArrangedSubview(block)
-        block.addArrangedSubview(InfoHeader("userEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoHeader("companyEditInfoHeader".localize()))
         block.addSpacer()
-        block.addArrangedSubview(UILabel(text: "userEditInfoText".localize()))
+        block.addArrangedSubview(UILabel(text: "companyEditInfoText".localize()))
     }
     
 }

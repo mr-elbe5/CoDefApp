@@ -6,66 +6,62 @@
 
 import Foundation
 
-class ProcessingStatusData : BaseData{
+class DefectStatusData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case comment
         case status
-        case previousAssignedUserId
-        case assignedUserId
+        case previousAssignedCompanyId
+        case assignedCompanyId
         case dueDate
         case images
     }
     
     var comment = ""
     var status = DefectStatus.open
-    var previousAssignedUserId: UUID = .NIL
-    var assignedUserId: UUID = .NIL
+    var previousAssignedCompanyId: Int = 0
+    var assignedCompanyId: Int = 0
     var dueDate = Date()
     
     var images = Array<ImageFile>()
     
-    var defect: DefectData? = nil
+    var defect: DefectData!
     
-    var project: ProjectData?{
-        defect?.project
+    var project: ProjectData{
+        defect.project
     }
     
-    var projectUsers: UserList{
-        project?.users ?? UserList()
+    var projectCompanies: CompanyList{
+        project.companies
     }
     
-    var creator: UserData?{
-        return projectUsers.user(withId: creatorId)
+    var creator: CompanyData?{
+        return projectCompanies.company(withId: creatorId)
     }
     
-    var previousAssignedUserCloudId: Int{
-        AppData.shared.users.cloudId(ofUserWithId: previousAssignedUserId)
+    var previousAssignedCompany: CompanyData?{
+        projectCompanies.company(withId: previousAssignedCompanyId)
     }
     
-    var previousAssignedUser: UserData?{
-        projectUsers.user(withId: previousAssignedUserId)
+    var previousAssignedCompanyName : String{
+        previousAssignedCompany?.name ?? ""
     }
     
-    var previousAssignedUserName : String{
-        projectUsers.name(ofUserWithId: previousAssignedUserId)
+    var assignedCompany: CompanyData?{
+        return projectCompanies.company(withId: assignedCompanyId)
     }
     
-    var assignedUser: UserData?{
-        return projectUsers.user(withId: assignedUserId)
-    }
-    
-    var assignedUserName : String{
-        projectUsers.name(ofUserWithId: assignedUserId)
+    var assignedCompanyName : String{
+        assignedCompany?.name ?? ""
     }
     
     init(defect: DefectData){
         super.init()
         self.defect = defect
         status = defect.status
-        previousAssignedUserId = defect.assignedUserId
-        assignedUserId = previousAssignedUserId
-        defect.project?.updateUsers()
+        previousAssignedCompanyId = defect.assignedCompanyId
+        assignedCompanyId = previousAssignedCompanyId
+        defect.project.updateCompanies()
         dueDate = defect.dueDate
     }
     
@@ -79,8 +75,8 @@ class ProcessingStatusData : BaseData{
         else{
             status = DefectStatus.open
         }
-        previousAssignedUserId = try values.decodeIfPresent(UUID.self, forKey: .previousAssignedUserId) ?? .NIL
-        assignedUserId = try values.decodeIfPresent(UUID.self, forKey: .assignedUserId) ?? .NIL
+        previousAssignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .previousAssignedCompanyId) ?? 0
+        assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
         dueDate = try values.decodeIfPresent(Date.self, forKey: .dueDate) ?? Date.now
         images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
     }
@@ -90,20 +86,20 @@ class ProcessingStatusData : BaseData{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(comment, forKey: .comment)
         try container.encode(status.rawValue, forKey: .status)
-        try container.encode(previousAssignedUserId, forKey: .previousAssignedUserId)
-        try container.encode(assignedUserId, forKey: .assignedUserId)
+        try container.encode(previousAssignedCompanyId, forKey: .previousAssignedCompanyId)
+        try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(dueDate, forKey: .dueDate)
         try container.encode(images, forKey: .images)
     }
     
     func getUploadParams() -> Dictionary<String,String>{
         var dict = Dictionary<String,String>()
-        dict["uuid"]=uuid.uuidString
-        dict["creatorId"]=creatorId.uuidString
+        dict["id"]=String(id)
+        dict["creatorId"]=String(creatorId)
         dict["comment"]=String(comment)
         dict["status"]=status.rawValue
-        dict["previousAssignedId"]=previousAssignedUserId.uuidString
-        dict["assignedId"]=assignedUserId.uuidString
+        dict["previousAssignedCompanyId"]=String(previousAssignedCompanyId)
+        dict["assignedCompanyId"]=String(assignedCompanyId)
         return dict
     }
     

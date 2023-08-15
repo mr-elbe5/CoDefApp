@@ -42,7 +42,7 @@ class SettingsViewController: ScrollViewController {
     override func setupContentView() {
         contentView.addSubviewAtTop(loginSection)
         setupLoginSection()
-        logoutButton.isEnabled = CloudData.shared.isLoggedIn()
+        logoutButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         contentView.addSubviewAtTop(cleanupSection, topView: loginSection)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
         setupCleanupSection()
@@ -53,10 +53,10 @@ class SettingsViewController: ScrollViewController {
         let label  = UILabel(header: "cloud".localize())
         loginSection.addSubviewAtTopCentered(label)
         
-        serverUrlField.setupView(labelText: "serverURL".localize(), text: CloudData.shared.serverURL)
+        serverUrlField.setupView(labelText: "serverURL".localize(), text: AppState.shared.serverURL)
         loginSection.addSubviewAtTop(serverUrlField, topView: label)
         
-        loginNameField.setupView(labelText: "loginName".localize(), text: CloudData.shared.login)
+        loginNameField.setupView(labelText: "loginName".localize(), text: AppState.shared.currentUser.login)
         loginSection.addSubviewAtTop(loginNameField, topView: serverUrlField)
         
         passwordField.setupView(labelText: "password".localize(), text: "")
@@ -75,9 +75,9 @@ class SettingsViewController: ScrollViewController {
         
         logoutButton.setTitleColor(.systemGray, for: .disabled)
         logoutButton.addAction(UIAction(){ action in
-            CloudData.shared.token = ""
+            AppState.shared.currentUser.token = ""
             DispatchQueue.main.async{
-                CloudData.shared.save()
+                AppState.shared.save()
                 self.delegate?.loginChanged()
             }
         }, for: .touchDown)
@@ -108,13 +108,13 @@ class SettingsViewController: ScrollViewController {
             "login" : login,
             "password" : password,
         ]
-        if let loginData: CloudData = try await RequestController.shared.requestJson(url: requestUrl, withParams: params) {
-            if (loginData.isLoggedIn()){
-                loginData.serverURL = url
-                CloudData.shared = loginData
-                CloudData.shared.save()
-                //print("\(loginData.dump())")
-                self.logoutButton.isEnabled = CloudData.shared.isLoggedIn()
+        if let currentUser: UserData = try await RequestController.shared.requestJson(url: requestUrl, withParams: params) {
+            if (currentUser.isLoggedIn){
+                AppState.shared.serverURL = url
+                AppState.shared.currentUser = currentUser
+                AppState.shared.save()
+                //print("\(currentuser.dump())")
+                self.logoutButton.isEnabled = AppState.shared.currentUser.isLoggedIn
                 return true
             }
             return false

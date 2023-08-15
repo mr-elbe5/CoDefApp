@@ -35,7 +35,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             let controller = DefectPdfViewController(defect: self.defect)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if CurrentUser.hasEditRight(for: defect){
+        if AppState.shared.currentUser.hasEditRight{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditDefectViewController(defect: self.defect)
                 controller.delegate = self
@@ -44,7 +44,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
                 if let scope = self.defect.unit{
                     self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        scope.removeIssue(self.defect)
+                        scope.removeDefect(self.defect)
                         scope.changed()
                         scope.saveData()
                         self.delegate?.defectChanged()
@@ -89,7 +89,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         dataSection.addArrangedSubview(statusView)
         
         let assignedView = LabeledText()
-        assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedUserName)
+        assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedCompanyName)
         dataSection.addArrangedSubview(assignedView)
         
         let notifiedView = LabeledText()
@@ -136,7 +136,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         let addProcessingStatusButton = TextButton(text: "addProcessingStatus".localize())
         addProcessingStatusButton.addAction(UIAction(){ (action) in
             if !self.defect.projectUsers.isEmpty{
-                let controller = CreateProcessingStatusViewController(defect: self.defect)
+                let controller = CreateDefectStatusViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -148,9 +148,9 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             .bottom(processingSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func setupProcessingStatusView(view: ArrangedSectionView, feedback: ProcessingStatusData){
+    func setupProcessingStatusView(view: ArrangedSectionView, feedback: DefectStatusData){
         let createdLine = LabeledText()
-        let txt = "\("on".localize()) \(feedback.creationDate.dateString()) \("by".localize()) \(feedback.creatorName)"
+        let txt = "\("on".localize()) \(feedback.creationDate.dateString()) \("by".localize()) \(feedback.creator?.name ?? "")"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
         view.addArrangedSubview(createdLine)
         
@@ -159,11 +159,11 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         view.addArrangedSubview(statusLine)
         
         let previousAssignmentLine = LabeledText()
-        previousAssignmentLine.setupView(labelText: "previousAssignment".localizeWithColon(), text: feedback.previousAssignedUserName)
+        previousAssignmentLine.setupView(labelText: "previousAssignment".localizeWithColon(), text: feedback.previousAssignedCompany?.name ?? "")
         view.addArrangedSubview(previousAssignmentLine)
         
         let assignmentLine = LabeledText()
-        assignmentLine.setupView(labelText: "assignedTo".localizeWithColon(), text: feedback.assignedUserName)
+        assignmentLine.setupView(labelText: "assignedTo".localizeWithColon(), text: feedback.assignedCompany?.name ?? "")
         view.addArrangedSubview(assignmentLine)
         
         let dueDateLine = LabeledText()

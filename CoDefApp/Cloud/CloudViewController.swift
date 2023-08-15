@@ -51,7 +51,7 @@ class CloudViewController: ScrollViewController {
         
         var label = UILabel(header: "connectionState".localize())
         syncSection.addSubviewAtTop(label)
-        stateLabel.text = CloudData.shared.isLoggedIn() ? "connected".localize() : "disconnected".localize()
+        stateLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
         syncSection.addSubviewAtTop(stateLabel, topView: label)
         
         label = UILabel(header: "synchronize".localize())
@@ -66,7 +66,7 @@ class CloudViewController: ScrollViewController {
             //CloudSynchronizer.shared.synchronize(syncResult: self.syncResult)
         }, for: .touchDown)
         syncSection.addSubviewAtTopCentered(syncButton, topView: newElementsField)
-        syncButton.isEnabled = CloudData.shared.isLoggedIn()
+        syncButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
         label = UILabel(header: "uploaded".localize())
         syncSection.addSubviewAtTop(label, topView: syncButton)

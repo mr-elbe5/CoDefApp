@@ -45,9 +45,9 @@ class EditProjectViewController: EditViewController{
         contentView.addSubviewAtTop(labeledCheckboxGroup,topView: descriptionField, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
         
-        for user in AppData.shared.users{
+        for company in AppData.shared.companies{
             let checkbox = Checkbox()
-            checkbox.setup(title: user.name, data: user, isOn: project.userIds.contains(user.uuid))
+            checkbox.setup(title: company.name, data: company, isOn: project.companyIds.contains(company.id))
             labeledCheckboxGroup.addCheckbox(cb: checkbox)
         }
             
@@ -58,22 +58,22 @@ class EditProjectViewController: EditViewController{
             project.name = nameField.text
             project.description = descriptionField.text
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
-                if let user = checkbox.data as? UserData, !checkbox.isOn, project.userIds.contains(user.uuid), !project.canRemoveUser(userId: user.uuid){
+                if let company = checkbox.data as? CompanyData, !checkbox.isOn, project.companyIds.contains(company.id), !project.canRemoveCompany(companyId: company.id){
                     self.showError("userDeleteError")
                     return false
                 }
             }
-            project.userIds.removeAll()
+            project.companyIds.removeAll()
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
-                if let user = checkbox.data as? UserData, checkbox.isOn{
-                    project.userIds.append(user.uuid)
+                if let company = checkbox.data as? CompanyData, checkbox.isOn{
+                    project.companyIds.append(company.id)
                 }
             }
             if project.isNew{
                 AppData.shared.addProject(project)
                 project.isNew = false
             }
-            project.updateUsers()
+            project.updateCompanies()
             project.changed()
             project.saveData()
             delegate?.projectChanged()
@@ -89,9 +89,9 @@ class EditProjectViewController: EditViewController{
 
 class SelectUserButton: UIButton{
     
-    var user: UserData
+    var user: CompanyData
     
-    init(user: UserData){
+    init(user: CompanyData){
         self.user=user
         super.init(frame: .zero)
         self.setTitle(user.name, for: .normal)

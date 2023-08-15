@@ -57,7 +57,7 @@ class EditDefectViewController: EditViewController {
         contentView.addSubviewAtTop(statusView, topView: lotField)
         
         let assignedView = LabeledText()
-        assignedView.setupView(labelText: "assignedTo".localizeWithColonAsMandatory(), text: defect.assignedUserName)
+        assignedView.setupView(labelText: "assignedTo".localizeWithColonAsMandatory(), text: defect.assignedCompanyName)
         contentView.addSubviewAtTop(assignedView, topView: statusView)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: defect.notified)

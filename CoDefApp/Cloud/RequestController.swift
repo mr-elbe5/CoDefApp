@@ -12,7 +12,7 @@ struct RequestController {
     public static var shared = RequestController()
     
     func hasServerURL() -> Bool{
-        return !CloudData.shared.serverURL.isEmpty
+        return !AppState.shared.serverURL.isEmpty
     }
     
     private func createRequest(url : String, method: String, headerFields : [String : String]?, params : [String:String]?) -> URLRequest? {
@@ -63,7 +63,7 @@ struct RequestController {
         if let urlRequest = createRequest(url: url, method: "POST", headerFields:[
             "Content-Type" : "application/json",
             "Accept" : "application/json",
-            "Authentication" : CloudData.shared.token
+            "Authentication" : AppState.shared.currentUser.token ?? ""
         ], params: params){
             return try await self.launchJsonRequest(with: urlRequest)
         }
@@ -74,7 +74,7 @@ struct RequestController {
         if let urlRequest = createRequest(url: url, method: "POST", headerFields: [
             "Content-Type" : "application/json",
             "Accept" : "application/json",
-            "Authentication" : CloudData.shared.token
+            "Authentication" : AppState.shared.currentUser.token ?? ""
         ], params: params){
             return try await self.launchImageRequest(with: urlRequest)
         }
@@ -88,7 +88,7 @@ struct RequestController {
                 "contentType" : "image/jpeg",
                 "fileName" : fileName,
                 "Accept" : "application/json",
-                "Authentication" : CloudData.shared.token
+                "Authentication" : AppState.shared.currentUser.token ?? ""
             ], body: data){
                 return try await self.launchJsonRequest(with: urlRequest)
             }

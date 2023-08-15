@@ -12,7 +12,7 @@ class FilterViewController: EditViewController {
     
     let onlyOpenCheckbox = LabeledCheckbox()
     let onlyOverdueCheckbox = LabeledCheckbox()
-    let userSelectField = LabeledUserSelectField()
+    let companySelectField = LabeledCompanySelectField()
     
     var delegate : FilterDelegate? = nil
     
@@ -49,16 +49,16 @@ class FilterViewController: EditViewController {
         contentView.addSubviewAtTop(onlyOpenCheckbox, insets: defaultInsets)
         onlyOverdueCheckbox.setup(title: "onlyOverdueIssues".localize(), isOn: project.filter.onlyOverdue)
         contentView.addSubviewAtTop(onlyOverdueCheckbox, topView: onlyOpenCheckbox, insets: defaultInsets)
-        userSelectField.setupView(labelText: "onlyForUser".localize())
-        userSelectField.setupUsers(users: project.users, currentUserId: project.filter.userId, includingNobody: true)
-        contentView.addSubviewAtTop(userSelectField, topView: onlyOverdueCheckbox, insets: defaultInsets)
+        companySelectField.setupView(labelText: "onlyForUser".localize())
+        companySelectField.setupCompanies(companies: project.companies, currentCompanyId: project.filter.companyId, includingNobody: true)
+        contentView.addSubviewAtTop(companySelectField, topView: onlyOverdueCheckbox, insets: defaultInsets)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
     }
     
     override func save() -> Bool{
         project.filter.onlyOpen = onlyOpenCheckbox.isOn
         project.filter.onlyOverdue = onlyOverdueCheckbox.isOn
-        project.filter.userId = userSelectField.selectedUser?.uuid ?? .NIL
+        project.filter.companyId = companySelectField.selectedCompany?.id ?? 0
         project.saveData()
         delegate?.filterChanged()
         return true

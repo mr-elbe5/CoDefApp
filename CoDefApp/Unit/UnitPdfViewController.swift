@@ -59,7 +59,7 @@ extension PDFRenderer {
             addLine(label: "issues".localize(), image: img, maxHeight: 0)
         }
         addSpacer()
-        for issue in scope.filteredIssues{
+        for issue in scope.filteredDefects{
             addLine()
             addLine(text: "issue".localize(), type: .header3)
             addLine(label: "context".localize(), text: "issueContext".localize(param1: scope.project?.name ?? "", param2: scope.name))

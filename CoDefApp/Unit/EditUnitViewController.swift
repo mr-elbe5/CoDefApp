@@ -126,7 +126,7 @@ class EditUnitViewController: EditViewController {
     private func updatePlanImage(image: ImageFile){
         if scope.plan != nil{
             self.showDestructiveApprove(text: "planReplaceInfo".localize()){
-                for issue in self.scope.issues{
+                for issue in self.scope.defects{
                     issue.position = .zero
                     issue.planImage = nil
                 }

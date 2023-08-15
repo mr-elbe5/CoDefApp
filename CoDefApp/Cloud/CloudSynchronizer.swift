@@ -12,7 +12,7 @@ class CloudSynchronizer{
     static var shared = CloudSynchronizer()
     
     func loadProjects(syncResult: SyncResult) async{
-        let requestUrl = CloudData.shared.serverURL+"/api/project/getProjects"
+        let requestUrl = AppState.shared.serverURL+"/api/project/getProjects"
         let params = Dictionary<String,String>()
         do{
             if let projectList: AppData = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
@@ -22,7 +22,7 @@ class CloudSynchronizer{
                     for project in projectList.projects{
                         syncResult.scopesLoaded += project.scopes.count
                         for scope in project.scopes{
-                            syncResult.issuesLoaded += scope.issues.count
+                            syncResult.issuesLoaded += scope.defects.count
                         }
                     }
                 }
@@ -46,7 +46,7 @@ class CloudSynchronizer{
             return uiImage
         }
         //print("file needs downloading")
-        let serverUrl = CloudData.shared.serverURL+"/api/image/download/" + image.uuid.uuidString
+        let serverUrl = AppState.shared.serverURL+"/api/image/download/" + String(image.id)
         let params = [
             "scale" : "100"
         ]
@@ -71,7 +71,7 @@ class CloudSynchronizer{
             return
         }
         //print("file needs downloading")
-        let serverUrl = CloudData.shared.serverURL+"/api/image/download/" + image.uuid.uuidString
+        let serverUrl = AppState.shared.serverURL+"/api/image/download/" + String(image.id)
         let params = [
             "scale" : "100"
         ]
@@ -105,7 +105,7 @@ class CloudSynchronizer{
                             }
                         }
                     }
-                    for issue in scope.issues{
+                    for issue in scope.defects{
                         for image in issue.images{
                             taskGroup.addTask{
                                 do{
@@ -146,7 +146,7 @@ class CloudSynchronizer{
         var count = 0
         for project in AppData.shared.projects{
             for scope in project.scopes{
-                for issue in scope.issues{
+                for issue in scope.defects{
                     if !issue.synchronized{
                         count += 1
                     }
@@ -165,11 +165,11 @@ class CloudSynchronizer{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
                 for scope in project.scopes{
-                    for issue in scope.issues{
+                    for issue in scope.defects{
                         if !issue.synchronized{
                             taskGroup.addTask{
                                 do{
-                                    try await self.uploadIssue(issue: issue, scopeCloudId: scope.cloudId, syncResult: syncResult)
+                                    try await self.uploadIssue(issue: issue, scopeCloudId: scope.id, syncResult: syncResult)
                                     await MainActor.run{
                                         syncResult.newElementsCount -= 1
                                     }
@@ -186,7 +186,7 @@ class CloudSynchronizer{
                                 if !feedback.synchronized{
                                     taskGroup.addTask{
                                         do{
-                                            try await self.uploadFeedback(feedback: feedback, issueCloudId: issue.cloudId, syncResult: syncResult)
+                                            try await self.uploadFeedback(feedback: feedback, issueCloudId: issue.id, syncResult: syncResult)
                                             await MainActor.run{
                                                 syncResult.newElementsCount -= 1
                                             }
@@ -207,7 +207,7 @@ class CloudSynchronizer{
     }
     
     func uploadIssue(issue: DefectData, scopeCloudId: Int, syncResult: SyncResult) async throws{
-        let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewIssue/" + String(scopeCloudId)
+        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewIssue/" + String(scopeCloudId)
         var params = issue.asDictionary()
         params["creationDate"] = String(issue.creationDate.millisecondsSince1970)
         if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
@@ -215,7 +215,7 @@ class CloudSynchronizer{
             await MainActor.run{
                 syncResult.feedbacksUploaded += 1
             }
-            issue.cloudId = response.id
+            issue.id = response.id
             issue.displayId = response.id
             await withTaskGroup(of: Void.self){ taskGroup in
                 var count = 0
@@ -260,8 +260,8 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadFeedback(feedback: ProcessingStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
-        let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
+    func uploadFeedback(feedback: DefectStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
+        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
         var params = feedback.getUploadParams()
         params["creationDate"] = String(feedback.creationDate.millisecondsSince1970)
         params["issueId"] = String(issueCloudId)
@@ -271,7 +271,7 @@ class CloudSynchronizer{
             await MainActor.run{
                 syncResult.feedbacksUploaded += 1
             }
-            feedback.cloudId = response.id
+            feedback.id = response.id
             await withTaskGroup(of: Void.self){ taskGroup in
                 var count = 0
                 for image in feedback.images{
@@ -319,25 +319,25 @@ class CloudSynchronizer{
     }
     
     func uploadIssueImage(image: ImageFile, issueCloudId: Int, count: Int) async throws -> Bool{
-        let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewIssueImage/" + String(issueCloudId)
+        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewIssueImage/" + String(issueCloudId)
         let newFileName = "img-\(issueCloudId)-\(count).jpg"
         //print("get image \(newFileName)")
         let uiImage = image.getImage()
         if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: newFileName) {
             //print("issue image uploaded with id \(response.id)")
-            image.cloudId = response.id
+            image.id = response.id
             return true
         }
         return false
     }
     
     func uploadFeedbackImage(image: ImageFile, feedbackCloudId: Int, count: Int) async throws -> Bool{
-        let requestUrl = CloudData.shared.serverURL+"/api/defect/uploadNewFeedbackImage/" + String(feedbackCloudId)
+        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedbackImage/" + String(feedbackCloudId)
         let newFileName = "img-\(feedbackCloudId)-\(count).jpg"
         let uiImage = image.getImage()
         if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: newFileName) {
             //print("feedback image uploaded with id \(response.id)")
-            image.cloudId = response.id
+            image.id = response.id
             return true
         }
         return false

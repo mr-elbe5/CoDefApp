@@ -13,31 +13,31 @@ class UnitData : BaseData{
         case name
         case description
         case plan
-        case issues
+        case defects
     }
     
     var name = ""
     var description = ""
     var plan: ImageFile? = nil
-    var issues = Array<DefectData>()
+    var defects = Array<DefectData>()
     
-    var project: ProjectData? = nil
+    var project: ProjectData!
     
-    var projectUsers: UserList{
-        project?.users ?? UserList()
+    var projectCompanies: CompanyList{
+        project.companies
     }
     
     var isFilterActive: Bool{
         project?.isFilterActive ?? false
     }
     
-    var filteredIssues: Array<DefectData>{
+    var filteredDefects: Array<DefectData>{
         if let project = project{
             if !project.filter.active{
-                return issues
+                return defects
             }
             var list = Array<DefectData>()
-            for issue in issues {
+            for issue in defects {
                 if  issue.isInFilter(filter: project.filter){
                     list.append(issue)
                 }
@@ -57,8 +57,8 @@ class UnitData : BaseData{
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? "name"
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         plan = try values.decodeIfPresent(ImageFile.self, forKey: .plan)
-        issues = try values.decodeIfPresent(Array<DefectData>.self, forKey: .issues) ?? Array<DefectData>()
-        for issue in issues{
+        defects = try values.decodeIfPresent(Array<DefectData>.self, forKey: .defects) ?? Array<DefectData>()
+        for issue in defects{
             issue.unit = self
         }
     }
@@ -71,7 +71,7 @@ class UnitData : BaseData{
         if let plan = plan{
             try container.encode(plan, forKey: .plan)
         }
-        try container.encode(issues, forKey: .issues)
+        try container.encode(defects, forKey: .defects)
     }
     
     override func asDictionary() -> Dictionary<String,String>{
@@ -81,9 +81,9 @@ class UnitData : BaseData{
         return dict
     }
     
-    func removeIssue(_ issue: DefectData){
+    func removeDefect(_ issue: DefectData){
         issue.removeAll()
-        issues.remove(obj: issue)
+        defects.remove(obj: issue)
     }
     
     func setPlan(image: ImageFile){
@@ -105,9 +105,9 @@ class UnitData : BaseData{
             let rect = CGRect(x: 0 , y: 0, width: image.size.width, height: image.size.height)
             if let imageRef = image.cgImage{
                 if let context = imageRef.copyContext(), let arrow = UIImage(named: "redArrow")?.cgImage{
-                    for issue in filteredIssues{
-                        let x = rect.width * issue.position.x
-                        let y = rect.height - rect.height * issue.position.y
+                    for defect in filteredDefects{
+                        let x = rect.width * defect.position.x
+                        let y = rect.height - rect.height * defect.position.y
                         context.draw(arrow, in: CGRect(x: Int(x) - arrow.width/2, y: Int(y) - arrow.height, width: arrow.width, height: arrow.height))
                     }
                     if let img = context.makeImage(){
@@ -121,15 +121,15 @@ class UnitData : BaseData{
     
     func removeAll(){
         deletePlan()
-        for issue in issues{
+        for issue in defects{
             issue.removeAll()
         }
-        issues.removeAll()
+        defects.removeAll()
     }
     
-    func canRemoveUser(userId: UUID) -> Bool{
-        for issue in issues{
-            if !issue.canRemoveUser(userId: userId){
+    func canRemoveCompany(companyId: Int) -> Bool{
+        for issue in defects{
+            if !issue.canRemoveUser(companyId: companyId){
                 return false
             }
         }
@@ -137,10 +137,10 @@ class UnitData : BaseData{
     }
     
     func isInFilter(filter: Filter) -> Bool{
-        if issues.isEmpty{
+        if defects.isEmpty{
             return true
         }
-        for issue in issues {
+        for issue in defects {
             if issue.isInFilter(filter: filter){
                 return true
             }
@@ -153,14 +153,10 @@ class UnitData : BaseData{
         if let plan = plan{
             names.append(plan.fileName)
         }
-        for issue in issues {
+        for issue in defects {
             names.append(contentsOf: issue.getUsedImageNames())
         }
         return names
-    }
-    
-    override func hasUserEditRights(userId: UUID) -> Bool{
-        super.hasUserEditRights(userId: userId) || (project?.hasUserEditRights(userId: userId) ?? false)
     }
     
 }

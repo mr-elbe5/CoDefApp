@@ -62,7 +62,7 @@ extension PDFRenderer {
         addLine(label: "creator".localize(), text: defect.creatorName)
         addLine(label: "creationDate".localize(), text: defect.creationDate.dateString())
         addLine(label: "status".localize(), text: defect.status.rawValue.localize())
-        addLine(label: "assignedTo".localize(), text: defect.assignedUserName)
+        addLine(label: "assignedTo".localize(), text: defect.assignedCompanyName)
         addLine(label: "dueDate".localize(), text: defect.dueDate.dateTimeString())
         defect.assertPlanImage()
         if let img = defect.planImage{
@@ -82,13 +82,13 @@ extension PDFRenderer {
         }
     }
     
-    func addProcessingStatusContent(processingStatus: ProcessingStatusData){
+    func addProcessingStatusContent(processingStatus: DefectStatusData){
         addLine(label: "on".localize(), text: processingStatus.creationDate.dateTimeString())
-        addLine(label: "previousAssignment".localize(), text: processingStatus.previousAssignedUserName)
+        addLine(label: "previousAssignment".localize(), text: processingStatus.previousAssignedCompanyName)
         addLine(label: "comment".localize(), text: processingStatus.comment)
         
         addLine(label: "status".localize(), text: processingStatus.status.rawValue.localize())
-        addLine(label: "newAssignment".localize(), text: processingStatus.assignedUserName)
+        addLine(label: "newAssignment".localize(), text: processingStatus.assignedCompanyName)
         if !processingStatus.images.isEmpty{
             addLine(label: "images".localize(), text: "")
             addLine(label: "", images: processingStatus.images, maxHeight: pageRect.height * 0.2)

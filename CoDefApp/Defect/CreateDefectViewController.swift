@@ -12,7 +12,7 @@ class CreateDefectViewController: EditDefectViewController {
     var unit: UnitData
     
     var statusField = LabeledDefectStatusSelectView()
-    var assignField = LabeledUserSelectField()
+    var assignField = LabeledCompanySelectField()
     var dueDateField = LabeledDatePicker()
     
     override var infoViewController: InfoViewController?{
@@ -51,7 +51,7 @@ class CreateDefectViewController: EditDefectViewController {
         contentView.addSubviewAtTop(statusField, topView: lotField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupUsers(users: defect.projectUsers, currentUserId: defect.assignedUserId)
+        assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedCompanyId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -98,12 +98,12 @@ class CreateDefectViewController: EditDefectViewController {
             defect.description = descriptionField.text
             defect.lot = lotField.text
             defect.assertDisplayId()
-            defect.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
+            defect.assignedCompanyId = assignField.selectedCompany?.id ?? 0
             defect.notified = notifiedField.isOn
             defect.dueDate = dueDateField.date
             defect.status = statusField.selectedStatus
-            unit.issues.append(defect)
-            defect.isNew = false
+            unit.defects.append(defect)
+            defect.synchronized = false
             defect.changed()
             unit.changed()
             unit.saveData()

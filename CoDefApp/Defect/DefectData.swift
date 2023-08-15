@@ -40,7 +40,7 @@ class DefectData : BaseData{
         case name
         case description
         case status
-        case assignedUserId
+        case assignedCompanyId
         case notified
         case dueDate
         case lot
@@ -56,7 +56,7 @@ class DefectData : BaseData{
     var description = ""
     var lot = ""
     var status = DefectStatus.open
-    var assignedUserId: UUID = .NIL
+    var assignedCompanyId: Int = 0
     var notified = false
     var dueDate = Date()
     var position: CGPoint = .zero
@@ -64,22 +64,22 @@ class DefectData : BaseData{
     
     var images = Array<ImageFile>()
     
-    var processingStatuses = Array<ProcessingStatusData>()
+    var processingStatuses = Array<DefectStatusData>()
     
     var planImage: UIImage? = nil
     
-    var unit: UnitData? = nil
+    var unit: UnitData!
     
     var hasValidPosition : Bool{
         position != .zero
     }
     
-    var assignedUser : UserData?{
-        processingStatuses.last?.assignedUser
+    var assignedCompany : CompanyData?{
+        processingStatuses.last?.assignedCompany
     }
     
-    var assignedUserName : String{
-        processingStatuses.last?.assignedUserName ?? ""
+    var assignedCompanyName : String{
+        assignedCompany?.name ?? ""
     }
     
     var isOpen: Bool{
@@ -90,12 +90,12 @@ class DefectData : BaseData{
         dueDate < Date()
     }
     
-    var project: ProjectData?{
-        unit?.project
+    var project: ProjectData{
+        unit.project
     }
     
-    var projectUsers: UserList{
-        project?.users ?? UserList()
+    var projectUsers: CompanyList{
+        project.companies
     }
     
     override init(){
@@ -115,14 +115,14 @@ class DefectData : BaseData{
         else{
             status = DefectStatus.open
         }
-        assignedUserId = try values.decodeIfPresent(UUID.self, forKey: .assignedUserId) ?? .NIL
+        assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
         dueDate = try values.decodeIfPresent(Date.self, forKey: .dueDate) ?? Date.now
         position.x = try values.decodeIfPresent(Double.self, forKey: .positionX) ?? 0.0
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
         images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
-        processingStatuses = try values.decodeIfPresent(Array<ProcessingStatusData>.self, forKey: .processingStatuses) ?? Array<ProcessingStatusData>()
+        processingStatuses = try values.decodeIfPresent(Array<DefectStatusData>.self, forKey: .processingStatuses) ?? Array<DefectStatusData>()
         for feedback in processingStatuses{
             feedback.defect = self
         }
@@ -137,7 +137,7 @@ class DefectData : BaseData{
         try container.encode(description, forKey: .description)
         try container.encode(lot, forKey: .lot)
         try container.encode(status.rawValue, forKey: .status)
-        try container.encode(assignedUserId, forKey: .assignedUserId)
+        try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(notified, forKey: .notified)
         try container.encode(dueDate, forKey: .dueDate)
         try container.encode(position.x, forKey: .positionX)
@@ -167,7 +167,7 @@ class DefectData : BaseData{
         }
     }
     
-    func removeFeedback(_ feedback: ProcessingStatusData){
+    func removeFeedback(_ feedback: DefectStatusData){
         feedback.removeAll()
         processingStatuses.remove(obj: feedback)
     }
@@ -210,12 +210,12 @@ class DefectData : BaseData{
         }
     }
     
-    func canRemoveUser(userId: UUID) -> Bool{
-        if assignedUserId == userId{
+    func canRemoveUser(companyId: Int) -> Bool{
+        if assignedCompanyId == companyId{
             return false
         }
         for feedback in processingStatuses{
-            if feedback.assignedUserId == userId{
+            if feedback.assignedCompanyId == companyId{
                 return false
             }
         }
@@ -229,7 +229,7 @@ class DefectData : BaseData{
         if filter.onlyOverdue && !isOverdue{
             return false
         }
-        if filter.userId != .NIL && filter.userId != assignedUserId{
+        if filter.companyId != 0 && filter.companyId != assignedCompanyId{
             return false
         }
         return true
@@ -244,10 +244,6 @@ class DefectData : BaseData{
             names.append(contentsOf: feedback.getUsedImageNames())
         }
         return names
-    }
-    
-    override func hasUserEditRights(userId: UUID) -> Bool{
-        super.hasUserEditRights(userId: userId) || (unit?.hasUserEditRights(userId: userId) ?? false)
     }
     
 }

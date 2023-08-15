@@ -15,9 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FileController.initialize()
         FileController.initializeDirectories()
         //FileController.logFileInfo()
-        DefectData.loadNextDisplayId()
-        CurrentUser.load()
-        CloudData.load()
+        AppState.load()
         AppData.load()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         mainWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
@@ -39,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        CloudData.shared.save()
+        AppState.shared.save()
         AppData.shared.save()
         //Log.info("SceneDelegate will resign active")
     }

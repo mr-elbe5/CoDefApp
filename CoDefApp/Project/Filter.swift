@@ -9,21 +9,21 @@ import Foundation
 class Filter: NSObject, Codable{
     
     enum CodingKeys: String, CodingKey {
-        case userId
+        case companyId
         case onlyOpen
         case onlyOverdue
     }
     
-    var userId : UUID
+    var companyId : Int
     var onlyOpen: Bool
     var onlyOverdue: Bool
     
     var active: Bool{
-        userId != .NIL || onlyOpen || onlyOverdue
+        companyId != 0 || onlyOpen || onlyOverdue
     }
     
     override init(){
-        self.userId = .NIL
+        self.companyId = 0
         onlyOpen = false
         onlyOverdue = false
         super.init()
@@ -31,25 +31,25 @@ class Filter: NSObject, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        userId = try values.decodeIfPresent(UUID.self, forKey: .userId) ?? .NIL
+        companyId = try values.decodeIfPresent(Int.self, forKey: .companyId) ?? 0
         onlyOpen = try values.decodeIfPresent(Bool.self, forKey: .onlyOpen) ?? false
         onlyOverdue = try values.decodeIfPresent(Bool.self, forKey: .onlyOverdue) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(userId, forKey: .userId)
+        try container.encode(companyId, forKey: .companyId)
         try container.encode(onlyOpen, forKey: .onlyOpen)
         try container.encode(onlyOverdue, forKey: .onlyOverdue)
     }
     
-    func onlyForUserId(uuid: UUID) -> Bool{
-        return userId == uuid
+    func onlyForCompanyId(id: Int) -> Bool{
+        return companyId == id
     }
     
-    func updateUserIds(allUserIds: Array<UUID>){
-        if !allUserIds.contains(userId){
-            userId = .NIL
+    func updateCompanyIds(allCompanyIds: Array<Int>){
+        if !allCompanyIds.contains(companyId){
+            companyId = 0
         }
     }
     

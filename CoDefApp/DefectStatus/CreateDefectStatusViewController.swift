@@ -7,28 +7,28 @@
 import UIKit
 import AVFoundation
 
-class CreateProcessingStatusViewController: EditViewController {
+class CreateDefectStatusViewController: EditViewController {
     
     var defect: DefectData
-    var processingStatus : ProcessingStatusData
+    var defectStatus : DefectStatusData
     
     var delegate: ProcessingStatusDelegate? = nil
     
     var commentField = LabeledTextareaInput()
     var statusField = LabeledDefectStatusSelectView()
-    var assignField = LabeledUserSelectField()
+    var assignField = LabeledCompanySelectField()
     var notifiedField = LabeledCheckbox()
     
     let imageCollectionView: ImageCollectionView
     
     override var infoViewController: InfoViewController?{
-        CreateProcessingStatusInfoViewController()
+        CreateDefectStatusInfoViewController()
     }
     
     init(defect: DefectData){
-        processingStatus = ProcessingStatusData(defect: defect)
+        defectStatus = DefectStatusData(defect: defect)
         self.defect = defect
-        imageCollectionView = ImageCollectionView(images: processingStatus.images, enableDelete: true)
+        imageCollectionView = ImageCollectionView(images: defectStatus.images, enableDelete: true)
         super.init()
     }
     
@@ -42,15 +42,15 @@ class CreateProcessingStatusViewController: EditViewController {
     }
     
     override func setupContentView() {
-        commentField.setupView(labelText: "comment".localizeWithColonAsMandatory(), text: processingStatus.comment)
+        commentField.setupView(labelText: "comment".localizeWithColonAsMandatory(), text: defectStatus.comment)
         contentView.addSubviewAtTop(commentField)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: processingStatus.status)
+        statusField.setupStatuses(currentStatus: defectStatus.status)
         contentView.addSubviewAtTop(statusField, topView: commentField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupUsers(users: processingStatus.projectUsers, currentUserId: processingStatus.assignedUserId)
+        assignField.setupCompanies(companies: defectStatus.projectCompanies, currentCompanyId: defectStatus.assignedCompanyId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -61,23 +61,23 @@ class CreateProcessingStatusViewController: EditViewController {
     }
     
     override func deleteImageData(image: ImageFile) {
-        processingStatus.images.remove(obj: image)
-        processingStatus.changed()
-        processingStatus.saveData()
+        defectStatus.images.remove(obj: image)
+        defectStatus.changed()
+        defectStatus.saveData()
         self.imageCollectionView.images.remove(obj: image)
         self.imageCollectionView.reloadData()
     }
     
     override func save() -> Bool{
         if !commentField.text.isEmpty{
-            processingStatus.comment = commentField.text
-            processingStatus.status = statusField.selectedStatus
-            processingStatus.assignedUserId = assignField.selectedUser?.uuid ?? .NIL
-            defect.processingStatuses.append(processingStatus)
-            defect.status = processingStatus.status
-            defect.assignedUserId = processingStatus.assignedUserId
+            defectStatus.comment = commentField.text
+            defectStatus.status = statusField.selectedStatus
+            defectStatus.assignedCompanyId = assignField.selectedCompany?.id ?? 0
+            defect.processingStatuses.append(defectStatus)
+            defect.status = defectStatus.status
+            defect.assignedCompanyId = defectStatus.assignedCompanyId
             defect.notified = notifiedField.isOn
-            processingStatus.isNew = false
+            defectStatus.synchronized = false
             defect.changed()
             defect.saveData()
             delegate?.statusChanged()
@@ -94,10 +94,10 @@ class CreateProcessingStatusViewController: EditViewController {
         let image = ImageFile()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            processingStatus.images.append(image)
-            processingStatus.changed()
+            defectStatus.images.append(image)
+            defectStatus.changed()
             imageCollectionView.images.append(image)
-            processingStatus.saveData()
+            defectStatus.saveData()
             imageCollectionView.updateHeightConstraint()
             imageCollectionView.reloadData()
         }
@@ -105,22 +105,22 @@ class CreateProcessingStatusViewController: EditViewController {
     }
     
     override func photoCaptured(photo: ImageFile) {
-        processingStatus.images.append(photo)
-        processingStatus.changed()
+        defectStatus.images.append(photo)
+        defectStatus.changed()
         imageCollectionView.images.append(photo)
-        processingStatus.saveData()
+        defectStatus.saveData()
         imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()
     }
     
 }
 
-class CreateProcessingStatusInfoViewController: InfoViewController {
+class CreateDefectStatusInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("processingStatusEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("processingStatusEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("defectStatusEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("defectStatusEditInfoText".localize()))
     }
     
 }

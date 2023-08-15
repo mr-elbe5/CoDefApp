@@ -44,7 +44,7 @@ class UnitViewController: ScrollViewController {
             let controller = UnitPdfViewController(scope: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if CurrentUser.hasEditRight(for: unit){
+        if AppState.shared.currentUser.hasEditRight{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditUnitViewController(scope: self.unit)
                 controller.delegate = self
@@ -102,7 +102,7 @@ class UnitViewController: ScrollViewController {
         
         let addIssueButton = TextButton(text: "newIssue".localize())
         addIssueButton.addAction(UIAction(){ action in
-            if !self.unit.projectUsers.isEmpty{
+            if !self.unit.projectCompanies.isEmpty{
                 let controller = CreateDefectViewController(unit: self.unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -114,10 +114,10 @@ class UnitViewController: ScrollViewController {
         issueSection.addSubviewCentered(addIssueButton, centerX: issueSection.centerXAnchor, centerY: headerLabel.centerYAnchor)
         
         var lastView: UIView = addIssueButton
-        let filteredIssues = unit.filteredIssues
+        let filteredIssues = unit.filteredDefects
         let filterActive = unit.isFilterActive
         
-        for defect in unit.issues{
+        for defect in unit.defects{
             let sectionLine = FilteredSectionLine(name: defect.name, filtered: filterActive, enabled: filteredIssues.contains(defect), action: UIAction(){ (action) in
                 let controller = DefectViewController(defect: defect)
                 controller.delegate = self

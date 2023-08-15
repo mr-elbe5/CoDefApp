@@ -18,13 +18,13 @@ class MainViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        if CloudData.shared.isLoggedIn(){
+        if AppState.shared.isLoggedIn(){
             items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
                 let controller = CloudViewController()
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
         }
-        if CurrentUser.hasSystemRight(){
+        if AppState.shared.currentUser.hasSystemRight{
             let backupAction = UIAction(title: "createBackup".localize()){ action in
                 self.backup()
             }
@@ -57,7 +57,7 @@ class MainViewController: ScrollViewController {
         setupProjectSection()
         contentView.addSubviewAtTop(userSection, topView: projectSection)
             .bottom(contentView.bottomAnchor)
-        if CurrentUser.instance.hasSystemRight{
+        if AppState.shared.currentUser.hasSystemRight{
             setupUserSection()
         }
     }
@@ -94,9 +94,9 @@ class MainViewController: ScrollViewController {
         userSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         
-        for user in AppData.shared.users{
-            let sectionLine = SectionLine(name: user.name, action: UIAction(){ action in
-                let controller = UserViewController(user: user)
+        for company in AppData.shared.companies{
+            let sectionLine = SectionLine(name: company.name, action: UIAction(){ action in
+                let controller = CompanyViewController(company: company)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             })
@@ -123,7 +123,7 @@ class MainViewController: ScrollViewController {
     }
     
     func openAddUser(){
-        let controller = EditUserViewController(user: UserData())
+        let controller = EditCompanyViewController(company: CompanyData())
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
     }
@@ -170,9 +170,9 @@ extension MainViewController: ProjectDelegate{
     
 }
 
-extension MainViewController: UserDelegate{
+extension MainViewController: CompanyDelegate{
     
-    func userChanged() {
+    func companyChanged() {
         updateUserSection()
     }
     

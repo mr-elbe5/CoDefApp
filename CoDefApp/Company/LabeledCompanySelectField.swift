@@ -6,17 +6,17 @@
 
 import UIKit
 
-class LabeledUserSelectField : LabeledRadioGroup{
+class LabeledCompanySelectField : LabeledRadioGroup{
     
-    var users: UserList? = nil
+    var companies: CompanyList? = nil
     
-    func setupUsers(users: UserList, currentUserId: UUID = .NIL, includingNobody: Bool = false){
-        self.users = users
+    func setupCompanies(companies: CompanyList, currentCompanyId: Int = 0, includingNobody: Bool = false){
+        self.companies = companies
         var values = Array<String>()
         var currentIndex = -1
-        for user in users{
-            values.append(user.name)
-            if user.uuid == currentUserId{
+        for company in companies{
+            values.append(company.name)
+            if company.id == currentCompanyId{
                 currentIndex = values.count - 1
             }
         }
@@ -26,9 +26,9 @@ class LabeledUserSelectField : LabeledRadioGroup{
         }
     }
     
-    var selectedUser: UserData?{
-        if selectedIndex != -1, let users = users{
-            return users[selectedIndex]
+    var selectedCompany: CompanyData?{
+        if selectedIndex != -1, let companies = companies{
+            return companies[selectedIndex]
         }
         return nil
     }

@@ -29,11 +29,11 @@ class AppData : Codable{
     
     enum CodingKeys: String, CodingKey {
         case projects
-        case users
+        case companies
     }
     
     var projects = Array<ProjectData>()
-    var users = UserList()
+    var companies = CompanyList()
     
     var usedImageNames: Array<String>{
         var names = Array<String>()
@@ -48,19 +48,19 @@ class AppData : Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        users = try values.decodeIfPresent(UserList.self, forKey: .users) ?? UserList()
+        companies = try values.decodeIfPresent(CompanyList.self, forKey: .companies) ?? CompanyList()
         projects = try values.decodeIfPresent(Array<ProjectData>.self, forKey: .projects) ?? Array<ProjectData>()
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(projects, forKey: .projects)
-        try container.encode(users, forKey: .users)
+        try container.encode(companies, forKey: .companies)
     }
     
     func updateProjectUsers(){
         for project in projects {
-            project.updateUsers()
+            project.updateCompanies()
         }
     }
     
@@ -73,34 +73,34 @@ class AppData : Codable{
         projects.remove(obj: project)
     }
     
-    func addUser(_ user: UserData){
-        users.append(user)
+    func addUser(_ user: CompanyData){
+        companies.append(user)
     }
     
-    func getUser(uuid: UUID) -> UserData?{
-        for user in users{
-            if user.uuid == uuid{
+    func getUser(id: Int) -> CompanyData?{
+        for user in companies{
+            if user.id == id{
                 return user
             }
         }
         return nil
     }
     
-    func removeUser(_ user: UserData) -> Bool{
-        if canRemoveUser(userId: user.uuid){
-            users.remove(obj: user)
+    func removeUser(_ user: CompanyData) -> Bool{
+        if canRemoveUser(userId: user.id){
+            companies.remove(obj: user)
             for project in projects {
-                project.userIds.remove(obj: user.uuid)
-                project.updateUsers()
+                project.companyIds.remove(obj: user.id)
+                project.updateCompanies()
             }
             return true
         }
         return false
     }
     
-    func canRemoveUser(userId: UUID) -> Bool{
+    func canRemoveUser(userId: Int) -> Bool{
         for project in projects {
-            if project.userIds.contains(userId){
+            if project.companyIds.contains(userId){
                 return false
             }
         }

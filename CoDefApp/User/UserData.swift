@@ -6,98 +6,57 @@
 
 import Foundation
 
-class UserData: BaseData{
+class UserData: Codable{
     
-    static var anonymousUserId = UUID.NIL
+    static var anonymousUserId = 0
     static var anonymousUser = UserData(id: anonymousUserId, name: "anonymous".localize())
     
     enum CodingKeys: String, CodingKey {
+        case id
+        case login
         case name
-        case email
-        case street
-        case zipCode
-        case city
-        case phone
-        case notes
-        case rights
+        case token
     }
     
-    var name = ""
-    var street = ""
-    var zipCode = ""
-    var city = ""
-    var email = ""
-    var phone = ""
-    var notes = ""
-    var rights = Rights()
+    var id : Int
+    var login: String
+    var name: String
+    var token: String? = nil
     
-    var hasProjectEditRight: Bool{
-        rights.hasProjectEditRight
-    }
-    
-    var hasGlobalEditRight: Bool{
-        rights.hasGlobalEditRight
+    var isLoggedIn: Bool{
+        id != 0 && !name.isEmpty && token != nil
     }
     
     var hasSystemRight: Bool{
-        rights.hasSystemRight
+        return true
     }
     
-    override init(){
-        super.init()
+    var hasEditRight: Bool{
+        return true
     }
     
-    private init(id: UUID, name: String){
-        super.init(uuid: id)
+    init(id: Int, name: String){
+        self.id = id
         self.name = name
-        self.rights = Rights(projectEdit: true, globalEdit: true, system: true)
+        login = ""
     }
     
     required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(Int.self, forKey: .id) ?? 0
+        login = try values.decodeIfPresent(String.self, forKey: .login) ?? ""
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        street = try values.decodeIfPresent(String.self, forKey: .street) ?? ""
-        zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
-        city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
-        email = try values.decodeIfPresent(String.self, forKey: .email) ?? ""
-        phone = try values.decodeIfPresent(String.self, forKey: .phone) ?? ""
-        notes = try values.decodeIfPresent(String.self, forKey: .notes) ?? ""
-        rights = try values.decodeIfPresent(Rights.self, forKey: .rights) ?? Rights()
+        token = try values.decodeIfPresent(String.self, forKey: .token)
     }
 
-    override func encode(to encoder: Encoder) throws {
-        try super.encode(to: encoder)
+    func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(login, forKey: .login)
         try container.encode(name, forKey: .name)
-        try container.encode(street, forKey: .street)
-        try container.encode(zipCode, forKey: .zipCode)
-        try container.encode(city, forKey: .city)
-        try container.encode(email, forKey: .email)
-        try container.encode(phone, forKey: .phone)
-        try container.encode(notes, forKey: .notes)
-        try container.encode(rights, forKey: .rights)
-    }
-    
-    override func asDictionary() -> Dictionary<String,String>{
-        var dict = super.asDictionary()
-        dict["name"] = name
-        dict["street"] = street
-        dict["zipCode"] = zipCode
-        dict["city"] = city
-        dict["email"] = email
-        dict["phone"] = phone
-        dict["notes"] = notes
-        return dict
+        try container.encode(token, forKey: .token)
     }
  
 }
 
-protocol UserDelegate{
-    func userChanged()
-}
-
-protocol SelectUsersDelegate{
-    func usersSelected()
-}
 

@@ -12,18 +12,18 @@ class ProjectData : BaseData{
         case name
         case description
         case scopes
-        case userIds
+        case companyIds
         case filter
     }
     
     var name = ""
     var description = ""
     var scopes = Array<UnitData>()
-    var userIds = Array<UUID>()
+    var companyIds = Array<Int>()
     var filter = Filter()
     
     //runtime
-    var users = UserList()
+    var companies = CompanyList()
     
     var isFilterActive: Bool{
         filter.active
@@ -55,7 +55,7 @@ class ProjectData : BaseData{
         for scope in scopes{
             scope.project = self
         }
-        userIds = try values.decodeIfPresent(Array<UUID>.self, forKey: .userIds) ?? Array<UUID>()
+        companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
         filter = try values.decodeIfPresent(Filter.self, forKey: .filter) ?? Filter()
     }
 
@@ -65,7 +65,7 @@ class ProjectData : BaseData{
         try container.encode(name, forKey: .name)
         try container.encode(description, forKey: .description)
         try container.encode(scopes, forKey: .scopes)
-        try container.encode(userIds, forKey: .userIds)
+        try container.encode(companyIds, forKey: .companyIds)
         try container.encode(filter, forKey: .filter)
     }
     
@@ -76,45 +76,45 @@ class ProjectData : BaseData{
         return dict
     }
     
-    func updateUsers(){
-        users.removeAll()
-        for user in AppData.shared.users{
-            if userIds.contains(user.uuid){
-                users.append(user)
+    func updateCompanies(){
+        companies.removeAll()
+        for company in AppData.shared.companies{
+            if companyIds.contains(company.id){
+                companies.append(company)
             }
         }
         saveData()
-        filter.updateUserIds(allUserIds: userIds)
+        filter.updateCompanyIds(allCompanyIds: companyIds)
     }
     
     func removeScope(_ scope: UnitData){
         scope.removeAll()
         scopes.remove(obj: scope)
-        updateUsers()
+        updateCompanies()
     }
     
-    func addUserId(_ userId: UUID){
-        if !userIds.contains(userId){
-            userIds.append(userId)
-            updateUsers()
+    func addCompanyId(_ userId: Int){
+        if !companyIds.contains(userId){
+            companyIds.append(userId)
+            updateCompanies()
         }
         saveData()
     }
     
-    func removeUserId(_ userId: UUID) -> Bool{
-        if canRemoveUser(userId: userId){
-            userIds.remove(obj: userId)
-            updateUsers()
-            filter.updateUserIds(allUserIds: userIds)
+    func removeCompanyId(_ companyId: Int) -> Bool{
+        if canRemoveCompany(companyId: companyId){
+            companyIds.remove(obj: companyId)
+            updateCompanies()
+            filter.updateCompanyIds(allCompanyIds: companyIds)
             saveData()
             return true
         }
         return false
     }
     
-    func canRemoveUser(userId: UUID) -> Bool{
+    func canRemoveCompany(companyId: Int) -> Bool{
         for scope in scopes{
-            if !scope.canRemoveUser(userId: userId){
+            if !scope.canRemoveCompany(companyId: companyId){
                 return false
             }
         }

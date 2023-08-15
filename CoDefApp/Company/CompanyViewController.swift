@@ -6,14 +6,14 @@
 
 import UIKit
 
-class UserViewController: ScrollViewController {
+class CompanyViewController: ScrollViewController {
     
-    var user : UserData
+    var company : CompanyData
     
-    var delegate: UserDelegate? = nil
+    var delegate: CompanyDelegate? = nil
     
-    init(user: UserData){
-        self.user = user
+    init(company: CompanyData){
+        self.company = company
         super.init()
     }
     
@@ -22,21 +22,21 @@ class UserViewController: ScrollViewController {
     }
     
     override func loadView() {
-        title = "user".localize()
+        title = "company".localize()
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
-            let controller = EditUserViewController(user: self.user)
+            let controller = EditCompanyViewController(company: self.company)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
             self.showDestructiveApprove(text: "deleteInfo".localize()){
-                if AppData.shared.removeUser(self.user){
+                if AppData.shared.removeUser(self.company){
                     AppData.shared.save()
-                    self.delegate?.userChanged()
+                    self.delegate?.companyChanged()
                     self.navigationController?.popViewController(animated: true)
                 }
                 else{
@@ -60,42 +60,42 @@ class UserViewController: ScrollViewController {
         contentView.addSubviewFilling(dataSection, insets: defaultInsets)
         
         let nameLine = LabeledText()
-        nameLine.setupView(labelText: "name".localizeWithColon(), text: user.name)
+        nameLine.setupView(labelText: "name".localizeWithColon(), text: company.name)
         dataSection.addArrangedSubview(nameLine)
         
         let streetLine = LabeledText()
-        streetLine.setupView(labelText: "street".localizeWithColon(), text: user.street)
+        streetLine.setupView(labelText: "street".localizeWithColon(), text: company.street)
         dataSection.addArrangedSubview(streetLine)
         
         let zipLine = LabeledText()
-        zipLine.setupView(labelText: "zipCode".localizeWithColon(), text: user.zipCode)
+        zipLine.setupView(labelText: "zipCode".localizeWithColon(), text: company.zipCode)
         dataSection.addArrangedSubview(zipLine)
         
         let cityLine = LabeledText()
-        cityLine.setupView(labelText: "city".localizeWithColon(), text: user.city)
+        cityLine.setupView(labelText: "city".localizeWithColon(), text: company.city)
         dataSection.addArrangedSubview(cityLine)
         
         let emailLine = LabeledText()
-        emailLine.setupView(labelText: "email".localizeWithColon(), text: user.email)
+        emailLine.setupView(labelText: "email".localizeWithColon(), text: company.email)
         dataSection.addArrangedSubview(emailLine)
         
         let phoneLine = LabeledText()
-        phoneLine.setupView(labelText: "phone".localizeWithColon(), text: user.phone)
+        phoneLine.setupView(labelText: "phone".localizeWithColon(), text: company.phone)
         dataSection.addArrangedSubview(phoneLine)
         
         let notesLine = LabeledText()
-        notesLine.setupView(labelText: "notes".localizeWithColon(), text: user.notes)
+        notesLine.setupView(labelText: "notes".localizeWithColon(), text: company.notes)
         dataSection.addArrangedSubview(notesLine)
                 
     }
     
 }
 
-extension UserViewController: UserDelegate{
+extension CompanyViewController: CompanyDelegate{
     
-    func userChanged() {
+    func companyChanged() {
         updateContentView()
-        delegate?.userChanged()
+        delegate?.companyChanged()
     }
     
 }

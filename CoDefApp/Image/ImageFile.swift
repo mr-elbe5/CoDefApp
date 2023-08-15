@@ -76,7 +76,7 @@ class ImageFile : BaseData{
     }
     
     func setJpegFileName(){
-        fileName = "img_\(uuid).jpg"
+        fileName = "img_\(id).jpg"
     }
     
     func fileExists() -> Bool{
