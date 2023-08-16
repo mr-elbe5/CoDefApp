@@ -66,6 +66,7 @@ class BaseData: Codable, Hashable, Equatable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
+        try container.encode(cloudId, forKey: .cloudId)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(creatorId, forKey: .creatorId)
         try container.encode(creatorName, forKey: .creatorName)

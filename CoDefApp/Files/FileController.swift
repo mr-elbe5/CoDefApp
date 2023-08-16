@@ -87,6 +87,8 @@ class FileController {
     static func readJsonFile<T : Codable>(storeKey : String) -> T?{
         let url = privateURL.appendingPathComponent(storeKey + ".json")
         if let string = readTextFile(url: url){
+            //print("read")
+            //print(string)
             return T.fromJSON(encoded: string)
         }
         return nil
@@ -130,8 +132,10 @@ class FileController {
     }
     
     @discardableResult
-    static func saveJSONFile(data: Codable, storeKey : String) -> Bool{
+    static func saveJsonFile(data: Codable, storeKey : String) -> Bool{
         let value = data.toJSON()
+        //print("save")
+        //print(value)
         let url = privateURL.appendingPathComponent(storeKey + ".json")
         return saveFile(text: value, url: url)
     }

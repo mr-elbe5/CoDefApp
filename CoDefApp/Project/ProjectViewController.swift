@@ -101,7 +101,7 @@ class ProjectViewController: ScrollViewController {
         let filteredScopes = project.filteredScopes
         let filterActive = project.isFilterActive
 
-        for scope in project.scopes{
+        for scope in project.units{
             let sectionLine = FilteredSectionLine(name: scope.name, filtered: filterActive, enabled: filteredScopes.contains(scope), action: UIAction(){ action in
                 let controller = UnitViewController(scope: scope)
                 controller.delegate = self

@@ -69,9 +69,9 @@
 "settingsSymbolText"="Open settings like cloud connection and others.";
 "mainInfoStructureHeader"="Structure";
 "mainInfoStructureText"="The structure includes projects, units and defects.
-Additionally it includes a pool of companies/lots like e.g. craftsmen for assigning them to one or more projects and there to defects.
+Additionally it includes a pool of companies for assigning them to one or more projects and to their defects.
 
-Projects can be e.g. construction tasks or buildings. From the pool of all companies/lots the relevant ones are assigned to each project.
+Projects can be e.g. construction tasks or buildings. From the pool of all companies the relevant ones are assigned to each project.
 
 Units are parts of the project like a floor or a room. Units can have a (ground )plan, where defects can be marked on.
 
@@ -80,15 +80,15 @@ Defects include a name or short description, a description of the defect, a stat
 Defects are processed using status changes with comment, new status, new assignment and new images or photos.";
 "mainProjectsInfoHeader"="Projects";
 "mainProjectsInfoText"="Here you can select a project or create a new project.";
-"mainCompaniesInfoHeader"="Companies/Lots";
-"mainCompaniesInfoText"="Here you can select a company/lot or create a new one.
-All of them make a pool of companies/lots, which can each be attached to a project.";
+"mainCompaniesInfoHeader"="Companies";
+"mainCompaniesInfoText"="Here you can select a company or create a new one.
+All of them make a pool of companies, which can each be attached to a project.";
 
 /*Projects*/
 "projects"="Projects";
 "project"="Project";
 "newProject"="New Project";
-"selectCompanies"="Select Companies/Lots";
+"selectCompanies"="Select Companies";
 "projectReport"="Project Report";
 
 "projectFilterSymbolText"="Filter project items.";
@@ -97,7 +97,7 @@ All of them make a pool of companies/lots, which can each be attached to a proje
 "projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
 "projectEditInfoHeader"="Edit a project";
 "projectEditInfoText"="The name is mandatory.
-Selected companies/lots are part of this project and can be assigned to defects. At least one is mandatory.";
+Selected companies are part of this project and can be assigned to defects. At least one is mandatory.";
 "projectUnitsInfoHeader"="Project Units";
 "projectUnitsInfoText"="Units are parts of the project like a floor or a room.
 Units can have a (ground) plan, where defects can be marked on.";
@@ -116,7 +116,7 @@ Units can have a (ground) plan, where defects can be marked on.";
 
 Open defects only: Only defects which are not yet closed/done
 Overdue defects only: Only defects with due dates in the past
-Only for the following company: Only defects where the checked company/lot is assigned to";
+Only for the following company: Only defects where the checked company is assigned to";
 
 /*Units*/
 "units"="Units";
@@ -134,7 +134,7 @@ Do want to proceed?";
 "unitPlanInfoHeader"="Unit plan";
 "unitPlanInfoText"="If a unit has a plan, the positions of the defects of that unit are marked with red arrows. Selecting an arrow opens the respective defect.";
 "unitDefectsHeader"="Defects";
-"unitDefectsInfoText"="Defects include a name or short description, a description of the defect, a status, an assignment to a company / lot, a target date, a position and images and/or photos.";
+"unitDefectsInfoText"="Defects include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.";
 "unitSealSymbolText"="This marks a defect when no filter is active.";
 "unitCheckmarkSealSymbolText"="This marks a defect when it has been selected by the filter.";
 "unitXmarkSealSymbolText"="This marks a defect when it has been deselected by the filter. You cannot select it.";
@@ -172,7 +172,7 @@ Do want to proceed?";
 "defectPositionInfoHeader"="Mark a position";
 "defectPositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
 
-/*Statuses*/
+/*StatusChanges*/
 "statusChanges"="Status Changes";
 "statusChange"="Statu Change";
 "addStatusChange"="Document a Status Change";
@@ -184,9 +184,9 @@ Do want to proceed?";
 "statusChangeEditInfoText"="The comment is mandatory.";
 
 /*Companies*/
-"companies"="Companies/Lots";
-"company"="Company/Lot";
-"newCompany"="New Company/Lot";
+"companies"="Companies";
+"company"="Company";
+"newCompany"="New Company";
 "street"="Street";
 "zipCode"="Zip Code";
 "city"="City";
@@ -196,9 +196,9 @@ Do want to proceed?";
 "nobody"="Nobody";
 "anonymous"="N.N.";
 
-"companyEditSymbolText"="Change data of a company/lot.";
-"companyDeleteSymbolText"="Delete a company/lot. This is not possible, if there is already an assignment to a project or issue.";
-"companyEditInfoHeader"="Create or edit a company/lot";
+"companyEditSymbolText"="Change data of a company.";
+"companyDeleteSymbolText"="Delete a company. This is not possible, if there is already an assignment to a project or issue.";
+"companyEditInfoHeader"="Create or edit a company";
 "companyEditInfoText"="A name is mandatory.
 
 An email should be entered, if the company should be notified or receive documents by email.

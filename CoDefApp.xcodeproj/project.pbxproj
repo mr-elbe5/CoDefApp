@@ -120,11 +120,11 @@
 		4EA397EA2A8550BB006053A0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E32A8550BB006053A0 /* SceneDelegate.swift */; };
 		4EA397EC2A8550BB006053A0 /* Statics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E52A8550BB006053A0 /* Statics.swift */; };
 		4EA397ED2A8550BB006053A0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E62A8550BB006053A0 /* AppDelegate.swift */; };
-		4EA397EE2A8550BB006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E72A8550BB006053A0 /* Log.swift */; };
 		4EA397EF2A8550BB006053A0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E82A8550BB006053A0 /* AppData.swift */; };
 		4EA397F02A8550BB006053A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397E92A8550BB006053A0 /* MainViewController.swift */; };
 		4EA397F32A855197006053A0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA397F22A855197006053A0 /* Zip */; };
 		4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F52A8B69A7006053A0 /* AppState.swift */; };
+		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -245,10 +245,10 @@
 		4EA397E32A8550BB006053A0 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4EA397E52A8550BB006053A0 /* Statics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statics.swift; sourceTree = "<group>"; };
 		4EA397E62A8550BB006053A0 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4EA397E72A8550BB006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4EA397E82A8550BB006053A0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		4EA397E92A8550BB006053A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4EA397F52A8B69A7006053A0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,10 +309,10 @@
 		4EA396F02A854D55006053A0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4EA397F82A8CCE99006053A0 /* Log.swift */,
 				4EA397E82A8550BB006053A0 /* AppData.swift */,
 				4EA397F52A8B69A7006053A0 /* AppState.swift */,
 				4EA397E62A8550BB006053A0 /* AppDelegate.swift */,
-				4EA397E72A8550BB006053A0 /* Log.swift */,
 				4EA397E92A8550BB006053A0 /* MainViewController.swift */,
 				4EA397E32A8550BB006053A0 /* SceneDelegate.swift */,
 				4EA397E52A8550BB006053A0 /* Statics.swift */,
@@ -604,7 +604,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EA397BD2A85508E006053A0 /* ImageFileView.swift in Sources */,
-				4EA397EE2A8550BB006053A0 /* Log.swift in Sources */,
 				4EA397C42A85509E006053A0 /* FileError.swift in Sources */,
 				4EA397D82A8550AD006053A0 /* Array.swift in Sources */,
 				4EA397ED2A8550BB006053A0 /* AppDelegate.swift in Sources */,
@@ -679,6 +678,7 @@
 				4EA3978F2A855072006053A0 /* LabeledTextareaInput.swift in Sources */,
 				4EA397C22A85509E006053A0 /* DocumentStore.swift in Sources */,
 				4EA397BA2A85508E006053A0 /* PhotoCaptureViewController.swift in Sources */,
+				4EA397F92A8CCE99006053A0 /* Log.swift in Sources */,
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
 				4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */,
 				4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */,

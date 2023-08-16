@@ -108,7 +108,7 @@ class EditUnitViewController: EditViewController {
                 }
             }
             if scope.isNew, let project = scope.project{
-                project.scopes.append(scope)
+                project.units.append(scope)
                 project.changed()
                 scope.isNew = false
             }

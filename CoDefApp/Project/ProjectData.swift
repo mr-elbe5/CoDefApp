@@ -11,14 +11,14 @@ class ProjectData : BaseData{
     enum CodingKeys: String, CodingKey {
         case name
         case description
-        case scopes
+        case units
         case companyIds
         case filter
     }
     
     var name = ""
     var description = ""
-    var scopes = Array<UnitData>()
+    var units = Array<UnitData>()
     var companyIds = Array<Int>()
     var filter = Filter()
     
@@ -31,10 +31,10 @@ class ProjectData : BaseData{
     
     var filteredScopes: Array<UnitData>{
         if !isFilterActive{
-            return scopes
+            return units
         }
         var list = Array<UnitData>()
-        for scope in scopes {
+        for scope in units {
             if  scope.isInFilter(filter: filter){
                 list.append(scope)
             }
@@ -51,8 +51,8 @@ class ProjectData : BaseData{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        scopes = try values.decodeIfPresent(Array<UnitData>.self, forKey: .scopes) ?? Array<UnitData>()
-        for scope in scopes{
+        units = try values.decodeIfPresent(Array<UnitData>.self, forKey: .units) ?? Array<UnitData>()
+        for scope in units{
             scope.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
@@ -64,7 +64,7 @@ class ProjectData : BaseData{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
         try container.encode(description, forKey: .description)
-        try container.encode(scopes, forKey: .scopes)
+        try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
         try container.encode(filter, forKey: .filter)
     }
@@ -89,7 +89,7 @@ class ProjectData : BaseData{
     
     func removeScope(_ scope: UnitData){
         scope.removeAll()
-        scopes.remove(obj: scope)
+        units.remove(obj: scope)
         updateCompanies()
     }
     
@@ -113,7 +113,7 @@ class ProjectData : BaseData{
     }
     
     func canRemoveCompany(companyId: Int) -> Bool{
-        for scope in scopes{
+        for scope in units{
             if !scope.canRemoveCompany(companyId: companyId){
                 return false
             }
@@ -122,16 +122,16 @@ class ProjectData : BaseData{
     }
     
     func removeAll(){
-        for scope in scopes{
+        for scope in units{
             scope.removeAll()
         }
-        scopes.removeAll()
+        units.removeAll()
         saveData()
     }
     
     func getUsedImageNames() -> Array<String>{
         var names = Array<String>()
-        for scope in scopes {
+        for scope in units {
             names.append(contentsOf: scope.getUsedImageNames())
         }
         return names

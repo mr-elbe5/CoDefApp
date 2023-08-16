@@ -11,23 +11,18 @@ class ImageFile : BaseData{
     
     private enum CodingKeys: CodingKey{
         case fileName
+        case originalFileName
     }
     
+    var originalFileName = ""
     var fileName = ""
     
     var filePath : String{
-        if fileName.isEmpty{
-            Log.error("MediaFile file has no name")
-            return ""
-        }
-        return FileController.getPath(dirPath: FileController.imageDirURL.path,fileName: fileName)
+        FileController.getPath(dirPath: FileController.imageDirURL.path,fileName: fileName)
     }
     
     var fileURL : URL{
-        if fileName.isEmpty{
-            Log.error("MediaFile file has no name")
-        }
-        return FileController.getURL(dirURL: FileController.imageDirURL,fileName: fileName)
+        FileController.getURL(dirURL: FileController.imageDirURL,fileName: fileName)
     }
     
     override init(){
@@ -38,45 +33,33 @@ class ImageFile : BaseData{
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         fileName = try values.decode(String.self, forKey: .fileName)
+        originalFileName = try values.decodeIfPresent(String.self, forKey: .originalFileName) ?? ""
     }
     
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(fileName, forKey: .fileName)
+        try container.encode(originalFileName, forKey: .originalFileName)
     }
     
     override func asDictionary() -> Dictionary<String,String>{
         var dict = super.asDictionary()
         dict["fileName"]=fileName
+        dict["originalFileName"]=originalFileName
         return dict
     }
     
     func setFileNameFromURL(_ url: URL){
-        var name = url.lastPathComponent
-        //Log.debug("file name from url is \(name)")
-        fileName = name
-        if fileExists(){
-            Log.info("cannot use file name \(fileName)")
-            var count = 1
-            var ext = ""
-            if let pntPos = name.lastIndex(of: "."){
-                ext = String(name[pntPos...])
-                name = String(name[..<pntPos])
-            }
-            do{
-                fileName = "\(name)(\(count))\(ext)"
-                if !fileExists(){
-                    Log.info("new file name is \(fileName)")
-                    return
-                }
-                count += 1
-            }
-        }
+        originalFileName = url.lastPathComponent
+        let ext = url.pathExtension
+        fileName = "img_\(id)\(ext)"
+        Log.debug("file name from url is \(fileName)/\(originalFileName)")
     }
     
     func setJpegFileName(){
         fileName = "img_\(id).jpg"
+        originalFileName = ""
     }
     
     func fileExists() -> Bool{

@@ -36,8 +36,8 @@ Wollen Sie fortfahren?";
 /*Èrror*/
 "error"="Fehler";
 "mandatoryFieldsError"="Bitte füllen Sie alle Pflichtfelder (*) aus.";
-"noUsersError"="Dieses Projekt hat keine auswählbaren Personen oder Firmen.";
-"userDeleteError"="Sie können diese Person/Firma nicht löschen (bereits zugeordnet).";
+"noUsersError"="Dieses Projekt hat keine auswählbaren Firmen.";
+"userDeleteError"="Sie können diese Firma nicht löschen (bereits zugeordnet).";
 
 "name"="Name";
 "description"="Beschreibung";
@@ -49,7 +49,7 @@ Wollen Sie fortfahren?";
 "report"="Bericht";
 "context"="Kontext";
 "send"="Per Email verschicken";
-"reportSubject"="Bericht vom Bandika Issue Tracker";
+"reportSubject"="Bericht vom Codef Baumängel-Verfolgung";
 "reportAttached"="Der Bericht ist als PDF-Datei angehängt.";
 "saveReport"="Bericht speichern";
 "selectReportFile"="Wählen Sie einen Datei zum Speichern.";
@@ -73,13 +73,13 @@ Unterstützung für die Einrichtung und Nutzung eines zugehörigen Cloud-Servers
 "settingsSymbolText"="Einstellungen wie die Cloud-Verbindung und andere öffnen.";
 "mainInfoStructureHeader"="Struktur";
 "mainInfoStructureText"="Die Struktur umfasst Projekte, Einheiten und Mängel.
-Weiterhin existiert ein Pool von Firmen bzw. Gewerken wie z.B. Handwerksfirmen, die einem oder mehreren Projekten und dort einem Mangel zugeordnet werden können.
+Weiterhin existiert ein Pool von Firmen, die einem oder mehreren Projekten und dort einem Mangel zugeordnet werden können.
 
-Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Firmen bzw. Gewerken zugeordnet.
+Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Firmen zugeordnet.
 
-Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Plan/Grundriss haben, auf dem die Mängel markiert werden.
+Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Grundriss haben, auf dem die Mängel markiert werden.
 
-Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma bzw. Gewerk, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
+Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
 
 Die Bearbeitung von Problemen erfolgt als Statusänderung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
 ";
@@ -93,7 +93,7 @@ Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet we
 "projects"="Projekte";
 "project"="Projekt";
 "newProject"="Neues Projekt";
-"selectCompanies"="Firmen auswählen";
+"selectCompanies"="Firmen zuordnen";
 "projectReport"="Projektbericht";
 
 "projectFilterSymbolText"="Projektelemente filtern.";
@@ -146,11 +146,10 @@ Wollen Sie fortfahren?";
 "scopeEditInfoHeader"="Einen Bereich erstellen oder ändern";
 "scopeEditInfoText"="Der Name ist ein Pflichtfeld.";
 
-/*Issues*/
+/*Defects*/
 "defects"="Mängel";
 "defect"="Mangel";
 "newDefect"="Neuer Mangel";
-"lot"="Gewerk";
 "status"="Status";
 "assignedTo"="Zugeordnet an";
 "notified"="Benachrichtigt";
@@ -174,7 +173,7 @@ Wollen Sie fortfahren?";
 "defectEditInfoHeader"="Einen Mangel dokumentieren oder ändern";
 "defectEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
 "defectPositionInfoHeader"="Eine Position markieren";
-"defectPositionInfoText"="Tippen Sie auf den Plan/Grundriss, bis der rote Pfeil die Position richtiog markiert.";
+"defectPositionInfoText"="Tippen Sie auf den Grundriss, bis der rote Pfeil die Position richtiog markiert.";
 
 /*Statuses*/
 "statusChanges"="Statusänderungen";
@@ -188,10 +187,10 @@ Wollen Sie fortfahren?";
 "statusChangeEditInfoHeader"="Eine neue Statusänderung dokumentieren";
 "statusChangeEditInfoText"="Der Kommentar ist ein Pflichtfeld.";
 
-/*Users*/
-"companies"="Firmen / Gewerke";
-"company"="Firma / Gewerk";
-"newCompany"="Neue Firma / Neues Gewerk";
+/*Companies*/
+"companies"="Firmen";
+"company"="Firma";
+"newCompany"="Neue Firma";
 "street"="Straße";
 "zipCode"="Plz";
 "city"="Stadt";
@@ -201,9 +200,9 @@ Wollen Sie fortfahren?";
 "nobody"="Niemand";
 "anonymous"="N.N.";
 
-"companyEditSymbolText"="Die Daten einer Firma / eines Gewerks ändern.";
-"companyDeleteSymbolText"="Firma / Gewerk löschen. Dies ist nur möglich, wenn noch keine Zuordnung zu einem Projekt oder Mangel vorliegt.";
-"companyEditInfoHeader"="Firma / Gewerk erstellen oder ändern";
+"companyEditSymbolText"="Die Daten einer Firma ändern.";
+"companyDeleteSymbolText"="Firma löschen. Dies ist nur möglich, wenn noch keine Zuordnung zu einem Projekt oder Mangel vorliegt.";
+"companyEditInfoHeader"="Firma erstellen oder ändern";
 "companyEditInfoText"="Der Name ist ein Pflichtfeld.
 
 Eine Email sollte eingetragen werden, wenn die Firma per Email benachrichtigt oder Dokumente geschickt bekommen soll.

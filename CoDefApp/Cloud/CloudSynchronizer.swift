@@ -20,8 +20,8 @@ class CloudSynchronizer{
                 await MainActor.run{
                     syncResult.projectsLoaded = projectList.projects.count
                     for project in projectList.projects{
-                        syncResult.scopesLoaded += project.scopes.count
-                        for scope in project.scopes{
+                        syncResult.scopesLoaded += project.units.count
+                        for scope in project.units{
                             syncResult.issuesLoaded += scope.defects.count
                         }
                     }
@@ -92,7 +92,7 @@ class CloudSynchronizer{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in data.projects{
-                for scope in project.scopes{
+                for scope in project.units{
                     if let plan = scope.plan {
                         taskGroup.addTask{
                             do{
@@ -145,7 +145,7 @@ class CloudSynchronizer{
     func countNewElements() -> Int {
         var count = 0
         for project in AppData.shared.projects{
-            for scope in project.scopes{
+            for scope in project.units{
                 for issue in scope.defects{
                     if !issue.synchronized{
                         count += 1
@@ -164,7 +164,7 @@ class CloudSynchronizer{
     func uploadNewItems(syncResult: SyncResult) async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
-                for scope in project.scopes{
+                for scope in project.units{
                     for issue in scope.defects{
                         if !issue.synchronized{
                             taskGroup.addTask{

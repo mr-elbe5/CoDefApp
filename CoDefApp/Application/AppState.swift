@@ -23,7 +23,7 @@ class AppState : Codable{
     }
     
     func save(){
-        FileController.saveJSONFile(data: self, storeKey: AppState.storeKey)
+        FileController.saveJsonFile(data: self, storeKey: AppState.storeKey)
     }
     
     enum CodingKeys: String, CodingKey {

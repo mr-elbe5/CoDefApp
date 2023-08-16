@@ -24,7 +24,7 @@ class AppData : Codable{
     }
     
     func save(){
-        FileController.saveJSONFile(data: self, storeKey: AppData.storeKey)
+        FileController.saveJsonFile(data: self, storeKey: AppData.storeKey)
     }
     
     enum CodingKeys: String, CodingKey {
