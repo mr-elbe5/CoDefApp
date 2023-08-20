@@ -88,10 +88,8 @@ class DefectStatusData : ContentData{
         try container.encode(images, forKey: .images)
     }
     
-    func getUploadParams() -> Dictionary<String,String>{
-        var dict = Dictionary<String,String>()
-        dict["id"]=String(id)
-        dict["creatorId"]=String(creatorId)
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
         dict["status"]=status.rawValue
         dict["previousAssignedCompanyId"]=String(previousAssignedCompanyId)
         dict["assignedCompanyId"]=String(assignedCompanyId)

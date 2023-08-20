@@ -84,7 +84,7 @@ class CompanyViewController: ScrollViewController {
         dataSection.addArrangedSubview(phoneLine)
         
         let notesLine = LabeledText()
-        notesLine.setupView(labelText: "notes".localizeWithColon(), text: company.notes)
+        notesLine.setupView(labelText: "notes".localizeWithColon(), text: company.description)
         dataSection.addArrangedSubview(notesLine)
                 
     }

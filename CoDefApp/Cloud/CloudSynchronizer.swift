@@ -182,7 +182,7 @@ class CloudSynchronizer{
                                 if !feedback.synchronized{
                                     taskGroup.addTask{
                                         do{
-                                            try await self.uploadFeedback(feedback: feedback, issueCloudId: issue.id, syncResult: syncResult)
+                                            try await self.uploadStatusData(statusData: feedback, issueCloudId: issue.id, syncResult: syncResult)
                                             await MainActor.run{
                                                 syncResult.newElementsCount -= 1
                                             }
@@ -238,7 +238,7 @@ class CloudSynchronizer{
                 for feeedback in issue.statusChanges{
                     if !feeedback.synchronized{
                         do{
-                            try await uploadFeedback(feedback: feeedback, issueCloudId: response.id, syncResult: syncResult)
+                            try await uploadStatusData(statusData: feeedback, issueCloudId: response.id, syncResult: syncResult)
                         }
                         catch{
                             await MainActor.run{
@@ -256,21 +256,21 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadFeedback(feedback: DefectStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
-        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
-        var params = feedback.getUploadParams()
-        params["creationDate"] = String(feedback.creationDate.millisecondsSince1970)
+    func uploadStatusData(statusData: DefectStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
+        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewStatus/" + String(issueCloudId)
+        var params = statusData.uploadParams()
+        params["creationDate"] = String(statusData.creationDate.millisecondsSince1970)
         params["issueId"] = String(issueCloudId)
-        params["dueDate"] = String(feedback.dueDate.millisecondsSince1970)
+        params["dueDate"] = String(statusData.dueDate.millisecondsSince1970)
         if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
             print("feedback \(response.id) uploaded")
             await MainActor.run{
                 syncResult.feedbacksUploaded += 1
             }
-            feedback.id = response.id
+            statusData.id = response.id
             await withTaskGroup(of: Void.self){ taskGroup in
                 var count = 0
-                for image in feedback.images{
+                for image in statusData.images{
                     count += 1
                     do{
                         if try await uploadFeedbackImage(image: image, feedbackCloudId: response.id, count: count){

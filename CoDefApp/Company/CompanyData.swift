@@ -15,7 +15,7 @@ class CompanyData: BaseData{
         case zipCode
         case city
         case phone
-        case notes
+        case description
     }
     
     var name = ""
@@ -24,7 +24,7 @@ class CompanyData: BaseData{
     var city = ""
     var email = ""
     var phone = ""
-    var notes = ""
+    var description = ""
     
     override init(){
         super.init()
@@ -39,7 +39,7 @@ class CompanyData: BaseData{
         city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
         email = try values.decodeIfPresent(String.self, forKey: .email) ?? ""
         phone = try values.decodeIfPresent(String.self, forKey: .phone) ?? ""
-        notes = try values.decodeIfPresent(String.self, forKey: .notes) ?? ""
+        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -51,7 +51,7 @@ class CompanyData: BaseData{
         try container.encode(city, forKey: .city)
         try container.encode(email, forKey: .email)
         try container.encode(phone, forKey: .phone)
-        try container.encode(notes, forKey: .notes)
+        try container.encode(description, forKey: .description)
     }
     
     override func uploadParams() -> Dictionary<String,String>{
@@ -62,7 +62,7 @@ class CompanyData: BaseData{
         dict["city"] = city
         dict["email"] = email
         dict["phone"] = phone
-        dict["notes"] = notes
+        dict["description"] = description
         return dict
     }
  
