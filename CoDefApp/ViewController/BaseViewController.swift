@@ -21,10 +21,10 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .systemBackground
     }
     
-    func deleteImageData(image: ImageFile){
+    func deleteImageData(image: ImageData){
     }
     
-    func shareImage(image: ImageFile) {
+    func shareImage(image: ImageData) {
         let alertController = UIAlertController(title: title, message: "shareImage".localize(), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
             Task{
@@ -44,7 +44,7 @@ class BaseViewController: UIViewController {
 
 extension BaseViewController: ImageFileViewDelegate{
     
-    func viewImage(image: ImageFile, imageDeleteDelegate: ImageFileDeleteDelegate? = nil ) {
+    func viewImage(image: ImageData, imageDeleteDelegate: ImageFileDeleteDelegate? = nil ) {
         let controller = ImageViewController(imageFile: image)
         controller.deleteDelegate = imageDeleteDelegate
         self.navigationController?.pushViewController(controller, animated: true)
@@ -54,7 +54,7 @@ extension BaseViewController: ImageFileViewDelegate{
 
 extension BaseViewController: ImageFileDeleteDelegate{
     
-    func deleteImage(image: ImageFile) {
+    func deleteImage(image: ImageData) {
         self.deleteImageData(image: image)
     }
     

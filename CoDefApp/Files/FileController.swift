@@ -17,17 +17,10 @@ class FileController {
     static var documentURL : URL = FileManager.default.urls(for: .documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
     static var imageLibraryPath: String = NSSearchPathForDirectoriesInDomains(.picturesDirectory,.userDomainMask,true).first!
     static var imageLibraryURL : URL = FileManager.default.urls(for: .picturesDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first!
-    static var imageDirURL : URL = privateURL.appendingPathComponent("images")
+    static var fileDirURL : URL = privateURL.appendingPathComponent("files")
     static var logDirURL = documentURL.appendingPathComponent("logs")
     static var tmpDirURL = URL(fileURLWithPath: tempDir, isDirectory: true).appendingPathComponent("tmp")
     static var logFileURL = logDirURL.appendingPathComponent("log.txt")
-    
-    static func initializeDirectories(){
-        if !FileManager.default.fileExists(atPath: imageDirURL.path){
-            try? FileManager.default.createDirectory(at: imageDirURL, withIntermediateDirectories: true)
-            Log.info("created media directory")
-        }
-    }
     
     static var tmpPath : String{
         tmpDirURL.path
@@ -38,9 +31,10 @@ class FileController {
     }
     
     static func initialize() {
-        try! FileManager.default.createDirectory(at: FileController.privateURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.logDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! FileManager.default.createDirectory(at: FileController.tmpDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: privateURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: logDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true, attributes: nil)
+        try! FileManager.default.createDirectory(at: fileDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     
     static func getPath(dirPath: String, fileName: String ) -> String
@@ -281,15 +275,15 @@ class FileController {
     }
     
     static func deleteImageFiles(){
-        deleteAllFiles(dirURL: imageDirURL)
+        deleteAllFiles(dirURL: fileDirURL)
     }
     
     static func cleanupFiles(usedNames: Array<String>) -> Int{
         var count = 0
-        let names = listAllFiles(dirPath: FileController.imageDirURL.path)
+        let names = listAllFiles(dirPath: FileController.fileDirURL.path)
         for name in names{
             if !usedNames.contains(name){
-                if deleteFile(dirURL: imageDirURL, fileName: name){
+                if deleteFile(dirURL: fileDirURL, fileName: name){
                     print("deleted file: \(name)")
                     count += 1
                 }
@@ -305,7 +299,7 @@ class FileController {
             print(name)
         }
         print("img files:")
-        names = listAllFiles(dirPath: FileController.imageDirURL.path)
+        names = listAllFiles(dirPath: fileDirURL.path)
         for name in names{
             print(name)
         }
@@ -323,7 +317,7 @@ class FileController {
         do {
             var paths = Array<URL>()
             let zipFileURL = tmpDirURL.appendingPathComponent(name)
-            paths.append(imageDirURL)
+            paths.append(fileDirURL)
             paths.append(privateURL.appendingPathComponent(AppData.storeKey + ".json"))
             paths.append(DefectData.storeDisplayIdURL)
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
@@ -361,9 +355,9 @@ class FileController {
         DefectData.loadNextDisplayId()
         copyFile(fromURL: tmpDirURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
         AppData.load()
-        let fileNames = listAllFiles(dirPath: tmpDirURL.appendingPathComponent("images").path)
+        let fileNames = listAllFiles(dirPath: tmpDirURL.appendingPathComponent("files").path)
         for name in fileNames{
-            copyFile(fromURL: tmpDirURL.appendingPathComponent("images").appendingPathComponent(name), toURL: imageDirURL.appendingPathComponent(name), replace: true)
+            copyFile(fromURL: tmpDirURL.appendingPathComponent("files").appendingPathComponent(name), toURL: fileDirURL.appendingPathComponent(name), replace: true)
         }
         deleteTemporaryFiles()
         return true

@@ -6,10 +6,9 @@
 
 import Foundation
 
-class StatusChangeData : BaseData{
+class DefectStatusData : ContentData{
     
     enum CodingKeys: String, CodingKey {
-        case comment
         case status
         case previousAssignedCompanyId
         case assignedCompanyId
@@ -17,13 +16,12 @@ class StatusChangeData : BaseData{
         case images
     }
     
-    var comment = ""
     var status = DefectStatus.open
     var previousAssignedCompanyId: Int = 0
     var assignedCompanyId: Int = 0
     var dueDate = Date()
     
-    var images = Array<ImageFile>()
+    var images = Array<ImageData>()
     
     var defect: DefectData!
     
@@ -68,7 +66,6 @@ class StatusChangeData : BaseData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        comment = try values.decodeIfPresent(String.self, forKey: .comment) ?? ""
         if let s = try values.decodeIfPresent(String.self, forKey: .status){
             status = DefectStatus(rawValue: s) ?? DefectStatus.open
         }
@@ -78,13 +75,12 @@ class StatusChangeData : BaseData{
         previousAssignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .previousAssignedCompanyId) ?? 0
         assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
         dueDate = try values.decodeIfPresent(Date.self, forKey: .dueDate) ?? Date.now
-        images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
+        images = try values.decodeIfPresent(Array<ImageData>.self, forKey: .images) ?? Array<ImageData>()
     }
 
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(comment, forKey: .comment)
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(previousAssignedCompanyId, forKey: .previousAssignedCompanyId)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
@@ -96,7 +92,6 @@ class StatusChangeData : BaseData{
         var dict = Dictionary<String,String>()
         dict["id"]=String(id)
         dict["creatorId"]=String(creatorId)
-        dict["comment"]=String(comment)
         dict["status"]=status.rawValue
         dict["previousAssignedCompanyId"]=String(previousAssignedCompanyId)
         dict["assignedCompanyId"]=String(assignedCompanyId)

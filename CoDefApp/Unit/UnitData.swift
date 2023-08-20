@@ -7,18 +7,14 @@
 import Foundation
 import UIKit
 
-class UnitData : BaseData{
+class UnitData : ContentData{
     
     enum CodingKeys: String, CodingKey {
-        case name
-        case description
         case plan
         case defects
     }
     
-    var name = ""
-    var description = ""
-    var plan: ImageFile? = nil
+    var plan: ImageData? = nil
     var defects = Array<DefectData>()
     
     var project: ProjectData!
@@ -54,9 +50,7 @@ class UnitData : BaseData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decodeIfPresent(String.self, forKey: .name) ?? "name"
-        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
-        plan = try values.decodeIfPresent(ImageFile.self, forKey: .plan)
+        plan = try values.decodeIfPresent(ImageData.self, forKey: .plan)
         defects = try values.decodeIfPresent(Array<DefectData>.self, forKey: .defects) ?? Array<DefectData>()
         for issue in defects{
             issue.unit = self
@@ -66,19 +60,10 @@ class UnitData : BaseData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try container.encode(description, forKey: .description)
         if let plan = plan{
             try container.encode(plan, forKey: .plan)
         }
         try container.encode(defects, forKey: .defects)
-    }
-    
-    override func asDictionary() -> Dictionary<String,String>{
-        var dict = super.asDictionary()
-        dict["name"]=name
-        dict["description"]=description
-        return dict
     }
     
     func removeDefect(_ issue: DefectData){
@@ -86,7 +71,7 @@ class UnitData : BaseData{
         defects.remove(obj: issue)
     }
     
-    func setPlan(image: ImageFile){
+    func setPlan(image: ImageData){
         deletePlan()
         plan = image
     }

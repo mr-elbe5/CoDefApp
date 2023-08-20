@@ -127,7 +127,7 @@ class PDFRenderer {
         nextTop += imageSize.height + lineMargin
     }
     
-    func addLine(label: String, images: Array<ImageFile>, maxHeight: CGFloat, labelType: PDFTextType = .text){
+    func addLine(label: String, images: Array<ImageData>, maxHeight: CGFloat, labelType: PDFTextType = .text){
         let labelText = PDFTextType.attributedText(label, type: labelType)
         let labelHeight = labelText.height(width: labelWidth)
         let labelRect = CGRect(x: contentLeft, y: nextTop, width: labelWidth, height: labelHeight)

@@ -82,7 +82,7 @@ class CreateDefectViewController: EditDefectViewController {
         addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
     }
     
-    override func deleteImageData(image: ImageFile) {
+    override func deleteImageData(image: ImageData) {
         defect.images.remove(obj: image)
         defect.saveData()
         imageCollectionView.images.remove(obj: image)

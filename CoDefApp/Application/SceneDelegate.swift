@@ -13,7 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         //Log.info("SceneDelegate will connect start")
         FileController.initialize()
-        FileController.initializeDirectories()
         //FileController.logFileInfo()
         AppState.load()
         AppData.load()

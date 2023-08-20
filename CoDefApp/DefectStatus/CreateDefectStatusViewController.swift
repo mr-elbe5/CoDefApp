@@ -7,14 +7,14 @@
 import UIKit
 import AVFoundation
 
-class CreateStatusChangeViewController: EditViewController {
+class CreateDefectStatusViewController: EditViewController {
     
     var defect: DefectData
-    var statusChange : StatusChangeData
+    var statusData : DefectStatusData
     
     var delegate: ProcessingStatusChangeDelegate? = nil
     
-    var commentField = LabeledTextareaInput()
+    var descriptionField = LabeledTextareaInput()
     var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledCompanySelectField()
     var notifiedField = LabeledCheckbox()
@@ -22,13 +22,13 @@ class CreateStatusChangeViewController: EditViewController {
     let imageCollectionView: ImageCollectionView
     
     override var infoViewController: InfoViewController?{
-        CreateStatusChangeInfoViewController()
+        CreateStatusDataInfoViewController()
     }
     
     init(defect: DefectData){
-        statusChange = StatusChangeData(defect: defect)
+        statusData = DefectStatusData(defect: defect)
         self.defect = defect
-        imageCollectionView = ImageCollectionView(images: statusChange.images, enableDelete: true)
+        imageCollectionView = ImageCollectionView(images: statusData.images, enableDelete: true)
         super.init()
     }
     
@@ -42,15 +42,15 @@ class CreateStatusChangeViewController: EditViewController {
     }
     
     override func setupContentView() {
-        commentField.setupView(labelText: "comment".localizeWithColonAsMandatory(), text: statusChange.comment)
-        contentView.addSubviewAtTop(commentField)
+        descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: statusData.description)
+        contentView.addSubviewAtTop(descriptionField)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: statusChange.status)
-        contentView.addSubviewAtTop(statusField, topView: commentField)
+        statusField.setupStatuses(currentStatus: statusData.status)
+        contentView.addSubviewAtTop(statusField, topView: descriptionField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupCompanies(companies: statusChange.projectCompanies, currentCompanyId: statusChange.assignedCompanyId)
+        assignField.setupCompanies(companies: statusData.projectCompanies, currentCompanyId: statusData.assignedCompanyId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -60,24 +60,24 @@ class CreateStatusChangeViewController: EditViewController {
         
     }
     
-    override func deleteImageData(image: ImageFile) {
-        statusChange.images.remove(obj: image)
-        statusChange.changed()
-        statusChange.saveData()
+    override func deleteImageData(image: ImageData) {
+        statusData.images.remove(obj: image)
+        statusData.changed()
+        statusData.saveData()
         self.imageCollectionView.images.remove(obj: image)
         self.imageCollectionView.reloadData()
     }
     
     override func save() -> Bool{
-        if !commentField.text.isEmpty{
-            statusChange.comment = commentField.text
-            statusChange.status = statusField.selectedStatus
-            statusChange.assignedCompanyId = assignField.selectedCompany?.id ?? 0
-            defect.statusChanges.append(statusChange)
-            defect.status = statusChange.status
-            defect.assignedCompanyId = statusChange.assignedCompanyId
+        if !descriptionField.text.isEmpty{
+            statusData.description = descriptionField.text
+            statusData.status = statusField.selectedStatus
+            statusData.assignedCompanyId = assignField.selectedCompany?.id ?? 0
+            defect.statusChanges.append(statusData)
+            defect.status = statusData.status
+            defect.assignedCompanyId = statusData.assignedCompanyId
             defect.notified = notifiedField.isOn
-            statusChange.synchronized = false
+            statusData.synchronized = false
             defect.changed()
             defect.saveData()
             delegate?.statusChanged()
@@ -91,36 +91,36 @@ class CreateStatusChangeViewController: EditViewController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageFile()
+        let image = ImageData()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            statusChange.images.append(image)
-            statusChange.changed()
+            statusData.images.append(image)
+            statusData.changed()
             imageCollectionView.images.append(image)
-            statusChange.saveData()
+            statusData.saveData()
             imageCollectionView.updateHeightConstraint()
             imageCollectionView.reloadData()
         }
         picker.dismiss(animated: false)
     }
     
-    override func photoCaptured(photo: ImageFile) {
-        statusChange.images.append(photo)
-        statusChange.changed()
+    override func photoCaptured(photo: ImageData) {
+        statusData.images.append(photo)
+        statusData.changed()
         imageCollectionView.images.append(photo)
-        statusChange.saveData()
+        statusData.saveData()
         imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()
     }
     
 }
 
-class CreateStatusChangeInfoViewController: InfoViewController {
+class CreateStatusDataInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("defectStatusChangeEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("defectStatusChangeEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("defectStatusEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("defectStatusEditInfoText".localize()))
     }
     
 }

@@ -54,8 +54,8 @@ class CompanyData: BaseData{
         try container.encode(notes, forKey: .notes)
     }
     
-    override func asDictionary() -> Dictionary<String,String>{
-        var dict = super.asDictionary()
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
         dict["name"] = name
         dict["street"] = street
         dict["zipCode"] = zipCode

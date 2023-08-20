@@ -6,18 +6,14 @@
 
 import Foundation
 
-class ProjectData : BaseData{
+class ProjectData : ContentData{
     
     enum CodingKeys: String, CodingKey {
-        case name
-        case description
         case units
         case companyIds
         case filter
     }
     
-    var name = ""
-    var description = ""
     var units = Array<UnitData>()
     var companyIds = Array<Int>()
     var filter = Filter()
@@ -49,8 +45,6 @@ class ProjectData : BaseData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         units = try values.decodeIfPresent(Array<UnitData>.self, forKey: .units) ?? Array<UnitData>()
         for scope in units{
             scope.project = self
@@ -62,18 +56,9 @@ class ProjectData : BaseData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(name, forKey: .name)
-        try container.encode(description, forKey: .description)
         try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
         try container.encode(filter, forKey: .filter)
-    }
-    
-    override func asDictionary() -> Dictionary<String,String>{
-        var dict = super.asDictionary()
-        dict["name"]=name
-        dict["description"]=description
-        return dict
     }
     
     func updateCompanies(){

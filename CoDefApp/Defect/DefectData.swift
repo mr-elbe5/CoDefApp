@@ -6,7 +6,7 @@
 
 import UIKit
 
-class DefectData : BaseData{
+class DefectData : ContentData{
     
     public static let planCropSize = CGSize(width: 400, height: 400)
     
@@ -37,8 +37,6 @@ class DefectData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case displayId
-        case name
-        case description
         case status
         case assignedCompanyId
         case notified
@@ -51,8 +49,6 @@ class DefectData : BaseData{
     }
     
     var displayId = 0
-    var name = ""
-    var description = ""
     var status = DefectStatus.open
     var assignedCompanyId: Int = 0
     var notified = false
@@ -60,9 +56,9 @@ class DefectData : BaseData{
     var position: CGPoint = .zero
     var positionComment = ""
     
-    var images = Array<ImageFile>()
+    var images = Array<ImageData>()
     
-    var statusChanges = Array<StatusChangeData>()
+    var statusChanges = Array<DefectStatusData>()
     
     var planImage: UIImage? = nil
     
@@ -104,8 +100,6 @@ class DefectData : BaseData{
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         displayId = try values.decodeIfPresent(Int.self, forKey: .displayId) ?? 0
-        name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
-        description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
         if let s = try values.decodeIfPresent(String.self, forKey: .status){
             status = DefectStatus(rawValue: s) ?? DefectStatus.open
         }
@@ -118,8 +112,8 @@ class DefectData : BaseData{
         position.x = try values.decodeIfPresent(Double.self, forKey: .positionX) ?? 0.0
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
-        images = try values.decodeIfPresent(Array<ImageFile>.self, forKey: .images) ?? Array<ImageFile>()
-        statusChanges = try values.decodeIfPresent(Array<StatusChangeData>.self, forKey: .statusChanges) ?? Array<StatusChangeData>()
+        images = try values.decodeIfPresent(Array<ImageData>.self, forKey: .images) ?? Array<ImageData>()
+        statusChanges = try values.decodeIfPresent(Array<DefectStatusData>.self, forKey: .statusChanges) ?? Array<DefectStatusData>()
         for statusChange in statusChanges{
             statusChange.defect = self
         }
@@ -130,8 +124,6 @@ class DefectData : BaseData{
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(displayId, forKey: .displayId)
-        try container.encode(name, forKey: .name)
-        try container.encode(description, forKey: .description)
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(notified, forKey: .notified)
@@ -143,11 +135,9 @@ class DefectData : BaseData{
         try container.encode(statusChanges, forKey: .statusChanges)
     }
     
-    override func asDictionary() -> Dictionary<String,String>{
-        var dict = super.asDictionary()
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
         dict["displayId"]=String(displayId)
-        dict["name"]=name
-        dict["description"]=description
         dict["status"]=status.rawValue
         dict["dueDate"]=dueDate.isoString()
         dict["positionX"]=String(Double(position.x))
@@ -162,7 +152,7 @@ class DefectData : BaseData{
         }
     }
     
-    func removeStatusChange(_ stausChange: StatusChangeData){
+    func removeStatusChange(_ stausChange: DefectStatusData){
         stausChange.removeAll()
         statusChanges.remove(obj: stausChange)
     }

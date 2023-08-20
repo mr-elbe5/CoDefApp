@@ -94,7 +94,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         
     }
     
-    func photoCaptured(photo: ImageFile) {
+    func photoCaptured(photo: ImageData) {
     }
     
 }

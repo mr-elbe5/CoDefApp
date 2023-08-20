@@ -15,7 +15,7 @@ class EditDefectPositionViewController: ImageViewController {
     
     var positionDelegate: DefectPositionDelegate? = nil
     
-    init(defect: DefectData, plan: ImageFile){
+    init(defect: DefectData, plan: ImageData){
         self.defect.position = defect.position
         marker = DefectMarkerButton(defect: self.defect)
         super.init(imageFile: plan, fitImage: false)

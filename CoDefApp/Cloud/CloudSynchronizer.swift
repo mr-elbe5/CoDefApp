@@ -39,7 +39,7 @@ class CloudSynchronizer{
         }
     }
     
-    func loadImage(image : ImageFile) async -> UIImage?{
+    func loadImage(image : ImageData) async -> UIImage?{
         //print("start loading image \(image.id)")
         if image.fileExists(){
             let uiImage = image.getImage()
@@ -63,7 +63,7 @@ class CloudSynchronizer{
         return nil
     }
     
-    func loadProjectImage(image : ImageFile, syncResult: SyncResult) async throws{
+    func loadProjectImage(image : ImageData, syncResult: SyncResult) async throws{
         if image.fileExists(){
             await MainActor.run{
                 syncResult.imagesPresent += 1
@@ -138,10 +138,6 @@ class CloudSynchronizer{
         }
     }
     
-    func clearProjectImages(){
-        DocumentStore.shared.clearFiles()
-    }
-    
     func countNewElements() -> Int {
         var count = 0
         for project in AppData.shared.projects{
@@ -208,7 +204,7 @@ class CloudSynchronizer{
     
     func uploadIssue(issue: DefectData, scopeCloudId: Int, syncResult: SyncResult) async throws{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewIssue/" + String(scopeCloudId)
-        var params = issue.asDictionary()
+        var params = issue.uploadParams()
         params["creationDate"] = String(issue.creationDate.millisecondsSince1970)
         if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
             print("issue \(response.id) uploaded")
@@ -260,7 +256,7 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadFeedback(feedback: StatusChangeData, issueCloudId: Int, syncResult: SyncResult) async throws{
+    func uploadFeedback(feedback: DefectStatusData, issueCloudId: Int, syncResult: SyncResult) async throws{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedback/" + String(issueCloudId)
         var params = feedback.getUploadParams()
         params["creationDate"] = String(feedback.creationDate.millisecondsSince1970)
@@ -318,7 +314,7 @@ class CloudSynchronizer{
         }
     }
     
-    func uploadIssueImage(image: ImageFile, issueCloudId: Int, count: Int) async throws -> Bool{
+    func uploadIssueImage(image: ImageData, issueCloudId: Int, count: Int) async throws -> Bool{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewIssueImage/" + String(issueCloudId)
         let newFileName = "img-\(issueCloudId)-\(count).jpg"
         //print("get image \(newFileName)")
@@ -331,7 +327,7 @@ class CloudSynchronizer{
         return false
     }
     
-    func uploadFeedbackImage(image: ImageFile, feedbackCloudId: Int, count: Int) async throws -> Bool{
+    func uploadFeedbackImage(image: ImageData, feedbackCloudId: Int, count: Int) async throws -> Bool{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewFeedbackImage/" + String(feedbackCloudId)
         let newFileName = "img-\(feedbackCloudId)-\(count).jpg"
         let uiImage = image.getImage()

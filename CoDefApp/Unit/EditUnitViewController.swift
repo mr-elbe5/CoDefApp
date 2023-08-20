@@ -123,7 +123,7 @@ class EditUnitViewController: EditViewController {
         return false
     }
     
-    private func updatePlanImage(image: ImageFile){
+    private func updatePlanImage(image: ImageData){
         if scope.plan != nil{
             self.showDestructiveApprove(text: "planReplaceInfo".localize()){
                 for issue in self.scope.defects{
@@ -138,7 +138,7 @@ class EditUnitViewController: EditViewController {
         }
     }
     
-    private func setPlanImage(image: ImageFile){
+    private func setPlanImage(image: ImageData){
         scope.setPlan(image: image)
         scope.changed()
         scope.saveData()
@@ -146,7 +146,7 @@ class EditUnitViewController: EditViewController {
         delegate?.scopeChanged()
     }
     
-    override func deleteImageData(image: ImageFile) {
+    override func deleteImageData(image: ImageData) {
         self.scope.deletePlan()
         scope.changed()
         scope.saveData()
@@ -155,7 +155,7 @@ class EditUnitViewController: EditViewController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageFile()
+        let image = ImageData()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             updatePlanImage(image: image)
@@ -163,7 +163,7 @@ class EditUnitViewController: EditViewController {
         picker.dismiss(animated: false)
     }
     
-    override func photoCaptured(photo: ImageFile) {
+    override func photoCaptured(photo: ImageData) {
         updatePlanImage(image: photo)
     }
     

@@ -14,7 +14,6 @@ class BaseData: Codable, Hashable, Equatable{
     
     private enum CodingKeys: String, CodingKey {
         case id
-        case cloudId
         case creationDate
         case creatorId
         case creatorName
@@ -22,11 +21,9 @@ class BaseData: Codable, Hashable, Equatable{
         case changerId
         case changerName
         case synchronized
-        case isNew
     }
     
     var id : Int
-    var cloudId: Int
     var creationDate : Date
     var creatorId = 0
     var creatorName = ""
@@ -38,7 +35,6 @@ class BaseData: Codable, Hashable, Equatable{
     
     init(){
         id = AppState.shared.nextId
-        cloudId = 0
         creationDate = Date()
         creatorId = AppState.shared.currentUser.id
         creatorName = AppState.shared.currentUser.name
@@ -52,7 +48,6 @@ class BaseData: Codable, Hashable, Equatable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
-        cloudId = try values.decode(Int.self, forKey: .cloudId)
         creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
         creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 0
         creatorName = try values.decodeIfPresent(String.self, forKey: .creatorName) ?? ""
@@ -66,7 +61,6 @@ class BaseData: Codable, Hashable, Equatable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(cloudId, forKey: .cloudId)
         try container.encode(creationDate, forKey: .creationDate)
         try container.encode(creatorId, forKey: .creatorId)
         try container.encode(creatorName, forKey: .creatorName)
@@ -86,14 +80,13 @@ class BaseData: Codable, Hashable, Equatable{
         hasher.combine(id)
     }
     
-    func asDictionary() -> Dictionary<String,String>{
+    func uploadParams() -> Dictionary<String,String>{
         var dict = Dictionary<String,String>()
         dict["id"]=String(id)
         dict["creatorId"]=String(creatorId)
         dict["changerId"]=String(changerId)
         dict["creationDate"]=creationDate.isoString()
         dict["changeDate"]=changeDate.isoString()
-        dict["synchronized"]=String(synchronized)
         return dict
     }
     

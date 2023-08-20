@@ -18,13 +18,13 @@ class ImageViewController: BaseViewController {
         scrollView.imageView
     }
     
-    var imageFile: ImageFile
+    var imageFile: ImageData
     
     var currentScale: CGFloat{
         scrollView.image.size.width/scrollView.contentSize.width
     }
     
-    init(imageFile: ImageFile, fitImage: Bool = true){
+    init(imageFile: ImageData, fitImage: Bool = true){
         self.imageFile = imageFile
         self.fitImage = fitImage
         scrollView = ImageScrollView(image: imageFile.getImage())

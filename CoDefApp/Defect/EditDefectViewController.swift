@@ -84,7 +84,7 @@ class EditDefectViewController: EditViewController {
         
     }
     
-    override func deleteImageData(image: ImageFile) {
+    override func deleteImageData(image: ImageData) {
         defect.images.remove(obj: image)
         defect.changed()
         defect.saveData()
@@ -110,7 +110,7 @@ class EditDefectViewController: EditViewController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageFile()
+        let image = ImageData()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             defect.images.append(image)
@@ -123,7 +123,7 @@ class EditDefectViewController: EditViewController {
         picker.dismiss(animated: false)
     }
     
-    override func photoCaptured(photo: ImageFile) {
+    override func photoCaptured(photo: ImageData) {
         defect.images.append(photo)
         imageCollectionView.images.append(photo)
         photo.isNew = false

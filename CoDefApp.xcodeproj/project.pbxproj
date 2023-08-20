@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
+		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
 		4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */; };
 		4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397012A854E33006053A0 /* Localizable.strings */; };
@@ -29,10 +31,10 @@
 		4EA3972E2A85502C006053A0 /* EditDefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397232A85502C006053A0 /* EditDefectViewController.swift */; };
 		4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397242A85502C006053A0 /* DefectStatus.swift */; };
 		4EA397302A85502C006053A0 /* DefectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397252A85502C006053A0 /* DefectData.swift */; };
-		4EA397312A85502C006053A0 /* StatusChangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* StatusChangeData.swift */; };
+		4EA397312A85502C006053A0 /* DefectStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* DefectStatusData.swift */; };
 		4EA397322A85502C006053A0 /* DefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397272A85502C006053A0 /* DefectViewController.swift */; };
 		4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */; };
-		4EA397342A85502C006053A0 /* CreateStatusChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */; };
+		4EA397342A85502C006053A0 /* CreateDefectStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateDefectStatusViewController.swift */; };
 		4EA3973C2A85503A006053A0 /* EditCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397352A855039006053A0 /* EditCompanyViewController.swift */; };
 		4EA3973D2A85503A006053A0 /* CompanyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397362A85503A006053A0 /* CompanyList.swift */; };
 		4EA3973E2A85503A006053A0 /* LabeledCompanySelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */; };
@@ -99,8 +101,7 @@
 		4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AF2A85508E006053A0 /* CaptureButton.swift */; };
 		4EA397BC2A85508E006053A0 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B02A85508E006053A0 /* CGImage.swift */; };
 		4EA397BD2A85508E006053A0 /* ImageFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B12A85508E006053A0 /* ImageFileView.swift */; };
-		4EA397BE2A85508E006053A0 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B22A85508E006053A0 /* ImageFile.swift */; };
-		4EA397C22A85509E006053A0 /* DocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397BF2A85509E006053A0 /* DocumentStore.swift */; };
+		4EA397BE2A85508E006053A0 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B22A85508E006053A0 /* ImageData.swift */; };
 		4EA397C32A85509E006053A0 /* FileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397C02A85509E006053A0 /* FileController.swift */; };
 		4EA397C42A85509E006053A0 /* FileError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397C12A85509E006053A0 /* FileError.swift */; };
 		4EA397D42A8550AD006053A0 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397C52A8550AD006053A0 /* Date.swift */; };
@@ -128,6 +129,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
+		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA396E52A854CAE006053A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EA396E82A854CAE006053A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -154,10 +157,10 @@
 		4EA397232A85502C006053A0 /* EditDefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectViewController.swift; sourceTree = "<group>"; };
 		4EA397242A85502C006053A0 /* DefectStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectStatus.swift; sourceTree = "<group>"; };
 		4EA397252A85502C006053A0 /* DefectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectData.swift; sourceTree = "<group>"; };
-		4EA397262A85502C006053A0 /* StatusChangeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusChangeData.swift; sourceTree = "<group>"; };
+		4EA397262A85502C006053A0 /* DefectStatusData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectStatusData.swift; sourceTree = "<group>"; };
 		4EA397272A85502C006053A0 /* DefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectViewController.swift; sourceTree = "<group>"; };
 		4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectPositionViewController.swift; sourceTree = "<group>"; };
-		4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateStatusChangeViewController.swift; sourceTree = "<group>"; };
+		4EA397292A85502C006053A0 /* CreateDefectStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDefectStatusViewController.swift; sourceTree = "<group>"; };
 		4EA397352A855039006053A0 /* EditCompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCompanyViewController.swift; sourceTree = "<group>"; };
 		4EA397362A85503A006053A0 /* CompanyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyList.swift; sourceTree = "<group>"; };
 		4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledCompanySelectField.swift; sourceTree = "<group>"; };
@@ -224,8 +227,7 @@
 		4EA397AF2A85508E006053A0 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		4EA397B02A85508E006053A0 /* CGImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImage.swift; sourceTree = "<group>"; };
 		4EA397B12A85508E006053A0 /* ImageFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFileView.swift; sourceTree = "<group>"; };
-		4EA397B22A85508E006053A0 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
-		4EA397BF2A85509E006053A0 /* DocumentStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentStore.swift; sourceTree = "<group>"; };
+		4EA397B22A85508E006053A0 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		4EA397C02A85509E006053A0 /* FileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileController.swift; sourceTree = "<group>"; };
 		4EA397C12A85509E006053A0 /* FileError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileError.swift; sourceTree = "<group>"; };
 		4EA397C52A8550AD006053A0 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 		4EA396F12A854D5F006053A0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				4EA397B22A85508E006053A0 /* ImageData.swift */,
 				4EA397C92A8550AD006053A0 /* Array.swift */,
 				4EA397D32A8550AD006053A0 /* AsyncOperation.swift */,
 				4EA397D22A8550AD006053A0 /* AuthorizationError.swift */,
@@ -337,6 +340,8 @@
 				4EA397CC2A8550AD006053A0 /* TextAttributes.swift */,
 				4EA397C62A8550AD006053A0 /* TimeInterval.swift */,
 				4EA397CE2A8550AD006053A0 /* URL.swift */,
+				4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */,
+				4E0DC7E82A92063B00ED4F2B /* FileData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -344,7 +349,6 @@
 		4EA396F22A854D6C006053A0 /* Files */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397BF2A85509E006053A0 /* DocumentStore.swift */,
 				4EA397C02A85509E006053A0 /* FileController.swift */,
 				4EA397C12A85509E006053A0 /* FileError.swift */,
 			);
@@ -360,7 +364,6 @@
 				4EA397AF2A85508E006053A0 /* CaptureButton.swift */,
 				4EA397B02A85508E006053A0 /* CGImage.swift */,
 				4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */,
-				4EA397B22A85508E006053A0 /* ImageFile.swift */,
 				4EA397B12A85508E006053A0 /* ImageFileView.swift */,
 				4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */,
 				4EA397A72A85508E006053A0 /* ImageScrollView.swift */,
@@ -518,8 +521,8 @@
 		4EA397F72A8B9153006053A0 /* DefectStatus */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */,
-				4EA397262A85502C006053A0 /* StatusChangeData.swift */,
+				4EA397292A85502C006053A0 /* CreateDefectStatusViewController.swift */,
+				4EA397262A85502C006053A0 /* DefectStatusData.swift */,
 			);
 			path = DefectStatus;
 			sourceTree = "<group>";
@@ -613,7 +616,7 @@
 				4EA397402A85503A006053A0 /* CompanyViewController.swift in Sources */,
 				4EA397DD2A8550AD006053A0 /* URL.swift in Sources */,
 				4EA397DC2A8550AD006053A0 /* String.swift in Sources */,
-				4EA397342A85502C006053A0 /* CreateStatusChangeViewController.swift in Sources */,
+				4EA397342A85502C006053A0 /* CreateDefectStatusViewController.swift in Sources */,
 				4EA3972E2A85502C006053A0 /* EditDefectViewController.swift in Sources */,
 				4EA3975C2A855061006053A0 /* BaseViewController.swift in Sources */,
 				4EA3971B2A85501D006053A0 /* UnitData.swift in Sources */,
@@ -644,6 +647,7 @@
 				4EA3979D2A855072006053A0 /* LabeledDatePicker.swift in Sources */,
 				4EA397832A855072006053A0 /* LabeledStepperInput.swift in Sources */,
 				4EA397EF2A8550BB006053A0 /* AppData.swift in Sources */,
+				4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */,
 				4EA3972C2A85502C006053A0 /* DefectPdfViewController.swift in Sources */,
 				4EA397B32A85508E006053A0 /* ImageScrollView.swift in Sources */,
 				4EA397582A855061006053A0 /* InfoViewController.swift in Sources */,
@@ -663,7 +667,7 @@
 				4EA397E02A8550AD006053A0 /* BaseData.swift in Sources */,
 				4EA397952A855072006053A0 /* UILabel.swift in Sources */,
 				4EA397942A855072006053A0 /* TextareaInput.swift in Sources */,
-				4EA397312A85502C006053A0 /* StatusChangeData.swift in Sources */,
+				4EA397312A85502C006053A0 /* DefectStatusData.swift in Sources */,
 				4EA397E22A8550AD006053A0 /* AsyncOperation.swift in Sources */,
 				4EA397972A855072006053A0 /* UIStackView.swift in Sources */,
 				4EA397862A855072006053A0 /* SectionLine.swift in Sources */,
@@ -676,7 +680,6 @@
 				4EA397B72A85508E006053A0 /* ImageInfoViewController.swift in Sources */,
 				4EA397572A855061006053A0 /* ScrollViewController.swift in Sources */,
 				4EA3978F2A855072006053A0 /* LabeledTextareaInput.swift in Sources */,
-				4EA397C22A85509E006053A0 /* DocumentStore.swift in Sources */,
 				4EA397BA2A85508E006053A0 /* PhotoCaptureViewController.swift in Sources */,
 				4EA397F92A8CCE99006053A0 /* Log.swift in Sources */,
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
@@ -702,8 +705,9 @@
 				4EA397482A855048006053A0 /* SyncResult.swift in Sources */,
 				4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */,
 				4EA3975B2A855061006053A0 /* UIViewController+Insets.swift in Sources */,
-				4EA397BE2A85508E006053A0 /* ImageFile.swift in Sources */,
+				4EA397BE2A85508E006053A0 /* ImageData.swift in Sources */,
 				4EA397B52A85508E006053A0 /* CameraViewController.swift in Sources */,
+				4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */,
 				4EA3978D2A855072006053A0 /* IconButton.swift in Sources */,
 				4EA3978B2A855072006053A0 /* IconView.swift in Sources */,
 				4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */,

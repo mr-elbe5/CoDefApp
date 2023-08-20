@@ -130,13 +130,13 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         for feedback in defect.statusChanges{
             let feeedbackView = ArrangedSectionView()
             processingSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: processingSection.leadingAnchor, trailing: processingSection.trailingAnchor, insets: verticalInsets)
-            setupProcessingStatusView(view: feeedbackView, feedback: feedback);
+            setupProcessingStatusView(view: feeedbackView, statusData: feedback);
             lastView = feeedbackView
         }
         let addProcessingStatusButton = TextButton(text: "addStatusChange".localize())
         addProcessingStatusButton.addAction(UIAction(){ (action) in
             if !self.defect.projectUsers.isEmpty{
-                let controller = CreateStatusChangeViewController(defect: self.defect)
+                let controller = CreateDefectStatusViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -148,37 +148,37 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             .bottom(processingSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func setupProcessingStatusView(view: ArrangedSectionView, feedback: StatusChangeData){
+    func setupProcessingStatusView(view: ArrangedSectionView, statusData: DefectStatusData){
         let createdLine = LabeledText()
-        let txt = "\("on".localize()) \(feedback.creationDate.dateString()) \("by".localize()) \(feedback.creator?.name ?? "")"
+        let txt = "\("on".localize()) \(statusData.creationDate.dateString()) \("by".localize()) \(statusData.creator?.name ?? "")"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
         view.addArrangedSubview(createdLine)
         
         let statusLine = LabeledText()
-        statusLine.setupView(labelText: "status".localizeWithColon(), text: feedback.status.rawValue.localize())
+        statusLine.setupView(labelText: "status".localizeWithColon(), text: statusData.status.rawValue.localize())
         view.addArrangedSubview(statusLine)
         
         let previousAssignmentLine = LabeledText()
-        previousAssignmentLine.setupView(labelText: "previousAssignment".localizeWithColon(), text: feedback.previousAssignedCompany?.name ?? "")
+        previousAssignmentLine.setupView(labelText: "previousAssignment".localizeWithColon(), text: statusData.previousAssignedCompany?.name ?? "")
         view.addArrangedSubview(previousAssignmentLine)
         
         let assignmentLine = LabeledText()
-        assignmentLine.setupView(labelText: "assignedTo".localizeWithColon(), text: feedback.assignedCompany?.name ?? "")
+        assignmentLine.setupView(labelText: "assignedTo".localizeWithColon(), text: statusData.assignedCompany?.name ?? "")
         view.addArrangedSubview(assignmentLine)
         
         let dueDateLine = LabeledText()
-        dueDateLine.setupView(labelText: "dueDate".localizeWithColon(), text: feedback.dueDate.dateString())
+        dueDateLine.setupView(labelText: "dueDate".localizeWithColon(), text: statusData.dueDate.dateString())
         view.addArrangedSubview(dueDateLine)
         
         let commentLine = LabeledText()
-        commentLine.setupView(labelText: "comment".localizeWithColon(), text: feedback.comment)
+        commentLine.setupView(labelText: "description".localizeWithColon(), text: statusData.description)
         view.addArrangedSubview(commentLine)
         
-        if !feedback.images.isEmpty{
+        if !statusData.images.isEmpty{
             let label = UILabel(header: "images".localizeWithColon())
             view.addArrangedSubview(label)
             
-            let imageCollectionView = ImageCollectionView(images: feedback.images, enableDelete: false)
+            let imageCollectionView = ImageCollectionView(images: statusData.images, enableDelete: false)
             imageCollectionView.imageDelegate = self
             view.addArrangedSubview(imageCollectionView)
         }
@@ -189,7 +189,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         setupProcessingSection()
     }
     
-    override func deleteImageData(image: ImageFile) {
+    override func deleteImageData(image: ImageData) {
         defect.images.remove(obj: image)
         defect.changed()
         defect.saveData()

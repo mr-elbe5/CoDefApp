@@ -79,10 +79,10 @@ extension PDFRenderer {
         }
     }
     
-    func addStatusChangeContent(statusChange: StatusChangeData){
+    func addStatusChangeContent(statusChange: DefectStatusData){
         addLine(label: "on".localize(), text: statusChange.creationDate.dateTimeString())
         addLine(label: "previousAssignment".localize(), text: statusChange.previousAssignedCompanyName)
-        addLine(label: "comment".localize(), text: statusChange.comment)
+        addLine(label: "description".localize(), text: statusChange.description)
         
         addLine(label: "status".localize(), text: statusChange.status.rawValue.localize())
         addLine(label: "newAssignment".localize(), text: statusChange.assignedCompanyName)

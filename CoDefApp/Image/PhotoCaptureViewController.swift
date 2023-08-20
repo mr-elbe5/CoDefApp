@@ -11,7 +11,7 @@ import Photos
 
 
 protocol PhotoCaptureDelegate{
-    func photoCaptured(photo: ImageFile)
+    func photoCaptured(photo: ImageData)
 }
 
 class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -191,7 +191,7 @@ class PhotoCaptureViewController: CameraViewController, AVCapturePhotoCaptureDel
 extension PhotoCaptureViewController: PhotoAcceptDelegate{
     
     func photoAccepted(imageData: UIImage) {
-        let image = ImageFile()
+        let image = ImageData()
         image.setJpegFileName()
         image.saveImage(uiImage: imageData)
         dismiss(animated: false){

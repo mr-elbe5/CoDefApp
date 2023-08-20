@@ -15,7 +15,7 @@ class ImageCollectionView : UICollectionView, UICollectionViewDataSource, UIColl
     
     static var imageSize = CGSize(width: 300, height: 300)
     
-    var images: Array<ImageFile>
+    var images: Array<ImageData>
     
     var imageDelegate: ImageCollectionDelegate? = nil
     
@@ -49,7 +49,7 @@ class ImageCollectionView : UICollectionView, UICollectionViewDataSource, UIColl
         return height
     }
     
-    init(images: Array<ImageFile>, enableDelete: Bool){
+    init(images: Array<ImageData>, enableDelete: Bool){
         self.images = images
         self.enableDelete = enableDelete
         super.init(frame: .zero, collectionViewLayout: layout)
@@ -67,7 +67,7 @@ class ImageCollectionView : UICollectionView, UICollectionViewDataSource, UIColl
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func selectedCellImage() -> ImageFile?{
+    private func selectedCellImage() -> ImageData?{
         for cell in self.visibleCells{
             if cell.isSelected, let cell = cell as? ImageCollectionCell, let image = cell.image{
                 return image
@@ -111,9 +111,9 @@ class ImageCollectionCell: UICollectionViewCell{
     
     static var reuseIdentifier = "imageCell"
     
-    var image: ImageFile? = nil
+    var image: ImageData? = nil
     
-    func setup(image: ImageFile){
+    func setup(image: ImageData){
         self.image = image
         contentView.removeAllSubviews()
         let backgroundView = UIView()

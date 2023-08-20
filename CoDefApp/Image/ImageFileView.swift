@@ -9,9 +9,9 @@ import UIKit
 
 class ImageFileView : UIImageView{
     
-    var imageFile : ImageFile
+    var imageFile : ImageData
     
-    init(imageFile: ImageFile){
+    init(imageFile: ImageData){
         self.imageFile = imageFile
         super.init(image: imageFile.getImage())
     }

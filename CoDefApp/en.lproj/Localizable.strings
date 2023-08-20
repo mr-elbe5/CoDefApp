@@ -180,8 +180,8 @@ Do want to proceed?";
 "newAssignment"="New Assignment";
 "statusChangeContext"="Project: %@, Unit: %@, Defect: %@";
 
-"statusChangeEditInfoHeader"="Document a status change";
-"statusChangeEditInfoText"="The comment is mandatory.";
+"defectStatusEditInfoHeader"="Document a status change";
+"defectStatusEditInfoText"="The comment is mandatory.";
 
 /*Companies*/
 "companies"="Companies";
