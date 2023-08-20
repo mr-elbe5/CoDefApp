@@ -41,5 +41,28 @@ class ContentData : BaseData{
         return dict
     }
     
+    func uploadImage(requestUrl: String, image: ImageData, fileName: String, syncResult: SyncResult) async{
+        do{
+            let uiImage = image.getImage()
+            if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: fileName) {
+                print("unit image uploaded with id \(response.id)")
+                image.id = response.id
+                await MainActor.run{
+                    syncResult.newElementsCount -= 1
+                    syncResult.imagesUploaded += 1
+                    syncResult.itemsUploaded += 1.0
+                }
+            }
+            else{
+                throw "image upload error"
+            }
+        }
+        catch{
+            await MainActor.run{
+                syncResult.uploadErrors += 1
+            }
+        }
+    }
+    
 }
 

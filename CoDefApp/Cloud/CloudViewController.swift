@@ -71,7 +71,7 @@ class CloudViewController: ScrollViewController {
         label = UILabel(header: "uploaded".localize())
         syncSection.addSubviewAtTop(label, topView: syncButton)
         
-        uploadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.issuesUploaded))
+        uploadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.defectsUploaded))
         syncSection.addSubviewAtTop(uploadedIssuesField, topView: label)
         
         uploadedImagesField.setupView(labelText: "images".localize(), text: String(syncResult.imagesUploaded))
@@ -80,7 +80,7 @@ class CloudViewController: ScrollViewController {
         label = UILabel(header: "downloaded".localize())
         syncSection.addSubviewAtTop(label, topView: uploadedImagesField)
         
-        downloadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.issuesLoaded))
+        downloadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.defectsLoaded))
         syncSection.addSubviewAtTop(downloadedIssuesField, topView: label)
         
         downloadedImagesField.setupView(labelText: "images".localize(), text: String(syncResult.imagesLoaded))
@@ -88,7 +88,7 @@ class CloudViewController: ScrollViewController {
         
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = 100
-        progressSlider.value = Float(syncResult.progress)
+        progressSlider.value = Float(syncResult.downloadProgress)
         syncSection.addSubviewAtTop(progressSlider, topView: downloadedImagesField)
             .bottom(syncSection.bottomAnchor, inset: -defaultInset)
         

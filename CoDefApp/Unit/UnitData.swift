@@ -144,6 +144,12 @@ class UnitData : ContentData{
         return names
     }
     
+    func uploadImage(syncResult: SyncResult, image: ImageData, count: Int) async throws{
+        let requestUrl = AppState.shared.serverURL+"/api/unit/uploadImage/" + String(id) + "?imageId=" + String(image.id)
+        let newFileName = "plan.jpg"
+        await uploadImage(requestUrl: requestUrl, image: image, fileName: newFileName, syncResult: syncResult)
+    }
+    
 }
 
 protocol ScopeDelegate{

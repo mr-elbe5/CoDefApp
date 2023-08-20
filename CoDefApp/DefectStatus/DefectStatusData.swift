@@ -111,6 +111,45 @@ class DefectStatusData : ContentData{
         return names
     }
     
+    func upload(syncResult: SyncResult) async{
+        do{
+            let requestUrl = AppState.shared.serverURL+"/api/defectstatus/upload/" + String(defect.id)
+            var params = uploadParams()
+            params["creationDate"] = String(creationDate.millisecondsSince1970)
+            params["defectId"] = String(defect.id)
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+                print("comment \(response.id) uploaded")
+                await MainActor.run{
+                    syncResult.defectStatusesUploaded += 1
+                    syncResult.itemsUploaded += 1.0
+                }
+                id = response.id
+                var count = 0
+                for image in images{
+                    count += 1
+                    await uploadImage(image: image, count: count, syncResult: syncResult)
+                }
+            }
+            else{
+                await MainActor.run{
+                    syncResult.uploadErrors += 1
+                }
+                throw "defect status upload error"
+            }
+        }
+        catch{
+            await MainActor.run{
+                syncResult.uploadErrors += 1
+            }
+        }
+    }
+    
+    func uploadImage(image: ImageData, count: Int, syncResult: SyncResult) async{
+        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(id) + "?imageId=" + String(image.id)
+        let newFileName = "img-\(id)-\(count).jpg"
+        await uploadImage(requestUrl: requestUrl, image: image, fileName: newFileName, syncResult: syncResult)
+    }
+    
 }
 
 protocol ProcessingStatusChangeDelegate{
