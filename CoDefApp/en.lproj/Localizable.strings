@@ -34,6 +34,7 @@
 
 /*Èrror*/
 "error"="Error";
+"errors"="Errors";
 "mandatoryFieldsError"="Please fille all mandatory fields (*)";
 "userDeleteError"="You cannot delete this person/company (already assigned).";
 
@@ -173,7 +174,7 @@ Do want to proceed?";
 "defectPositionInfoHeader"="Mark a position";
 "defectPositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
 
-/*StatusChanges*/
+/*Status Changes*/
 "statusChanges"="Status Changes";
 "statusChange"="Statu Change";
 "addStatusChange"="Document a Status Change";
@@ -217,6 +218,7 @@ All other data are for addressing or information.";
 "uploaded"="Uploaded to Server";
 "download"="Download from Server";
 "downloaded"="Downloaded from Server";
+"presentImages"="Present Images";
 
 "serverInfoHeader"="Synchronization with the Server";
 "serverInfoText"="todo";

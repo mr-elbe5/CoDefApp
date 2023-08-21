@@ -114,11 +114,11 @@ class AppData : Codable{
             if let projectList: Array<ProjectData> = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 //print(projectList.projects)
                 await MainActor.run{
-                    syncResult.projectsLoaded = projectList.count
+                    syncResult.loadedProjects = projectList.count
                     for project in projectList{
-                        syncResult.unitsLoaded += project.units.count
+                        syncResult.loadedUnits += project.units.count
                         for unit in project.units{
-                            syncResult.defectsLoaded += unit.defects.count
+                            syncResult.loadedDefects += unit.defects.count
                         }
                     }
                 }
@@ -202,7 +202,7 @@ class AppData : Codable{
     func loadImage(image : ImageData, syncResult: SyncResult) async throws{
         if (image.fileExists()){
             await MainActor.run{
-                syncResult.imagesPresent += 1
+                syncResult.presentImages += 1
                 syncResult.updateDownload()
             }
             return
@@ -215,7 +215,7 @@ class AppData : Codable{
         if let img = try await RequestController.shared.requestAuthorizedImage(url: serverUrl, withParams: params) {
             image.saveImage(uiImage: img)
             await MainActor.run{
-                syncResult.imagesLoaded += 1
+                syncResult.loadedImages += 1
                 syncResult.updateDownload()
             }
         }

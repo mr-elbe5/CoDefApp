@@ -43,7 +43,6 @@
 		4EA397402A85503A006053A0 /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397392A85503A006053A0 /* CompanyViewController.swift */; };
 		4EA397422A85503A006053A0 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3973B2A85503A006053A0 /* UserData.swift */; };
 		4EA397482A855048006053A0 /* SyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397432A855048006053A0 /* SyncResult.swift */; };
-		4EA397492A855048006053A0 /* CloudSynchronizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397442A855048006053A0 /* CloudSynchronizer.swift */; };
 		4EA3974B2A855048006053A0 /* CloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397462A855048006053A0 /* CloudViewController.swift */; };
 		4EA3974C2A855048006053A0 /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397472A855048006053A0 /* RequestController.swift */; };
 		4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3974D2A855054006053A0 /* SettingViewController.swift */; };
@@ -170,7 +169,6 @@
 		4EA397392A85503A006053A0 /* CompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
 		4EA3973B2A85503A006053A0 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4EA397432A855048006053A0 /* SyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncResult.swift; sourceTree = "<group>"; };
-		4EA397442A855048006053A0 /* CloudSynchronizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudSynchronizer.swift; sourceTree = "<group>"; };
 		4EA397462A855048006053A0 /* CloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudViewController.swift; sourceTree = "<group>"; };
 		4EA397472A855048006053A0 /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		4EA3974D2A855054006053A0 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -452,7 +450,6 @@
 		4EA396F82A854DA9006053A0 /* Cloud */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397442A855048006053A0 /* CloudSynchronizer.swift */,
 				4EA397462A855048006053A0 /* CloudViewController.swift */,
 				4EA397472A855048006053A0 /* RequestController.swift */,
 				4EA397432A855048006053A0 /* SyncResult.swift */,
@@ -665,7 +662,6 @@
 				4EA3974C2A855048006053A0 /* RequestController.swift in Sources */,
 				4EA3975A2A855061006053A0 /* ModalViewController.swift in Sources */,
 				4EA397562A855061006053A0 /* UIViewController.swift in Sources */,
-				4EA397492A855048006053A0 /* CloudSynchronizer.swift in Sources */,
 				4EA397BC2A85508E006053A0 /* CGImage.swift in Sources */,
 				4EA3979A2A855072006053A0 /* UIView+Subviews.swift in Sources */,
 				4EA397E02A8550AD006053A0 /* BaseData.swift in Sources */,

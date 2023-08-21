@@ -49,8 +49,8 @@ class ContentData : BaseData{
                 image.id = response.id
                 await MainActor.run{
                     syncResult.newElementsCount -= 1
-                    syncResult.imagesUploaded += 1
-                    syncResult.itemsUploaded += 1.0
+                    syncResult.uploadedImages += 1
+                    syncResult.uploadedItems += 1.0
                     syncResult.updateUpload()
                 }
             }

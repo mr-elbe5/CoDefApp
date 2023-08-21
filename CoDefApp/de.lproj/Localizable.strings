@@ -36,6 +36,7 @@ Wollen Sie fortfahren?";
 
 /*Èrror*/
 "error"="Fehler";
+"errors"="Fehler";
 "mandatoryFieldsError"="Bitte füllen Sie alle Pflichtfelder (*) aus.";
 "noUsersError"="Dieses Projekt hat keine auswählbaren Firmen.";
 "userDeleteError"="Sie können diese Firma nicht löschen (bereits zugeordnet).";
@@ -123,7 +124,7 @@ Nur offene Mängel: Nur Mängel, die noch nicht abschlossen/erledigt sind
 Nur überfällige Mängel: Nur Mängel, deren Zieldatum verstrichen ist
 Nur für die folgenden Person oder Firma: Nur Mängel, die der markierten Person bzw.Firma zugeordnet sind";
 
-/*Scopes*/
+/*Units*/
 "units"="Projekteinheiten";
 "unit"="Projekteinheit";
 "newUnit"="Neue Projekteinheit";
@@ -176,7 +177,7 @@ Wollen Sie fortfahren?";
 "defectPositionInfoHeader"="Eine Position markieren";
 "defectPositionInfoText"="Tippen Sie auf den Grundriss, bis der rote Pfeil die Position richtiog markiert.";
 
-/*Statuses*/
+/*Status Changes*/
 "statusChanges"="Statusänderungen";
 "statusChange"="Statusänderung";
 "addStatusChange"="Neue Statusänderung hinzufügen";
@@ -210,7 +211,7 @@ Eine Email sollte eingetragen werden, wenn die Firma per Email benachrichtigt od
 
 Alle anderen Daten dienen der Adressierung oder Information.";
 
-/*Cloud*/
+/*Server*/
 "server"="Server";
 "connectionState"="Verbindungsstatus";
 "connected"="Verbunden";
@@ -221,6 +222,7 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "uploaded"="Auf den Server hochgeladen";
 "download"="Vom Server herunterladen";
 "downloaded"="Vom Server heruntergeladen";
+"presentImages"="Vorhandene Bilder";
 "serverInfoHeader"="Synchronisation mit dem Server";
 "serverInfoText"="todo";
 

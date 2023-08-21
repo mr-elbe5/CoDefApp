@@ -120,8 +120,8 @@ class DefectStatusData : ContentData{
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("comment \(response.id) uploaded")
                 await MainActor.run{
-                    syncResult.defectStatusesUploaded += 1
-                    syncResult.itemsUploaded += 1.0
+                    syncResult.uploadedStatusChanges += 1
+                    syncResult.uploadedItems += 1.0
                     syncResult.updateUpload()
                 }
                 id = response.id
