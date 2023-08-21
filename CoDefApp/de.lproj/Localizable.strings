@@ -215,7 +215,13 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "connectionState"="Verbindungsstatus";
 "connected"="Verbunden";
 "disconnected"="Nicht verbunden";
-"serverInfoHeader"="Cloud-Synchronisation";
+"synchronizeServer"="Synchronisation mit dem Server";
+"newElements"="Neue Elemente";
+"upload"="Auf den Server hochladen";
+"uploaded"="Auf den Server hochgeladen";
+"download"="Vom Server herunterladen";
+"downloaded"="Vom Server heruntergeladen";
+"serverInfoHeader"="Synchronisation mit dem Server";
 "serverInfoText"="todo";
 
 /*Settings*/

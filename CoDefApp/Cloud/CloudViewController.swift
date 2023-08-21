@@ -12,28 +12,31 @@ protocol CloudDelegate{
 
 class CloudViewController: ScrollViewController {
     
-    var stateLabel = UILabel(text: "")
-    
     var newElementsField = LabeledText()
     
-    var syncButton = TextButton(text: "synchronize".localize(), withBorder: true)
+    var uploadButton = IconTextButton(icon: "arrow.up.square", text: "upload".localize(), withBorder: true)
     
-    var uploadedIssuesField = LabeledText()
+    var uploadedDefectsField = LabeledText()
     var uploadedImagesField = LabeledText()
     
-    var downloadedIssuesField = LabeledText()
+    var uploadProgressSlider = UISlider()
+    
+    var downloadButton = IconTextButton(icon: "arrow.down.square", text: "download".localize(), withBorder: true)
+    
+    var downloadedDefectsField = LabeledText()
     var downloadedImagesField = LabeledText()
     
-    var progressSlider = UISlider()
+    var downloadProgressSlider = UISlider()
     
     var syncResult : SyncResult = SyncResult()
     
     var delegate: CloudDelegate? = nil
     
     override func loadView() {
-        title = "cloud".localize()
+        title = "server".localize()
         super.loadView()
         modalPresentationStyle = .fullScreen
+        syncResult.delegate = self
     }
     
     override func setupContentView() {
@@ -44,55 +47,95 @@ class CloudViewController: ScrollViewController {
         })
         navigationItem.rightBarButtonItem = item
         
-        let syncSection = UIView()
+        let syncSection = SectionView()
         syncSection.setGrayRoundedBorders()
         contentView.addSubviewAtTop(syncSection)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
         
-        var label = UILabel(header: "connectionState".localize())
-        syncSection.addSubviewAtTop(label)
-        stateLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
-        syncSection.addSubviewAtTop(stateLabel, topView: label)
+        let connectionLabel = LabeledText()
+        connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize(), inline: true)
+        syncSection.addSubviewAtTop(connectionLabel)
         
-        label = UILabel(header: "synchronize".localize())
-        syncSection.addSubviewAtTopCentered(label, topView: stateLabel)
+        let header = UILabel(header: "synchronizeServer".localize())
+        syncSection.addSubviewAtTopCentered(header, topView: connectionLabel)
         
-        newElementsField.setupView(labelText: "newElements".localize(), text: String(syncResult.newElementsCount))
-        syncSection.addSubviewAtTop(newElementsField, topView: label)
+        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(syncResult.newElementsCount), inline: true)
+        syncSection.addSubviewAtTop(newElementsField, topView: header)
         
-        syncButton.setTitleColor(.systemGray, for: .disabled)
-        syncButton.addAction(UIAction(){ action in
+        uploadButton.setTitleColor(.systemGray, for: .disabled)
+        uploadButton.addAction(UIAction(){ action in
             //todo
             //CloudSynchronizer.shared.synchronize(syncResult: self.syncResult)
         }, for: .touchDown)
-        syncSection.addSubviewAtTopCentered(syncButton, topView: newElementsField)
-        syncButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+        syncSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
+        uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
-        label = UILabel(header: "uploaded".localize())
-        syncSection.addSubviewAtTop(label, topView: syncButton)
+        var label = UILabel(header: "uploaded".localize())
+        syncSection.addSubviewAtTop(label, topView: uploadButton)
         
-        uploadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.defectsUploaded))
-        syncSection.addSubviewAtTop(uploadedIssuesField, topView: label)
+        uploadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(syncResult.defectsUploaded), inline: true)
+        syncSection.addSubviewAtTop(uploadedDefectsField, topView: label)
         
-        uploadedImagesField.setupView(labelText: "images".localize(), text: String(syncResult.imagesUploaded))
-        syncSection.addSubviewAtTop(uploadedImagesField, topView: uploadedIssuesField)
+        uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(syncResult.imagesUploaded), inline: true)
+        syncSection.addSubviewAtTop(uploadedImagesField, topView: uploadedDefectsField)
+        
+        uploadProgressSlider.minimumValue = 0
+        uploadProgressSlider.maximumValue = 100
+        uploadProgressSlider.value = Float(syncResult.uploadProgress)
+        syncSection.addSubviewAtTop(uploadProgressSlider, topView: uploadedImagesField)
         
         label = UILabel(header: "downloaded".localize())
-        syncSection.addSubviewAtTop(label, topView: uploadedImagesField)
+        syncSection.addSubviewAtTop(label, topView: uploadProgressSlider)
         
-        downloadedIssuesField.setupView(labelText: "issues".localize(), text: String(syncResult.defectsLoaded))
-        syncSection.addSubviewAtTop(downloadedIssuesField, topView: label)
+        downloadButton.setTitleColor(.systemGray, for: .disabled)
+        downloadButton.addAction(UIAction(){ action in
+            //todo
+            //CloudSynchronizer.shared.synchronize(syncResult: self.syncResult)
+        }, for: .touchDown)
+        syncSection.addSubviewAtTopCentered(downloadButton, topView: label)
+        downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
-        downloadedImagesField.setupView(labelText: "images".localize(), text: String(syncResult.imagesLoaded))
-        syncSection.addSubviewAtTop(downloadedImagesField, topView: downloadedIssuesField)
+        downloadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(syncResult.defectsLoaded), inline: true)
+        syncSection.addSubviewAtTop(downloadedDefectsField, topView: downloadButton)
         
-        progressSlider.minimumValue = 0
-        progressSlider.maximumValue = 100
-        progressSlider.value = Float(syncResult.downloadProgress)
-        syncSection.addSubviewAtTop(progressSlider, topView: downloadedImagesField)
+        downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(syncResult.imagesLoaded), inline: true)
+        syncSection.addSubviewAtTop(downloadedImagesField, topView: downloadedDefectsField)
+        
+        downloadProgressSlider.minimumValue = 0
+        downloadProgressSlider.maximumValue = 100
+        downloadProgressSlider.value = Float(syncResult.downloadProgress)
+        syncSection.addSubviewAtTop(downloadProgressSlider, topView: downloadedImagesField)
             .bottom(syncSection.bottomAnchor, inset: -defaultInset)
         
     }
+    
+    func upload(){
+        Task{
+            await AppData.shared.uploadNewItems(syncResult: syncResult)
+        }
+    }
+    
+    func download(){
+        Task{
+            await AppData.shared.loadProjects(syncResult: syncResult)
+            await MainActor.run{
+                syncResult.downloadProgress = 1.0
+            }
+        }
+    }
+    
+}
+
+extension CloudViewController: SyncResultDelegate{
+    
+    func uploadChanged() {
+        
+    }
+    
+    func downloadChanged() {
+        
+    }
+    
     
 }
 

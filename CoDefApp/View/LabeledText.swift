@@ -21,7 +21,7 @@ class LabeledText : UIView{
         }
     }
     
-    func setupView(labelText: String, text: String = ""){
+    func setupView(labelText: String, text: String = "", inline: Bool = false){
         label.text = labelText
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
@@ -32,8 +32,14 @@ class LabeledText : UIView{
         textField.numberOfLines = 0
         textField.lineBreakMode = .byWordWrapping
         addSubview(textField)
-        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: verticalInsets)
+        label.setAnchors(top: topAnchor, leading: leadingAnchor, insets: verticalInsets)
+        if inline{
+            label.bottom(bottomAnchor, inset: -defaultInset)
+            textField.setAnchors(top: topAnchor, leading: label.trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
+        }
+        else{
             textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: verticalInsets)
+        }
     }
     
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
 		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
+		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
 		4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */; };
 		4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397012A854E33006053A0 /* Localizable.strings */; };
@@ -131,6 +132,7 @@
 /* Begin PBXFileReference section */
 		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
+		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA396E52A854CAE006053A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EA396E82A854CAE006053A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				4EA397662A855072006053A0 /* UIView+Design.swift */,
 				4EA397672A855072006053A0 /* UIView+Insets.swift */,
 				4EA397782A855072006053A0 /* UIView+Subviews.swift */,
+				4E7D49162A9395B600F73973 /* IconTextButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -645,6 +648,7 @@
 				4EA3973C2A85503A006053A0 /* EditCompanyViewController.swift in Sources */,
 				4EA397322A85502C006053A0 /* DefectViewController.swift in Sources */,
 				4EA3979D2A855072006053A0 /* LabeledDatePicker.swift in Sources */,
+				4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */,
 				4EA397832A855072006053A0 /* LabeledStepperInput.swift in Sources */,
 				4EA397EF2A8550BB006053A0 /* AppData.swift in Sources */,
 				4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */,

@@ -242,6 +242,7 @@ class DefectData : ContentData{
                 await MainActor.run{
                     syncResult.defectsUploaded += 1
                     syncResult.itemsUploaded += 1.0
+                    syncResult.updateUpload()
                 }
                 id = response.id
                 displayId = response.id

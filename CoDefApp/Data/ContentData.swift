@@ -51,6 +51,7 @@ class ContentData : BaseData{
                     syncResult.newElementsCount -= 1
                     syncResult.imagesUploaded += 1
                     syncResult.itemsUploaded += 1.0
+                    syncResult.updateUpload()
                 }
             }
             else{
@@ -60,6 +61,7 @@ class ContentData : BaseData{
         catch{
             await MainActor.run{
                 syncResult.uploadErrors += 1
+                syncResult.updateUpload()
             }
         }
     }

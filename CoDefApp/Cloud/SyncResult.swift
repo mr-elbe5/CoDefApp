@@ -6,6 +6,11 @@
 
 import Foundation
 
+protocol SyncResultDelegate{
+    func uploadChanged()
+    func downloadChanged()
+}
+
 class SyncResult{
     
     var defectsUploaded : Int = 0
@@ -18,6 +23,7 @@ class SyncResult{
     var defectsLoaded : Int = 0
     var defectStatusesLoaded : Int = 0
     var imagesLoaded : Int = 0
+    var uploadProgress: Double = 0.0
     
     var uploadErrors : Int = 0
     var downloadErrors : Int = 0
@@ -27,6 +33,15 @@ class SyncResult{
     
     var newElementsCount: Int = 0
     
+    var delegate: SyncResultDelegate? = nil
+    
+    func updateUpload(){
+        delegate?.uploadChanged()
+    }
+    
+    func updateDownload(){
+        delegate?.downloadChanged()
+    }
     
     func hasErrors() -> Bool{
         uploadErrors > 0 || downloadErrors > 0

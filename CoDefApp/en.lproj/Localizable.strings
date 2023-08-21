@@ -211,8 +211,14 @@ All other data are for addressing or information.";
 "connectionState"="Connection State";
 "connected"="Connected";
 "disconnected"="Disconnected";
+"synchronizeServer"="Synchronization with the Server";
+"newElements"="New Items";
+"upload"="Upload to Server";
+"uploaded"="Uploaded to Server";
+"download"="Download from Server";
+"downloaded"="Downloaded from Server";
 
-"serverInfoHeader"="Server Synchronisation";
+"serverInfoHeader"="Synchronization with the Server";
 "serverInfoText"="todo";
 
 /*Settings*/

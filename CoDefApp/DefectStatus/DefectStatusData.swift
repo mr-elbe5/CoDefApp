@@ -122,6 +122,7 @@ class DefectStatusData : ContentData{
                 await MainActor.run{
                     syncResult.defectStatusesUploaded += 1
                     syncResult.itemsUploaded += 1.0
+                    syncResult.updateUpload()
                 }
                 id = response.id
                 var count = 0

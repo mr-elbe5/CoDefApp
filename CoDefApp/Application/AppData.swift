@@ -122,7 +122,8 @@ class AppData : Codable{
                         }
                     }
                 }
-                try await self.loadProjectImages(data: projectList, syncResult: syncResult)
+                syncResult.updateDownload()
+                try await self.loadAllImages(data: projectList, syncResult: syncResult)
                 print("saving project list")
                 AppData.shared.projects = projectList
             }
@@ -145,7 +146,7 @@ class AppData : Codable{
         //todo clear files
     }
     
-    func loadProjectImages(data: Array<ProjectData>, syncResult: SyncResult) async throws{
+    func loadAllImages(data: Array<ProjectData>, syncResult: SyncResult) async throws{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
@@ -153,11 +154,12 @@ class AppData : Codable{
                     if location.plan != nil {
                         taskGroup.addTask{
                             do{
-                                try await self.loadProjectImage(image: location.plan!, syncResult: syncResult)
+                                try await self.loadImage(image: location.plan!, syncResult: syncResult)
                             }
                             catch{
                                 await MainActor.run{
                                     syncResult.downloadErrors += 1
+                                    syncResult.updateDownload()
                                 }
                             }
                         }
@@ -166,11 +168,12 @@ class AppData : Codable{
                         for image in defect.images{
                             taskGroup.addTask{
                                 do{
-                                    try await self.loadProjectImage(image: image, syncResult: syncResult)
+                                    try await self.loadImage(image: image, syncResult: syncResult)
                                 }
                                 catch{
                                     await MainActor.run{
                                         syncResult.downloadErrors += 1
+                                        syncResult.updateDownload()
                                     }
                                 }
                             }
@@ -179,11 +182,12 @@ class AppData : Codable{
                             for image in statusChange.images{
                                 taskGroup.addTask{
                                     do{
-                                        try await self.loadProjectImage(image: image, syncResult: syncResult)
+                                        try await self.loadImage(image: image, syncResult: syncResult)
                                     }
                                     catch{
                                         await MainActor.run{
                                             syncResult.downloadErrors += 1
+                                            syncResult.updateDownload()
                                         }
                                     }
                                 }
@@ -195,10 +199,11 @@ class AppData : Codable{
         }
     }
     
-    func loadProjectImage(image : ImageData, syncResult: SyncResult) async throws{
+    func loadImage(image : ImageData, syncResult: SyncResult) async throws{
         if (image.fileExists()){
             await MainActor.run{
                 syncResult.imagesPresent += 1
+                syncResult.updateDownload()
             }
             return
         }
@@ -211,11 +216,13 @@ class AppData : Codable{
             image.saveImage(uiImage: img)
             await MainActor.run{
                 syncResult.imagesLoaded += 1
+                syncResult.updateDownload()
             }
         }
         else{
             await MainActor.run{
                 syncResult.downloadErrors += 1
+                syncResult.updateDownload()
             }
         }
     }
