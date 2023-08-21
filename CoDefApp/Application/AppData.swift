@@ -135,6 +135,11 @@ class AppData : Codable{
         }
     }
     
+    func deleteAllData(){
+        companies.removeAll()
+        projects.removeAll()
+    }
+    
     func clearProjects(){
         projects.removeAll()
         //todo clear files

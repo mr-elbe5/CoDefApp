@@ -13,6 +13,10 @@ protocol SettingsDelegate{
 
 class SettingsViewController: ScrollViewController {
     
+    var standaloneSection = SectionView()
+    
+    var useServerSwitch = LabeledCheckbox()
+    
     var loginSection = SectionView()
     
     var serverUrlField = LabeledTextInput()
@@ -40,7 +44,9 @@ class SettingsViewController: ScrollViewController {
     }
     
     override func setupContentView() {
-        contentView.addSubviewAtTop(loginSection)
+        contentView.addSubviewAtTop(standaloneSection)
+        setupStandaloneSection()
+        contentView.addSubviewAtTop(loginSection, topView: standaloneSection)
         setupLoginSection()
         logoutButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         contentView.addSubviewAtTop(cleanupSection, topView: loginSection)
@@ -48,9 +54,20 @@ class SettingsViewController: ScrollViewController {
         setupCleanupSection()
     }
     
+    func setupStandaloneSection(){
+        let label  = UILabel(header: "appMode".localize())
+        standaloneSection.addSubviewAtTopCentered(label)
+        let text  = UILabel(text: "appModeText".localize())
+        standaloneSection.addSubviewAtTop(text, topView: label)
+        standaloneSection.addSubviewAtTop(useServerSwitch, topView: text)
+            .bottom(standaloneSection.bottomAnchor)
+        useServerSwitch.setup(title: "useServer".localize(), index: -1, isOn: !AppState.shared.standalone)
+        useServerSwitch.delegate = self
+    }
+    
     func setupLoginSection(){
         
-        let label  = UILabel(header: "cloud".localize())
+        let label  = UILabel(header: "server".localize())
         loginSection.addSubviewAtTopCentered(label)
         
         serverUrlField.setupView(labelText: "serverURL".localize(), text: AppState.shared.serverURL)
@@ -60,12 +77,13 @@ class SettingsViewController: ScrollViewController {
         loginSection.addSubviewAtTop(loginNameField, topView: serverUrlField)
         
         passwordField.setupView(labelText: "password".localize(), text: "")
+        passwordField.setSecureEntry()
         loginSection.addSubviewAtTop(passwordField, topView: loginNameField)
         
         loginButton.addAction(UIAction(){ action in
             Task{
                 if try await self.doLogin(serverURL: self.serverUrlField.text, login: self.loginNameField.text, password: self.passwordField.text){
-                    self.showDone(title: "ok".localize(), text: "loggedIn".localize())
+                    self.showDone(title: "success".localize(), text: "loggedIn".localize())
                     self.delegate?.loginChanged()
                 }
             }
@@ -87,8 +105,16 @@ class SettingsViewController: ScrollViewController {
     }
     
     func setupCleanupSection(){
-        let label  = UILabel(header: "images".localize())
+        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize())
         cleanupSection.addSubviewAtTopCentered(label)
+        
+        let deleteButton = TextButton(text: "deleteData".localize(), withBorder: true)
+        deleteButton.addAction(UIAction(){ action in
+            self.deleteData()
+        }, for: .touchDown)
+        cleanupSection.addSubviewAtTopCentered(deleteButton, topView: label)
+        label  = UILabel(header: "images".localize())
+        cleanupSection.addSubviewAtTopCentered(label, topView: deleteButton)
         
         let cleanupButton = TextButton(text: "cleanup".localize(), withBorder: true)
         cleanupButton.addAction(UIAction(){ action in
@@ -113,7 +139,7 @@ class SettingsViewController: ScrollViewController {
                 AppState.shared.serverURL = url
                 AppState.shared.currentUser = currentUser
                 AppState.shared.save()
-                //print("\(currentuser.dump())")
+                //print("\(currentUser.dump())")
                 self.logoutButton.isEnabled = AppState.shared.currentUser.isLoggedIn
                 return true
             }
@@ -122,10 +148,28 @@ class SettingsViewController: ScrollViewController {
         return false
     }
     
+    func deleteData(){
+        showApprove(text: "deleteDataHint".localize()){
+            AppData.shared.deleteAllData()
+            self.showDone(title: "success".localize(), text: "dataDeleted".localize())
+        }
+    }
+    
     func cleanup(){
         let usedImageNames = AppData.shared.usedImageNames
         let count = FileController.cleanupFiles(usedNames: usedImageNames)
-        showDone(title: "success".localize(), text: "filesDeleted".localizeWithColon() + " " + String(count))
+        showDone(title: "result".localize(), text: "filesDeleted".localizeWithColon() + " " + String(count))
+    }
+    
+}
+
+extension SettingsViewController: CheckboxDelegate{
+    
+    func checkboxIsSelected(index: Int, value: String) {
+        if index == -1{
+            AppState.shared.standalone = !useServerSwitch.isOn
+            loginSection.isHidden = AppState.shared.standalone
+        }
     }
     
 }
@@ -133,12 +177,12 @@ class SettingsViewController: ScrollViewController {
 class SettingsInfoViewController: InfoViewController {
     
     override func setupInfos(){
-        let block = InfoBlock()
-        /*stackView.addArrangedSubview(block)
+        var block = InfoBlock()
+        stackView.addArrangedSubview(block)
         block.stackView.addArrangedSubview(InfoHeader("settingsInfoLoginHeader".localize()))
         block.stackView.addArrangedSubview(InfoText("settingsInfoLoginText".localize()))
         stackView.addSpacer()
-        block = InfoBlock()*/
+        block = InfoBlock()
         stackView.addArrangedSubview(block)
         block.stackView.addArrangedSubview(InfoHeader("settingsInfoCleanupHeader".localize()))
         block.stackView.addArrangedSubview(InfoText("settingsInfoCleanupText".localize()))

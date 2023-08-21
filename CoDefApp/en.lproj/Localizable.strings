@@ -29,6 +29,7 @@
 "accept"="Accept";
 "cancel"="Cancel";
 "success"="Success";
+"result"="Result";
 "filesDeleted"="Deleted Files";
 
 /*Èrror*/
@@ -205,26 +206,33 @@ An email should be entered, if the company should be notified or receive documen
 
 All other data are for addressing or information.";
 
-/*Cloud*/
-"cloud"="Cloud";
+/*Server*/
+"server"="Server";
 "connectionState"="Connection State";
 "connected"="Connected";
 "disconnected"="Disconnected";
 
-"cloudInfoHeader"="Cloud Synchronisation";
-"cloudInfoText"="todo";
+"serverInfoHeader"="Server Synchronisation";
+"serverInfoText"="todo";
 
 /*Settings*/
 "settings"="Settings";
+"appMode"="App mode";
+"appModeText"="This app can be used standalone or with a cloud connection. During a server connection all editing rights will be changed according to the login. Changing the mode will clear all current data!";
+"useServer"="With Server Connection";
+"deleteData"="Delete all Data";
+"deleteDataHint"="All current data will be deleted from the app.";
+"dataDeleted"="Data has been deleted";
 "loginData"="Login Data";
 "serverURL"="Server URL";
 "loginName"="Login Name";
 "password"="Password";
 "login"="Log In";
 "logout"="Log Out";
+"loggedIn"="You have been successfully logged in";
 "cleanup"="Cleanup";
-
-
+"settingsInfoStandaloneHeader"="App mode";
+"settingsInfoStandaloneText"="This app can be used standalone or with a cloud connection. During a server connection all editing rights will be changed according to the login. Changing the mode will clear all current data. You can create a backup beforehand.";
 "settingsInfoLoginHeader"="Cloud Login";
 "settingsInfoLoginText"="Fill the URL, login name and password of the IssueTracker server you want to use as cloud server.";
 "settingsInfoCleanupHeader"="Cleanup";

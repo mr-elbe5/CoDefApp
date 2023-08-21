@@ -112,7 +112,7 @@ struct RequestController {
     private func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
         let (data, _) = try await URLSession.shared.data(for: request)
         if let image = UIImage(data: data){
-            //print("image received from server")
+            print("image received from server")
             return image
         }
         return nil

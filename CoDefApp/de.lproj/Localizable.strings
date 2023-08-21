@@ -32,6 +32,7 @@ Wollen Sie fortfahren?";
 "accept"="Übernehmen";
 "cancel"="Abbrechen";
 "success"="Erfolg";
+"result"="Ergebnis";
 
 /*Èrror*/
 "error"="Fehler";
@@ -210,25 +211,33 @@ Eine Email sollte eingetragen werden, wenn die Firma per Email benachrichtigt od
 Alle anderen Daten dienen der Adressierung oder Information.";
 
 /*Cloud*/
-"cloud"="Cloud";
+"server"="Server";
 "connectionState"="Verbindungsstatus";
 "connected"="Verbunden";
 "disconnected"="Nicht verbunden";
-"cloudInfoHeader"="Cloud-Synchronisation";
-"cloudInfoText"="todo";
+"serverInfoHeader"="Cloud-Synchronisation";
+"serverInfoText"="todo";
 
 /*Settings*/
 "settings"="Einstellungen";
+"appMode"="App-Modus";
+"appModeText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung werden die Bearbeitungsrechte an die Rechte durch die Anmeldung angepasst. Ein Wechsel löscht alle lokalen Daten!";
+"useServer"="Mit Serververbindung";
+"deleteData"="Alle Daten löschen";
+"deleteDataHint"="Alle lokalen Daten werden gelöscht!";
+"dataDeleted"="Die Daten wurden gelöscht.";
 "loginData"="Anmeldedaten";
 "serverURL"="Server URL";
 "loginName"="Anmeldename";
 "password"="Passwort";
 "login"="Anmelden";
 "logout"="Abmelden";
+"loggedIn"="Sie haben sich erfolgreich angemeldet.";
 "cleanup"="Aufräumen";
-
-"settingsInfoLoginHeader"="Cloud-Anmeldung";
-"settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des Codef-Servers ein, den Sie als Cloud benutzen möchten.";
+"settingsInfoStandaloneHeader"="App-Modus";
+"settingsInfoStandaloneText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung werden die Bearbeitungsrechte an die Rechte durch die Anmeldung angepasst. Ein Wechsel löscht alle lokalen Daten. Sie können vorher ein Backup durchführen.";
+"settingsInfoLoginHeader"="Server-Anmeldung";
+"settingsInfoLoginText"="Tragen Sie URL, Anmeldename und Passwort des Codef-Servers ein, den Sie als Server benutzen möchten.";
 "settingsInfoCleanupHeader"="Aufräumen";
 "settingsInfoCleanupText"="Hier können Sie alle Bilder löschen, die nicht mehr benutzt werden.";
 
