@@ -73,24 +73,24 @@ class AppData : Codable{
         projects.remove(obj: project)
     }
     
-    func addUser(_ user: CompanyData){
-        companies.append(user)
+    func addCompany(_ company: CompanyData){
+        companies.append(company)
     }
     
-    func getUser(id: Int) -> CompanyData?{
-        for user in companies{
-            if user.id == id{
-                return user
+    func getCompany(id: Int) -> CompanyData?{
+        for company in companies{
+            if company.id == id{
+                return company
             }
         }
         return nil
     }
     
-    func removeUser(_ user: CompanyData) -> Bool{
-        if canRemoveUser(userId: user.id){
-            companies.remove(obj: user)
+    func removeCompany(_ company: CompanyData) -> Bool{
+        if canRemoveUser(userId: company.id){
+            companies.remove(obj: company)
             for project in projects {
-                project.companyIds.remove(obj: user.id)
+                project.companyIds.remove(obj: company.id)
                 project.updateCompanies()
             }
             return true
@@ -227,29 +227,41 @@ class AppData : Codable{
         }
     }
     
-    func countNewElements() -> Int {
+    func countUnsynchronizedElements() -> Int {
         var count = 0
         for project in projects{
+            if !project.synchronized{
+                print("found unsynchronized project \(project.id)")
+                count += 1
+            }
             for unit in project.units{
+                if !unit.synchronized{
+                    print("found unsynchronized unit \(unit.id)")
+                    count += 1
+                }
+                if let plan = unit.plan, !plan.synchronized{
+                    print("found unsynchronized unit plan \(plan.id)")
+                    count += 1
+                }
                 for defect in unit.defects{
-                    if defect.isNew{
-                        print("found new defect \(defect.id)")
+                    if !defect.synchronized{
+                        print("found unsynchronized defect \(defect.id)")
                         count += 1
                     }
                     for image in defect.images{
-                        if image.isNew{
-                            print("found new defect image \(image.id)")
+                        if !image.synchronized{
+                            print("found unsynchronized defect image \(image.id)")
                             count += 1
                         }
                     }
                     for statusChange in defect.statusChanges{
-                        if statusChange .isNew{
-                            print("found new status change \(statusChange.id)")
+                        if !statusChange.synchronized{
+                            print("found unsynchronized status change \(statusChange.id)")
                             count += 1
                         }
                         for image in statusChange.images{
-                            if image.isNew{
-                                print("found new comment image \(image.id)")
+                            if !image.synchronized{
+                                print("found unsynchronized comment image \(image.id)")
                                 count += 1
                             }
                         }

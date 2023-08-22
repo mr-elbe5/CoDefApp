@@ -47,7 +47,7 @@ class CloudViewController: ScrollViewController {
         title = "server".localize()
         super.loadView()
         modalPresentationStyle = .fullScreen
-        syncResult.newElementsCount = AppData.shared.countNewElements()
+        syncResult.newElementsCount = AppData.shared.countUnsynchronizedElements()
         syncResult.delegate = self
     }
     

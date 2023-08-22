@@ -70,7 +70,7 @@ class UserData: Codable{
         print("id: \(id)");
         print("login: \(login)");
         print("name: \(name)");
-        print("token: \(token)");
+        print("token: \(token ?? "")");
         print("isEditor: \(isEditor)");
         print("isAdministartor: \(isAdministrator)");
     }

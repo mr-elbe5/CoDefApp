@@ -76,7 +76,7 @@ class EditCompanyViewController: EditViewController {
             company.description = notesField.text
             company.changed()
             if company.isNew{
-                AppData.shared.addUser(company)
+                AppData.shared.addCompany(company)
                 company.isNew = false
             }
             company.saveData()

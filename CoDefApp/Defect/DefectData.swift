@@ -253,7 +253,7 @@ class DefectData : ContentData{
                         await uploadImage(image: image, count: count, syncResult: syncResult)
                     }
                     for statusChange in statusChanges{
-                        if (statusChange.isNew){
+                        if (!statusChange.synchronized){
                             await statusChange.upload(syncResult: syncResult)
                         }
                     }

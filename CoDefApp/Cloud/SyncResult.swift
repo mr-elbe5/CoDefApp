@@ -69,7 +69,7 @@ class SyncResult{
         
         uploadedItems = 0.0
         
-        newElementsCount = AppData.shared.countNewElements()
+        newElementsCount = AppData.shared.countUnsynchronizedElements()
         
     }
     
