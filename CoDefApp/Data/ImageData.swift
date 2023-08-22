@@ -14,6 +14,10 @@ class ImageData : FileData{
         super.init()
     }
     
+    override var serverFileName: String{
+        "img_\(serverId)_\(id).\(fileExtension)"
+    }
+    
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
@@ -35,6 +39,28 @@ class ImageData : FileData{
     func saveImage(uiImage: UIImage){
         if let data = uiImage.jpegData(compressionQuality: 0.8){
             saveFile(data: data)
+        }
+    }
+    
+    func upload(requestUrl: String, syncResult: SyncResult) async{
+        do{
+            let uiImage = getImage()
+            if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
+                print("image uploaded with id \(response.id)")
+                serverId = response.id
+                synchronized = true
+                await MainActor.run{
+                    syncResult.imageUploaded()
+                }
+            }
+            else{
+                throw "image upload error"
+            }
+        }
+        catch{
+            await MainActor.run{
+                syncResult.uploadError()
+            }
         }
     }
     

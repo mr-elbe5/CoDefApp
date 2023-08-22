@@ -325,23 +325,23 @@
 		4EA396F12A854D5F006053A0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397B22A85508E006053A0 /* ImageData.swift */,
 				4EA397C92A8550AD006053A0 /* Array.swift */,
 				4EA397D32A8550AD006053A0 /* AsyncOperation.swift */,
 				4EA397D22A8550AD006053A0 /* AuthorizationError.swift */,
 				4EA397D12A8550AD006053A0 /* BaseData.swift */,
 				4EA397C82A8550AD006053A0 /* Codable.swift */,
+				4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */,
 				4EA397C52A8550AD006053A0 /* Date.swift */,
 				4EA397CF2A8550AD006053A0 /* Dictionary.swift */,
+				4E0DC7E82A92063B00ED4F2B /* FileData.swift */,
 				4EA397C72A8550AD006053A0 /* IdResponse.swift */,
+				4EA397B22A85508E006053A0 /* ImageData.swift */,
 				4EA397D02A8550AD006053A0 /* Insets.swift */,
 				4EA397CA2A8550AD006053A0 /* NSAttributedString.swift */,
 				4EA397CD2A8550AD006053A0 /* String.swift */,
 				4EA397CC2A8550AD006053A0 /* TextAttributes.swift */,
 				4EA397C62A8550AD006053A0 /* TimeInterval.swift */,
 				4EA397CE2A8550AD006053A0 /* URL.swift */,
-				4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */,
-				4E0DC7E82A92063B00ED4F2B /* FileData.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

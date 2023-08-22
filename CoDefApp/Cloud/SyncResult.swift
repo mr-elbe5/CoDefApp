@@ -35,13 +35,47 @@ class SyncResult{
     
     var delegate: SyncResultDelegate? = nil
     
-    func updateUpload(){
+    func imageUploaded(){
+        newElementsCount -= 1
+        uploadedImages += 1
+        uploadedItems += 1.0
+        delegate?.uploadChanged()
+    }
+    
+    func projectUploaded(){
+        newElementsCount -= 1
+        uploadedItems += 1.0
+        delegate?.uploadChanged()
+    }
+    
+    func unitUploaded(){
+        newElementsCount -= 1
+        uploadedItems += 1.0
+        delegate?.uploadChanged()
+    }
+    
+    func defectUploaded(){
+        newElementsCount -= 1
+        uploadedItems += 1.0
+        delegate?.uploadChanged()
+    }
+    
+    func statusChangeUploaded(){
+        newElementsCount -= 1
+        uploadedItems += 1.0
+        delegate?.uploadChanged()
+    }
+    
+    func uploadError(){
+        uploadErrors += 1
         delegate?.uploadChanged()
     }
     
     func updateDownload(){
         delegate?.downloadChanged()
     }
+    
+    
     
     func hasErrors() -> Bool{
         uploadErrors > 0 || downloadErrors > 0

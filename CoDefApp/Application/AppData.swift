@@ -277,36 +277,30 @@ class AppData : Codable{
             for project in AppData.shared.projects{
                 for location in project.units{
                     for defect in location.defects{
-                        if (defect.isNew){
+                        if (!defect.synchronized){
                             taskGroup.addTask{
                                 await defect.upload(syncResult: syncResult)
                             }
                         }
                         else{
-                            var count = 0
                             for image in defect.images{
-                                if (image.isNew){
-                                    count += 1
-                                    let nextCount = count
+                                if (!image.synchronized){
                                     taskGroup.addTask{
-                                        await defect.uploadImage(image: image, count: nextCount, syncResult: syncResult)
+                                        await defect.uploadImage(image: image, syncResult: syncResult)
                                     }
                                 }
                             }
                             for defectStatus in defect.statusChanges{
-                                if (defectStatus.isNew){
+                                if (!defectStatus.synchronized){
                                     taskGroup.addTask{
                                         await defectStatus.upload(syncResult: syncResult)
                                     }
                                 }
                                 else{
-                                    var count = 0
                                     for image in defect.images{
-                                        if (image.isNew){
-                                            count += 1
-                                            let nextCount = count
+                                        if (!image.synchronized){
                                             taskGroup.addTask{
-                                                await defectStatus.uploadImage(image: image, count: nextCount, syncResult: syncResult)
+                                                await defectStatus.uploadImage(image: image, syncResult: syncResult)
                                             }
                                         }
                                     }

@@ -114,41 +114,37 @@ class DefectStatusData : ContentData{
     func upload(syncResult: SyncResult) async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/defectstatus/upload/" + String(defect.id)
-            var params = uploadParams()
-            params["creationDate"] = String(creationDate.millisecondsSince1970)
-            params["defectId"] = String(defect.id)
+            let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
-                print("comment \(response.id) uploaded")
+                print("status change \(response.id) uploaded")
                 await MainActor.run{
-                    syncResult.uploadedStatusChanges += 1
-                    syncResult.uploadedItems += 1.0
-                    syncResult.updateUpload()
+                    syncResult.statusChangeUploaded()
                 }
                 id = response.id
-                var count = 0
+                synchronized = true
                 for image in images{
-                    count += 1
-                    await uploadImage(image: image, count: count, syncResult: syncResult)
+                    if !image.synchronized{
+                        await uploadImage(image: image, syncResult: syncResult)
+                    }
                 }
             }
             else{
                 await MainActor.run{
-                    syncResult.uploadErrors += 1
+                    syncResult.uploadError()
                 }
-                throw "defect status upload error"
+                throw "status change upload error"
             }
         }
         catch{
             await MainActor.run{
-                syncResult.uploadErrors += 1
+                syncResult.uploadError()
             }
         }
     }
     
-    func uploadImage(image: ImageData, count: Int, syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(id) + "?imageId=" + String(image.id)
-        let newFileName = "img-\(id)-\(count).jpg"
-        await uploadImage(requestUrl: requestUrl, image: image, fileName: newFileName, syncResult: syncResult)
+    func uploadImage(image: ImageData, syncResult: SyncResult) async{
+        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(serverId) + "?imageId=" + String(image.id)
+        await image.upload(requestUrl: requestUrl, syncResult: syncResult)
     }
     
 }
