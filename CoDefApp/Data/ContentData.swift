@@ -41,5 +41,49 @@ class ContentData : BaseData{
         return dict
     }
     
+    func synchronizeFrom(_ fromData: ContentData){
+        super.synchronizeFrom(fromData)
+        name = fromData.name
+        description = fromData.description
+    }
+    
+}
+
+typealias ContentDataArray<T: ContentData> = Array<T>
+
+extension ContentDataArray{
+    
+    var names: Array<String>{
+        var list = Array<String>()
+        for i in 0..<count{
+            list.append(self[i].name)
+        }
+        return list
+    }
+    
+    func getContentData(id: Int) -> ContentData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
+    }
+    
+    func getContentData(name: String) -> ContentData?{
+        for data in self{
+            if data.name == name {
+                return data
+            }
+        }
+        return nil
+    }
+    
+    mutating func sortByName(){
+        self = self.sorted {
+            $0.name < $1.name
+        }
+    }
+    
 }
 

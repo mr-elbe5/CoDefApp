@@ -32,7 +32,7 @@ class AppData : Codable{
         case companies
     }
     
-    var projects = Array<ProjectData>()
+    var projects = ProjectList()
     var companies = CompanyList()
     
     var usedImageNames: Array<String>{
@@ -49,7 +49,7 @@ class AppData : Codable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         companies = try values.decodeIfPresent(CompanyList.self, forKey: .companies) ?? CompanyList()
-        projects = try values.decodeIfPresent(Array<ProjectData>.self, forKey: .projects) ?? Array<ProjectData>()
+        projects = try values.decodeIfPresent(ProjectList.self, forKey: .projects) ?? ProjectList()
     }
 
     func encode(to encoder: Encoder) throws {
@@ -107,25 +107,39 @@ class AppData : Codable{
         return true
     }
     
-    func loadProjects(syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/project/getProjects"
+    func loadServerData(syncResult: SyncResult) async{
+        let requestUrl = AppState.shared.serverURL+"/api/root/getData"
         let params = Dictionary<String,String>()
         do{
-            if let projectList: Array<ProjectData> = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
-                //print(projectList.projects)
-                await MainActor.run{
-                    syncResult.loadedProjects = projectList.count
-                    for project in projectList{
-                        syncResult.loadedUnits += project.units.count
-                        for unit in project.units{
-                            syncResult.loadedDefects += unit.defects.count
-                        }
+            if let appData: AppData = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+                print(appData)
+                for company in appData.companies{
+                    if let presentCompany = companies.getCompanyData(id: company.id){
+                        presentCompany.synchronizeFrom(company)
+                    }
+                    else{
+                        companies.append(company)
+                        syncResult.loadedCompanies += 1
                     }
                 }
-                syncResult.updateDownload()
-                try await self.loadAllImages(data: projectList, syncResult: syncResult)
+                companies.sortByName()
+                for project in appData.projects{
+                    if let presentProject = projects.getProjectData(id: project.id){
+                        presentProject.synchronizeFrom(project)
+                    }
+                    else{
+                        projects.append(project)
+                        syncResult.loadedProjects += 1
+                    }
+                    projects.sortByName()
+                }
+                projects.sortByName()
+                await MainActor.run{
+                    syncResult.updateDownload()
+                }
+                try await self.loadAllImages(data: projects, syncResult: syncResult)
                 print("saving project list")
-                AppData.shared.projects = projectList
+                save()
             }
         }
         catch {

@@ -66,6 +66,21 @@ class ImageData : FileData{
     
 }
 
+typealias ImageList = BaseDataArray<ImageData>
+
+extension ImageList{
+    
+    func getImageData(id: Int) -> ImageData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
+    }
+    
+}
+
 protocol ImageFileViewDelegate{
     func viewImage(image: ImageData, imageDeleteDelegate: ImageFileDeleteDelegate?)
 }

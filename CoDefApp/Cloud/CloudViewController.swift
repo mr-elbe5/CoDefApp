@@ -163,7 +163,7 @@ class CloudViewController: ScrollViewController {
     
     func download(){
         Task{
-            await AppData.shared.loadProjects(syncResult: syncResult)
+            await AppData.shared.loadServerData(syncResult: syncResult)
             await MainActor.run{
                 downloadProgressSlider.value = 1
             }

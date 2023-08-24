@@ -46,17 +46,18 @@ class BaseData: Codable, Hashable, Equatable{
         changerName = creatorName
         synchronized = false
         isNew = true
-        synchronized = false
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
-        serverId = try values.decode(Int.self, forKey: .serverId)
-        creationDate = try values.decodeIfPresent(Date.self, forKey: .creationDate) ?? Date()
+        serverId = try values.decodeIfPresent(Int.self, forKey: .serverId) ?? 0
+        var date = try values.decodeIfPresent(String.self, forKey: .creationDate)
+        creationDate = date?.ISO8601Date() ?? Date()
         creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 0
         creatorName = try values.decodeIfPresent(String.self, forKey: .creatorName) ?? ""
-        changeDate = try values.decodeIfPresent(Date.self, forKey: .changeDate) ?? creationDate
+        date = try values.decodeIfPresent(String.self, forKey: .changeDate)
+        changeDate = date?.ISO8601Date() ?? creationDate
         changerId = try values.decodeIfPresent(Int.self, forKey: .changerId) ?? 0
         changerName = try values.decodeIfPresent(String.self, forKey: .changerName) ?? ""
         synchronized = try values.decodeIfPresent(Bool.self, forKey: .synchronized) ?? false
@@ -67,13 +68,24 @@ class BaseData: Codable, Hashable, Equatable{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(serverId, forKey: .serverId)
-        try container.encode(creationDate, forKey: .creationDate)
+        try container.encode(creationDate.isoString(), forKey: .creationDate)
         try container.encode(creatorId, forKey: .creatorId)
         try container.encode(creatorName, forKey: .creatorName)
-        try container.encode(changeDate, forKey: .changeDate)
+        try container.encode(changeDate.isoString(), forKey: .changeDate)
         try container.encode(changerId, forKey: .changerId)
         try container.encode(changerName, forKey: .changerName)
         try container.encode(synchronized, forKey: .synchronized)
+    }
+    
+    func synchronizeFrom(_ fromData: BaseData){
+        serverId = fromData.serverId
+        creationDate = fromData.creationDate
+        creatorId = fromData.creatorId
+        creatorName = fromData.creatorName
+        changeDate = fromData.changeDate
+        changerId = fromData.creatorId
+        changerName = fromData.changerName
+        synchronized = true
     }
     
     func changed(){
@@ -104,3 +116,23 @@ class BaseData: Codable, Hashable, Equatable{
  
 }
 
+typealias BaseDataArray<T: BaseData> = Array<T>
+
+extension BaseDataArray{
+    
+    func getBaseData(id: Int) -> BaseData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
+    }
+    
+    mutating func sortById(){
+        self = self.sorted {
+            $0.id < $1.id
+        }
+    }
+    
+}

@@ -56,9 +56,9 @@ class DefectData : ContentData{
     var position: CGPoint = .zero
     var positionComment = ""
     
-    var images = Array<ImageData>()
+    var images = ImageList()
     
-    var statusChanges = Array<DefectStatusData>()
+    var statusChanges = DefectStatusList()
     
     var planImage: UIImage? = nil
     
@@ -108,12 +108,13 @@ class DefectData : ContentData{
         }
         assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
-        dueDate = try values.decodeIfPresent(Date.self, forKey: .dueDate) ?? Date.now
+        let date = try values.decodeIfPresent(String.self, forKey: .dueDate)
+        dueDate = date?.ISO8601Date() ?? Date.now
         position.x = try values.decodeIfPresent(Double.self, forKey: .positionX) ?? 0.0
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
-        images = try values.decodeIfPresent(Array<ImageData>.self, forKey: .images) ?? Array<ImageData>()
-        statusChanges = try values.decodeIfPresent(Array<DefectStatusData>.self, forKey: .statusChanges) ?? Array<DefectStatusData>()
+        images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
+        statusChanges = try values.decodeIfPresent(DefectStatusList.self, forKey: .statusChanges) ?? DefectStatusList()
         for statusChange in statusChanges{
             statusChange.defect = self
         }
@@ -127,7 +128,7 @@ class DefectData : ContentData{
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(notified, forKey: .notified)
-        try container.encode(dueDate, forKey: .dueDate)
+        try container.encode(dueDate.isoString(), forKey: .dueDate)
         try container.encode(position.x, forKey: .positionX)
         try container.encode(position.y, forKey: .positionY)
         try container.encode(positionComment, forKey: .positionComment)
@@ -144,6 +145,41 @@ class DefectData : ContentData{
         dict["positionY"]=String(Double(position.y))
         dict["positionComment"]=positionComment
         return dict
+    }
+    
+    func synchronizeFrom(_ fromData: DefectData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData)
+        displayId = fromData.displayId
+        status = fromData.status
+        assignedCompanyId = fromData.assignedCompanyId
+        notified = fromData.notified
+        dueDate = fromData.dueDate
+        position.x = fromData.position.x
+        position.y = fromData.position.y
+        positionComment = fromData.positionComment
+        for image in fromData.images{
+            if let presentImage = images.getImageData(id: image.id){
+                presentImage.synchronizeFrom(image)
+            }
+            else{
+                images.append(image)
+                syncResult.loadedImages += 1
+            }
+            
+        }
+        for statusChange in fromData.statusChanges{
+            if let presentStatusChange = statusChanges.getDefectStatusData(id: statusChange.id){
+                presentStatusChange.synchronizeFrom(statusChange, syncResult: syncResult)
+            }
+            else{
+                statusChanges.append(statusChange)
+                syncResult.loadedStatusChanges += 1
+            }
+            
+        }
+        for statusChange in statusChanges{
+            statusChange.defect = self
+        }
     }
     
     func assertDisplayId(){
@@ -273,6 +309,21 @@ class DefectData : ContentData{
     func uploadImage(image: ImageData, syncResult: SyncResult) async{
         let requestUrl = AppState.shared.serverURL+"/api/defect/uploadImage/" + String(id) + "?imageId=" + String(image.id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)
+    }
+    
+}
+
+typealias DefectList = ContentDataArray<DefectData>
+
+extension DefectList{
+    
+    func getDefectData(id: Int) -> DefectData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
     }
     
 }

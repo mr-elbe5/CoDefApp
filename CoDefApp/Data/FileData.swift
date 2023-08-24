@@ -99,3 +99,17 @@ class FileData : BaseData{
     
 }
 
+typealias FileList = BaseDataArray<FileData>
+
+extension FileList{
+    
+    func getFileData(id: Int) -> FileData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
+    }
+    
+}

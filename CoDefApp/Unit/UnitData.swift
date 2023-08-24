@@ -52,8 +52,8 @@ class UnitData : ContentData{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         plan = try values.decodeIfPresent(ImageData.self, forKey: .plan)
         defects = try values.decodeIfPresent(Array<DefectData>.self, forKey: .defects) ?? Array<DefectData>()
-        for issue in defects{
-            issue.unit = self
+        for defect in defects{
+            defect.unit = self
         }
     }
 
@@ -64,6 +64,24 @@ class UnitData : ContentData{
             try container.encode(plan, forKey: .plan)
         }
         try container.encode(defects, forKey: .defects)
+    }
+    
+    func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData)
+        plan = fromData.plan
+        for defect in fromData.defects{
+            if let presentDefect = defects.getDefectData(id: defect.id){
+                presentDefect.synchronizeFrom(defect, syncResult: syncResult)
+            }
+            else{
+                defects.append(defect)
+                syncResult.loadedDefects += 1
+            }
+            
+        }
+        for defect in defects{
+            defect.unit = self
+        }
     }
     
     func removeDefect(_ issue: DefectData){
@@ -147,6 +165,21 @@ class UnitData : ContentData{
     func uploadImage(syncResult: SyncResult, image: ImageData, count: Int) async throws{
         let requestUrl = AppState.shared.serverURL+"/api/unit/uploadImage/" + String(id) + "?imageId=" + String(image.id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)
+    }
+    
+}
+
+typealias UnitList = ContentDataArray<UnitData>
+
+extension UnitList{
+    
+    func getUnitData(id: Int) -> UnitData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
     }
     
 }

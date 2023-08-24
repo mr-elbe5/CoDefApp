@@ -46,8 +46,8 @@ class ProjectData : ContentData{
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         units = try values.decodeIfPresent(Array<UnitData>.self, forKey: .units) ?? Array<UnitData>()
-        for scope in units{
-            scope.project = self
+        for unit in units{
+            unit.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
         filter = try values.decodeIfPresent(Filter.self, forKey: .filter) ?? Filter()
@@ -59,6 +59,24 @@ class ProjectData : ContentData{
         try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
         try container.encode(filter, forKey: .filter)
+    }
+    
+    func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData)
+        companyIds = fromData.companyIds
+        for unit in fromData.units{
+            if let presentUnit = units.getUnitData(id: unit.id){
+                presentUnit.synchronizeFrom(unit, syncResult: syncResult)
+            }
+            else{
+                units.append(unit)
+                syncResult.loadedUnits += 1
+            }
+            
+        }
+        for unit in units{
+            unit.project = self
+        }
     }
     
     func updateCompanies(){
@@ -122,6 +140,21 @@ class ProjectData : ContentData{
         return names
     }
 
+}
+
+typealias ProjectList = ContentDataArray<ProjectData>
+
+extension ProjectList{
+    
+    func getProjectData(id: Int) -> ProjectData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
+    }
+    
 }
 
 protocol ProjectDelegate{

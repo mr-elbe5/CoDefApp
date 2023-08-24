@@ -37,7 +37,6 @@
 		4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */; };
 		4EA397342A85502C006053A0 /* CreateDefectStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateDefectStatusViewController.swift */; };
 		4EA3973C2A85503A006053A0 /* EditCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397352A855039006053A0 /* EditCompanyViewController.swift */; };
-		4EA3973D2A85503A006053A0 /* CompanyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397362A85503A006053A0 /* CompanyList.swift */; };
 		4EA3973E2A85503A006053A0 /* LabeledCompanySelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */; };
 		4EA3973F2A85503A006053A0 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397382A85503A006053A0 /* CompanyData.swift */; };
 		4EA397402A85503A006053A0 /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397392A85503A006053A0 /* CompanyViewController.swift */; };
@@ -163,7 +162,6 @@
 		4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectPositionViewController.swift; sourceTree = "<group>"; };
 		4EA397292A85502C006053A0 /* CreateDefectStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDefectStatusViewController.swift; sourceTree = "<group>"; };
 		4EA397352A855039006053A0 /* EditCompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCompanyViewController.swift; sourceTree = "<group>"; };
-		4EA397362A85503A006053A0 /* CompanyList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyList.swift; sourceTree = "<group>"; };
 		4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeledCompanySelectField.swift; sourceTree = "<group>"; };
 		4EA397382A85503A006053A0 /* CompanyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		4EA397392A85503A006053A0 /* CompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
@@ -463,7 +461,6 @@
 				4EA397352A855039006053A0 /* EditCompanyViewController.swift */,
 				4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */,
 				4EA397382A85503A006053A0 /* CompanyData.swift */,
-				4EA397362A85503A006053A0 /* CompanyList.swift */,
 				4EA397392A85503A006053A0 /* CompanyViewController.swift */,
 			);
 			path = Company;
@@ -634,7 +631,6 @@
 				4EA397982A855072006053A0 /* UITextView.swift in Sources */,
 				4EA397132A854F96006053A0 /* FilterViewController.swift in Sources */,
 				4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */,
-				4EA3973D2A85503A006053A0 /* CompanyList.swift in Sources */,
 				4EA397992A855072006053A0 /* UIView.swift in Sources */,
 				4EA397D62A8550AD006053A0 /* IdResponse.swift in Sources */,
 				4EA397302A85502C006053A0 /* DefectData.swift in Sources */,

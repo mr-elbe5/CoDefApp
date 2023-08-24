@@ -21,7 +21,7 @@ class DefectStatusData : ContentData{
     var assignedCompanyId: Int = 0
     var dueDate = Date()
     
-    var images = Array<ImageData>()
+    var images = ImageList()
     
     var defect: DefectData!
     
@@ -34,11 +34,11 @@ class DefectStatusData : ContentData{
     }
     
     var creator: CompanyData?{
-        return projectCompanies.company(withId: creatorId)
+        return projectCompanies.getCompanyData(id: creatorId)
     }
     
     var previousAssignedCompany: CompanyData?{
-        projectCompanies.company(withId: previousAssignedCompanyId)
+        projectCompanies.getCompanyData(id: previousAssignedCompanyId)
     }
     
     var previousAssignedCompanyName : String{
@@ -46,7 +46,7 @@ class DefectStatusData : ContentData{
     }
     
     var assignedCompany: CompanyData?{
-        return projectCompanies.company(withId: assignedCompanyId)
+        return projectCompanies.getCompanyData(id: assignedCompanyId)
     }
     
     var assignedCompanyName : String{
@@ -74,8 +74,9 @@ class DefectStatusData : ContentData{
         }
         previousAssignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .previousAssignedCompanyId) ?? 0
         assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
-        dueDate = try values.decodeIfPresent(Date.self, forKey: .dueDate) ?? Date.now
-        images = try values.decodeIfPresent(Array<ImageData>.self, forKey: .images) ?? Array<ImageData>()
+        let date = try values.decodeIfPresent(String.self, forKey: .dueDate)
+        dueDate = date?.ISO8601Date() ?? Date.now
+        images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -84,8 +85,26 @@ class DefectStatusData : ContentData{
         try container.encode(status.rawValue, forKey: .status)
         try container.encode(previousAssignedCompanyId, forKey: .previousAssignedCompanyId)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
-        try container.encode(dueDate, forKey: .dueDate)
+        try container.encode(dueDate.isoString(), forKey: .dueDate)
         try container.encode(images, forKey: .images)
+    }
+    
+    func synchronizeFrom(_ fromData: DefectStatusData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData)
+        status = fromData.status
+        previousAssignedCompanyId = fromData.previousAssignedCompanyId
+        assignedCompanyId = fromData.assignedCompanyId
+        dueDate = fromData.dueDate
+        for image in fromData.images{
+            if let presentImage = images.getImageData(id: image.id){
+                presentImage.synchronizeFrom(image)
+            }
+            else{
+                images.append(image)
+                syncResult.loadedImages += 1
+            }
+            
+        }
     }
     
     override func uploadParams() -> Dictionary<String,String>{
@@ -145,6 +164,21 @@ class DefectStatusData : ContentData{
     func uploadImage(image: ImageData, syncResult: SyncResult) async{
         let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(serverId) + "?imageId=" + String(image.id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)
+    }
+    
+}
+
+typealias DefectStatusList = ContentDataArray<DefectStatusData>
+
+extension DefectStatusList{
+    
+    func getDefectStatusData(id: Int) -> DefectStatusData?{
+        for data in self{
+            if data.id == id {
+                return data
+            }
+        }
+        return nil
     }
     
 }
