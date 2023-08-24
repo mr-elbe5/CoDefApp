@@ -27,7 +27,7 @@ class FileData : BaseData{
     }
     
     var serverFileName: String{
-        "file_\(serverId)_\(id).\(fileExtension)"
+        "file_\(localId)_\(id).\(fileExtension)"
     }
     
     override init(){

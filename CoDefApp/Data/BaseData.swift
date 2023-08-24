@@ -14,7 +14,7 @@ class BaseData: Codable, Hashable, Equatable{
     
     private enum CodingKeys: String, CodingKey {
         case id
-        case serverId
+        case localId
         case creationDate
         case creatorId
         case creatorName
@@ -25,7 +25,7 @@ class BaseData: Codable, Hashable, Equatable{
     }
     
     var id : Int
-    var serverId : Int
+    var localId: Int
     var creationDate : Date
     var creatorId = 0
     var creatorName = ""
@@ -35,9 +35,13 @@ class BaseData: Codable, Hashable, Equatable{
     var synchronized: Bool
     var isNew: Bool
     
+    var hasServerId: Bool{
+        id < Statics.minNewId
+    }
+    
     init(){
         id = AppState.shared.nextId
-        serverId = 0
+        localId = id
         creationDate = Date()
         creatorId = AppState.shared.currentUser.id
         creatorName = AppState.shared.currentUser.name
@@ -51,7 +55,7 @@ class BaseData: Codable, Hashable, Equatable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
-        serverId = try values.decodeIfPresent(Int.self, forKey: .serverId) ?? 0
+        localId = try values.decodeIfPresent(Int.self, forKey: .localId) ?? 0
         var date = try values.decodeIfPresent(String.self, forKey: .creationDate)
         creationDate = date?.ISO8601Date() ?? Date()
         creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 0
@@ -67,7 +71,7 @@ class BaseData: Codable, Hashable, Equatable{
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(serverId, forKey: .serverId)
+        try container.encode(localId, forKey: .localId)
         try container.encode(creationDate.isoString(), forKey: .creationDate)
         try container.encode(creatorId, forKey: .creatorId)
         try container.encode(creatorName, forKey: .creatorName)
@@ -78,7 +82,6 @@ class BaseData: Codable, Hashable, Equatable{
     }
     
     func synchronizeFrom(_ fromData: BaseData){
-        serverId = fromData.serverId
         creationDate = fromData.creationDate
         creatorId = fromData.creatorId
         creatorName = fromData.creatorName
@@ -102,7 +105,6 @@ class BaseData: Codable, Hashable, Equatable{
     func uploadParams() -> Dictionary<String,String>{
         var dict = Dictionary<String,String>()
         dict["id"]=String(id)
-        dict["serverId"]=String(serverId)
         dict["creatorId"]=String(creatorId)
         dict["changerId"]=String(changerId)
         dict["creationDate"]=creationDate.isoString()

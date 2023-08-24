@@ -166,6 +166,10 @@ class CloudViewController: ScrollViewController {
             await AppData.shared.loadServerData(syncResult: syncResult)
             await MainActor.run{
                 downloadProgressSlider.value = 1
+                if let mainController = self.navigationController?.previousViewController as? MainViewController{
+                    mainController.updateProjectSection()
+                    mainController.updateUserSection()
+                }
             }
         }
     }

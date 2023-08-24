@@ -165,24 +165,11 @@ class AppData : Codable{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
                 for location in project.units{
-                    if location.plan != nil {
-                        taskGroup.addTask{
-                            do{
-                                try await self.loadImage(image: location.plan!, syncResult: syncResult)
-                            }
-                            catch{
-                                await MainActor.run{
-                                    syncResult.downloadErrors += 1
-                                    syncResult.updateDownload()
-                                }
-                            }
-                        }
-                    }
-                    for defect in location.defects{
-                        for image in defect.images{
+                    if let plan = location.plan{
+                        if !plan.fileExists() {
                             taskGroup.addTask{
                                 do{
-                                    try await self.loadImage(image: image, syncResult: syncResult)
+                                    try await self.loadImage(image: location.plan!, syncResult: syncResult)
                                 }
                                 catch{
                                     await MainActor.run{
@@ -192,9 +179,17 @@ class AppData : Codable{
                                 }
                             }
                         }
-                        for statusChange in defect.statusChanges{
-                            for image in statusChange.images{
-                                taskGroup.addTask{
+                        else{
+                            await MainActor.run{
+                                syncResult.presentImages += 1
+                                syncResult.updateDownload()
+                            }
+                        }
+                    }
+                    for defect in location.defects{
+                        for image in defect.images{
+                            taskGroup.addTask{
+                                if !image.fileExists(){
                                     do{
                                         try await self.loadImage(image: image, syncResult: syncResult)
                                     }
@@ -203,6 +198,35 @@ class AppData : Codable{
                                             syncResult.downloadErrors += 1
                                             syncResult.updateDownload()
                                         }
+                                    }
+                                }
+                                else{
+                                    await MainActor.run{
+                                        syncResult.presentImages += 1
+                                        syncResult.updateDownload()
+                                    }
+                                }
+                            }
+                        }
+                        for statusChange in defect.statusChanges{
+                            for image in statusChange.images{
+                                if !image.fileExists(){
+                                    taskGroup.addTask{
+                                        do{
+                                            try await self.loadImage(image: image, syncResult: syncResult)
+                                        }
+                                        catch{
+                                            await MainActor.run{
+                                                syncResult.downloadErrors += 1
+                                                syncResult.updateDownload()
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    await MainActor.run{
+                                        syncResult.presentImages += 1
+                                        syncResult.updateDownload()
                                     }
                                 }
                             }

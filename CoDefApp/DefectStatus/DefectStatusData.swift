@@ -162,7 +162,7 @@ class DefectStatusData : ContentData{
     }
     
     func uploadImage(image: ImageData, syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(serverId) + "?imageId=" + String(image.id)
+        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(id) + "?imageId=" + String(image.id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)
     }
     

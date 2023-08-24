@@ -152,6 +152,10 @@ class SettingsViewController: ScrollViewController {
         showApprove(text: "deleteDataHint".localize()){
             AppData.shared.deleteAllData()
             self.showDone(title: "success".localize(), text: "dataDeleted".localize())
+            if let mainController = self.navigationController?.previousViewController as? MainViewController{
+                mainController.updateProjectSection()
+                mainController.updateUserSection()
+            }
         }
     }
     

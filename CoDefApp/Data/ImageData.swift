@@ -15,7 +15,7 @@ class ImageData : FileData{
     }
     
     override var serverFileName: String{
-        "img_\(serverId)_\(id).\(fileExtension)"
+        "img_\(localId)_\(id).\(fileExtension)"
     }
     
     required init(from decoder: Decoder) throws {
@@ -47,7 +47,7 @@ class ImageData : FileData{
             let uiImage = getImage()
             if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
                 print("image uploaded with id \(response.id)")
-                serverId = response.id
+                id = response.id
                 synchronized = true
                 await MainActor.run{
                     syncResult.imageUploaded()

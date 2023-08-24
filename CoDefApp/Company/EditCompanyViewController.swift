@@ -59,7 +59,7 @@ class EditCompanyViewController: EditViewController {
         phoneField.setupView(labelText: "phone".localizeWithColon(), text: company.phone)
         contentView.addSubviewAtTop(phoneField, topView: emailField)
         
-        notesField.setupView(labelText: "notes".localizeWithColon(), text: company.description)
+        notesField.setupView(labelText: "notes".localizeWithColon(), text: company.notes)
         contentView.addSubviewAtTop(notesField, topView: phoneField)
             .bottom(contentView.bottomAnchor)
         
@@ -73,7 +73,7 @@ class EditCompanyViewController: EditViewController {
             company.city = cityField.text
             company.email = emailField.text
             company.phone = phoneField.text
-            company.description = notesField.text
+            company.notes = notesField.text
             company.changed()
             if company.isNew{
                 AppData.shared.addCompany(company)

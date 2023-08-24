@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
 		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
+		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
 		4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */; };
@@ -130,6 +131,7 @@
 /* Begin PBXFileReference section */
 		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
+		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA396E52A854CAE006053A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				4EA397502A855061006053A0 /* ScrollViewController.swift */,
 				4EA3974F2A855061006053A0 /* UIViewController.swift */,
 				4EA397542A855061006053A0 /* UIViewController+Insets.swift */,
+				4E660E092A9780AB00FF4037 /* NavigationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				4EA397A02A855072006053A0 /* UITextField.swift in Sources */,
 				4EA397EA2A8550BB006053A0 /* SceneDelegate.swift in Sources */,
 				4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */,
+				4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */,
 				4EA3979C2A855072006053A0 /* UIImage.swift in Sources */,
 				4EA3974B2A855048006053A0 /* CloudViewController.swift in Sources */,
 				4EA397E12A8550AD006053A0 /* AuthorizationError.swift in Sources */,
