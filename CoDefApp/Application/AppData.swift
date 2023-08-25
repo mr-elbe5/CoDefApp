@@ -73,10 +73,6 @@ class AppData : Codable{
         projects.remove(obj: project)
     }
     
-    func addCompany(_ company: CompanyData){
-        companies.append(company)
-    }
-    
     func getCompany(id: Int) -> CompanyData?{
         for company in companies{
             if company.id == id{
@@ -121,6 +117,7 @@ class AppData : Codable{
                         companies.append(company)
                         syncResult.loadedCompanies += 1
                     }
+                    company.synchronized = true
                 }
                 companies.sortByName()
                 for project in appData.projects{
@@ -130,21 +127,22 @@ class AppData : Codable{
                     else{
                         projects.append(project)
                         syncResult.loadedProjects += 1
+                        project.setSynchronized(true, recursive: true)
                     }
-                    projects.sortByName()
                 }
                 projects.sortByName()
                 await MainActor.run{
                     syncResult.updateDownload()
                 }
-                try await self.loadAllImages(data: projects, syncResult: syncResult)
                 print("saving project list")
                 save()
+                try await self.loadAllImages(syncResult: syncResult)
             }
         }
-        catch {
+        catch (let err){
+            print(err)
             await MainActor.run{
-                syncResult.downloadErrors += 1
+                syncResult.downloadError()
             }
             print("error loading projects")
         }
@@ -160,7 +158,7 @@ class AppData : Codable{
         //todo clear files
     }
     
-    func loadAllImages(data: Array<ProjectData>, syncResult: SyncResult) async throws{
+    func loadAllImages(syncResult: SyncResult) async throws{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
@@ -171,10 +169,10 @@ class AppData : Codable{
                                 do{
                                     try await self.loadImage(image: location.plan!, syncResult: syncResult)
                                 }
-                                catch{
+                                catch (let err){
+                                    print(err)
                                     await MainActor.run{
-                                        syncResult.downloadErrors += 1
-                                        syncResult.updateDownload()
+                                        syncResult.downloadError()
                                     }
                                 }
                             }
@@ -193,10 +191,10 @@ class AppData : Codable{
                                     do{
                                         try await self.loadImage(image: image, syncResult: syncResult)
                                     }
-                                    catch{
+                                    catch (let err){
+                                        print(err)
                                         await MainActor.run{
-                                            syncResult.downloadErrors += 1
-                                            syncResult.updateDownload()
+                                            syncResult.downloadError()
                                         }
                                     }
                                 }
@@ -215,10 +213,11 @@ class AppData : Codable{
                                         do{
                                             try await self.loadImage(image: image, syncResult: syncResult)
                                         }
-                                        catch{
+                                        catch (let err){
+                                            print(err)
                                             await MainActor.run{
-                                                syncResult.downloadErrors += 1
-                                                syncResult.updateDownload()
+                                                syncResult.downloadError()
+
                                             }
                                         }
                                     }
@@ -258,8 +257,9 @@ class AppData : Codable{
             }
         }
         else{
+            print("did not receive image from /api/image/download/" + String(image.id))
             await MainActor.run{
-                syncResult.downloadErrors += 1
+                syncResult.downloadError()
                 syncResult.updateDownload()
             }
         }
@@ -328,17 +328,17 @@ class AppData : Codable{
                                     }
                                 }
                             }
-                            for defectStatus in defect.statusChanges{
-                                if (!defectStatus.synchronized){
+                            for statusChange in defect.statusChanges{
+                                if (!statusChange.synchronized){
                                     taskGroup.addTask{
-                                        await defectStatus.upload(syncResult: syncResult)
+                                        await statusChange.upload(syncResult: syncResult)
                                     }
                                 }
                                 else{
                                     for image in defect.images{
                                         if (!image.synchronized){
                                             taskGroup.addTask{
-                                                await defectStatus.uploadImage(image: image, syncResult: syncResult)
+                                                await statusChange.uploadImage(image: image, syncResult: syncResult)
                                             }
                                         }
                                     }

@@ -99,7 +99,6 @@ class CreateDefectViewController: EditDefectViewController {
             defect.dueDate = dueDateField.date
             defect.status = statusField.selectedStatus
             unit.defects.append(defect)
-            defect.synchronized = false
             defect.changed()
             unit.changed()
             unit.saveData()
@@ -114,7 +113,7 @@ class CreateDefectViewController: EditDefectViewController {
     
 }
 
-class CreateIssueInfoViewController: EditIssueInfoViewController {
+class CreateIssueInfoViewController: EditDefectInfoViewController {
     
     override func setupInfos(){
         let block = addBlock()

@@ -47,7 +47,7 @@ class CloudViewController: ScrollViewController {
         title = "server".localize()
         super.loadView()
         modalPresentationStyle = .fullScreen
-        syncResult.newElementsCount = AppData.shared.countUnsynchronizedElements()
+        syncResult.setUnsynchronizedElementCount()
         syncResult.delegate = self
     }
     
@@ -71,13 +71,13 @@ class CloudViewController: ScrollViewController {
         connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize(), inline: true)
         syncSection.addSubviewAtTop(connectionLabel, topView: header, insets: Insets.horizontalInsets)
         
-        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(syncResult.newElementsCount), inline: true)
+        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(syncResult.unsynchronizedElementsCount), inline: true)
         syncSection.addSubviewAtTop(newElementsField, topView: connectionLabel, insets: Insets.horizontalInsets)
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
             self.uploadProgressSlider.value = 0
-            self.uploadProgressSlider.maximumValue = Float(self.syncResult.newElementsCount)
+            self.uploadProgressSlider.maximumValue = Float(self.syncResult.unsynchronizedElementsCount)
             self.upload()
         }, for: .touchDown)
         syncSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
@@ -156,12 +156,16 @@ class CloudViewController: ScrollViewController {
     }
     
     func upload(){
+        syncResult.resetUpload()
+        updateUploadView()
         Task{
             await AppData.shared.uploadNewItems(syncResult: syncResult)
         }
     }
     
     func download(){
+        syncResult.resetDownload()
+        updateDownloadView()
         Task{
             await AppData.shared.loadServerData(syncResult: syncResult)
             await MainActor.run{
@@ -178,8 +182,8 @@ class CloudViewController: ScrollViewController {
 
 extension CloudViewController: SyncResultDelegate{
     
-    func uploadChanged() {
-        newElementsField.text = String(syncResult.newElementsCount)
+    func updateUploadView() {
+        newElementsField.text = String(syncResult.unsynchronizedElementsCount)
         uploadedCompaniesField.text = String(syncResult.uploadedCompanies)
         uploadedProjectsField.text = String(syncResult.uploadedProjects)
         uploadedUnitsField.text = String(syncResult.uploadedUnits)
@@ -192,7 +196,7 @@ extension CloudViewController: SyncResultDelegate{
         }
     }
     
-    func downloadChanged() {
+    func updateDownloadView() {
         downloadedCompaniesField.text = String(syncResult.loadedCompanies)
         downloadedProjectsField.text = String(syncResult.loadedProjects)
         downloadedUnitsField.text = String(syncResult.loadedUnits)

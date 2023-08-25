@@ -10,15 +10,15 @@ class UnitViewController: ScrollViewController {
     
     var unit: UnitData
     
-    var delegate: ScopeDelegate? = nil
+    var delegate: UnitDelegate? = nil
     
     var dataSection = ArrangedSectionView()
     var issueSection = UIView()
     
     var filterItem: UIBarButtonItem? = nil
     
-    init(scope: UnitData){
-        self.unit = scope
+    init(unit: UnitData){
+        self.unit = unit
         super.init()
     }
     
@@ -41,23 +41,23 @@ class UnitViewController: ScrollViewController {
             items.append(filterItem!)
         }
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
-            let controller = UnitPdfViewController(scope: self.unit)
+            let controller = UnitPdfViewController(unit: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         if AppState.shared.currentUser.hasEditRight{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
-                let controller = EditUnitViewController(scope: self.unit)
+                let controller = EditUnitViewController(unit: self.unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
                 if let project = self.unit.project{
                     self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        project.removeScope(self.unit)
+                        project.removeUnit(self.unit)
                         project.changed()
                         project.saveData()
                         self.navigationController?.popViewController(animated: true)
-                        self.delegate?.scopeChanged()
+                        self.delegate?.unitChanged()
                     }
                 }
             }))
@@ -65,7 +65,7 @@ class UnitViewController: ScrollViewController {
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
-            let controller = ScopeInfoViewController()
+            let controller = UnitInfoViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
@@ -158,11 +158,11 @@ class UnitViewController: ScrollViewController {
     
 }
 
-extension UnitViewController: ScopeDelegate{
+extension UnitViewController: UnitDelegate{
     
-    func scopeChanged() {
+    func unitChanged() {
         updateDataSection()
-        delegate?.scopeChanged()
+        delegate?.unitChanged()
     }
     
 }
@@ -184,7 +184,7 @@ extension UnitViewController: FilterDelegate{
     
 }
 
-class ScopeInfoViewController: InfoViewController {
+class UnitInfoViewController: InfoViewController {
     
     override func setupInfos(){
         var block = addBlock()

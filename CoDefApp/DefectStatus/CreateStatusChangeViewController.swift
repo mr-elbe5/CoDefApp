@@ -7,12 +7,12 @@
 import UIKit
 import AVFoundation
 
-class CreateDefectStatusViewController: EditViewController {
+class CreateStatusChangeViewController: EditViewController {
     
     var defect: DefectData
-    var statusData : DefectStatusData
+    var statusChange : StatusChangeData
     
-    var delegate: ProcessingStatusChangeDelegate? = nil
+    var delegate: StatusChangeDelegate? = nil
     
     var descriptionField = LabeledTextareaInput()
     var statusField = LabeledDefectStatusSelectView()
@@ -26,9 +26,9 @@ class CreateDefectStatusViewController: EditViewController {
     }
     
     init(defect: DefectData){
-        statusData = DefectStatusData(defect: defect)
+        statusChange = StatusChangeData(defect: defect)
         self.defect = defect
-        imageCollectionView = ImageCollectionView(images: statusData.images, enableDelete: true)
+        imageCollectionView = ImageCollectionView(images: statusChange.images, enableDelete: true)
         super.init()
     }
     
@@ -42,15 +42,15 @@ class CreateDefectStatusViewController: EditViewController {
     }
     
     override func setupContentView() {
-        descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: statusData.description)
+        descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: statusChange.description)
         contentView.addSubviewAtTop(descriptionField)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: statusData.status)
+        statusField.setupStatuses(currentStatus: statusChange.status)
         contentView.addSubviewAtTop(statusField, topView: descriptionField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupCompanies(companies: statusData.projectCompanies, currentCompanyId: statusData.assignedCompanyId)
+        assignField.setupCompanies(companies: statusChange.projectCompanies, currentCompanyId: statusChange.assignedCompanyId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -61,23 +61,23 @@ class CreateDefectStatusViewController: EditViewController {
     }
     
     override func deleteImageData(image: ImageData) {
-        statusData.images.remove(obj: image)
-        statusData.changed()
-        statusData.saveData()
+        statusChange.images.remove(obj: image)
+        statusChange.changed()
+        statusChange.saveData()
         self.imageCollectionView.images.remove(obj: image)
         self.imageCollectionView.reloadData()
     }
     
     override func save() -> Bool{
         if !descriptionField.text.isEmpty{
-            statusData.description = descriptionField.text
-            statusData.status = statusField.selectedStatus
-            statusData.assignedCompanyId = assignField.selectedCompany?.id ?? 0
-            defect.statusChanges.append(statusData)
-            defect.status = statusData.status
-            defect.assignedCompanyId = statusData.assignedCompanyId
+            statusChange.description = descriptionField.text
+            statusChange.status = statusField.selectedStatus
+            statusChange.assignedCompanyId = assignField.selectedCompany?.id ?? 0
+            defect.status = statusChange.status
+            defect.assignedCompanyId = statusChange.assignedCompanyId
             defect.notified = notifiedField.isOn
-            statusData.synchronized = false
+            defect.statusChanges.append(statusChange)
+            statusChange.setSynchronized(false)
             defect.changed()
             defect.saveData()
             delegate?.statusChanged()
@@ -94,10 +94,10 @@ class CreateDefectStatusViewController: EditViewController {
         let image = ImageData()
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            statusData.images.append(image)
-            statusData.changed()
+            statusChange.images.append(image)
+            statusChange.changed()
             imageCollectionView.images.append(image)
-            statusData.saveData()
+            statusChange.saveData()
             imageCollectionView.updateHeightConstraint()
             imageCollectionView.reloadData()
         }
@@ -105,10 +105,10 @@ class CreateDefectStatusViewController: EditViewController {
     }
     
     override func photoCaptured(photo: ImageData) {
-        statusData.images.append(photo)
-        statusData.changed()
+        statusChange.images.append(photo)
+        statusChange.changed()
         imageCollectionView.images.append(photo)
-        statusData.saveData()
+        statusChange.saveData()
         imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()
     }
@@ -119,8 +119,8 @@ class CreateStatusDataInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("defectStatusEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("defectStatusEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("statusChangeEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("statusChangeEditInfoText".localize()))
     }
     
 }

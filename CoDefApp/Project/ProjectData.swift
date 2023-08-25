@@ -25,14 +25,14 @@ class ProjectData : ContentData{
         filter.active
     }
     
-    var filteredScopes: Array<UnitData>{
+    var filteredUnits: Array<UnitData>{
         if !isFilterActive{
             return units
         }
         var list = Array<UnitData>()
-        for scope in units {
-            if  scope.isInFilter(filter: filter){
-                list.append(scope)
+        for unit in units {
+            if  unit.isInFilter(filter: filter){
+                list.append(unit)
             }
         }
         return list
@@ -79,6 +79,15 @@ class ProjectData : ContentData{
         }
     }
     
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            for unit in units{
+                unit.setSynchronized(true, recursive: true)
+            }
+        }
+    }
+    
     func updateCompanies(){
         companies.removeAll()
         for company in AppData.shared.companies{
@@ -90,9 +99,9 @@ class ProjectData : ContentData{
         filter.updateCompanyIds(allCompanyIds: companyIds)
     }
     
-    func removeScope(_ scope: UnitData){
-        scope.removeAll()
-        units.remove(obj: scope)
+    func removeUnit(_ unit: UnitData){
+        unit.removeAll()
+        units.remove(obj: unit)
         updateCompanies()
     }
     
@@ -116,8 +125,8 @@ class ProjectData : ContentData{
     }
     
     func canRemoveCompany(companyId: Int) -> Bool{
-        for scope in units{
-            if !scope.canRemoveCompany(companyId: companyId){
+        for unit in units{
+            if !unit.canRemoveCompany(companyId: companyId){
                 return false
             }
         }
@@ -125,8 +134,8 @@ class ProjectData : ContentData{
     }
     
     func removeAll(){
-        for scope in units{
-            scope.removeAll()
+        for unit in units{
+            unit.removeAll()
         }
         units.removeAll()
         saveData()
@@ -134,8 +143,8 @@ class ProjectData : ContentData{
     
     func getUsedImageNames() -> Array<String>{
         var names = Array<String>()
-        for scope in units {
-            names.append(contentsOf: scope.getUsedImageNames())
+        for unit in units {
+            names.append(contentsOf: unit.getUsedImageNames())
         }
         return names
     }

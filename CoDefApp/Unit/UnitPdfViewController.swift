@@ -8,10 +8,10 @@ import UIKit
 
 class UnitPdfViewController: PDFViewController {
     
-    var scope: UnitData
+    var unit: UnitData
     
-    init(scope: UnitData){
-        self.scope = scope
+    init(unit: UnitData){
+        self.unit = unit
         super.init()
     }
     
@@ -20,23 +20,23 @@ class UnitPdfViewController: PDFViewController {
     }
     
     override func loadView() {
-        title = "\("pdf".localize()) \("for".localize()) \(scope.name)"
+        title = "\("pdf".localize()) \("for".localize()) \(unit.name)"
         super.loadView()
         
     }
     
     override func createPDF() -> Data{
-        pdfCreator.createScopePDF(scope: scope)
+        pdfCreator.createUnitPDF(unit: unit)
     }
     
 }
 
 extension PDFRenderer {
     
-    func createScopePDF(scope: UnitData) -> Data{
+    func createUnitPDF(unit: UnitData) -> Data{
         let pdfMetaData = [
             kCGPDFContextCreator: "Construction Defect Tracker",
-            kCGPDFContextTitle: scope.name
+            kCGPDFContextTitle: unit.name
         ]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
@@ -45,24 +45,24 @@ extension PDFRenderer {
             self.context = context
             context.beginPage()
             start(title: "unitReport".localize())
-            addScopeContent(scope: scope)
+            addUnitContent(unit: unit)
         }
         return data
     }
     
-    func addScopeContent(scope: UnitData){
-        addLine(label: "name".localize(), text: scope.name)
-        if !scope.description.isEmpty{
-            addLine(label: "description".localize(), text: scope.description)
+    func addUnitContent(unit: UnitData){
+        addLine(label: "name".localize(), text: unit.name)
+        if !unit.description.isEmpty{
+            addLine(label: "description".localize(), text: unit.description)
         }
-        if let img = scope.getPlanImage(){
+        if let img = unit.getPlanImage(){
             addLine(label: "defects".localize(), image: img, maxHeight: 0)
         }
         addSpacer()
-        for issue in scope.filteredDefects{
+        for issue in unit.filteredDefects{
             addLine()
             addLine(text: "defect".localize(), type: .header3)
-            addLine(label: "context".localize(), text: "defectContext".localize(param1: scope.project?.name ?? "", param2: scope.name))
+            addLine(label: "context".localize(), text: "defectContext".localize(param1: unit.project?.name ?? "", param2: unit.name))
             addDefectContent(defect: issue)
         }
     }

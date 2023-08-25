@@ -75,9 +75,9 @@ class EditCompanyViewController: EditViewController {
             company.phone = phoneField.text
             company.notes = notesField.text
             company.changed()
-            if company.isNew{
-                AppData.shared.addCompany(company)
-                company.isNew = false
+            if !AppData.shared.companies.contains(company){
+                AppData.shared.companies.append(company)
+                AppData.shared.companies.sortByName()
             }
             company.saveData()
             delegate?.companyChanged()

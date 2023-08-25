@@ -7,8 +7,8 @@
 import Foundation
 
 protocol SyncResultDelegate{
-    func uploadChanged()
-    func downloadChanged()
+    func updateUploadView()
+    func updateDownloadView()
 }
 
 class SyncResult{
@@ -31,57 +31,60 @@ class SyncResult{
     var presentImages : Int = 0
     var downloadErrors : Int = 0
     
-    var newElementsCount: Int = 0
+    var unsynchronizedElementsCount: Int = 0
     
     var delegate: SyncResultDelegate? = nil
     
     func imageUploaded(){
-        newElementsCount -= 1
+        unsynchronizedElementsCount -= 1
         uploadedImages += 1
         uploadedItems += 1.0
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func projectUploaded(){
-        newElementsCount -= 1
+        unsynchronizedElementsCount -= 1
         uploadedItems += 1.0
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func unitUploaded(){
-        newElementsCount -= 1
+        unsynchronizedElementsCount -= 1
         uploadedItems += 1.0
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func defectUploaded(){
-        newElementsCount -= 1
+        unsynchronizedElementsCount -= 1
         uploadedItems += 1.0
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func statusChangeUploaded(){
-        newElementsCount -= 1
+        unsynchronizedElementsCount -= 1
         uploadedItems += 1.0
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func uploadError(){
         uploadErrors += 1
-        delegate?.uploadChanged()
+        delegate?.updateUploadView()
     }
     
     func updateDownload(){
-        delegate?.downloadChanged()
+        delegate?.updateDownloadView()
     }
     
-    
+    func downloadError(){
+        downloadErrors += 1
+        delegate?.updateDownloadView()
+    }
     
     func hasErrors() -> Bool{
         uploadErrors > 0 || downloadErrors > 0
     }
     
-    func reset(){
+    func resetUpload(){
         uploadedCompanies = 0
         uploadedProjects = 0
         uploadedUnits = 0
@@ -89,7 +92,16 @@ class SyncResult{
         uploadedStatusChanges = 0
         uploadedImages = 0
         uploadErrors = 0
+        uploadErrors = 0
+        uploadedItems = 0.0
         
+    }
+    
+    func setUnsynchronizedElementCount(){
+        unsynchronizedElementsCount = AppData.shared.countUnsynchronizedElements()
+    }
+    
+    func resetDownload(){
         loadedCompanies = 0
         loadedProjects = 0
         loadedUnits = 0
@@ -97,14 +109,12 @@ class SyncResult{
         loadedStatusChanges = 0
         loadedImages = 0
         presentImages = 0
-        
-        uploadErrors = 0
         downloadErrors = 0
-        
-        uploadedItems = 0.0
-        
-        newElementsCount = AppData.shared.countUnsynchronizedElements()
-        
+    }
+    
+    func reset(){
+        resetUpload()
+        resetDownload()
     }
     
 }

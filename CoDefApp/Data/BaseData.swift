@@ -33,7 +33,6 @@ class BaseData: Codable, Hashable, Equatable{
     var changerId = 0
     var changerName = ""
     var synchronized: Bool
-    var isNew: Bool
     
     var hasServerId: Bool{
         id < Statics.minNewId
@@ -49,7 +48,6 @@ class BaseData: Codable, Hashable, Equatable{
         changerId = creatorId
         changerName = creatorName
         synchronized = false
-        isNew = true
     }
     
     required init(from decoder: Decoder) throws {
@@ -65,7 +63,6 @@ class BaseData: Codable, Hashable, Equatable{
         changerId = try values.decodeIfPresent(Int.self, forKey: .changerId) ?? 0
         changerName = try values.decodeIfPresent(String.self, forKey: .changerName) ?? ""
         synchronized = try values.decodeIfPresent(Bool.self, forKey: .synchronized) ?? false
-        isNew = false
     }
 
     func encode(to encoder: Encoder) throws {
@@ -88,14 +85,14 @@ class BaseData: Codable, Hashable, Equatable{
         changeDate = fromData.changeDate
         changerId = fromData.creatorId
         changerName = fromData.changerName
-        synchronized = true
+        setSynchronized(true)
     }
     
     func changed(){
         changerId = AppState.shared.currentUser.id
         changerName = AppState.shared.currentUser.name
         changeDate = Date()
-        synchronized = false
+        setSynchronized(false)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -110,6 +107,10 @@ class BaseData: Codable, Hashable, Equatable{
         dict["creationDate"]=creationDate.isoString()
         dict["changeDate"]=changeDate.isoString()
         return dict
+    }
+    
+    func setSynchronized(_ synced: Bool = true,recursive: Bool = false){
+        synchronized = synced
     }
     
     func saveData(){

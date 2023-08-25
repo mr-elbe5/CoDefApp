@@ -22,7 +22,7 @@ class EditDefectViewController: EditViewController {
     var imageCollectionView: ImageCollectionView
     
     override var infoViewController: InfoViewController?{
-        EditIssueInfoViewController()
+        EditDefectInfoViewController()
     }
     
     init(defect: DefectData){
@@ -114,7 +114,6 @@ class EditDefectViewController: EditViewController {
         image.setFileNameFromURL(imageURL)
         if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
             defect.images.append(image)
-            image.isNew = false
             imageCollectionView.images.append(image)
             defect.changed()
             defect.saveData()
@@ -126,7 +125,6 @@ class EditDefectViewController: EditViewController {
     override func photoCaptured(photo: ImageData) {
         defect.images.append(photo)
         imageCollectionView.images.append(photo)
-        photo.isNew = false
         defect.changed()
         defect.saveData()
         imageCollectionView.reloadData()
@@ -144,12 +142,12 @@ extension EditDefectViewController: DefectPositionDelegate{
     
 }
 
-class EditIssueInfoViewController: InfoViewController {
+class EditDefectInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()
-        block.addArrangedSubview(InfoHeader("issueEditInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("issueEditInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("defectEditInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("defectEditInfoText".localize()))
     }
     
 }

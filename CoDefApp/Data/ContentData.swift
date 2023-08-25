@@ -45,6 +45,7 @@ class ContentData : BaseData{
         super.synchronizeFrom(fromData)
         name = fromData.name
         description = fromData.description
+        
     }
     
 }

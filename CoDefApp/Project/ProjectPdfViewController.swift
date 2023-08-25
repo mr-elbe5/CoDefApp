@@ -56,11 +56,11 @@ extension PDFRenderer {
             addLine(label: "description".localize(), text: project.description)
         }
         addSpacer()
-        for scope in project.filteredScopes{
+        for unit in project.filteredUnits{
             addLine()
             addLine(text: "unit".localize(), type: .header2)
             addLine(label: "context".localize(), text: "unitContext".localize(param: project.name))
-            addScopeContent(scope: scope)
+            addUnitContent(unit: unit)
         }
         addLine()
     }

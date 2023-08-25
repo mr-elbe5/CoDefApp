@@ -58,6 +58,13 @@ class FileData : BaseData{
         return dict
     }
     
+    func synchronizeFrom(_ fromData: FileData){
+        super.synchronizeFrom(fromData)
+        fileName = fromData.fileName
+        fileExtension = fromData.fileExtension
+        contentType = fromData.contentType
+    }
+    
     func setFileNameFromURL(_ url: URL){
         let originalFileName = url.lastPathComponent
         fileExtension = url.pathExtension

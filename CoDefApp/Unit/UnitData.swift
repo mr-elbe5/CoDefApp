@@ -76,11 +76,22 @@ class UnitData : ContentData{
             else{
                 defects.append(defect)
                 syncResult.loadedDefects += 1
+                defect.setSynchronized(true, recursive: true)
             }
             
         }
         for defect in defects{
             defect.unit = self
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            plan?.setSynchronized(synced)
+            for defect in defects{
+                defect.setSynchronized(true, recursive: true)
+            }
         }
     }
     
@@ -184,6 +195,6 @@ extension UnitList{
     
 }
 
-protocol ScopeDelegate{
-    func scopeChanged()
+protocol UnitDelegate{
+    func unitChanged()
 }

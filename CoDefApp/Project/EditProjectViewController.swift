@@ -69,9 +69,9 @@ class EditProjectViewController: EditViewController{
                     project.companyIds.append(company.id)
                 }
             }
-            if project.isNew{
+            if !AppData.shared.projects.contains(project){
                 AppData.shared.addProject(project)
-                project.isNew = false
+                AppData.shared.projects.sortByName()
             }
             project.updateCompanies()
             project.changed()

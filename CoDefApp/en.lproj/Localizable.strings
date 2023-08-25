@@ -166,8 +166,8 @@ Do want to proceed?";
 "defectEditSymbolText"="Change data of an defect.";
 "defectReportSymbolText"="Create a report of this defect (PDF)";
 "defectDeleteSymbolText"="Delete a defect. This will also delete all images and status changes.";
-"defectStatusChangesInfoHeader"="Status Changes";
-"defectStatusChangesInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
+"statusChangesInfoHeader"="Status Changes";
+"statusChangesInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
 
 "defectEditInfoHeader"="Document or change a defect";
 "defectEditInfoText"="The name is mandatory. It should be a short description.";
@@ -182,8 +182,8 @@ Do want to proceed?";
 "newAssignment"="New Assignment";
 "statusChangeContext"="Project: %@, Unit: %@, Defect: %@";
 
-"defectStatusEditInfoHeader"="Document a status change";
-"defectStatusEditInfoText"="The comment is mandatory.";
+"statusChangeEditInfoHeader"="Document a status change";
+"statusChangeEditInfoText"="The comment is mandatory.";
 
 /*Companies*/
 "companies"="Companies";

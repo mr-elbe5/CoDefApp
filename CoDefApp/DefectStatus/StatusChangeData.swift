@@ -6,7 +6,7 @@
 
 import Foundation
 
-class DefectStatusData : ContentData{
+class StatusChangeData : ContentData{
     
     enum CodingKeys: String, CodingKey {
         case status
@@ -89,7 +89,7 @@ class DefectStatusData : ContentData{
         try container.encode(images, forKey: .images)
     }
     
-    func synchronizeFrom(_ fromData: DefectStatusData, syncResult: SyncResult) {
+    func synchronizeFrom(_ fromData: StatusChangeData, syncResult: SyncResult) {
         super.synchronizeFrom(fromData)
         status = fromData.status
         previousAssignedCompanyId = fromData.previousAssignedCompanyId
@@ -102,8 +102,18 @@ class DefectStatusData : ContentData{
             else{
                 images.append(image)
                 syncResult.loadedImages += 1
+                image.setSynchronized()
             }
             
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            for image in images{
+                image.setSynchronized(synced)
+            }
         }
     }
     
@@ -132,7 +142,7 @@ class DefectStatusData : ContentData{
     
     func upload(syncResult: SyncResult) async{
         do{
-            let requestUrl = AppState.shared.serverURL+"/api/defectstatus/upload/" + String(defect.id)
+            let requestUrl = AppState.shared.serverURL+"/api/statuschange/uploadStatusChange/" + String(defect.id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("status change \(response.id) uploaded")
@@ -162,17 +172,17 @@ class DefectStatusData : ContentData{
     }
     
     func uploadImage(image: ImageData, syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/defectstatus/uploadImage/" + String(id) + "?imageId=" + String(image.id)
+        let requestUrl = AppState.shared.serverURL+"/api/statuschange/uploadStatusChangeImage/" + String(id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)
     }
     
 }
 
-typealias DefectStatusList = ContentDataArray<DefectStatusData>
+typealias StatusChangeList = ContentDataArray<StatusChangeData>
 
-extension DefectStatusList{
+extension StatusChangeList{
     
-    func getDefectStatusData(id: Int) -> DefectStatusData?{
+    func getStatusChangeData(id: Int) -> StatusChangeData?{
         for data in self{
             if data.id == id {
                 return data
@@ -183,7 +193,7 @@ extension DefectStatusList{
     
 }
 
-protocol ProcessingStatusChangeDelegate{
+protocol StatusChangeDelegate{
     func statusChanged()
 }
 

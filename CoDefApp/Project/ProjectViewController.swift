@@ -15,7 +15,7 @@ class ProjectViewController: ScrollViewController {
     var filterItem: UIBarButtonItem? = nil
     
     var dataSection = ArrangedSectionView()
-    var scopeSection = UIView()
+    var unitSection = UIView()
     
     init(project: ProjectData){
         self.project = project
@@ -74,9 +74,9 @@ class ProjectViewController: ScrollViewController {
     override func setupContentView(){
         contentView.addSubviewAtTop(dataSection)
         setupDataSection()
-        contentView.addSubviewAtTop(scopeSection, topView: dataSection)
+        contentView.addSubviewAtTop(unitSection, topView: dataSection)
             .bottom(contentView.bottomAnchor)
-        setupScopeSection()
+        setupUnitSection()
     }
     
     func setupDataSection(){
@@ -94,37 +94,37 @@ class ProjectViewController: ScrollViewController {
         setupDataSection()
     }
     
-    func setupScopeSection(){
+    func setupUnitSection(){
         let headerLabel = UILabel(header: "units".localizeWithColon())
-        scopeSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
-        let filteredScopes = project.filteredScopes
+        let filteredUnits = project.filteredUnits
         let filterActive = project.isFilterActive
 
-        for scope in project.units{
-            let sectionLine = FilteredSectionLine(name: scope.name, filtered: filterActive, enabled: filteredScopes.contains(scope), action: UIAction(){ action in
-                let controller = UnitViewController(scope: scope)
+        for unit in project.units{
+            let sectionLine = FilteredSectionLine(name: unit.name, filtered: filterActive, enabled: filteredUnits.contains(unit), action: UIAction(){ action in
+                let controller = UnitViewController(unit: unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             })
-            scopeSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: scopeSection.leadingAnchor, trailing: scopeSection.trailingAnchor, insets: verticalInsets)
+            unitSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: unitSection.leadingAnchor, trailing: unitSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
-        let addScopeButton = TextButton(text: "newUnit".localize())
-        addScopeButton.addAction(UIAction(){ (action) in
-            let scope = UnitData()
-            scope.project = self.project
-            let controller = EditUnitViewController(scope: scope)
+        let addUnitButton = TextButton(text: "newUnit".localize())
+        addUnitButton.addAction(UIAction(){ (action) in
+            let unit = UnitData()
+            unit.project = self.project
+            let controller = EditUnitViewController(unit: unit)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }, for: .touchDown)
-        scopeSection.addSubviewAtTopCentered(addScopeButton, topView: lastView, insets: doubleInsets)
-            .bottom(scopeSection.bottomAnchor, inset: -2*defaultInset)
+        unitSection.addSubviewAtTopCentered(addUnitButton, topView: lastView, insets: doubleInsets)
+            .bottom(unitSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func updateScopeSection(){
-        scopeSection.removeAllSubviews()
-        setupScopeSection()
+    func updateUnitSection(){
+        unitSection.removeAllSubviews()
+        setupUnitSection()
     }
     
 }
@@ -138,10 +138,10 @@ extension ProjectViewController: ProjectDelegate{
     
 }
 
-extension ProjectViewController: ScopeDelegate{
+extension ProjectViewController: UnitDelegate{
     
-    func scopeChanged() {
-        updateScopeSection()
+    func unitChanged() {
+        updateUnitSection()
     }
     
 }
@@ -149,7 +149,7 @@ extension ProjectViewController: ScopeDelegate{
 extension ProjectViewController: FilterDelegate{
     
     func filterChanged() {
-        updateScopeSection()
+        updateUnitSection()
         updateFilterItem()
     }
     

@@ -58,7 +58,7 @@ class DefectData : ContentData{
     
     var images = ImageList()
     
-    var statusChanges = DefectStatusList()
+    var statusChanges = StatusChangeList()
     
     var planImage: UIImage? = nil
     
@@ -114,7 +114,7 @@ class DefectData : ContentData{
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
         images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
-        statusChanges = try values.decodeIfPresent(DefectStatusList.self, forKey: .statusChanges) ?? DefectStatusList()
+        statusChanges = try values.decodeIfPresent(StatusChangeList.self, forKey: .statusChanges) ?? StatusChangeList()
         for statusChange in statusChanges{
             statusChange.defect = self
         }
@@ -164,21 +164,35 @@ class DefectData : ContentData{
             else{
                 images.append(image)
                 syncResult.loadedImages += 1
+                image.setSynchronized()
             }
             
         }
         for statusChange in fromData.statusChanges{
-            if let presentStatusChange = statusChanges.getDefectStatusData(id: statusChange.id){
+            if let presentStatusChange = statusChanges.getStatusChangeData(id: statusChange.id){
                 presentStatusChange.synchronizeFrom(statusChange, syncResult: syncResult)
             }
             else{
                 statusChanges.append(statusChange)
                 syncResult.loadedStatusChanges += 1
+                statusChange.setSynchronized(true, recursive: true)
             }
             
         }
         for statusChange in statusChanges{
             statusChange.defect = self
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            for image in images{
+                image.setSynchronized(synced)
+            }
+            for statusChange in statusChanges{
+                statusChange.setSynchronized(true, recursive: true)
+            }
         }
     }
     
@@ -188,7 +202,7 @@ class DefectData : ContentData{
         }
     }
     
-    func removeStatusChange(_ stausChange: DefectStatusData){
+    func removeStatusChange(_ stausChange: StatusChangeData){
         stausChange.removeAll()
         statusChanges.remove(obj: stausChange)
     }
@@ -269,7 +283,7 @@ class DefectData : ContentData{
     
     func upload(syncResult: SyncResult) async{
         do{
-            let requestUrl = AppState.shared.serverURL+"/api/defect/uploadNewDefect/" + String(id)
+            let requestUrl = AppState.shared.serverURL+"/api/defect/uploadDefect/" + String(id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("defect \(response.id) uploaded")
@@ -294,14 +308,15 @@ class DefectData : ContentData{
             }
             else{
                 await MainActor.run{
-                    syncResult.uploadErrors += 1
+                    syncResult.uploadError()
                 }
                 throw "defect upload error"
             }
         }
-        catch{
+        catch let(err){
+            print(err)
             await MainActor.run{
-                syncResult.uploadErrors += 1
+                syncResult.uploadError()
             }
         }
     }

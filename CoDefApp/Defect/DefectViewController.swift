@@ -42,11 +42,11 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-                if let scope = self.defect.unit{
+                if let unit = self.defect.unit{
                     self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        scope.removeDefect(self.defect)
-                        scope.changed()
-                        scope.saveData()
+                        unit.removeDefect(self.defect)
+                        unit.changed()
+                        unit.saveData()
                         self.delegate?.defectChanged()
                         self.navigationController?.popViewController(animated: true)
                     }
@@ -136,7 +136,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         let addProcessingStatusButton = TextButton(text: "addStatusChange".localize())
         addProcessingStatusButton.addAction(UIAction(){ (action) in
             if !self.defect.projectUsers.isEmpty{
-                let controller = CreateDefectStatusViewController(defect: self.defect)
+                let controller = CreateStatusChangeViewController(defect: self.defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }
@@ -148,7 +148,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             .bottom(processingSection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func setupProcessingStatusView(view: ArrangedSectionView, statusData: DefectStatusData){
+    func setupProcessingStatusView(view: ArrangedSectionView, statusData: StatusChangeData){
         let createdLine = LabeledText()
         let txt = "\("on".localize()) \(statusData.creationDate.dateString()) \("by".localize()) \(statusData.creator?.name ?? "")"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
@@ -208,7 +208,7 @@ extension DefectViewController: DefectDelegate{
     
 }
 
-extension DefectViewController: ProcessingStatusChangeDelegate{
+extension DefectViewController: StatusChangeDelegate{
     
     func statusChanged() {
         updateFeedbackSection()

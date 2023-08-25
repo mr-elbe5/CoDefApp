@@ -145,8 +145,8 @@ Wollen Sie fortfahren?";
 "unitCheckmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter ausgewählt ist.";
 "unitXmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
 
-"scopeEditInfoHeader"="Einen Bereich erstellen oder ändern";
-"scopeEditInfoText"="Der Name ist ein Pflichtfeld.";
+"unitEditInfoHeader"="Eine Projekteinheit erstellen oder ändern";
+"unitEditInfoText"="Der Name ist ein Pflichtfeld.";
 
 /*Defects*/
 "defects"="Mängel";

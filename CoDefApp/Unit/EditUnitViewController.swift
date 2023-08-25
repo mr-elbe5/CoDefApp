@@ -9,9 +9,9 @@ import AVFoundation
 
 class EditUnitViewController: EditViewController {
     
-    var scope: UnitData
+    var unit: UnitData
     
-    var delegate: ScopeDelegate? = nil
+    var delegate: UnitDelegate? = nil
     
     var nameField = LabeledTextInput()
     var descriptionField = LabeledTextareaInput()
@@ -19,11 +19,11 @@ class EditUnitViewController: EditViewController {
     var planContainerView = UIView()
     
     override var infoViewController: InfoViewController?{
-        EditScopeInfoViewController()
+        EditUnitInfoViewController()
     }
     
-    init(scope: UnitData){
-        self.scope = scope
+    init(unit: UnitData){
+        self.unit = unit
         super.init()
         
     }
@@ -38,10 +38,10 @@ class EditUnitViewController: EditViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: scope.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: unit.name)
         contentView.addSubviewAtTop(nameField)
         
-        descriptionField.setupView(labelText: "description".localizeWithColon(), text: scope.description)
+        descriptionField.setupView(labelText: "description".localizeWithColon(), text: unit.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
         let label = UILabel(header: "plan".localizeWithColon())
@@ -91,7 +91,7 @@ class EditUnitViewController: EditViewController {
     
     func setupPlanContainerView(){
         planContainerView.removeAllSubviews()
-        if let plan = scope.plan{
+        if let plan = unit.plan{
             let imageView = ImageFileView(imageFile: plan)
             imageView.setAspectRatioConstraint()
             planContainerView.addSubviewFilling(imageView)
@@ -100,21 +100,20 @@ class EditUnitViewController: EditViewController {
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            scope.name = nameField.text
-            scope.description = descriptionField.text
+            unit.name = nameField.text
+            unit.description = descriptionField.text
             if let imageView = planContainerView.subviews.first as? ImageFileView{
-                if imageView.imageFile != self.scope.plan{
-                    scope.setPlan(image: imageView.imageFile)
+                if imageView.imageFile != self.unit.plan{
+                    unit.setPlan(image: imageView.imageFile)
                 }
             }
-            if scope.isNew, let project = scope.project{
-                project.units.append(scope)
+            if let project = unit.project, !project.units.contains(unit){
+                project.units.append(unit)
                 project.changed()
-                scope.isNew = false
             }
-            scope.changed()
-            scope.saveData()
-            delegate?.scopeChanged()
+            unit.changed()
+            unit.saveData()
+            delegate?.unitChanged()
             return true
         }
         else{
@@ -124,9 +123,9 @@ class EditUnitViewController: EditViewController {
     }
     
     private func updatePlanImage(image: ImageData){
-        if scope.plan != nil{
+        if unit.plan != nil{
             self.showDestructiveApprove(text: "planReplaceInfo".localize()){
-                for issue in self.scope.defects{
+                for issue in self.unit.defects{
                     issue.position = .zero
                     issue.planImage = nil
                 }
@@ -139,17 +138,17 @@ class EditUnitViewController: EditViewController {
     }
     
     private func setPlanImage(image: ImageData){
-        scope.setPlan(image: image)
-        scope.changed()
-        scope.saveData()
+        unit.setPlan(image: image)
+        unit.changed()
+        unit.saveData()
         setupPlanContainerView()
-        delegate?.scopeChanged()
+        delegate?.unitChanged()
     }
     
     override func deleteImageData(image: ImageData) {
-        self.scope.deletePlan()
-        scope.changed()
-        scope.saveData()
+        self.unit.deletePlan()
+        unit.changed()
+        unit.saveData()
         self.setupPlanContainerView()
     }
     
@@ -169,7 +168,7 @@ class EditUnitViewController: EditViewController {
     
 }
 
-class EditScopeInfoViewController: InfoViewController {
+class EditUnitInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = addBlock()

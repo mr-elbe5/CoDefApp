@@ -26,10 +26,10 @@ class DefectMarkerButton: UIButton{
         frame = CGRect(x: pnt.x - frame.width/2, y: pnt.y, width: frame.width, height: frame.width)
     }
     
-    func updateFrame(in scopeSize: CGSize){
-        guard scopeSize.width != 0 && scopeSize.height != 0 else {return}
-        let x : CGFloat = defect.position.x * scopeSize.width - frame.width/2
-        let y : CGFloat = defect.position.y * scopeSize.height
+    func updateFrame(in unitSize: CGSize){
+        guard unitSize.width != 0 && unitSize.height != 0 else {return}
+        let x : CGFloat = defect.position.x * unitSize.width - frame.width/2
+        let y : CGFloat = defect.position.y * unitSize.height
         frame = CGRect(x: x, y: y, width: frame.width, height: frame.height)
     }
     
