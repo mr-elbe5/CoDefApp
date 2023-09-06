@@ -25,24 +25,17 @@ class UnitData : ContentData{
         project.companies
     }
     
-    var isFilterActive: Bool{
-        project?.isFilterActive ?? false
-    }
-    
     var filteredDefects: Array<DefectData>{
-        if let project = project{
-            if !project.filter.active{
-                return defects
-            }
-            var list = Array<DefectData>()
-            for issue in defects {
-                if  issue.isInFilter(filter: project.filter){
-                    list.append(issue)
-                }
-            }
-            return list
+        if !AppData.shared.filter.active{
+            return defects
         }
-        return Array<DefectData>()
+        var list = Array<DefectData>()
+        for defect in defects {
+            if  defect.isInFilter(){
+                list.append(defect)
+            }
+        }
+        return list
     }
     
     override init(){
@@ -161,8 +154,8 @@ class UnitData : ContentData{
         if defects.isEmpty{
             return true
         }
-        for issue in defects {
-            if issue.isInFilter(filter: filter){
+        for defect in defects {
+            if defect.isInFilter(){
                 return true
             }
         }
@@ -174,8 +167,8 @@ class UnitData : ContentData{
         if let plan = plan{
             names.append(plan.fileName)
         }
-        for issue in defects {
-            names.append(contentsOf: issue.getUsedImageNames())
+        for defect in defects {
+            names.append(contentsOf: defect.getUsedImageNames())
         }
         return names
     }

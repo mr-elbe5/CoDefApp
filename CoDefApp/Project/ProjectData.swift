@@ -21,17 +21,13 @@ class ProjectData : ContentData{
     //runtime
     var companies = CompanyList()
     
-    var isFilterActive: Bool{
-        filter.active
-    }
-    
     var filteredUnits: Array<UnitData>{
-        if !isFilterActive{
+        if !AppData.shared.filter.active{
             return units
         }
         var list = Array<UnitData>()
         for unit in units {
-            if  unit.isInFilter(filter: filter){
+            if  !unit.filteredDefects.isEmpty{
                 list.append(unit)
             }
         }

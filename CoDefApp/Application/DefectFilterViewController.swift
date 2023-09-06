@@ -14,7 +14,7 @@ class DefectFilterViewController: EditViewController {
     var delegate : FilterDelegate? = nil
     
     override func loadView() {
-        title = "filter".localize()
+        title = "defectFilter".localize()
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()

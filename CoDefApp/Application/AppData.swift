@@ -21,6 +21,7 @@ class AppData : Codable{
             shared.save()
         }
         shared.updateProjectUsers()
+        shared.filter.initFilter()
     }
     
     func save(){
@@ -30,10 +31,12 @@ class AppData : Codable{
     enum CodingKeys: String, CodingKey {
         case projects
         case companies
+        case filter
     }
     
     var projects = ProjectList()
     var companies = CompanyList()
+    var filter = Filter()
     
     var usedImageNames: Array<String>{
         var names = Array<String>()
@@ -50,12 +53,14 @@ class AppData : Codable{
         let values = try decoder.container(keyedBy: CodingKeys.self)
         companies = try values.decodeIfPresent(CompanyList.self, forKey: .companies) ?? CompanyList()
         projects = try values.decodeIfPresent(ProjectList.self, forKey: .projects) ?? ProjectList()
+        filter = try values.decodeIfPresent(Filter.self, forKey: .filter) ?? Filter()
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(projects, forKey: .projects)
         try container.encode(companies, forKey: .companies)
+        try container.encode(filter, forKey: .filter)
     }
     
     func updateProjectUsers(){

@@ -12,8 +12,6 @@ class ProjectViewController: ScrollViewController {
     
     var delegate: ProjectDelegate? = nil
     
-    var filterItem: UIBarButtonItem? = nil
-    
     var dataSection = ArrangedSectionView()
     var unitSection = UIView()
     
@@ -32,12 +30,16 @@ class ProjectViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        filterItem = UIBarButtonItem(title: "filter".localize(), image: UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal"), primaryAction: UIAction(){ action in
-            let controller = FilterViewController(project: self.project)
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = CompanyFilterViewController()
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
-        })
-        items.append(filterItem!)
+        }))
+        items.append(UIBarButtonItem(title: "defectFilter".localize(), image: UIImage(systemName: "ellipsis.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = DefectFilterViewController()
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
             let controller = ProjectPdfViewController(project: self.project)
             self.navigationController?.pushViewController(controller, animated: true)
@@ -65,10 +67,6 @@ class ProjectViewController: ScrollViewController {
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(items: items))
         navigationItem.trailingItemGroups = groups
-    }
-    
-    func updateFilterItem(){
-        filterItem?.image =  UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal")
     }
     
     override func setupContentView(){
@@ -102,11 +100,8 @@ class ProjectViewController: ScrollViewController {
         let headerLabel = UILabel(header: "units".localizeWithColon())
         unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
-        let filteredUnits = project.filteredUnits
-        let filterActive = project.isFilterActive
-
-        for unit in project.units{
-            let sectionLine = FilteredSectionLine(name: unit.name, filtered: filterActive, enabled: filteredUnits.contains(unit), action: UIAction(){ action in
+        for unit in project.filteredUnits{
+            let sectionLine = SectionLine(name: unit.name, action: UIAction(){ action in
                 let controller = UnitViewController(unit: unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -154,7 +149,6 @@ extension ProjectViewController: FilterDelegate{
     
     func filterChanged() {
         updateUnitSection()
-        updateFilterItem()
     }
     
 }

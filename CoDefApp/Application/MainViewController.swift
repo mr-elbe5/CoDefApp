@@ -18,6 +18,14 @@ class MainViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = CompanyFilterViewController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        items.append(UIBarButtonItem(title: "defectFilter".localize(), image: UIImage(systemName: "ellipsis.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = DefectFilterViewController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
         if !AppState.shared.standalone{
             items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
                 let controller = ServerViewController()

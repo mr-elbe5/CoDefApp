@@ -15,8 +15,6 @@ class UnitViewController: ScrollViewController {
     var dataSection = ArrangedSectionView()
     var issueSection = UIView()
     
-    var filterItem: UIBarButtonItem? = nil
-    
     init(unit: UnitData){
         self.unit = unit
         super.init()
@@ -32,14 +30,16 @@ class UnitViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        if let project = unit.project{
-            filterItem = UIBarButtonItem(title: "filter".localize(), image: UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal"), primaryAction: UIAction(){ action in
-                let controller = FilterViewController(project: project)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
-            items.append(filterItem!)
-        }
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = CompanyFilterViewController()
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        items.append(UIBarButtonItem(title: "defectFilter".localize(), image: UIImage(systemName: "ellipsis.viewfinder"), primaryAction: UIAction(){ action in
+            let controller = DefectFilterViewController()
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
             let controller = UnitPdfViewController(unit: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
@@ -72,18 +72,12 @@ class UnitViewController: ScrollViewController {
         navigationItem.trailingItemGroups = groups
     }
     
-    func updateFilterItem(){
-        if let project = self.unit.project{
-            filterItem?.image =  UIImage(systemName: project.filter.active ? "checkmark.seal" : "seal")
-        }
-    }
-    
     override func setupContentView(){
         contentView.addSubviewAtTop(dataSection)
         setupDataSection()
         contentView.addSubviewAtTop(issueSection, topView: dataSection)
             .bottom(contentView.bottomAnchor)
-        setupIssueSection()
+        setupDefectSection()
     }
     
     func setupDataSection() {
@@ -100,7 +94,7 @@ class UnitViewController: ScrollViewController {
         dataSection.addArrangedSubview(approveDateView)
     }
     
-    func setupIssueSection(){
+    func setupDefectSection(){
         let headerLabel = UILabel(header: "defects".localizeWithColon())
         issueSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         
@@ -118,11 +112,9 @@ class UnitViewController: ScrollViewController {
         issueSection.addSubviewCentered(addIssueButton, centerX: issueSection.centerXAnchor, centerY: headerLabel.centerYAnchor)
         
         var lastView: UIView = addIssueButton
-        let filteredIssues = unit.filteredDefects
-        let filterActive = unit.isFilterActive
-        
-        for defect in unit.defects{
-            let sectionLine = FilteredSectionLine(name: defect.name, filtered: filterActive, enabled: filteredIssues.contains(defect), action: UIAction(){ (action) in
+        let filteredDefects = unit.filteredDefects
+        for defect in filteredDefects{
+            let sectionLine = SectionLine(name: defect.name, action: UIAction(){ (action) in
                 let controller = DefectViewController(defect: defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -133,7 +125,7 @@ class UnitViewController: ScrollViewController {
         
         if let plan = unit.plan{
             let planView = UnitPlanView(plan: plan.getImage())
-            for defect in filteredIssues{
+            for defect in filteredDefects{
                 if defect.position != .zero{
                     let marker = planView.addMarker(defect: defect)
                     marker.addAction(UIAction(){ action in
@@ -157,7 +149,7 @@ class UnitViewController: ScrollViewController {
     
     func updateIssueSection(){
         issueSection.removeAllSubviews()
-        setupIssueSection()
+        setupDefectSection()
     }
     
 }
@@ -183,7 +175,6 @@ extension UnitViewController: FilterDelegate{
     
     func filterChanged() {
         updateIssueSection()
-        updateFilterItem()
     }
     
 }

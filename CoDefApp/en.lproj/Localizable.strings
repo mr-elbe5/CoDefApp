@@ -108,10 +108,11 @@ Units can have a (ground) plan, where defects can be marked on.";
 "projectXmarkSealSymbolText"="This marks a unit when it has no filtered items. You cannot select it.";
 
 /*Filter*/
-"filter"="Filter for viewing defects";
-"onlyOpenIssues"="Open defects only";
-"onlyOverdueIssues"="Overdue defects only";
-"onlyForUser"="Only for the following company";
+"defectFilter"="Defect filter for viewing defects";
+"onlyOpenDefects"="Open defects only";
+"onlyOverdueDefects"="Overdue defects only";
+"companyFilter"="Company filter for viewing defects";
+"onlyForCompanies"="With the following companies only";
 
 "filterInfoHeader"="Filters";
 "filterInfoText"="The filter restricts views of projects, units and defects and their reports.

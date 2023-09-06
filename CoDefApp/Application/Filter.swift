@@ -9,21 +9,21 @@ import Foundation
 class Filter: NSObject, Codable{
     
     enum CodingKeys: String, CodingKey {
-        case companyId
+        case companyIds
         case onlyOpen
         case onlyOverdue
     }
     
-    var companyId : Int
+    var companyIds : Array<Int>
     var onlyOpen: Bool
     var onlyOverdue: Bool
     
     var active: Bool{
-        companyId != 0 || onlyOpen || onlyOverdue
+        companyIds.count != AppData.shared.companies.count || onlyOpen || onlyOverdue
     }
     
     override init(){
-        self.companyId = 0
+        self.companyIds = Array<Int>()
         onlyOpen = false
         onlyOverdue = false
         super.init()
@@ -31,25 +31,35 @@ class Filter: NSObject, Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        companyId = try values.decodeIfPresent(Int.self, forKey: .companyId) ?? 0
+        companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
         onlyOpen = try values.decodeIfPresent(Bool.self, forKey: .onlyOpen) ?? false
         onlyOverdue = try values.decodeIfPresent(Bool.self, forKey: .onlyOverdue) ?? false
+    }
+    
+    func initFilter(){
+        if companyIds.isEmpty{
+            for company in AppData.shared.companies{
+                companyIds.append(company.id)
+            }
+        }
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(companyId, forKey: .companyId)
+        try container.encode(companyIds, forKey: .companyIds)
         try container.encode(onlyOpen, forKey: .onlyOpen)
         try container.encode(onlyOverdue, forKey: .onlyOverdue)
     }
     
-    func onlyForCompanyId(id: Int) -> Bool{
-        return companyId == id
+    func forCompanyId(id: Int) -> Bool{
+        return companyIds.contains(id)
     }
     
     func updateCompanyIds(allCompanyIds: Array<Int>){
-        if !allCompanyIds.contains(companyId){
-            companyId = 0
+        for id in companyIds{
+            if !allCompanyIds.contains(id){
+                companyIds.remove(obj: id)
+            }
         }
     }
     

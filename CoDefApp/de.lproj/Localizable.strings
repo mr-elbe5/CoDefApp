@@ -112,17 +112,18 @@ Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werde
 "projectXmarkSealSymbolText"="Dies markiert eine Einheit, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
 
 /*Filter*/
-"filter"="Filter für die Anzeige von Mängeln";
+"defectFilter"="Filter für die Anzeige von Mängeln";
 "onlyOpenDefects"="Nur offene Mängel";
 "onlyOverdueDefects"="Nur überfällige Mängel";
-"onlyForCompany"="Nur für die folgende Firma";
+"companyFilter"="Firmenfilter für die Anzeige von Mängeln";
+"onlyForCompanies"="Nur mit den folgenden Firmen";
 
 "filterInfoHeader"="Filters";
 "filterInfoText"=" Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
 
 Nur offene Mängel: Nur Mängel, die noch nicht abschlossen/erledigt sind
 Nur überfällige Mängel: Nur Mängel, deren Zieldatum verstrichen ist
-Nur für die folgenden Person oder Firma: Nur Mängel, die der markierten Person bzw.Firma zugeordnet sind";
+Nur mit den folgenden Firmen: Nur Mängel, die den markierten Firmen zugeordnet sind";
 
 /*Units*/
 "units"="Projekteinheiten";

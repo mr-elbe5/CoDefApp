@@ -257,14 +257,14 @@ class DefectData : ContentData{
         return true
     }
     
-    func isInFilter(filter: Filter) -> Bool{
-        if filter.onlyOpen && status == .done{
+    func isInFilter() -> Bool{
+        if AppData.shared.filter.onlyOpen && status == .done{
             return false
         }
-        if filter.onlyOverdue && !isOverdue{
+        if AppData.shared.filter.onlyOverdue && !isOverdue{
             return false
         }
-        if filter.companyId != 0 && filter.companyId != assignedCompanyId{
+        if AppData.shared.filter.companyIds.contains(assignedCompanyId){
             return false
         }
         return true

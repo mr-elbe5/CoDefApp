@@ -13,7 +13,7 @@ class CompanyFilterViewController: EditViewController {
     var delegate : FilterDelegate? = nil
     
     override func loadView() {
-        title = "filter".localize()
+        title = "companyFilter".localize()
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()
@@ -32,7 +32,7 @@ class CompanyFilterViewController: EditViewController {
     }
     
     override func setupContentView() {
-        labeledCheckboxGroup.setupView(labelText: "onlyForCompanies".localizeWithColonAsMandatory())
+        labeledCheckboxGroup.setupView(labelText: "onlyForCompanies".localizeWithColon())
         contentView.addSubviewAtTop(labeledCheckboxGroup, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
         
