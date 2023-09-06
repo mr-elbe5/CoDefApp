@@ -10,7 +10,6 @@
 		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
 		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
 		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
-		4E5A7C582AA88A070048AFC5 /* DefectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C572AA88A070048AFC5 /* DefectFilterViewController.swift */; };
 		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
@@ -133,7 +132,6 @@
 		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
 		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		4E5A7C572AA88A070048AFC5 /* DefectFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefectFilterViewController.swift; sourceTree = "<group>"; };
 		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -316,7 +314,6 @@
 				4EA397F82A8CCE99006053A0 /* Log.swift */,
 				4EA397E82A8550BB006053A0 /* AppData.swift */,
 				4EA3970A2A854F96006053A0 /* Filter.swift */,
-				4E5A7C572AA88A070048AFC5 /* DefectFilterViewController.swift */,
 				4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */,
 				4EA397F52A8B69A7006053A0 /* AppState.swift */,
 				4EA397E62A8550BB006053A0 /* AppDelegate.swift */,
@@ -722,7 +719,6 @@
 				4EA3971E2A85501D006053A0 /* EditUnitViewController.swift in Sources */,
 				4EA397A42A855080006053A0 /* PDFTextType.swift in Sources */,
 				4EA397882A855072006053A0 /* UIView+Design.swift in Sources */,
-				4E5A7C582AA88A070048AFC5 /* DefectFilterViewController.swift in Sources */,
 				4EA397802A855072006053A0 /* LabeledRadioGroup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

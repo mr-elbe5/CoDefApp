@@ -22,10 +22,6 @@ class MainViewController: ScrollViewController {
             let controller = CompanyFilterViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        items.append(UIBarButtonItem(title: "defectFilter".localize(), image: UIImage(systemName: "ellipsis.viewfinder"), primaryAction: UIAction(){ action in
-            let controller = DefectFilterViewController()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
         if !AppState.shared.standalone{
             items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
                 let controller = ServerViewController()

@@ -35,11 +35,6 @@ class ProjectViewController: ScrollViewController {
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        items.append(UIBarButtonItem(title: "defectFilter".localize(), image: UIImage(systemName: "ellipsis.viewfinder"), primaryAction: UIAction(){ action in
-            let controller = DefectFilterViewController()
-            controller.delegate = self
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
             let controller = ProjectPdfViewController(project: self.project)
             self.navigationController?.pushViewController(controller, animated: true)

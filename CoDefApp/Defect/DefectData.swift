@@ -258,12 +258,6 @@ class DefectData : ContentData{
     }
     
     func isInFilter() -> Bool{
-        if AppData.shared.filter.onlyOpen && status == .done{
-            return false
-        }
-        if AppData.shared.filter.onlyOverdue && !isOverdue{
-            return false
-        }
         if AppData.shared.filter.companyIds.contains(assignedCompanyId){
             return false
         }
