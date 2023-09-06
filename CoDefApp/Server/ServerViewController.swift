@@ -6,15 +6,18 @@
 
 import UIKit
 
-protocol CloudDelegate{
+protocol ServerDelegate{
     func synchronized()
 }
 
-class CloudViewController: ScrollViewController {
+class ServerViewController: ScrollViewController {
+    
+    var connectionLabel = LabeledText()
+    var openLoginButton = TextButton(text: "openLogin".localize(), withBorder: false)
     
     var newElementsField = LabeledText()
     
-    var uploadButton = IconTextButton(icon: "arrow.up.square", text: "upload".localize(), withBorder: true)
+    var uploadButton = TextButton(text: "synchronizeToServer".localize(), withBorder: true)
     
     var uploadedCompaniesField = LabeledText()
     var uploadedProjectsField = LabeledText()
@@ -26,7 +29,7 @@ class CloudViewController: ScrollViewController {
     
     var uploadProgressSlider = UISlider()
     
-    var downloadButton = IconTextButton(icon: "arrow.down.square", text: "download".localize(), withBorder: true)
+    var downloadButton = TextButton(text: "synchronizeFromServer".localize(), withBorder: true)
     
     var downloadedCompaniesField = LabeledText()
     var downloadedProjectsField = LabeledText()
@@ -41,7 +44,7 @@ class CloudViewController: ScrollViewController {
     
     var syncResult : SyncResult = SyncResult()
     
-    var delegate: CloudDelegate? = nil
+    var delegate: ServerDelegate? = nil
     
     override func loadView() {
         title = "server".localize()
@@ -54,7 +57,7 @@ class CloudViewController: ScrollViewController {
     override func setupContentView() {
         
         let item = UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
-            let controller = CloudInfoViewController()
+            let controller = ServerInfoViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         })
         navigationItem.rightBarButtonItem = item
@@ -67,12 +70,18 @@ class CloudViewController: ScrollViewController {
         let header = UILabel(header: "synchronizeServer".localize())
         syncSection.addSubviewAtTopCentered(header)
         
-        let connectionLabel = LabeledText()
         connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize(), inline: true)
         syncSection.addSubviewAtTop(connectionLabel, topView: header, insets: Insets.horizontalInsets)
         
+        openLoginButton.addAction(UIAction(){ action in
+            let loginController = LoginViewController()
+            loginController.delegate = self
+            self.navigationController?.pushViewController(loginController, animated: true)
+        }, for: .touchDown)
+        syncSection.addSubviewAtTop(openLoginButton, topView: connectionLabel)
+        
         newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(syncResult.unsynchronizedElementsCount), inline: true)
-        syncSection.addSubviewAtTop(newElementsField, topView: connectionLabel, insets: Insets.horizontalInsets)
+        syncSection.addSubviewAtTop(newElementsField, topView: openLoginButton, insets: Insets.horizontalInsets)
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
@@ -153,6 +162,7 @@ class CloudViewController: ScrollViewController {
         syncSection.addSubviewAtTop(downloadProgressSlider, topView: downloadErrorsField)
             .bottom(syncSection.bottomAnchor, inset: -defaultInset)
         
+        loginChanged()
     }
     
     func upload(){
@@ -180,7 +190,17 @@ class CloudViewController: ScrollViewController {
     
 }
 
-extension CloudViewController: SyncResultDelegate{
+extension ServerViewController: LoginDelegate{
+    
+    func loginChanged() {
+        connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
+        uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+        downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+    }
+    
+}
+
+extension ServerViewController: SyncResultDelegate{
     
     func updateUploadView() {
         newElementsField.text = String(syncResult.unsynchronizedElementsCount)
@@ -210,13 +230,13 @@ extension CloudViewController: SyncResultDelegate{
     
 }
 
-class CloudInfoViewController: InfoViewController {
+class ServerInfoViewController: InfoViewController {
     
     override func setupInfos(){
         let block = InfoBlock()
         stackView.addArrangedSubview(block)
-        block.stackView.addArrangedSubview(InfoHeader("cloudInfoHeader".localize()))
-        block.stackView.addArrangedSubview(InfoText("cloudInfoText".localize()))
+        block.stackView.addArrangedSubview(InfoHeader("serverInfoHeader".localize()))
+        block.stackView.addArrangedSubview(InfoText("serverInfoText".localize()))
     }
     
 }

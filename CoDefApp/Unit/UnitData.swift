@@ -10,10 +10,12 @@ import UIKit
 class UnitData : ContentData{
     
     enum CodingKeys: String, CodingKey {
+        case approveDate
         case plan
         case defects
     }
     
+    var approveDate : Date? = nil
     var plan: ImageData? = nil
     var defects = Array<DefectData>()
     
@@ -50,6 +52,7 @@ class UnitData : ContentData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        approveDate = try values.decodeIfPresent(Date.self, forKey: .approveDate)
         plan = try values.decodeIfPresent(ImageData.self, forKey: .plan)
         defects = try values.decodeIfPresent(Array<DefectData>.self, forKey: .defects) ?? Array<DefectData>()
         for defect in defects{
@@ -60,6 +63,9 @@ class UnitData : ContentData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
+        if let approveDate = approveDate{
+            try container.encode(approveDate, forKey: .approveDate)
+        }
         if let plan = plan{
             try container.encode(plan, forKey: .plan)
         }
@@ -68,6 +74,7 @@ class UnitData : ContentData{
     
     func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
         super.synchronizeFrom(fromData)
+        approveDate = fromData.approveDate
         plan = fromData.plan
         for defect in fromData.defects{
             if let presentDefect = defects.getDefectData(id: defect.id){

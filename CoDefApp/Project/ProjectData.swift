@@ -38,6 +38,17 @@ class ProjectData : ContentData{
         return list
     }
     
+    var companiesText: String{
+        var s = "";
+        for company in companies{
+            if s.isEmpty{
+                s += ", "
+            }
+            s += company.name
+        }
+        return s
+    }
+    
     override init(){
         super.init()
     }

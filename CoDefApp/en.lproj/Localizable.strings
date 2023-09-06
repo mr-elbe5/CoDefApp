@@ -210,8 +210,8 @@ All other data are for addressing or information.";
 /*Server*/
 "server"="Server";
 "connectionState"="Connection State";
-"connected"="Connected";
-"disconnected"="Disconnected";
+"connected"="Logged in";
+"disconnected"="Not logged in";
 "synchronizeServer"="Synchronization with the Server";
 "newElements"="New Items";
 "upload"="Upload to Server";
@@ -223,6 +223,18 @@ All other data are for addressing or information.";
 "serverInfoHeader"="Synchronization with the Server";
 "serverInfoText"="todo";
 
+/*Login*/
+"openLogin"="Log in";
+"loginData"="Login Data";
+"serverURL"="Server URL";
+"loginName"="Login Name";
+"password"="Password";
+"login"="Log In";
+"logout"="Log Out";
+"loggedIn"="You have been successfully logged in";
+"loginInfoHeader"="Cloud Login";
+"loginInfoText"="Fill the URL, login name and password of the CoDefTrack server you want to use as cloud server.";
+
 /*Settings*/
 "settings"="Settings";
 "appMode"="App mode";
@@ -231,18 +243,11 @@ All other data are for addressing or information.";
 "deleteData"="Delete all Data";
 "deleteDataHint"="All current data will be deleted from the app.";
 "dataDeleted"="Data has been deleted";
-"loginData"="Login Data";
-"serverURL"="Server URL";
-"loginName"="Login Name";
-"password"="Password";
-"login"="Log In";
-"logout"="Log Out";
-"loggedIn"="You have been successfully logged in";
 "cleanup"="Cleanup";
 "settingsInfoStandaloneHeader"="App mode";
 "settingsInfoStandaloneText"="This app can be used standalone or with a cloud connection. During a server connection all editing rights will be changed according to the login. Changing the mode will clear all current data. You can create a backup beforehand.";
-"settingsInfoLoginHeader"="Cloud Login";
-"settingsInfoLoginText"="Fill the URL, login name and password of the IssueTracker server you want to use as cloud server.";
+"settingsInfoStandaloneHeader"="App Mode";
+"settingsInfoStandaloneText"="Choose using a server or using the app standalone.";
 "settingsInfoCleanupHeader"="Cleanup";
 "settingsInfoCleanupText"="Here you can delete all images, which are not in use any more.";
 

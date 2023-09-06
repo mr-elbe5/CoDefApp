@@ -87,6 +87,10 @@ class ProjectViewController: ScrollViewController {
         let descriptionLabel = LabeledText()
         descriptionLabel.setupView(labelText: "description".localizeWithColon(), text: project.description)
         dataSection.addArrangedSubview(descriptionLabel)
+        
+        let companiesLabel = LabeledText()
+        companiesLabel.setupView(labelText: "companies".localizeWithColon(), text: project.companiesText)
+        dataSection.addArrangedSubview(companiesLabel)
     }
     
     func updateDataSection(){

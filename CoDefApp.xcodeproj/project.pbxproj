@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
 		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
+		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
 		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
@@ -43,7 +44,7 @@
 		4EA397402A85503A006053A0 /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397392A85503A006053A0 /* CompanyViewController.swift */; };
 		4EA397422A85503A006053A0 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3973B2A85503A006053A0 /* UserData.swift */; };
 		4EA397482A855048006053A0 /* SyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397432A855048006053A0 /* SyncResult.swift */; };
-		4EA3974B2A855048006053A0 /* CloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397462A855048006053A0 /* CloudViewController.swift */; };
+		4EA3974B2A855048006053A0 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397462A855048006053A0 /* ServerViewController.swift */; };
 		4EA3974C2A855048006053A0 /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397472A855048006053A0 /* RequestController.swift */; };
 		4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3974D2A855054006053A0 /* SettingViewController.swift */; };
 		4EA397562A855061006053A0 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3974F2A855061006053A0 /* UIViewController.swift */; };
@@ -131,6 +132,7 @@
 /* Begin PBXFileReference section */
 		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
+		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,7 +171,7 @@
 		4EA397392A85503A006053A0 /* CompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
 		4EA3973B2A85503A006053A0 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		4EA397432A855048006053A0 /* SyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncResult.swift; sourceTree = "<group>"; };
-		4EA397462A855048006053A0 /* CloudViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudViewController.swift; sourceTree = "<group>"; };
+		4EA397462A855048006053A0 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		4EA397472A855048006053A0 /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		4EA3974D2A855054006053A0 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		4EA3974F2A855061006053A0 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
@@ -290,7 +292,7 @@
 				4EA397F72A8B9153006053A0 /* DefectStatus */,
 				4EA397F42A8B61DA006053A0 /* User */,
 				4EA396F92A854DB3006053A0 /* Company */,
-				4EA396F82A854DA9006053A0 /* Cloud */,
+				4EA396F82A854DA9006053A0 /* Server */,
 				4EA396F72A854DA0006053A0 /* Settings */,
 				4EA396F62A854D93006053A0 /* ViewController */,
 				4EA396F52A854D89006053A0 /* View */,
@@ -448,14 +450,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		4EA396F82A854DA9006053A0 /* Cloud */ = {
+		4EA396F82A854DA9006053A0 /* Server */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397462A855048006053A0 /* CloudViewController.swift */,
+				4EA397462A855048006053A0 /* ServerViewController.swift */,
 				4EA397472A855048006053A0 /* RequestController.swift */,
 				4EA397432A855048006053A0 /* SyncResult.swift */,
+				4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */,
 			);
-			path = Cloud;
+			path = Server;
 			sourceTree = "<group>";
 		};
 		4EA396F92A854DB3006053A0 /* Company */ = {
@@ -609,6 +612,7 @@
 				4EA397BD2A85508E006053A0 /* ImageFileView.swift in Sources */,
 				4EA397C42A85509E006053A0 /* FileError.swift in Sources */,
 				4EA397D82A8550AD006053A0 /* Array.swift in Sources */,
+				4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */,
 				4EA397ED2A8550BB006053A0 /* AppDelegate.swift in Sources */,
 				4EA397142A854F96006053A0 /* ProjectData.swift in Sources */,
 				4EA397F02A8550BB006053A0 /* MainViewController.swift in Sources */,
@@ -692,7 +696,7 @@
 				4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */,
 				4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */,
 				4EA3979C2A855072006053A0 /* UIImage.swift in Sources */,
-				4EA3974B2A855048006053A0 /* CloudViewController.swift in Sources */,
+				4EA3974B2A855048006053A0 /* ServerViewController.swift in Sources */,
 				4EA397E12A8550AD006053A0 /* AuthorizationError.swift in Sources */,
 				4EA397902A855072006053A0 /* Indicator.swift in Sources */,
 				4EA397842A855072006053A0 /* DatePicker.swift in Sources */,

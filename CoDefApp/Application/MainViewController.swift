@@ -18,9 +18,9 @@ class MainViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        if AppState.shared.isLoggedIn(){
+        if !AppState.shared.standalone{
             items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
-                let controller = CloudViewController()
+                let controller = ServerViewController()
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
         }
@@ -150,7 +150,7 @@ class MainViewController: ScrollViewController {
     
 }
 
-extension MainViewController: CloudDelegate{
+extension MainViewController: ServerDelegate{
     
     func loginChanged() {
         

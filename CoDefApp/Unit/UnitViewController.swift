@@ -94,6 +94,10 @@ class UnitViewController: ScrollViewController {
         let descriptionView = LabeledText()
         descriptionView.setupView(labelText: "description".localizeWithColon(), text: unit.description)
         dataSection.addArrangedSubview(descriptionView)
+        
+        let approveDateView = LabeledText()
+        approveDateView.setupView(labelText: "approveDate".localizeWithColon(), text: unit.approveDate?.dateString() ?? "")
+        dataSection.addArrangedSubview(approveDateView)
     }
     
     func setupIssueSection(){
