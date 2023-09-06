@@ -76,7 +76,7 @@ class CompanyData: BaseData{
         dict["notes"] = notes
         return dict
     }
- 
+    
 }
 
 typealias CompanyList = BaseDataArray<CompanyData>

@@ -313,43 +313,25 @@ class AppData : Codable{
     func uploadNewItems(syncResult: SyncResult) async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
-                for location in project.units{
-                    for defect in location.defects{
-                        if (!defect.synchronized){
-                            taskGroup.addTask{
-                                await defect.upload(syncResult: syncResult)
-                            }
-                        }
-                        else{
-                            for image in defect.images{
-                                if (!image.synchronized){
-                                    taskGroup.addTask{
-                                        await defect.uploadImage(image: image, syncResult: syncResult)
-                                    }
-                                }
-                            }
-                            for statusChange in defect.statusChanges{
-                                if (!statusChange.synchronized){
-                                    taskGroup.addTask{
-                                        await statusChange.upload(syncResult: syncResult)
-                                    }
-                                }
-                                else{
-                                    for image in defect.images{
-                                        if (!image.synchronized){
-                                            taskGroup.addTask{
-                                                await statusChange.uploadImage(image: image, syncResult: syncResult)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                if !project.synchronized{
+                    taskGroup.addTask{
+                        await project.upload(syncResult: syncResult)
                     }
+                }
+                else{
+                    await project.uploadUnits(syncResult: syncResult)
                 }
             }
         }
         AppData.shared.save()
+    }
+    
+    func addTask(taskGroup: inout TaskGroup<Void>){
+        for project in AppData.shared.projects{
+            if !project.synchronized{
+                
+            }
+        }
     }
     
 }

@@ -173,6 +173,47 @@ class UnitData : ContentData{
         return names
     }
     
+    func upload(syncResult: SyncResult) async{
+        do{
+            let requestUrl = AppState.shared.serverURL+"/api/unit/uploadUnit/" + String(id)
+            let params = uploadParams()
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+                print("unit \(response.id) uploaded")
+                await MainActor.run{
+                    syncResult.unitUploaded()
+                }
+                id = response.id
+                synchronized = true
+                await uploadDefects(syncResult: syncResult)
+            }
+            else{
+                await MainActor.run{
+                    syncResult.uploadError()
+                }
+                throw "unit upload error"
+            }
+        }
+        catch let(err){
+            print(err)
+            await MainActor.run{
+                syncResult.uploadError()
+            }
+        }
+    }
+    
+    func uploadDefects(syncResult: SyncResult) async{
+        await withTaskGroup(of: Void.self){ taskGroup in
+            for defect in defects{
+                if !defect.synchronized{
+                    await defect.upload(syncResult: syncResult)
+                }
+                else{
+                    await defect.uploadStatusChanges(syncResult: syncResult)
+                }
+            }
+        }
+    }
+    
     func uploadImage(syncResult: SyncResult, image: ImageData, count: Int) async throws{
         let requestUrl = AppState.shared.serverURL+"/api/unit/uploadImage/" + String(id) + "?imageId=" + String(image.id)
         await image.upload(requestUrl: requestUrl, syncResult: syncResult)

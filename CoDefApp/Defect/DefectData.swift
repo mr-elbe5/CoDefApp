@@ -290,14 +290,12 @@ class DefectData : ContentData{
                 await withTaskGroup(of: Void.self){ taskGroup in
                     for image in images{
                         if !image.synchronized{
-                            await uploadImage(image: image, syncResult: syncResult)
+                            taskGroup.addTask {
+                                await self.uploadImage(image: image, syncResult: syncResult)
+                            }
                         }
                     }
-                    for statusChange in statusChanges{
-                        if !statusChange.synchronized{
-                            await statusChange.upload(syncResult: syncResult)
-                        }
-                    }
+                    await uploadStatusChanges(syncResult: syncResult)
                 }
             }
             else{
@@ -311,6 +309,27 @@ class DefectData : ContentData{
             print(err)
             await MainActor.run{
                 syncResult.uploadError()
+            }
+        }
+    }
+    
+    func uploadStatusChanges(syncResult: SyncResult) async{
+        await withTaskGroup(of: Void.self){ taskGroup in
+            for statusChange in statusChanges{
+                if !statusChange.synchronized{
+                    await statusChange.upload(syncResult: syncResult)
+                }
+                else{
+                    await withTaskGroup(of: Void.self){ taskGroup in
+                        for image in statusChange.images{
+                            if !image.synchronized{
+                                taskGroup.addTask {
+                                    await statusChange.uploadImage(image: image, syncResult: syncResult)
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

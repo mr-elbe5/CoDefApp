@@ -152,6 +152,47 @@ class ProjectData : ContentData{
         }
         return names
     }
+    
+    func upload(syncResult: SyncResult) async{
+        do{
+            let requestUrl = AppState.shared.serverURL+"/api/project/uploadProject/" + String(id)
+            let params = uploadParams()
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+                print("project \(response.id) uploaded")
+                await MainActor.run{
+                    syncResult.projectUploaded()
+                }
+                id = response.id
+                synchronized = true
+                await uploadUnits(syncResult: syncResult)
+            }
+            else{
+                await MainActor.run{
+                    syncResult.uploadError()
+                }
+                throw "project upload error"
+            }
+        }
+        catch let(err){
+            print(err)
+            await MainActor.run{
+                syncResult.uploadError()
+            }
+        }
+    }
+    
+    func uploadUnits(syncResult: SyncResult) async{
+        await withTaskGroup(of: Void.self){ taskGroup in
+            for unit in units{
+                if !unit.synchronized{
+                    await unit.upload(syncResult: syncResult)
+                }
+                else{
+                    await unit.uploadDefects(syncResult: syncResult)
+                }
+            }
+        }
+    }
 
 }
 
