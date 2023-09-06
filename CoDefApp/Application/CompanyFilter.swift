@@ -6,7 +6,7 @@
 
 import Foundation
 
-class Filter: NSObject, Codable{
+class CompanyFilter: NSObject, Codable{
     
     enum CodingKeys: String, CodingKey {
         case companyIds

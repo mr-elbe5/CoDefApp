@@ -11,18 +11,16 @@ class ProjectData : ContentData{
     enum CodingKeys: String, CodingKey {
         case units
         case companyIds
-        case filter
     }
     
     var units = Array<UnitData>()
     var companyIds = Array<Int>()
-    var filter = Filter()
     
     //runtime
     var companies = CompanyList()
     
     var filteredUnits: Array<UnitData>{
-        if !AppData.shared.filter.active{
+        if !AppState.shared.filter.active{
             return units
         }
         var list = Array<UnitData>()
@@ -57,7 +55,6 @@ class ProjectData : ContentData{
             unit.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
-        filter = try values.decodeIfPresent(Filter.self, forKey: .filter) ?? Filter()
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -65,7 +62,6 @@ class ProjectData : ContentData{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
-        try container.encode(filter, forKey: .filter)
     }
     
     func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
@@ -103,7 +99,7 @@ class ProjectData : ContentData{
             }
         }
         saveData()
-        filter.updateCompanyIds(allCompanyIds: companyIds)
+        AppState.shared.filter.updateCompanyIds(allCompanyIds: companyIds)
     }
     
     func removeUnit(_ unit: UnitData){
@@ -124,8 +120,9 @@ class ProjectData : ContentData{
         if canRemoveCompany(companyId: companyId){
             companyIds.remove(obj: companyId)
             updateCompanies()
-            filter.updateCompanyIds(allCompanyIds: companyIds)
+            AppState.shared.filter.updateCompanyIds(allCompanyIds: companyIds)
             saveData()
+            AppState.shared.save()
             return true
         }
         return false

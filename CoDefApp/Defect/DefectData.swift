@@ -258,7 +258,7 @@ class DefectData : ContentData{
     }
     
     func isInFilter() -> Bool{
-        if AppData.shared.filter.companyIds.contains(assignedCompanyId){
+        if AppState.shared.filter.companyIds.contains(assignedCompanyId){
             return false
         }
         return true

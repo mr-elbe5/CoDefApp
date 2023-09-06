@@ -18,8 +18,8 @@ class AppState : Codable{
         }
         else{
             shared = AppState()
-            shared.save()
         }
+        shared.save()
     }
     
     func save(){
@@ -38,7 +38,7 @@ class AppState : Codable{
     var currentUser = UserData.anonymousUser
     var standalone = true
     var serverURL = ""
-    var filter = Filter()
+    var filter = CompanyFilter()
     
     var nextId: Int{
         lastId += 1
@@ -59,7 +59,7 @@ class AppState : Codable{
         currentUser = try values.decodeIfPresent(UserData.self, forKey: .currentUser) ?? UserData.anonymousUser
         standalone = try values.decodeIfPresent(Bool.self, forKey: .standalone) ?? true
         serverURL = try values.decodeIfPresent(String.self, forKey: .serverURL) ?? ""
-        filter = try values.decodeIfPresent(Filter.self, forKey: .filter) ?? Filter()
+        filter = try values.decodeIfPresent(CompanyFilter.self, forKey: .filter) ?? CompanyFilter()
     }
 
     func encode(to encoder: Encoder) throws {
