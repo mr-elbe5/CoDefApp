@@ -35,7 +35,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             let controller = DefectPdfViewController(defect: self.defect)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if AppState.shared.currentUser.hasEditRight{
+        if AppState.shared.standalone || !defect.hasServerId{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditDefectViewController(defect: self.defect)
                 controller.delegate = self

@@ -27,24 +27,26 @@ class CompanyViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
-            let controller = EditCompanyViewController(company: self.company)
-            controller.delegate = self
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
-        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
-            self.showDestructiveApprove(text: "deleteInfo".localize()){
-                if AppData.shared.removeCompany(self.company){
-                    AppData.shared.save()
-                    self.delegate?.companyChanged()
-                    self.navigationController?.popViewController(animated: true)
+        if AppState.shared.standalone{
+            items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
+                let controller = EditCompanyViewController(company: self.company)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
+            }))
+            items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
+                self.showDestructiveApprove(text: "deleteInfo".localize()){
+                    if AppData.shared.removeCompany(self.company){
+                        AppData.shared.save()
+                        self.delegate?.companyChanged()
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    else{
+                        self.showError("deleteUserError")
+                    }
                 }
-                else{
-                    self.showError("deleteUserError")
-                }
-            }
-        }))
-        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+            }))
+            groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        }
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
             let controller = UserInfoViewController()

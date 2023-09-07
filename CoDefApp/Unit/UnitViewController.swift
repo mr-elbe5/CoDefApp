@@ -39,7 +39,7 @@ class UnitViewController: ScrollViewController {
             let controller = UnitPdfViewController(unit: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if AppState.shared.currentUser.hasEditRight{
+        if AppState.shared.standalone{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditUnitViewController(unit: self.unit)
                 controller.delegate = self

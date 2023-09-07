@@ -7,6 +7,10 @@
 import UIKit
 import StoreKit
 
+protocol SettingsDelegate{
+    func standaloneChanged()
+}
+
 class SettingsViewController: ScrollViewController {
     
     var standaloneSection = SectionView()
@@ -14,6 +18,8 @@ class SettingsViewController: ScrollViewController {
     var useServerSwitch = LabeledCheckbox()
     
     var cleanupSection = SectionView()
+    
+    var delegate: SettingsDelegate? = nil
     
     override func loadView() {
         title = "settings".localize()
@@ -92,6 +98,7 @@ extension SettingsViewController: CheckboxDelegate{
         if index == -1{
             AppState.shared.standalone = !useServerSwitch.isOn
             AppState.shared.save()
+            delegate?.standaloneChanged()
         }
     }
     

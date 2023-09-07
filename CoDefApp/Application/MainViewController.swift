@@ -16,6 +16,10 @@ class MainViewController: ScrollViewController {
         title = "overview".localize()
         super.loadView()
         
+        updateNavigationItems()
+    }
+    
+    func updateNavigationItems() {
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
@@ -44,6 +48,7 @@ class MainViewController: ScrollViewController {
         }
         items.append(UIBarButtonItem(title: "settings".localize(), image: UIImage(systemName: "gear"), primaryAction: UIAction(){ action in
             let controller = SettingsViewController()
+            controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
@@ -107,12 +112,14 @@ class MainViewController: ScrollViewController {
             userSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: userSection.leadingAnchor, trailing: userSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
-        let addUserButton = TextButton(text: "newCompany".localize(), withBorder: true)
-        addUserButton.addAction(UIAction(){ action in
-            self.openAddUser()
-        }, for: .touchDown)
-        userSection.addSubviewAtTopCentered(addUserButton, topView: lastView, insets: doubleInsets)
-            .bottom(userSection.bottomAnchor, inset: -2*defaultInset)
+        if AppState.shared.standalone{
+            let addUserButton = TextButton(text: "newCompany".localize(), withBorder: true)
+            addUserButton.addAction(UIAction(){ action in
+                self.openAddUser()
+            }, for: .touchDown)
+            userSection.addSubviewAtTopCentered(addUserButton, topView: lastView, insets: doubleInsets)
+        }
+        lastView.bottom(userSection.bottomAnchor, inset: -2*defaultInset)
     }
     
     func updateUserSection(){
@@ -163,6 +170,15 @@ extension MainViewController: ServerDelegate{
     func synchronized() {
         
     }
+    
+}
+
+extension MainViewController: SettingsDelegate{
+    
+    func standaloneChanged() {
+        updateNavigationItems()
+    }
+    
     
 }
 
