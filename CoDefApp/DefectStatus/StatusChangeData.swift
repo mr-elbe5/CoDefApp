@@ -90,14 +90,14 @@ class StatusChangeData : ContentData{
     }
     
     func synchronizeFrom(_ fromData: StatusChangeData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData)
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         status = fromData.status
         previousAssignedCompanyId = fromData.previousAssignedCompanyId
         assignedCompanyId = fromData.assignedCompanyId
         dueDate = fromData.dueDate
         for image in fromData.images{
             if let presentImage = images.getImageData(id: image.id){
-                presentImage.synchronizeFrom(image)
+                presentImage.synchronizeFrom(image, syncResult: syncResult)
             }
             else{
                 images.append(image)

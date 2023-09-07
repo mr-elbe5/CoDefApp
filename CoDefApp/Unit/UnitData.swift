@@ -66,7 +66,7 @@ class UnitData : ContentData{
     }
     
     func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData)
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         approveDate = fromData.approveDate
         plan = fromData.plan
         for defect in fromData.defects{

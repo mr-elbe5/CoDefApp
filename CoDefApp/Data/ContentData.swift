@@ -41,11 +41,10 @@ class ContentData : BaseData{
         return dict
     }
     
-    func synchronizeFrom(_ fromData: ContentData){
-        super.synchronizeFrom(fromData)
+    func synchronizeFrom(_ fromData: ContentData, syncResult: SyncResult){
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         name = fromData.name
         description = fromData.description
-        
     }
     
 }

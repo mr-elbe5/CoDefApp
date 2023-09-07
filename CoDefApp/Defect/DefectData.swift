@@ -148,7 +148,7 @@ class DefectData : ContentData{
     }
     
     func synchronizeFrom(_ fromData: DefectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData)
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         displayId = fromData.displayId
         status = fromData.status
         assignedCompanyId = fromData.assignedCompanyId
@@ -159,7 +159,7 @@ class DefectData : ContentData{
         positionComment = fromData.positionComment
         for image in fromData.images{
             if let presentImage = images.getImageData(id: image.id){
-                presentImage.synchronizeFrom(image)
+                presentImage.synchronizeFrom(image, syncResult: syncResult)
             }
             else{
                 images.append(image)

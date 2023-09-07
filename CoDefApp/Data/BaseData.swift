@@ -78,7 +78,7 @@ class BaseData: Codable, Hashable, Equatable{
         try container.encode(synchronized, forKey: .synchronized)
     }
     
-    func synchronizeFrom(_ fromData: BaseData){
+    func synchronizeFrom(_ fromData: BaseData, syncResult: SyncResult){
         creationDate = fromData.creationDate
         creatorId = fromData.creatorId
         creatorName = fromData.creatorName

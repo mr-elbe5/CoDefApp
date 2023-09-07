@@ -111,7 +111,7 @@ class AppData : Codable{
                 print(appData)
                 for company in appData.companies{
                     if let presentCompany = companies.getCompanyData(id: company.id){
-                        presentCompany.synchronizeFrom(company)
+                        presentCompany.synchronizeFrom(company, syncResult: syncResult)
                     }
                     else{
                         companies.append(company)
@@ -122,7 +122,7 @@ class AppData : Codable{
                 companies.sortByName()
                 for project in appData.projects{
                     if let presentProject = projects.getProjectData(id: project.id){
-                        presentProject.synchronizeFrom(project)
+                        presentProject.synchronizeFrom(project, syncResult: syncResult)
                     }
                     else{
                         projects.append(project)

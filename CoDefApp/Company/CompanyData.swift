@@ -54,8 +54,8 @@ class CompanyData: BaseData{
         try container.encode(street, forKey: .notes)
     }
     
-    func synchronizeFrom(_ fromData: CompanyData){
-        super.synchronizeFrom(fromData)
+    func synchronizeFrom(_ fromData: CompanyData, syncResult: SyncResult){
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         name = fromData.name
         street = fromData.street
         zipCode = fromData.zipCode

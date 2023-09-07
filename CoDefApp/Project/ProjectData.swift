@@ -35,7 +35,7 @@ class ProjectData : ContentData{
     var companiesText: String{
         var s = "";
         for company in companies{
-            if s.isEmpty{
+            if !s.isEmpty{
                 s += ", "
             }
             s += company.name
@@ -65,8 +65,9 @@ class ProjectData : ContentData{
     }
     
     func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData)
+        super.synchronizeFrom(fromData, syncResult: syncResult)
         companyIds = fromData.companyIds
+        updateCompanies()
         for unit in fromData.units{
             if let presentUnit = units.getUnitData(id: unit.id){
                 presentUnit.synchronizeFrom(unit, syncResult: syncResult)
