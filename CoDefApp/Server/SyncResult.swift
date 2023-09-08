@@ -13,7 +13,6 @@ protocol SyncResultDelegate{
 
 class SyncResult{
     
-    var uploadedCompanies : Int = 0
     var uploadedProjects : Int = 0
     var uploadedUnits : Int = 0
     var uploadedDefects : Int = 0
@@ -85,7 +84,6 @@ class SyncResult{
     }
     
     func resetUpload(){
-        uploadedCompanies = 0
         uploadedProjects = 0
         uploadedUnits = 0
         uploadedDefects = 0

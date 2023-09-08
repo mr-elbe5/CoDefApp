@@ -19,7 +19,6 @@ class ServerViewController: ScrollViewController {
     
     var uploadButton = TextButton(text: "synchronizeToServer".localize(), withBorder: true)
     
-    var uploadedCompaniesField = LabeledText()
     var uploadedProjectsField = LabeledText()
     var uploadedUnitsField = LabeledText()
     var uploadedDefectsField = LabeledText()
@@ -95,11 +94,8 @@ class ServerViewController: ScrollViewController {
         var label = UILabel(header: "uploaded".localize())
         syncSection.addSubviewAtTop(label, topView: uploadButton)
         
-        uploadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(syncResult.uploadedCompanies), inline: true)
-        syncSection.addSubviewAtTop(uploadedCompaniesField, topView: label, insets: Insets.horizontalInsets)
-        
         uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(syncResult.uploadedProjects), inline: true)
-        syncSection.addSubviewAtTop(uploadedProjectsField, topView: uploadedCompaniesField, insets: Insets.horizontalInsets)
+        syncSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
         
         uploadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(syncResult.uploadedUnits), inline: true)
         syncSection.addSubviewAtTop(uploadedUnitsField, topView: uploadedProjectsField, insets: Insets.horizontalInsets)
@@ -204,7 +200,6 @@ extension ServerViewController: SyncResultDelegate{
     
     func updateUploadView() {
         newElementsField.text = String(syncResult.unsynchronizedElementsCount)
-        uploadedCompaniesField.text = String(syncResult.uploadedCompanies)
         uploadedProjectsField.text = String(syncResult.uploadedProjects)
         uploadedUnitsField.text = String(syncResult.uploadedUnits)
         uploadedDefectsField.text = String(syncResult.uploadedDefects)

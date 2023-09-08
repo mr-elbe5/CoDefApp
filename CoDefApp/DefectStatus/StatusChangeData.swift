@@ -89,6 +89,23 @@ class StatusChangeData : ContentData{
         try container.encode(images, forKey: .images)
     }
     
+    func removeAll(){
+        for img in images{
+            img.deleteFile()
+        }
+        images.removeAll()
+    }
+    
+    func getUsedImageNames()  -> Array<String>{
+        var names = Array<String>()
+        for image in images{
+            names.append(image.fileName)
+        }
+        return names
+    }
+    
+    // sync
+    
     func synchronizeFrom(_ fromData: StatusChangeData, syncResult: SyncResult) {
         super.synchronizeFrom(fromData, syncResult: syncResult)
         status = fromData.status
@@ -123,21 +140,6 @@ class StatusChangeData : ContentData{
         dict["previousAssignedCompanyId"]=String(previousAssignedCompanyId)
         dict["assignedCompanyId"]=String(assignedCompanyId)
         return dict
-    }
-    
-    func removeAll(){
-        for img in images{
-            img.deleteFile()
-        }
-        images.removeAll()
-    }
-    
-    func getUsedImageNames()  -> Array<String>{
-        var names = Array<String>()
-        for image in images{
-            names.append(image.fileName)
-        }
-        return names
     }
     
     func upload(syncResult: SyncResult) async{

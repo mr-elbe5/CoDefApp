@@ -136,66 +136,6 @@ class DefectData : ContentData{
         try container.encode(statusChanges, forKey: .statusChanges)
     }
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
-        dict["displayId"]=String(displayId)
-        dict["status"]=status.rawValue
-        dict["dueDate"]=dueDate.isoString()
-        dict["positionX"]=String(Double(position.x))
-        dict["positionY"]=String(Double(position.y))
-        dict["positionComment"]=positionComment
-        return dict
-    }
-    
-    func synchronizeFrom(_ fromData: DefectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
-        displayId = fromData.displayId
-        status = fromData.status
-        assignedCompanyId = fromData.assignedCompanyId
-        notified = fromData.notified
-        dueDate = fromData.dueDate
-        position.x = fromData.position.x
-        position.y = fromData.position.y
-        positionComment = fromData.positionComment
-        for image in fromData.images{
-            if let presentImage = images.getImageData(id: image.id){
-                presentImage.synchronizeFrom(image, syncResult: syncResult)
-            }
-            else{
-                images.append(image)
-                syncResult.loadedImages += 1
-                image.setSynchronized()
-            }
-            
-        }
-        for statusChange in fromData.statusChanges{
-            if let presentStatusChange = statusChanges.getStatusChangeData(id: statusChange.id){
-                presentStatusChange.synchronizeFrom(statusChange, syncResult: syncResult)
-            }
-            else{
-                statusChanges.append(statusChange)
-                syncResult.loadedStatusChanges += 1
-                statusChange.setSynchronized(true, recursive: true)
-            }
-            
-        }
-        for statusChange in statusChanges{
-            statusChange.defect = self
-        }
-    }
-    
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            for image in images{
-                image.setSynchronized(synced)
-            }
-            for statusChange in statusChanges{
-                statusChange.setSynchronized(true, recursive: true)
-            }
-        }
-    }
-    
     func assertDisplayId(){
         if displayId == 0{
             displayId = DefectData.getNextDisplayId()
@@ -273,6 +213,68 @@ class DefectData : ContentData{
             names.append(contentsOf: statusChange.getUsedImageNames())
         }
         return names
+    }
+    
+    // sync
+    
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
+        dict["displayId"]=String(displayId)
+        dict["status"]=status.rawValue
+        dict["dueDate"]=dueDate.isoString()
+        dict["positionX"]=String(Double(position.x))
+        dict["positionY"]=String(Double(position.y))
+        dict["positionComment"]=positionComment
+        return dict
+    }
+    
+    func synchronizeFrom(_ fromData: DefectData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData, syncResult: syncResult)
+        displayId = fromData.displayId
+        status = fromData.status
+        assignedCompanyId = fromData.assignedCompanyId
+        notified = fromData.notified
+        dueDate = fromData.dueDate
+        position.x = fromData.position.x
+        position.y = fromData.position.y
+        positionComment = fromData.positionComment
+        for image in fromData.images{
+            if let presentImage = images.getImageData(id: image.id){
+                presentImage.synchronizeFrom(image, syncResult: syncResult)
+            }
+            else{
+                images.append(image)
+                syncResult.loadedImages += 1
+                image.setSynchronized()
+            }
+            
+        }
+        for statusChange in fromData.statusChanges{
+            if let presentStatusChange = statusChanges.getStatusChangeData(id: statusChange.id){
+                presentStatusChange.synchronizeFrom(statusChange, syncResult: syncResult)
+            }
+            else{
+                statusChanges.append(statusChange)
+                syncResult.loadedStatusChanges += 1
+                statusChange.setSynchronized(true, recursive: true)
+            }
+            
+        }
+        for statusChange in statusChanges{
+            statusChange.defect = self
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            for image in images{
+                image.setSynchronized(synced)
+            }
+            for statusChange in statusChanges{
+                statusChange.setSynchronized(true, recursive: true)
+            }
+        }
     }
     
     func upload(syncResult: SyncResult) async{

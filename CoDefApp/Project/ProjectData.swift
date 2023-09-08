@@ -64,34 +64,6 @@ class ProjectData : ContentData{
         try container.encode(companyIds, forKey: .companyIds)
     }
     
-    func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
-        companyIds = fromData.companyIds
-        updateCompanies()
-        for unit in fromData.units{
-            if let presentUnit = units.getUnitData(id: unit.id){
-                presentUnit.synchronizeFrom(unit, syncResult: syncResult)
-            }
-            else{
-                units.append(unit)
-                syncResult.loadedUnits += 1
-            }
-            
-        }
-        for unit in units{
-            unit.project = self
-        }
-    }
-    
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            for unit in units{
-                unit.setSynchronized(true, recursive: true)
-            }
-        }
-    }
-    
     func updateCompanies(){
         companies.removeAll()
         for company in AppData.shared.companies{
@@ -152,6 +124,43 @@ class ProjectData : ContentData{
             names.append(contentsOf: unit.getUsedImageNames())
         }
         return names
+    }
+    
+    // sync
+    
+    func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData, syncResult: syncResult)
+        companyIds = fromData.companyIds
+        updateCompanies()
+        for unit in fromData.units{
+            if let presentUnit = units.getUnitData(id: unit.id){
+                presentUnit.synchronizeFrom(unit, syncResult: syncResult)
+            }
+            else{
+                units.append(unit)
+                syncResult.loadedUnits += 1
+            }
+            
+        }
+        for unit in units{
+            unit.project = self
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            for unit in units{
+                unit.setSynchronized(true, recursive: true)
+            }
+        }
+    }
+    
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
+        //todo
+        dict["companyIds"] = ""
+        return dict
     }
     
     func upload(syncResult: SyncResult) async{

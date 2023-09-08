@@ -65,36 +65,6 @@ class UnitData : ContentData{
         try container.encode(defects, forKey: .defects)
     }
     
-    func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
-        approveDate = fromData.approveDate
-        plan = fromData.plan
-        for defect in fromData.defects{
-            if let presentDefect = defects.getDefectData(id: defect.id){
-                presentDefect.synchronizeFrom(defect, syncResult: syncResult)
-            }
-            else{
-                defects.append(defect)
-                syncResult.loadedDefects += 1
-                defect.setSynchronized(true, recursive: true)
-            }
-            
-        }
-        for defect in defects{
-            defect.unit = self
-        }
-    }
-    
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            plan?.setSynchronized(synced)
-            for defect in defects{
-                defect.setSynchronized(true, recursive: true)
-            }
-        }
-    }
-    
     func removeDefect(_ issue: DefectData){
         issue.removeAll()
         defects.remove(obj: issue)
@@ -171,6 +141,38 @@ class UnitData : ContentData{
             names.append(contentsOf: defect.getUsedImageNames())
         }
         return names
+    }
+    
+    // sync
+    
+    func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
+        super.synchronizeFrom(fromData, syncResult: syncResult)
+        approveDate = fromData.approveDate
+        plan = fromData.plan
+        for defect in fromData.defects{
+            if let presentDefect = defects.getDefectData(id: defect.id){
+                presentDefect.synchronizeFrom(defect, syncResult: syncResult)
+            }
+            else{
+                defects.append(defect)
+                syncResult.loadedDefects += 1
+                defect.setSynchronized(true, recursive: true)
+            }
+            
+        }
+        for defect in defects{
+            defect.unit = self
+        }
+    }
+    
+    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
+        synchronized = synced
+        if recursive{
+            plan?.setSynchronized(synced)
+            for defect in defects{
+                defect.setSynchronized(true, recursive: true)
+            }
+        }
     }
     
     func upload(syncResult: SyncResult) async{

@@ -78,16 +78,6 @@ class BaseData: Codable, Hashable, Equatable{
         try container.encode(synchronized, forKey: .synchronized)
     }
     
-    func synchronizeFrom(_ fromData: BaseData, syncResult: SyncResult){
-        creationDate = fromData.creationDate
-        creatorId = fromData.creatorId
-        creatorName = fromData.creatorName
-        changeDate = fromData.changeDate
-        changerId = fromData.creatorId
-        changerName = fromData.changerName
-        setSynchronized(true)
-    }
-    
     func changed(){
         changerId = AppState.shared.currentUser.id
         changerName = AppState.shared.currentUser.name
@@ -97,6 +87,22 @@ class BaseData: Codable, Hashable, Equatable{
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+    }
+    
+    func saveData(){
+        AppData.shared.save()
+    }
+    
+    // sync
+    
+    func synchronizeFrom(_ fromData: BaseData, syncResult: SyncResult){
+        creationDate = fromData.creationDate
+        creatorId = fromData.creatorId
+        creatorName = fromData.creatorName
+        changeDate = fromData.changeDate
+        changerId = fromData.creatorId
+        changerName = fromData.changerName
+        setSynchronized(true)
     }
     
     func uploadParams() -> Dictionary<String,String>{
@@ -111,10 +117,6 @@ class BaseData: Codable, Hashable, Equatable{
     
     func setSynchronized(_ synced: Bool = true,recursive: Bool = false){
         synchronized = synced
-    }
-    
-    func saveData(){
-        AppData.shared.save()
     }
  
 }

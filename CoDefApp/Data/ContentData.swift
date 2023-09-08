@@ -34,17 +34,19 @@ class ContentData : BaseData{
         try container.encode(description, forKey: .description)
     }
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
-        dict["name"]=name
-        dict["description"]=description
-        return dict
-    }
+    // sync
     
     func synchronizeFrom(_ fromData: ContentData, syncResult: SyncResult){
         super.synchronizeFrom(fromData, syncResult: syncResult)
         name = fromData.name
         description = fromData.description
+    }
+    
+    override func uploadParams() -> Dictionary<String,String>{
+        var dict = super.uploadParams()
+        dict["name"]=name
+        dict["description"]=description
+        return dict
     }
     
 }
