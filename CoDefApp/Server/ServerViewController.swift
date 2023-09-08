@@ -165,7 +165,7 @@ class ServerViewController: ScrollViewController {
         syncResult.resetUpload()
         updateUploadView()
         Task{
-            await AppData.shared.uploadNewItems(syncResult: syncResult)
+            await AppData.shared.upload(syncResult: syncResult)
         }
     }
     

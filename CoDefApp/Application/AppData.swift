@@ -310,7 +310,7 @@ class AppData : Codable{
         return count
     }
     
-    func uploadNewItems(syncResult: SyncResult) async{
+    func upload(syncResult: SyncResult) async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
                 if !project.synchronized{

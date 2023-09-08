@@ -155,7 +155,7 @@ class StatusChangeData : ContentData{
                 synchronized = true
                 for image in images{
                     if !image.synchronized{
-                        await uploadImage(image: image, syncResult: syncResult)
+                        await image.upload(contentId: id, syncResult: syncResult)
                     }
                 }
             }
@@ -171,11 +171,6 @@ class StatusChangeData : ContentData{
                 syncResult.uploadError()
             }
         }
-    }
-    
-    func uploadImage(image: ImageData, syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/statuschange/uploadStatusChangeImage/" + String(id)
-        await image.upload(requestUrl: requestUrl, syncResult: syncResult)
     }
     
 }

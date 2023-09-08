@@ -42,9 +42,10 @@ class ImageData : FileData{
         }
     }
     
-    func upload(requestUrl: String, syncResult: SyncResult) async{
+    func upload(contentId: Int, syncResult: SyncResult) async{
         do{
             let uiImage = getImage()
+            let requestUrl = AppState.shared.serverURL+"/api/image/uploadImage/" + String(contentId) + "?imageId=" + String(id)
             if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
                 print("image uploaded with id \(response.id)")
                 id = response.id

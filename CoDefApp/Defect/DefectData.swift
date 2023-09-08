@@ -293,7 +293,7 @@ class DefectData : ContentData{
                     for image in images{
                         if !image.synchronized{
                             taskGroup.addTask {
-                                await self.uploadImage(image: image, syncResult: syncResult)
+                                await image.upload(contentId: self.id, syncResult: syncResult)
                             }
                         }
                     }
@@ -326,7 +326,7 @@ class DefectData : ContentData{
                         for image in statusChange.images{
                             if !image.synchronized{
                                 taskGroup.addTask {
-                                    await statusChange.uploadImage(image: image, syncResult: syncResult)
+                                    await image.upload(contentId: statusChange.id, syncResult: syncResult)
                                 }
                             }
                         }
@@ -334,11 +334,6 @@ class DefectData : ContentData{
                 }
             }
         }
-    }
-    
-    func uploadImage(image: ImageData, syncResult: SyncResult) async{
-        let requestUrl = AppState.shared.serverURL+"/api/defect/uploadImage/" + String(id) + "?imageId=" + String(image.id)
-        await image.upload(requestUrl: requestUrl, syncResult: syncResult)
     }
     
 }
