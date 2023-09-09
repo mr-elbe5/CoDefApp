@@ -60,7 +60,7 @@ class StatusChangeData : ContentData{
         previousAssignedCompanyId = defect.assignedCompanyId
         assignedCompanyId = previousAssignedCompanyId
         defect.project.updateCompanies()
-        dueDate = defect.dueDate
+        dueDate = defect.dueDate1
     }
     
     required init(from decoder: Decoder) throws {

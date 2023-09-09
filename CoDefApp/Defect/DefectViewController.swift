@@ -88,6 +88,10 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
         dataSection.addArrangedSubview(statusView)
         
+        let phaseView = LabeledText()
+        phaseView.setupView(labelText: "projectPhase".localizeWithColon(), text: defect.projectPhase.rawValue.localize())
+        dataSection.addArrangedSubview(phaseView)
+        
         let assignedView = LabeledText()
         assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedCompanyName)
         dataSection.addArrangedSubview(assignedView)
@@ -150,7 +154,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     
     func setupProcessingStatusView(view: ArrangedSectionView, statusData: StatusChangeData){
         let createdLine = LabeledText()
-        let txt = "\("on".localize()) \(statusData.creationDate.dateString()) \("by".localize()) \(statusData.creator?.name ?? "")"
+        let txt = "\("on".localize()) \(statusData.creationDate.asString()) \("by".localize()) \(statusData.creator?.name ?? "")"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
         view.addArrangedSubview(createdLine)
         

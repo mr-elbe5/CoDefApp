@@ -57,10 +57,10 @@ extension PDFRenderer {
             addLine(label: "description".localize(), text: defect.description)
         }
         addLine(label: "creator".localize(), text: defect.creatorName)
-        addLine(label: "creationDate".localize(), text: defect.creationDate.dateString())
+        addLine(label: "creationDate".localize(), text: defect.creationDate.asString())
         addLine(label: "status".localize(), text: defect.status.rawValue.localize())
         addLine(label: "assignedTo".localize(), text: defect.assignedCompanyName)
-        addLine(label: "dueDate".localize(), text: defect.dueDate.dateTimeString())
+        addLine(label: "dueDate".localize(), text: defect.dueDate1.dateTimeString())
         defect.assertPlanImage()
         if let img = defect.planImage{
             addLine(label: "position".localize(), image: img, maxHeight: pageRect.height * 0.2)

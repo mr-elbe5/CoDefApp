@@ -38,9 +38,11 @@ class DefectData : ContentData{
     enum CodingKeys: String, CodingKey {
         case displayId
         case status
+        case projectPhase
         case assignedCompanyId
         case notified
-        case dueDate
+        case dueDate1
+        case dueDate2
         case positionX
         case positionY
         case positionComment
@@ -50,9 +52,11 @@ class DefectData : ContentData{
     
     var displayId = 0
     var status = DefectStatus.open
+    var projectPhase = ProjectPhase.PREAPPROVAL
     var assignedCompanyId: Int = 0
     var notified = false
-    var dueDate = Date()
+    var dueDate1 = Date()
+    var dueDate2: Date? = nil
     var position: CGPoint = .zero
     var positionComment = ""
     
@@ -81,7 +85,7 @@ class DefectData : ContentData{
     }
     
     var isOverdue : Bool{
-        dueDate < Date()
+        dueDate1 < Date()
     }
     
     var project: ProjectData{
@@ -94,6 +98,12 @@ class DefectData : ContentData{
     
     override init(){
         super.init()
+        if let approveDate = unit.approveDate{
+            projectPhase = approveDate > Date() ? .PREAPPROVAL : .LIABILITY
+        }
+        else{
+            projectPhase = .PREAPPROVAL
+        }
     }
     
     required init(from decoder: Decoder) throws {
@@ -106,10 +116,18 @@ class DefectData : ContentData{
         else{
             status = DefectStatus.open
         }
+        if let s = try values.decodeIfPresent(String.self, forKey: .projectPhase){
+            projectPhase = ProjectPhase(rawValue: s) ?? ProjectPhase.PREAPPROVAL
+        }
+        else{
+            projectPhase = ProjectPhase.PREAPPROVAL
+        }
         assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
-        let date = try values.decodeIfPresent(String.self, forKey: .dueDate)
-        dueDate = date?.ISO8601Date() ?? Date.now
+        var date = try values.decodeIfPresent(String.self, forKey: .dueDate1)
+        dueDate1 = date?.ISO8601Date() ?? Date.now
+        date = try values.decodeIfPresent(String.self, forKey: .dueDate2)
+        dueDate2 = date?.ISO8601Date()
         position.x = try values.decodeIfPresent(Double.self, forKey: .positionX) ?? 0.0
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
         positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
@@ -126,9 +144,11 @@ class DefectData : ContentData{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(displayId, forKey: .displayId)
         try container.encode(status.rawValue, forKey: .status)
+        try container.encode(projectPhase.rawValue, forKey: .projectPhase)
         try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
         try container.encode(notified, forKey: .notified)
-        try container.encode(dueDate.isoString(), forKey: .dueDate)
+        try container.encode(dueDate1.isoString(), forKey: .dueDate1)
+        try container.encode(dueDate2?.isoString() ?? "", forKey: .dueDate2)
         try container.encode(position.x, forKey: .positionX)
         try container.encode(position.y, forKey: .positionY)
         try container.encode(positionComment, forKey: .positionComment)
@@ -221,7 +241,8 @@ class DefectData : ContentData{
         var dict = super.uploadParams()
         dict["displayId"]=String(displayId)
         dict["status"]=status.rawValue
-        dict["dueDate"]=dueDate.isoString()
+        dict["projectPhase"]=projectPhase.rawValue
+        dict["dueDate1"]=dueDate1.isoString()
         dict["positionX"]=String(Double(position.x))
         dict["positionY"]=String(Double(position.y))
         dict["positionComment"]=positionComment
@@ -232,9 +253,10 @@ class DefectData : ContentData{
         super.synchronizeFrom(fromData, syncResult: syncResult)
         displayId = fromData.displayId
         status = fromData.status
+        projectPhase = fromData.projectPhase
         assignedCompanyId = fromData.assignedCompanyId
         notified = fromData.notified
-        dueDate = fromData.dueDate
+        dueDate1 = fromData.dueDate1
         position.x = fromData.position.x
         position.y = fromData.position.y
         positionComment = fromData.positionComment

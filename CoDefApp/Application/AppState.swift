@@ -30,6 +30,8 @@ class AppState : Codable{
         case lastId
         case currentUser
         case standalone
+        case useDateTime
+        case useNotified
         case serverURL
         case filter
     }
@@ -37,6 +39,8 @@ class AppState : Codable{
     var lastId = 1000
     var currentUser = UserData.anonymousUser
     var standalone = true
+    var useDateTime = true
+    var useNotified = true
     var serverURL = ""
     var filter = CompanyFilter()
     
@@ -58,6 +62,8 @@ class AppState : Codable{
         lastId = try values.decodeIfPresent(Int.self, forKey: .lastId) ?? 1000
         currentUser = try values.decodeIfPresent(UserData.self, forKey: .currentUser) ?? UserData.anonymousUser
         standalone = try values.decodeIfPresent(Bool.self, forKey: .standalone) ?? true
+        useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
+        useNotified = try values.decodeIfPresent(Bool.self, forKey: .useNotified) ?? true
         serverURL = try values.decodeIfPresent(String.self, forKey: .serverURL) ?? ""
         filter = try values.decodeIfPresent(CompanyFilter.self, forKey: .filter) ?? CompanyFilter()
     }
@@ -67,6 +73,8 @@ class AppState : Codable{
         try container.encode(lastId, forKey: .lastId)
         try container.encode(currentUser, forKey: .currentUser)
         try container.encode(standalone, forKey: .standalone)
+        try container.encode(useDateTime, forKey: .useDateTime)
+        try container.encode(useNotified, forKey: .useNotified)
         try container.encode(serverURL, forKey: .serverURL)
         try container.encode(filter, forKey: .filter)
     }

@@ -14,8 +14,11 @@ protocol SettingsDelegate{
 class SettingsViewController: ScrollViewController {
     
     var standaloneSection = SectionView()
-    
     var useServerSwitch = LabeledCheckbox()
+    
+    var settingsSection = SectionView()
+    var usedateTimeSwitch = LabeledCheckbox()
+    var useNotifiedSwitch = LabeledCheckbox()
     
     var cleanupSection = SectionView()
     
@@ -37,7 +40,9 @@ class SettingsViewController: ScrollViewController {
     override func setupContentView() {
         contentView.addSubviewAtTop(standaloneSection)
         setupStandaloneSection()
-        contentView.addSubviewAtTop(cleanupSection, topView: standaloneSection)
+        contentView.addSubviewAtTop(settingsSection, topView: standaloneSection)
+        setupSettingsSection()
+        contentView.addSubviewAtTop(cleanupSection, topView: settingsSection)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
         setupCleanupSection()
     }
@@ -51,6 +56,20 @@ class SettingsViewController: ScrollViewController {
             .bottom(standaloneSection.bottomAnchor)
         useServerSwitch.setup(title: "useServer".localize(), index: -1, isOn: !AppState.shared.standalone)
         useServerSwitch.delegate = self
+    }
+    
+    func setupSettingsSection(){
+        let label  = UILabel(header: "settings".localize())
+        settingsSection.addSubviewAtTopCentered(label)
+        let text  = UILabel(text: "settingsText".localize())
+        settingsSection.addSubviewAtTop(text, topView: label)
+        settingsSection.addSubviewAtTop(usedateTimeSwitch, topView: text)
+        usedateTimeSwitch.setup(title: "useDateTime".localize(), index: -2, isOn: !AppState.shared.useDateTime)
+        usedateTimeSwitch.delegate = self
+        settingsSection.addSubviewAtTop(useNotifiedSwitch, topView: usedateTimeSwitch)
+            .bottom(settingsSection.bottomAnchor)
+        useNotifiedSwitch.setup(title: "useNotified".localize(), index: -3, isOn: !AppState.shared.useNotified)
+        useNotifiedSwitch.delegate = self
     }
     
     func setupCleanupSection(){

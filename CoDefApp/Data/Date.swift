@@ -8,33 +8,16 @@ import Foundation
 
 extension Date{
     
-    func startOfDay() -> Date{
-        var cal = Calendar.current
-        cal.timeZone = TimeZone(abbreviation: "UTC")!
-        return cal.startOfDay(for: self)
-    }
-    
-    func startOfMonth() -> Date{
-        var cal = Calendar.current
-        cal.timeZone = TimeZone(abbreviation: "UTC")!
-        let components = cal .dateComponents([.month, .year], from: self)
-        return cal.date(from: components)!
-    }
-    
     func dateString() -> String{
-        return DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
+        DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
     }
     
     func dateTimeString() -> String{
-        return DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .short)
+        DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .short)
     }
     
-    func timeString() -> String{
-        return DateFormatter.localizedString(from: self, dateStyle: .none, timeStyle: .short)
-    }
-    
-    func timestampString() -> String{
-        return DateFormats.timestampFormatter.string(from: self)
+    func asString() -> String{
+        AppState.shared.useDateTime ? dateTimeString() : dateString()
     }
     
     func fileDate() -> String{

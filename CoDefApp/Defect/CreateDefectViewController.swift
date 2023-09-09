@@ -96,7 +96,7 @@ class CreateDefectViewController: EditDefectViewController {
             defect.assertDisplayId()
             defect.assignedCompanyId = assignField.selectedCompany?.id ?? 0
             defect.notified = notifiedField.isOn
-            defect.dueDate = dueDateField.date
+            defect.dueDate1 = dueDateField.date
             defect.status = statusField.selectedStatus
             unit.defects.append(defect)
             defect.changed()
