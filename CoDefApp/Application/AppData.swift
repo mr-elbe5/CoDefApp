@@ -111,7 +111,7 @@ class AppData : Codable{
                 print(appData)
                 for company in appData.companies{
                     if let presentCompany = companies.getCompanyData(id: company.id){
-                        presentCompany.synchronizeFrom(company)
+                        await presentCompany.synchronizeFrom(company)
                     }
                     else{
                         companies.append(company)
