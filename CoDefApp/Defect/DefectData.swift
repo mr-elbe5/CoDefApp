@@ -249,8 +249,8 @@ class DefectData : ContentData{
         return dict
     }
     
-    func synchronizeFrom(_ fromData: DefectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: DefectData) async{
+        await super.synchronizeFrom(fromData)
         displayId = fromData.displayId
         status = fromData.status
         projectPhase = fromData.projectPhase
@@ -262,22 +262,22 @@ class DefectData : ContentData{
         positionComment = fromData.positionComment
         for image in fromData.images{
             if let presentImage = images.getImageData(id: image.id){
-                presentImage.synchronizeFrom(image, syncResult: syncResult)
+                await presentImage.synchronizeFrom(image)
             }
             else{
                 images.append(image)
-                syncResult.loadedImages += 1
+                AppState.shared.downloadedImages += 1
                 image.setSynchronized()
             }
             
         }
         for statusChange in fromData.statusChanges{
             if let presentStatusChange = statusChanges.getStatusChangeData(id: statusChange.id){
-                presentStatusChange.synchronizeFrom(statusChange, syncResult: syncResult)
+                await presentStatusChange.synchronizeFrom(statusChange)
             }
             else{
                 statusChanges.append(statusChange)
-                syncResult.loadedStatusChanges += 1
+                await AppState.shared.statusChangeDownloaded()
                 statusChange.setSynchronized(true, recursive: true)
             }
             
@@ -299,15 +299,13 @@ class DefectData : ContentData{
         }
     }
     
-    func upload(syncResult: SyncResult) async{
+    func upload() async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/defect/uploadDefect/" + String(id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("defect \(response.id) uploaded")
-                await MainActor.run{
-                    syncResult.defectUploaded()
-                }
+                await AppState.shared.defectUploaded()
                 id = response.id
                 displayId = response.id
                 synchronized = true
@@ -315,40 +313,36 @@ class DefectData : ContentData{
                     for image in images{
                         if !image.synchronized{
                             taskGroup.addTask {
-                                await image.upload(contentId: self.id, syncResult: syncResult)
+                                await image.upload(contentId: self.id)
                             }
                         }
                     }
-                    await uploadStatusChanges(syncResult: syncResult)
+                    await uploadStatusChanges()
                 }
             }
             else{
-                await MainActor.run{
-                    syncResult.uploadError()
-                }
+                await AppState.shared.uploadError()
                 throw "defect upload error"
             }
         }
         catch let(err){
             print(err)
-            await MainActor.run{
-                syncResult.uploadError()
-            }
+            await AppState.shared.uploadError()
         }
     }
     
-    func uploadStatusChanges(syncResult: SyncResult) async{
+    func uploadStatusChanges() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for statusChange in statusChanges{
                 if !statusChange.synchronized{
-                    await statusChange.upload(syncResult: syncResult)
+                    await statusChange.upload()
                 }
                 else{
                     await withTaskGroup(of: Void.self){ taskGroup in
                         for image in statusChange.images{
                             if !image.synchronized{
                                 taskGroup.addTask {
-                                    await image.upload(contentId: statusChange.id, syncResult: syncResult)
+                                    await image.upload(contentId: statusChange.id)
                                 }
                             }
                         }

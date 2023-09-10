@@ -56,8 +56,8 @@ class CompanyData: BaseData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: CompanyData, syncResult: SyncResult){
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: CompanyData) async{
+        await super.synchronizeFrom(fromData)
         name = fromData.name
         street = fromData.street
         zipCode = fromData.zipCode

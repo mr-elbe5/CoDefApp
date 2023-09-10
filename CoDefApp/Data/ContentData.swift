@@ -36,8 +36,8 @@ class ContentData : BaseData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: ContentData, syncResult: SyncResult){
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: ContentData) async{
+        await super.synchronizeFrom(fromData)
         name = fromData.name
         description = fromData.description
     }

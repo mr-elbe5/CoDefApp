@@ -95,7 +95,7 @@ class BaseData: Codable, Hashable, Equatable{
     
     // sync
     
-    func synchronizeFrom(_ fromData: BaseData, syncResult: SyncResult){
+    func synchronizeFrom(_ fromData: BaseData) async{
         creationDate = fromData.creationDate
         creatorId = fromData.creatorId
         creatorName = fromData.creatorName

@@ -145,17 +145,17 @@ class UnitData : ContentData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: UnitData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: UnitData) async{
+        await super.synchronizeFrom(fromData)
         approveDate = fromData.approveDate
         plan = fromData.plan
         for defect in fromData.defects{
             if let presentDefect = defects.getDefectData(id: defect.id){
-                presentDefect.synchronizeFrom(defect, syncResult: syncResult)
+                await presentDefect.synchronizeFrom(defect)
             }
             else{
                 defects.append(defect)
-                syncResult.loadedDefects += 1
+                AppState.shared.downloadedDefects += 1
                 defect.setSynchronized(true, recursive: true)
             }
             
@@ -175,42 +175,36 @@ class UnitData : ContentData{
         }
     }
     
-    func upload(syncResult: SyncResult) async{
+    func upload() async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/unit/uploadUnit/" + String(id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("unit \(response.id) uploaded")
-                await MainActor.run{
-                    syncResult.unitUploaded()
-                }
+                await AppState.shared.unitUploaded()
                 id = response.id
                 synchronized = true
-                await uploadDefects(syncResult: syncResult)
+                await uploadDefects()
             }
             else{
-                await MainActor.run{
-                    syncResult.uploadError()
-                }
+                await AppState.shared.uploadError()
                 throw "unit upload error"
             }
         }
         catch let(err){
             print(err)
-            await MainActor.run{
-                syncResult.uploadError()
-            }
+            await AppState.shared.uploadError()
         }
     }
     
-    func uploadDefects(syncResult: SyncResult) async{
+    func uploadDefects() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for defect in defects{
                 if !defect.synchronized{
-                    await defect.upload(syncResult: syncResult)
+                    await defect.upload()
                 }
                 else{
-                    await defect.uploadStatusChanges(syncResult: syncResult)
+                    await defect.uploadStatusChanges()
                 }
             }
         }

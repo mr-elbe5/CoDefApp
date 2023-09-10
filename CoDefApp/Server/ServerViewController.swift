@@ -36,12 +36,9 @@ class ServerViewController: ScrollViewController {
     var downloadedDefectsField = LabeledText()
     var downloadedStatusChangesField = LabeledText()
     var downloadedImagesField = LabeledText()
-    var presentImagesField = LabeledText()
     var downloadErrorsField = LabeledText()
     
     var downloadProgressSlider = UISlider()
-    
-    var syncResult : SyncResult = SyncResult()
     
     var delegate: ServerDelegate? = nil
     
@@ -49,8 +46,8 @@ class ServerViewController: ScrollViewController {
         title = "server".localize()
         super.loadView()
         modalPresentationStyle = .fullScreen
-        syncResult.setUnsynchronizedElementCount()
-        syncResult.delegate = self
+        AppState.shared.setUnsynchronizedElementCount()
+        AppState.shared.delegate = self
     }
     
     override func setupContentView() {
@@ -79,13 +76,13 @@ class ServerViewController: ScrollViewController {
         }, for: .touchDown)
         syncSection.addSubviewAtTop(openLoginButton, topView: connectionLabel)
         
-        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(syncResult.unsynchronizedElementsCount), inline: true)
+        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(AppState.shared.unsynchronizedElementsCount), inline: true)
         syncSection.addSubviewAtTop(newElementsField, topView: openLoginButton, insets: Insets.horizontalInsets)
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
             self.uploadProgressSlider.value = 0
-            self.uploadProgressSlider.maximumValue = Float(self.syncResult.unsynchronizedElementsCount)
+            self.uploadProgressSlider.maximumValue = Float(AppState.shared.unsynchronizedElementsCount)
             self.upload()
         }, for: .touchDown)
         syncSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
@@ -94,22 +91,22 @@ class ServerViewController: ScrollViewController {
         var label = UILabel(header: "uploaded".localize())
         syncSection.addSubviewAtTop(label, topView: uploadButton)
         
-        uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(syncResult.uploadedProjects), inline: true)
+        uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.uploadedProjects), inline: true)
         syncSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
         
-        uploadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(syncResult.uploadedUnits), inline: true)
+        uploadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(AppState.shared.uploadedUnits), inline: true)
         syncSection.addSubviewAtTop(uploadedUnitsField, topView: uploadedProjectsField, insets: Insets.horizontalInsets)
         
-        uploadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(syncResult.uploadedDefects), inline: true)
+        uploadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(AppState.shared.uploadedDefects), inline: true)
         syncSection.addSubviewAtTop(uploadedDefectsField, topView: uploadedUnitsField, insets: Insets.horizontalInsets)
         
-        uploadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(syncResult.uploadedStatusChanges), inline: true)
+        uploadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(AppState.shared.uploadedStatusChanges), inline: true)
         syncSection.addSubviewAtTop(uploadedStatusChangesField, topView: uploadedDefectsField, insets: Insets.horizontalInsets)
         
-        uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(syncResult.uploadedImages), inline: true)
+        uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.uploadedImages), inline: true)
         syncSection.addSubviewAtTop(uploadedImagesField, topView: uploadedStatusChangesField, insets: Insets.horizontalInsets)
         
-        uploadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(syncResult.uploadErrors), inline: true)
+        uploadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.uploadErrors), inline: true)
         syncSection.addSubviewAtTop(uploadErrorsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
         
         uploadProgressSlider.minimumValue = 0
@@ -128,29 +125,26 @@ class ServerViewController: ScrollViewController {
         syncSection.addSubviewAtTopCentered(downloadButton, topView: label)
         downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
-        downloadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(syncResult.loadedCompanies), inline: true)
+        downloadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(AppState.shared.downloadedCompanies), inline: true)
         syncSection.addSubviewAtTop(downloadedCompaniesField, topView: downloadButton, insets: Insets.horizontalInsets)
         
-        downloadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(syncResult.loadedProjects), inline: true)
+        downloadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.downloadedProjects), inline: true)
         syncSection.addSubviewAtTop(downloadedProjectsField, topView: downloadedCompaniesField, insets: Insets.horizontalInsets)
         
-        downloadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(syncResult.loadedUnits), inline: true)
+        downloadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(AppState.shared.downloadedUnits), inline: true)
         syncSection.addSubviewAtTop(downloadedUnitsField, topView: downloadedProjectsField, insets: Insets.horizontalInsets)
         
-        downloadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(syncResult.loadedDefects), inline: true)
+        downloadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(AppState.shared.downloadedDefects), inline: true)
         syncSection.addSubviewAtTop(downloadedDefectsField, topView: downloadedUnitsField, insets: Insets.horizontalInsets)
         
-        downloadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(syncResult.loadedStatusChanges), inline: true)
+        downloadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(AppState.shared.downloadedStatusChanges), inline: true)
         syncSection.addSubviewAtTop(downloadedStatusChangesField, topView: downloadedDefectsField, insets: Insets.horizontalInsets)
         
-        downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(syncResult.loadedImages), inline: true)
+        downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.downloadedImages), inline: true)
         syncSection.addSubviewAtTop(downloadedImagesField, topView: downloadedStatusChangesField, insets: Insets.horizontalInsets)
         
-        presentImagesField.setupView(labelText: "presentImages".localizeWithColon(), text: String(syncResult.presentImages), inline: true)
-        syncSection.addSubviewAtTop(presentImagesField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
-        
-        downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(syncResult.downloadErrors), inline: true)
-        syncSection.addSubviewAtTop(downloadErrorsField, topView: presentImagesField, insets: Insets.horizontalInsets)
+        downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.downloadErrors), inline: true)
+        syncSection.addSubviewAtTop(downloadErrorsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
         
         downloadProgressSlider.minimumValue = 0
         downloadProgressSlider.maximumValue = 1
@@ -162,18 +156,18 @@ class ServerViewController: ScrollViewController {
     }
     
     func upload(){
-        syncResult.resetUpload()
-        updateUploadView()
+        AppState.shared.resetUpload()
+        uploadStateChanged()
         Task{
-            await AppData.shared.upload(syncResult: syncResult)
+            await AppData.shared.upload()
         }
     }
     
     func download(){
-        syncResult.resetDownload()
-        updateDownloadView()
+        AppState.shared.resetDownload()
+        downloadStateChanged()
         Task{
-            await AppData.shared.loadServerData(syncResult: syncResult)
+            await AppData.shared.loadServerData()
             await MainActor.run{
                 downloadProgressSlider.value = 1
                 if let mainController = self.navigationController?.previousViewController as? MainViewController{
@@ -196,30 +190,29 @@ extension ServerViewController: LoginDelegate{
     
 }
 
-extension ServerViewController: SyncResultDelegate{
+extension ServerViewController: AppStateDelegate{
     
-    func updateUploadView() {
-        newElementsField.text = String(syncResult.unsynchronizedElementsCount)
-        uploadedProjectsField.text = String(syncResult.uploadedProjects)
-        uploadedUnitsField.text = String(syncResult.uploadedUnits)
-        uploadedDefectsField.text = String(syncResult.uploadedDefects)
-        uploadedStatusChangesField.text = String(syncResult.uploadedStatusChanges)
-        uploadedImagesField.text = String(syncResult.uploadedImages)
-        uploadErrorsField.text = String(syncResult.uploadErrors)
-        if syncResult.uploadedItems != 0{
-            uploadProgressSlider.value = uploadProgressSlider.maximumValue / Float(syncResult.uploadedItems)
+    func uploadStateChanged() {
+        newElementsField.text = String(AppState.shared.unsynchronizedElementsCount)
+        uploadedProjectsField.text = String(AppState.shared.uploadedProjects)
+        uploadedUnitsField.text = String(AppState.shared.uploadedUnits)
+        uploadedDefectsField.text = String(AppState.shared.uploadedDefects)
+        uploadedStatusChangesField.text = String(AppState.shared.uploadedStatusChanges)
+        uploadedImagesField.text = String(AppState.shared.uploadedImages)
+        uploadErrorsField.text = String(AppState.shared.uploadErrors)
+        if AppState.shared.uploadedItems != 0{
+            uploadProgressSlider.value = uploadProgressSlider.maximumValue / Float(AppState.shared.uploadedItems)
         }
     }
     
-    func updateDownloadView() {
-        downloadedCompaniesField.text = String(syncResult.loadedCompanies)
-        downloadedProjectsField.text = String(syncResult.loadedProjects)
-        downloadedUnitsField.text = String(syncResult.loadedUnits)
-        downloadedDefectsField.text = String(syncResult.loadedDefects)
-        downloadedStatusChangesField.text = String(syncResult.loadedStatusChanges)
-        downloadedImagesField.text = String(syncResult.loadedImages)
-        presentImagesField.text = String(syncResult.presentImages)
-        downloadErrorsField.text = String(syncResult.downloadErrors)
+    func downloadStateChanged() {
+        downloadedCompaniesField.text = String(AppState.shared.downloadedCompanies)
+        downloadedProjectsField.text = String(AppState.shared.downloadedProjects)
+        downloadedUnitsField.text = String(AppState.shared.downloadedUnits)
+        downloadedDefectsField.text = String(AppState.shared.downloadedDefects)
+        downloadedStatusChangesField.text = String(AppState.shared.downloadedStatusChanges)
+        downloadedImagesField.text = String(AppState.shared.downloadedImages)
+        downloadErrorsField.text = String(AppState.shared.downloadErrors)
     }
     
     

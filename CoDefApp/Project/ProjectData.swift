@@ -128,17 +128,17 @@ class ProjectData : ContentData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: ProjectData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: ProjectData) async{
+        await super.synchronizeFrom(fromData)
         companyIds = fromData.companyIds
         updateCompanies()
         for unit in fromData.units{
             if let presentUnit = units.getUnitData(id: unit.id){
-                presentUnit.synchronizeFrom(unit, syncResult: syncResult)
+                await presentUnit.synchronizeFrom(unit)
             }
             else{
                 units.append(unit)
-                syncResult.loadedUnits += 1
+                await AppState.shared.unitDownloaded()
             }
             
         }
@@ -163,42 +163,36 @@ class ProjectData : ContentData{
         return dict
     }
     
-    func upload(syncResult: SyncResult) async{
+    func upload() async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/project/uploadProject/" + String(id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("project \(response.id) uploaded")
-                await MainActor.run{
-                    syncResult.projectUploaded()
-                }
+                await AppState.shared.projectUploaded()
                 id = response.id
                 synchronized = true
-                await uploadUnits(syncResult: syncResult)
+                await uploadUnits()
             }
             else{
-                await MainActor.run{
-                    syncResult.uploadError()
-                }
+                await AppState.shared.uploadError()
                 throw "project upload error"
             }
         }
         catch let(err){
             print(err)
-            await MainActor.run{
-                syncResult.uploadError()
-            }
+            await AppState.shared.uploadError()
         }
     }
     
-    func uploadUnits(syncResult: SyncResult) async{
+    func uploadUnits() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for unit in units{
                 if !unit.synchronized{
-                    await unit.upload(syncResult: syncResult)
+                    await unit.upload()
                 }
                 else{
-                    await unit.uploadDefects(syncResult: syncResult)
+                    await unit.uploadDefects()
                 }
             }
         }

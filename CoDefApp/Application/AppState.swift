@@ -6,6 +6,11 @@
 
 import Foundation
 
+protocol AppStateDelegate{
+    func uploadStateChanged()
+    func downloadStateChanged()
+}
+
 class AppState : Codable{
     
     static var storeKey = "appState"
@@ -44,6 +49,28 @@ class AppState : Codable{
     var serverURL = ""
     var filter = CompanyFilter()
     
+    // sync
+    
+    var uploadedProjects : Int = 0
+    var uploadedUnits : Int = 0
+    var uploadedDefects : Int = 0
+    var uploadedStatusChanges : Int = 0
+    var uploadedImages : Int = 0
+    var uploadedItems: Double = 0.0
+    var uploadErrors : Int = 0
+    
+    var downloadedCompanies : Int = 0
+    var downloadedProjects : Int = 0
+    var downloadedUnits : Int = 0
+    var downloadedDefects : Int = 0
+    var downloadedStatusChanges : Int = 0
+    var downloadedImages : Int = 0
+    var downloadErrors : Int = 0
+    
+    var unsynchronizedElementsCount: Int = 0
+    
+    var delegate: AppStateDelegate? = nil
+    
     var nextId: Int{
         lastId += 1
         save()
@@ -77,6 +104,127 @@ class AppState : Codable{
         try container.encode(useNotified, forKey: .useNotified)
         try container.encode(serverURL, forKey: .serverURL)
         try container.encode(filter, forKey: .filter)
+    }
+    
+    // sync
+    
+    func imageUploaded() async{
+        unsynchronizedElementsCount -= 1
+        uploadedImages += 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
+    func projectUploaded() async{
+        unsynchronizedElementsCount -= 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
+    func unitUploaded() async{
+        unsynchronizedElementsCount -= 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
+    func defectUploaded() async{
+        unsynchronizedElementsCount -= 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
+    func statusChangeUploaded() async{
+        unsynchronizedElementsCount -= 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
+    func uploadError() async{
+        uploadErrors += 1
+        await uploadStateChanged()
+    }
+    
+    func imageDownloaded() async{
+        downloadedImages += 1
+        await downloadStateChanged()
+    }
+    
+    func companyDownloaded() async{
+        downloadedCompanies += 1
+        await downloadStateChanged()
+    }
+    
+    func projectDownloaded() async{
+        downloadedProjects += 1
+        await downloadStateChanged()
+    }
+    
+    func unitDownloaded() async{
+        downloadedUnits += 1
+        await downloadStateChanged()
+    }
+    
+    func defectDownloaded() async{
+        downloadedDefects += 1
+        await downloadStateChanged()
+    }
+    
+    func statusChangeDownloaded() async{
+        downloadedStatusChanges += 1
+        await downloadStateChanged()
+    }
+    
+    func downloadError() async {
+        downloadErrors += 1
+        await uploadStateChanged()
+    }
+    
+    
+    func hasErrors() -> Bool{
+        uploadErrors > 0 || downloadErrors > 0
+    }
+    
+    func uploadStateChanged() async{
+        await MainActor.run{
+            self.delegate?.uploadStateChanged()
+        }
+    }
+    
+    func downloadStateChanged() async {
+        await MainActor.run{
+            self.delegate?.downloadStateChanged()
+        }
+    }
+    
+    func resetUpload(){
+        uploadedProjects = 0
+        uploadedUnits = 0
+        uploadedDefects = 0
+        uploadedStatusChanges = 0
+        uploadedImages = 0
+        uploadErrors = 0
+        uploadErrors = 0
+        uploadedItems = 0.0
+        
+    }
+    
+    func setUnsynchronizedElementCount(){
+        unsynchronizedElementsCount = AppData.shared.countUnsynchronizedElements()
+    }
+    
+    func resetDownload(){
+        downloadedCompanies = 0
+        downloadedProjects = 0
+        downloadedUnits = 0
+        downloadedDefects = 0
+        downloadedStatusChanges = 0
+        downloadedImages = 0
+        downloadErrors = 0
+    }
+    
+    func resetSync(){
+        resetUpload()
+        resetDownload()
     }
     
 }

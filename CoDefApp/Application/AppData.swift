@@ -103,7 +103,7 @@ class AppData : Codable{
         return true
     }
     
-    func loadServerData(syncResult: SyncResult) async{
+    func loadServerData() async{
         let requestUrl = AppState.shared.serverURL+"/api/root/getData"
         let params = Dictionary<String,String>()
         do{
@@ -111,39 +111,34 @@ class AppData : Codable{
                 print(appData)
                 for company in appData.companies{
                     if let presentCompany = companies.getCompanyData(id: company.id){
-                        presentCompany.synchronizeFrom(company, syncResult: syncResult)
+                        presentCompany.synchronizeFrom(company)
                     }
                     else{
                         companies.append(company)
-                        syncResult.loadedCompanies += 1
+                        await AppState.shared.companyDownloaded()
                     }
                     company.synchronized = true
                 }
                 companies.sortByName()
                 for project in appData.projects{
                     if let presentProject = projects.getProjectData(id: project.id){
-                        presentProject.synchronizeFrom(project, syncResult: syncResult)
+                        await presentProject.synchronizeFrom(project)
                     }
                     else{
                         projects.append(project)
-                        syncResult.loadedProjects += 1
+                        await AppState.shared.projectDownloaded()
                         project.setSynchronized(true, recursive: true)
                     }
                 }
                 projects.sortByName()
-                await MainActor.run{
-                    syncResult.updateDownload()
-                }
                 print("saving project list")
                 save()
-                try await self.loadAllImages(syncResult: syncResult)
+                try await self.loadAllImages()
             }
         }
         catch (let err){
             print(err)
-            await MainActor.run{
-                syncResult.downloadError()
-            }
+            await AppState.shared.downloadError()
             print("error loading projects")
         }
     }
@@ -158,7 +153,7 @@ class AppData : Codable{
         //todo clear files
     }
     
-    func loadAllImages(syncResult: SyncResult) async throws{
+    func loadAllImages() async throws{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
@@ -167,20 +162,12 @@ class AppData : Codable{
                         if !plan.fileExists() {
                             taskGroup.addTask{
                                 do{
-                                    try await self.loadImage(image: location.plan!, syncResult: syncResult)
+                                    try await self.loadImage(image: location.plan!)
                                 }
                                 catch (let err){
                                     print(err)
-                                    await MainActor.run{
-                                        syncResult.downloadError()
-                                    }
+                                    await AppState.shared.downloadError()
                                 }
-                            }
-                        }
-                        else{
-                            await MainActor.run{
-                                syncResult.presentImages += 1
-                                syncResult.updateDownload()
                             }
                         }
                     }
@@ -189,19 +176,11 @@ class AppData : Codable{
                             taskGroup.addTask{
                                 if !image.fileExists(){
                                     do{
-                                        try await self.loadImage(image: image, syncResult: syncResult)
+                                        try await self.loadImage(image: image)
                                     }
                                     catch (let err){
                                         print(err)
-                                        await MainActor.run{
-                                            syncResult.downloadError()
-                                        }
-                                    }
-                                }
-                                else{
-                                    await MainActor.run{
-                                        syncResult.presentImages += 1
-                                        syncResult.updateDownload()
+                                        await AppState.shared.downloadError()
                                     }
                                 }
                             }
@@ -211,21 +190,12 @@ class AppData : Codable{
                                 if !image.fileExists(){
                                     taskGroup.addTask{
                                         do{
-                                            try await self.loadImage(image: image, syncResult: syncResult)
+                                            try await self.loadImage(image: image)
                                         }
                                         catch (let err){
                                             print(err)
-                                            await MainActor.run{
-                                                syncResult.downloadError()
-
-                                            }
+                                            await AppState.shared.downloadError()
                                         }
-                                    }
-                                }
-                                else{
-                                    await MainActor.run{
-                                        syncResult.presentImages += 1
-                                        syncResult.updateDownload()
                                     }
                                 }
                             }
@@ -236,12 +206,8 @@ class AppData : Codable{
         }
     }
     
-    func loadImage(image : ImageData, syncResult: SyncResult) async throws{
+    func loadImage(image : ImageData) async throws{
         if (image.fileExists()){
-            await MainActor.run{
-                syncResult.presentImages += 1
-                syncResult.updateDownload()
-            }
             return
         }
         //print("file needs downloading")
@@ -251,17 +217,11 @@ class AppData : Codable{
         ]
         if let img = try await RequestController.shared.requestAuthorizedImage(url: serverUrl, withParams: params) {
             image.saveImage(uiImage: img)
-            await MainActor.run{
-                syncResult.loadedImages += 1
-                syncResult.updateDownload()
-            }
+            await AppState.shared.imageDownloaded()
         }
         else{
             print("did not receive image from /api/image/download/" + String(image.id))
-            await MainActor.run{
-                syncResult.downloadError()
-                syncResult.updateDownload()
-            }
+            await AppState.shared.downloadError()
         }
     }
     
@@ -310,16 +270,16 @@ class AppData : Codable{
         return count
     }
     
-    func upload(syncResult: SyncResult) async{
+    func upload() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
                 if !project.synchronized{
                     taskGroup.addTask{
-                        await project.upload(syncResult: syncResult)
+                        await project.upload()
                     }
                 }
                 else{
-                    await project.uploadUnits(syncResult: syncResult)
+                    await project.uploadUnits()
                 }
             }
         }

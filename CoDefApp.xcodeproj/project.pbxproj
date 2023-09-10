@@ -44,7 +44,6 @@
 		4EA3973F2A85503A006053A0 /* CompanyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397382A85503A006053A0 /* CompanyData.swift */; };
 		4EA397402A85503A006053A0 /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397392A85503A006053A0 /* CompanyViewController.swift */; };
 		4EA397422A85503A006053A0 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3973B2A85503A006053A0 /* UserData.swift */; };
-		4EA397482A855048006053A0 /* SyncResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397432A855048006053A0 /* SyncResult.swift */; };
 		4EA3974B2A855048006053A0 /* ServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397462A855048006053A0 /* ServerViewController.swift */; };
 		4EA3974C2A855048006053A0 /* RequestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397472A855048006053A0 /* RequestController.swift */; };
 		4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3974D2A855054006053A0 /* SettingViewController.swift */; };
@@ -171,7 +170,6 @@
 		4EA397382A85503A006053A0 /* CompanyData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyData.swift; sourceTree = "<group>"; };
 		4EA397392A85503A006053A0 /* CompanyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
 		4EA3973B2A85503A006053A0 /* UserData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
-		4EA397432A855048006053A0 /* SyncResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncResult.swift; sourceTree = "<group>"; };
 		4EA397462A855048006053A0 /* ServerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerViewController.swift; sourceTree = "<group>"; };
 		4EA397472A855048006053A0 /* RequestController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestController.swift; sourceTree = "<group>"; };
 		4EA3974D2A855054006053A0 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -456,7 +454,6 @@
 			children = (
 				4EA397462A855048006053A0 /* ServerViewController.swift */,
 				4EA397472A855048006053A0 /* RequestController.swift */,
-				4EA397432A855048006053A0 /* SyncResult.swift */,
 				4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */,
 			);
 			path = Server;
@@ -706,7 +703,6 @@
 				4E9FD0012AACDC1C00A66812 /* ProjectPhase.swift in Sources */,
 				4EA397962A855072006053A0 /* Checkbox.swift in Sources */,
 				4EA397DB2A8550AD006053A0 /* TextAttributes.swift in Sources */,
-				4EA397482A855048006053A0 /* SyncResult.swift in Sources */,
 				4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */,
 				4EA3975B2A855061006053A0 /* UIViewController+Insets.swift in Sources */,
 				4EA397BE2A85508E006053A0 /* ImageData.swift in Sources */,

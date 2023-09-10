@@ -106,19 +106,19 @@ class StatusChangeData : ContentData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: StatusChangeData, syncResult: SyncResult) {
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: StatusChangeData) async{
+        await super.synchronizeFrom(fromData)
         status = fromData.status
         previousAssignedCompanyId = fromData.previousAssignedCompanyId
         assignedCompanyId = fromData.assignedCompanyId
         dueDate = fromData.dueDate
         for image in fromData.images{
             if let presentImage = images.getImageData(id: image.id){
-                presentImage.synchronizeFrom(image, syncResult: syncResult)
+                await presentImage.synchronizeFrom(image)
             }
             else{
                 images.append(image)
-                syncResult.loadedImages += 1
+                await AppState.shared.imageUploaded()
                 image.setSynchronized()
             }
             
@@ -142,34 +142,28 @@ class StatusChangeData : ContentData{
         return dict
     }
     
-    func upload(syncResult: SyncResult) async{
+    func upload() async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/statuschange/uploadStatusChange/" + String(defect.id)
             let params = uploadParams()
             if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
                 print("status change \(response.id) uploaded")
-                await MainActor.run{
-                    syncResult.statusChangeUploaded()
-                }
+                await AppState.shared.statusChangeUploaded()
                 id = response.id
                 synchronized = true
                 for image in images{
                     if !image.synchronized{
-                        await image.upload(contentId: id, syncResult: syncResult)
+                        await image.upload(contentId: id)
                     }
                 }
             }
             else{
-                await MainActor.run{
-                    syncResult.uploadError()
-                }
+                await AppState.shared.uploadError()
                 throw "status change upload error"
             }
         }
         catch{
-            await MainActor.run{
-                syncResult.uploadError()
-            }
+            await AppState.shared.uploadError()
         }
     }
     

@@ -58,8 +58,8 @@ class FileData : BaseData{
         return dict
     }
     
-    func synchronizeFrom(_ fromData: FileData, syncResult: SyncResult){
-        super.synchronizeFrom(fromData, syncResult: syncResult)
+    func synchronizeFrom(_ fromData: FileData) async{
+        await super.synchronizeFrom(fromData)
         fileName = fromData.fileName
         fileExtension = fromData.fileExtension
         contentType = fromData.contentType

@@ -42,7 +42,7 @@ class ImageData : FileData{
         }
     }
     
-    func upload(contentId: Int, syncResult: SyncResult) async{
+    func upload(contentId: Int) async{
         do{
             let uiImage = getImage()
             let requestUrl = AppState.shared.serverURL+"/api/image/uploadImage/" + String(contentId) + "?imageId=" + String(id)
@@ -50,18 +50,14 @@ class ImageData : FileData{
                 print("image uploaded with id \(response.id)")
                 id = response.id
                 synchronized = true
-                await MainActor.run{
-                    syncResult.imageUploaded()
-                }
+                await AppState.shared.imageUploaded()
             }
             else{
                 throw "image upload error"
             }
         }
         catch{
-            await MainActor.run{
-                syncResult.uploadError()
-            }
+            await AppState.shared.uploadError()
         }
     }
     
