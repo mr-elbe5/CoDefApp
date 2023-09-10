@@ -265,6 +265,92 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E9FD0022AADAB3B00A66812 /* Basics */ = {
+			isa = PBXGroup;
+			children = (
+				4EA397D32A8550AD006053A0 /* AsyncOperation.swift */,
+				4EA397D22A8550AD006053A0 /* AuthorizationError.swift */,
+				4EA397552A855061006053A0 /* BaseViewController.swift */,
+				4EA397A92A85508E006053A0 /* CameraViewController.swift */,
+				4EA397AF2A85508E006053A0 /* CaptureButton.swift */,
+				4EA397742A855072006053A0 /* Checkbox.swift */,
+				4EA397702A855072006053A0 /* CheckboxGroupView.swift */,
+				4EA397622A855072006053A0 /* DatePicker.swift */,
+				4EA397522A855061006053A0 /* EditViewController.swift */,
+				4EA397C02A85509E006053A0 /* FileController.swift */,
+				4EA397C12A85509E006053A0 /* FileError.swift */,
+				4EA3976B2A855072006053A0 /* IconButton.swift */,
+				4E7D49162A9395B600F73973 /* IconTextButton.swift */,
+				4EA397692A855072006053A0 /* IconView.swift */,
+				4EA397C72A8550AD006053A0 /* IdResponse.swift */,
+				4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */,
+				4EA397B12A85508E006053A0 /* ImageFileView.swift */,
+				4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */,
+				4EA397A72A85508E006053A0 /* ImageScrollView.swift */,
+				4EA397A82A85508E006053A0 /* ImageViewController.swift */,
+				4EA3976E2A855072006053A0 /* Indicator.swift */,
+				4EA397512A855061006053A0 /* InfoViewController.swift */,
+				4EA397D02A8550AD006053A0 /* Insets.swift */,
+				4EA3977C2A855072006053A0 /* LabeledCheckbox.swift */,
+				4EA397792A855072006053A0 /* LabeledCheckboxGroup.swift */,
+				4EA3977B2A855072006053A0 /* LabeledDatePicker.swift */,
+				4EA3975E2A855072006053A0 /* LabeledRadioGroup.swift */,
+				4EA397612A855072006053A0 /* LabeledStepperInput.swift */,
+				4EA3976A2A855072006053A0 /* LabeledText.swift */,
+				4EA3976D2A855072006053A0 /* LabeledTextareaInput.swift */,
+				4EA3976F2A855072006053A0 /* LabeledTextInput.swift */,
+				4EA397F82A8CCE99006053A0 /* Log.swift */,
+				4EA397532A855061006053A0 /* ModalViewController.swift */,
+				4E660E092A9780AB00FF4037 /* NavigationViewController.swift */,
+				4EA3975F2A855072006053A0 /* OnOffIcon.swift */,
+				4EA397A22A855080006053A0 /* PDFRenderer.swift */,
+				4EA397A12A855080006053A0 /* PDFTextType.swift */,
+				4EA397A32A855080006053A0 /* PDFViewController.swift */,
+				4EA397AE2A85508E006053A0 /* PhotoCaptureViewController.swift */,
+				4EA397712A855072006053A0 /* RadioGroup.swift */,
+				4EA397652A855072006053A0 /* RadioGroupButton.swift */,
+				4EA397502A855061006053A0 /* ScrollViewController.swift */,
+				4EA397642A855072006053A0 /* SectionLine.swift */,
+				4EA397602A855072006053A0 /* SectionView.swift */,
+				4EA397722A855072006053A0 /* TextareaInput.swift */,
+				4EA3976C2A855072006053A0 /* TextButton.swift */,
+			);
+			path = Basics;
+			sourceTree = "<group>";
+		};
+		4E9FD0032AADACAF00A66812 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4EA397C92A8550AD006053A0 /* Array.swift */,
+				4EA397AD2A85508E006053A0 /* AVCaptureDevice.swift */,
+				4EA397AA2A85508E006053A0 /* AVCaptureVideoOrientation.swift */,
+				4EA397B02A85508E006053A0 /* CGImage.swift */,
+				4EA397C82A8550AD006053A0 /* Codable.swift */,
+				4EA397C52A8550AD006053A0 /* Date.swift */,
+				4EA397CF2A8550AD006053A0 /* Dictionary.swift */,
+				4EA397CA2A8550AD006053A0 /* NSAttributedString.swift */,
+				4EA397CD2A8550AD006053A0 /* String.swift */,
+				4EA397CC2A8550AD006053A0 /* TextAttributes.swift */,
+				4EA397C62A8550AD006053A0 /* TimeInterval.swift */,
+				4EA3977D2A855072006053A0 /* UIButton.swift */,
+				4EA3977A2A855072006053A0 /* UIImage.swift */,
+				4EA3975D2A855072006053A0 /* UIImageView.swift */,
+				4EA397732A855072006053A0 /* UILabel.swift */,
+				4EA397752A855072006053A0 /* UIStackView.swift */,
+				4EA3977E2A855072006053A0 /* UITextField.swift */,
+				4EA397762A855072006053A0 /* UITextView.swift */,
+				4EA397772A855072006053A0 /* UIView.swift */,
+				4EA397682A855072006053A0 /* UIView+Anchors.swift */,
+				4EA397662A855072006053A0 /* UIView+Design.swift */,
+				4EA397672A855072006053A0 /* UIView+Insets.swift */,
+				4EA397782A855072006053A0 /* UIView+Subviews.swift */,
+				4EA3974F2A855061006053A0 /* UIViewController.swift */,
+				4EA397542A855061006053A0 /* UIViewController+Insets.swift */,
+				4EA397CE2A8550AD006053A0 /* URL.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		4EA396D02A854CAD006053A0 = {
 			isa = PBXGroup;
 			children = (
@@ -284,20 +370,16 @@
 		4EA396DB2A854CAD006053A0 /* CoDefApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E9FD0022AADAB3B00A66812 /* Basics */,
+				4E9FD0032AADACAF00A66812 /* Extensions */,
+				4EA396F12A854D5F006053A0 /* Data */,
+				4EA396F92A854DB3006053A0 /* Company */,
 				4EA396FC2A854DE2006053A0 /* Project */,
 				4EA396FB2A854DD0006053A0 /* Unit */,
 				4EA396FA2A854DBB006053A0 /* Defect */,
 				4EA397F72A8B9153006053A0 /* DefectStatus */,
-				4EA397F42A8B61DA006053A0 /* User */,
-				4EA396F92A854DB3006053A0 /* Company */,
 				4EA396F82A854DA9006053A0 /* Server */,
 				4EA396F72A854DA0006053A0 /* Settings */,
-				4EA396F62A854D93006053A0 /* ViewController */,
-				4EA396F52A854D89006053A0 /* View */,
-				4EA396F42A854D7E006053A0 /* PDF */,
-				4EA396F32A854D75006053A0 /* Image */,
-				4EA396F22A854D6C006053A0 /* Files */,
-				4EA396F12A854D5F006053A0 /* Data */,
 				4EA396F02A854D55006053A0 /* Application */,
 				4EA396E52A854CAE006053A0 /* Assets.xcassets */,
 				4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */,
@@ -311,10 +393,7 @@
 		4EA396F02A854D55006053A0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397F82A8CCE99006053A0 /* Log.swift */,
 				4EA397E82A8550BB006053A0 /* AppData.swift */,
-				4EA3970A2A854F96006053A0 /* CompanyFilter.swift */,
-				4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */,
 				4EA397F52A8B69A7006053A0 /* AppState.swift */,
 				4EA397E62A8550BB006053A0 /* AppDelegate.swift */,
 				4EA397E92A8550BB006053A0 /* MainViewController.swift */,
@@ -327,118 +406,13 @@
 		4EA396F12A854D5F006053A0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397C92A8550AD006053A0 /* Array.swift */,
-				4EA397D32A8550AD006053A0 /* AsyncOperation.swift */,
-				4EA397D22A8550AD006053A0 /* AuthorizationError.swift */,
 				4EA397D12A8550AD006053A0 /* BaseData.swift */,
-				4EA397C82A8550AD006053A0 /* Codable.swift */,
 				4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */,
-				4EA397C52A8550AD006053A0 /* Date.swift */,
-				4EA397CF2A8550AD006053A0 /* Dictionary.swift */,
 				4E0DC7E82A92063B00ED4F2B /* FileData.swift */,
-				4EA397C72A8550AD006053A0 /* IdResponse.swift */,
 				4EA397B22A85508E006053A0 /* ImageData.swift */,
-				4EA397D02A8550AD006053A0 /* Insets.swift */,
-				4EA397CA2A8550AD006053A0 /* NSAttributedString.swift */,
-				4EA397CD2A8550AD006053A0 /* String.swift */,
-				4EA397CC2A8550AD006053A0 /* TextAttributes.swift */,
-				4EA397C62A8550AD006053A0 /* TimeInterval.swift */,
-				4EA397CE2A8550AD006053A0 /* URL.swift */,
+				4EA3973B2A85503A006053A0 /* UserData.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		4EA396F22A854D6C006053A0 /* Files */ = {
-			isa = PBXGroup;
-			children = (
-				4EA397C02A85509E006053A0 /* FileController.swift */,
-				4EA397C12A85509E006053A0 /* FileError.swift */,
-			);
-			path = Files;
-			sourceTree = "<group>";
-		};
-		4EA396F32A854D75006053A0 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				4EA397AD2A85508E006053A0 /* AVCaptureDevice.swift */,
-				4EA397AA2A85508E006053A0 /* AVCaptureVideoOrientation.swift */,
-				4EA397A92A85508E006053A0 /* CameraViewController.swift */,
-				4EA397AF2A85508E006053A0 /* CaptureButton.swift */,
-				4EA397B02A85508E006053A0 /* CGImage.swift */,
-				4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */,
-				4EA397B12A85508E006053A0 /* ImageFileView.swift */,
-				4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */,
-				4EA397A72A85508E006053A0 /* ImageScrollView.swift */,
-				4EA397A82A85508E006053A0 /* ImageViewController.swift */,
-				4EA397AE2A85508E006053A0 /* PhotoCaptureViewController.swift */,
-			);
-			path = Image;
-			sourceTree = "<group>";
-		};
-		4EA396F42A854D7E006053A0 /* PDF */ = {
-			isa = PBXGroup;
-			children = (
-				4EA397A22A855080006053A0 /* PDFRenderer.swift */,
-				4EA397A12A855080006053A0 /* PDFTextType.swift */,
-				4EA397A32A855080006053A0 /* PDFViewController.swift */,
-			);
-			path = PDF;
-			sourceTree = "<group>";
-		};
-		4EA396F52A854D89006053A0 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				4EA397742A855072006053A0 /* Checkbox.swift */,
-				4EA397702A855072006053A0 /* CheckboxGroupView.swift */,
-				4EA397622A855072006053A0 /* DatePicker.swift */,
-				4EA3976B2A855072006053A0 /* IconButton.swift */,
-				4EA397692A855072006053A0 /* IconView.swift */,
-				4EA3976E2A855072006053A0 /* Indicator.swift */,
-				4EA3977C2A855072006053A0 /* LabeledCheckbox.swift */,
-				4EA397792A855072006053A0 /* LabeledCheckboxGroup.swift */,
-				4EA3977B2A855072006053A0 /* LabeledDatePicker.swift */,
-				4EA3975E2A855072006053A0 /* LabeledRadioGroup.swift */,
-				4EA397612A855072006053A0 /* LabeledStepperInput.swift */,
-				4EA3976A2A855072006053A0 /* LabeledText.swift */,
-				4EA3976D2A855072006053A0 /* LabeledTextareaInput.swift */,
-				4EA3976F2A855072006053A0 /* LabeledTextInput.swift */,
-				4EA3975F2A855072006053A0 /* OnOffIcon.swift */,
-				4EA397712A855072006053A0 /* RadioGroup.swift */,
-				4EA397652A855072006053A0 /* RadioGroupButton.swift */,
-				4EA397642A855072006053A0 /* SectionLine.swift */,
-				4EA397602A855072006053A0 /* SectionView.swift */,
-				4EA397722A855072006053A0 /* TextareaInput.swift */,
-				4EA3976C2A855072006053A0 /* TextButton.swift */,
-				4EA3977D2A855072006053A0 /* UIButton.swift */,
-				4EA3977A2A855072006053A0 /* UIImage.swift */,
-				4EA3975D2A855072006053A0 /* UIImageView.swift */,
-				4EA397732A855072006053A0 /* UILabel.swift */,
-				4EA397752A855072006053A0 /* UIStackView.swift */,
-				4EA3977E2A855072006053A0 /* UITextField.swift */,
-				4EA397762A855072006053A0 /* UITextView.swift */,
-				4EA397772A855072006053A0 /* UIView.swift */,
-				4EA397682A855072006053A0 /* UIView+Anchors.swift */,
-				4EA397662A855072006053A0 /* UIView+Design.swift */,
-				4EA397672A855072006053A0 /* UIView+Insets.swift */,
-				4EA397782A855072006053A0 /* UIView+Subviews.swift */,
-				4E7D49162A9395B600F73973 /* IconTextButton.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		4EA396F62A854D93006053A0 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4EA397552A855061006053A0 /* BaseViewController.swift */,
-				4EA397522A855061006053A0 /* EditViewController.swift */,
-				4EA397512A855061006053A0 /* InfoViewController.swift */,
-				4EA397532A855061006053A0 /* ModalViewController.swift */,
-				4EA397502A855061006053A0 /* ScrollViewController.swift */,
-				4EA3974F2A855061006053A0 /* UIViewController.swift */,
-				4EA397542A855061006053A0 /* UIViewController+Insets.swift */,
-				4E660E092A9780AB00FF4037 /* NavigationViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4EA396F72A854DA0006053A0 /* Settings */ = {
@@ -466,6 +440,8 @@
 				4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */,
 				4EA397382A85503A006053A0 /* CompanyData.swift */,
 				4EA397392A85503A006053A0 /* CompanyViewController.swift */,
+				4EA3970A2A854F96006053A0 /* CompanyFilter.swift */,
+				4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */,
 			);
 			path = Company;
 			sourceTree = "<group>";
@@ -507,14 +483,6 @@
 				4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */,
 			);
 			path = Project;
-			sourceTree = "<group>";
-		};
-		4EA397F42A8B61DA006053A0 /* User */ = {
-			isa = PBXGroup;
-			children = (
-				4EA3973B2A85503A006053A0 /* UserData.swift */,
-			);
-			path = User;
 			sourceTree = "<group>";
 		};
 		4EA397F72A8B9153006053A0 /* DefectStatus */ = {
