@@ -13,6 +13,7 @@
 		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
 		4E9FD0012AACDC1C00A66812 /* ProjectPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */; };
+		4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FD0042AADFC4600A66812 /* AppDate.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
 		4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */; };
 		4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397012A854E33006053A0 /* Localizable.strings */; };
@@ -135,6 +136,7 @@
 		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
 		4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPhase.swift; sourceTree = "<group>"; };
+		4E9FD0042AADFC4600A66812 /* AppDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDate.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EA396E52A854CAE006053A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EA396E82A854CAE006053A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		4EA396F02A854D55006053A0 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4E9FD0042AADFC4600A66812 /* AppDate.swift */,
 				4EA397E82A8550BB006053A0 /* AppData.swift */,
 				4EA397F52A8B69A7006053A0 /* AppState.swift */,
 				4EA397E62A8550BB006053A0 /* AppDelegate.swift */,
@@ -593,6 +596,7 @@
 				4EA397D92A8550AD006053A0 /* NSAttributedString.swift in Sources */,
 				4EA397D72A8550AD006053A0 /* Codable.swift in Sources */,
 				4EA397D52A8550AD006053A0 /* TimeInterval.swift in Sources */,
+				4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */,
 				4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */,
 				4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */,
 				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,

@@ -16,10 +16,6 @@ extension Date{
         DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .short)
     }
     
-    func asString() -> String{
-        AppState.shared.useDateTime ? dateTimeString() : dateString()
-    }
-    
     func fileDate() -> String{
         return DateFormats.fileDateFormatter.string(from: self)
     }
