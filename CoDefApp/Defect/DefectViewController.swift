@@ -41,18 +41,18 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
-            items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-                if let unit = self.defect.unit{
-                    self.showDestructiveApprove(text: "deleteInfo".localize()){
-                        unit.removeDefect(self.defect)
-                        unit.changed()
-                        unit.saveData()
-                        self.delegate?.defectChanged()
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                }
-            }))
         }
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+            if let unit = self.defect.unit{
+                self.showDestructiveApprove(text: "deleteInfo".localize()){
+                    unit.removeDefect(self.defect)
+                    unit.changed()
+                    unit.saveData()
+                    self.delegate?.defectChanged()
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in

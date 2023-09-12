@@ -45,15 +45,15 @@ class ProjectViewController: ScrollViewController {
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
-            items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-                self.showDestructiveApprove(text: "deleteInfo".localize()){
-                    AppData.shared.removeProject(self.project)
-                    AppData.shared.save()
-                    self.delegate?.projectChanged()
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }))
         }
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+            self.showDestructiveApprove(text: "deleteInfo".localize()){
+                AppData.shared.removeProject(self.project)
+                AppData.shared.save()
+                self.delegate?.projectChanged()
+                self.navigationController?.popViewController(animated: true)
+            }
+        }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         items = Array<UIBarButtonItem>()
         items.append(UIBarButtonItem(title: "info", image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
