@@ -76,13 +76,13 @@ class ServerViewController: ScrollViewController {
         }, for: .touchDown)
         syncSection.addSubviewAtTop(openLoginButton, topView: connectionLabel)
         
-        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(AppState.shared.unsynchronizedElementsCount), inline: true)
+        newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(AppState.shared.newItemsCount), inline: true)
         syncSection.addSubviewAtTop(newElementsField, topView: openLoginButton, insets: Insets.horizontalInsets)
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
             self.uploadProgressSlider.value = 0
-            self.uploadProgressSlider.maximumValue = Float(AppState.shared.unsynchronizedElementsCount)
+            self.uploadProgressSlider.maximumValue = Float(AppState.shared.newItemsCount)
             self.upload()
         }, for: .touchDown)
         syncSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
@@ -159,7 +159,7 @@ class ServerViewController: ScrollViewController {
         AppState.shared.resetUpload()
         uploadStateChanged()
         Task{
-            await AppData.shared.upload()
+            await AppData.shared.uploadNewItems()
         }
     }
     
@@ -193,7 +193,7 @@ extension ServerViewController: LoginDelegate{
 extension ServerViewController: AppStateDelegate{
     
     func uploadStateChanged() {
-        newElementsField.text = String(AppState.shared.unsynchronizedElementsCount)
+        newElementsField.text = String(AppState.shared.newItemsCount)
         uploadedProjectsField.text = String(AppState.shared.uploadedProjects)
         uploadedUnitsField.text = String(AppState.shared.uploadedUnits)
         uploadedDefectsField.text = String(AppState.shared.uploadedDefects)

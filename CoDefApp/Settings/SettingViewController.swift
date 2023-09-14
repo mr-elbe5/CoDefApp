@@ -64,11 +64,11 @@ class SettingsViewController: ScrollViewController {
         let text  = UILabel(text: "settingsText".localize())
         settingsSection.addSubviewAtTop(text, topView: label)
         settingsSection.addSubviewAtTop(usedateTimeSwitch, topView: text)
-        usedateTimeSwitch.setup(title: "useDateTime".localize(), index: -2, isOn: !AppState.shared.useDateTime)
+        usedateTimeSwitch.setup(title: "useDateTime".localize(), index: -2, isOn: AppState.shared.useDateTime)
         usedateTimeSwitch.delegate = self
         settingsSection.addSubviewAtTop(useNotifiedSwitch, topView: usedateTimeSwitch)
             .bottom(settingsSection.bottomAnchor)
-        useNotifiedSwitch.setup(title: "useNotified".localize(), index: -3, isOn: !AppState.shared.useNotified)
+        useNotifiedSwitch.setup(title: "useNotified".localize(), index: -3, isOn: AppState.shared.useNotified)
         useNotifiedSwitch.delegate = self
     }
     
@@ -118,6 +118,14 @@ extension SettingsViewController: CheckboxDelegate{
             AppState.shared.standalone = !useServerSwitch.isOn
             AppState.shared.save()
             delegate?.standaloneChanged()
+        }
+        else if index == -2{
+            AppState.shared.useDateTime = usedateTimeSwitch.isOn
+            AppState.shared.save()
+        }
+        else if index == -3{
+            AppState.shared.useNotified = useNotifiedSwitch.isOn
+            AppState.shared.save()
         }
     }
     

@@ -77,7 +77,6 @@ class CreateStatusChangeViewController: EditViewController {
             defect.assignedCompanyId = statusChange.assignedCompanyId
             defect.notified = notifiedField.isOn
             defect.statusChanges.append(statusChange)
-            statusChange.setSynchronized(false)
             defect.changed()
             defect.saveData()
             delegate?.statusChanged()

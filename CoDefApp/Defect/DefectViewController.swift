@@ -26,7 +26,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     override func loadView() {
-        title = "defect".localize()
+        title = defect.displayName
         super.loadView()
         
         var groups = Array<UIBarButtonItemGroup>()
@@ -35,7 +35,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             let controller = DefectPdfViewController(defect: self.defect)
             self.navigationController?.pushViewController(controller, animated: true)
         }))
-        if AppState.shared.standalone || !defect.hasServerId{
+        if AppState.shared.standalone || !defect.isOnServer{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditDefectViewController(defect: self.defect)
                 controller.delegate = self
@@ -73,7 +73,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     
     func setupDataSection(){
         let nameView = LabeledText()
-        nameView.setupView(labelText: "name".localizeWithColon(), text: defect.name)
+        nameView.setupView(labelText: "name".localizeWithColon(), text: defect.displayName)
         dataSection.addArrangedSubview(nameView)
         
         let idView = LabeledText()
@@ -96,9 +96,12 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedCompanyName)
         dataSection.addArrangedSubview(assignedView)
         
-        let notifiedView = LabeledText()
-        notifiedView.setupView(labelText: "notified".localizeWithColon(), text: defect.notified ? "true".localize() : "false".localize())
-        dataSection.addArrangedSubview(notifiedView)
+        if AppState.shared.useNotified{
+            let notifiedView = LabeledText()
+            notifiedView.setupView(labelText: "notified".localizeWithColon(), text: defect.notified ? "true".localize() : "false".localize())
+            dataSection.addArrangedSubview(notifiedView)
+        }
+        
         defect.assertPlanImage()
         if let plan = defect.planImage{
             let label = UILabel(header: "position".localizeWithColon())

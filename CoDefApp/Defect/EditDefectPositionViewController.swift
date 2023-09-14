@@ -9,13 +9,14 @@ import AVFoundation
 
 class EditDefectPositionViewController: ImageViewController {
     
-    var defect = DefectData()
+    var defect: DefectData
     
     var marker: DefectMarkerButton
     
     var positionDelegate: DefectPositionDelegate? = nil
     
     init(defect: DefectData, plan: ImageData){
+        self.defect = defect
         self.defect.position = defect.position
         marker = DefectMarkerButton(defect: self.defect)
         super.init(imageFile: plan, fitImage: false)

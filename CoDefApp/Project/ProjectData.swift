@@ -66,13 +66,16 @@ class ProjectData : ContentData{
     
     func updateCompanies(){
         companies.removeAll()
-        for company in AppData.shared.companies{
-            if companyIds.contains(company.id){
+        for companyId in companyIds{
+            if let company = AppData.shared.companies.first(where: { company in
+                return company.id == companyId
+            }){
                 companies.append(company)
             }
+            else{
+                companyIds.remove(obj: companyId)
+            }
         }
-        saveData()
-        AppState.shared.filter.updateCompanyIds(allCompanyIds: companyIds)
     }
     
     func removeUnit(_ unit: UnitData){
@@ -147,32 +150,29 @@ class ProjectData : ContentData{
         }
     }
     
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            for unit in units{
-                unit.setSynchronized(true, recursive: true)
+    override var uploadParams: Dictionary<String,String>{
+        var dict = super.uploadParams
+        var s = ""
+        for id in companyIds{
+            if !s.isEmpty{
+                s += ","
             }
+            s += String(id)
         }
-    }
-    
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
-        //todo
-        dict["companyIds"] = ""
+        dict["companyIds"] = s
         return dict
     }
     
-    func upload() async{
+    func uploadNewItems() async{
         do{
-            let requestUrl = AppState.shared.serverURL+"/api/project/uploadProject/" + String(id)
-            let params = uploadParams()
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+            let requestUrl = "\(AppState.shared.serverURL)/api/project/createProject/\(id)"
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                 print("project \(response.id) uploaded")
                 await AppState.shared.projectUploaded()
                 id = response.id
-                synchronized = true
-                await uploadUnits()
+                isOnServer = true
+                saveData()
+                await uploadNewUnitItems()
             }
             else{
                 await AppState.shared.uploadError()
@@ -185,14 +185,14 @@ class ProjectData : ContentData{
         }
     }
     
-    func uploadUnits() async{
+    func uploadNewUnitItems() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for unit in units{
-                if !unit.synchronized{
-                    await unit.upload()
+                if !unit.isOnServer{
+                    await unit.uploadNewItems()
                 }
                 else{
-                    await unit.uploadDefects()
+                    await unit.uploadNewDefectItems()
                 }
             }
         }

@@ -15,7 +15,7 @@ class ImageData : FileData{
     }
     
     override var serverFileName: String{
-        "img_\(localId)_\(id).\(fileExtension)"
+        "img_\(id).\(fileExtension)"
     }
     
     required init(from decoder: Decoder) throws {
@@ -45,11 +45,13 @@ class ImageData : FileData{
     func upload(contentId: Int) async{
         do{
             let uiImage = getImage()
-            let requestUrl = AppState.shared.serverURL+"/api/image/uploadImage/" + String(contentId) + "?imageId=" + String(id)
+            let requestUrl = isOnServer ?
+            "\(AppState.shared.serverURL)/api/image/updateImage/\(id)?contentId=\(contentId)" :
+            "\(AppState.shared.serverURL)/api/image/createImage/\(id)?contentId=\(contentId)"
             if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
                 print("image uploaded with id \(response.id)")
                 id = response.id
-                synchronized = true
+                isOnServer = true
                 await AppState.shared.imageUploaded()
             }
             else{

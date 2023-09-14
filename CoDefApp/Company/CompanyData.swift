@@ -51,7 +51,7 @@ class CompanyData: BaseData{
         try container.encode(city, forKey: .city)
         try container.encode(email, forKey: .email)
         try container.encode(phone, forKey: .phone)
-        try container.encode(street, forKey: .notes)
+        try container.encode(notes, forKey: .notes)
     }
     
     // sync
@@ -67,8 +67,8 @@ class CompanyData: BaseData{
         notes = fromData.notes
     }
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
+    override var uploadParams : Dictionary<String,String>{
+        var dict = super.uploadParams
         dict["name"] = name
         dict["street"] = street
         dict["zipCode"] = zipCode

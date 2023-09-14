@@ -109,7 +109,7 @@ class UnitViewController: ScrollViewController {
         var lastView: UIView = addIssueButton
         let filteredDefects = unit.filteredDefects
         for defect in filteredDefects{
-            let sectionLine = SectionLine(name: defect.name, action: UIAction(){ (action) in
+            let sectionLine = SectionLine(name: defect.displayName, action: UIAction(){ (action) in
                 let controller = DefectViewController(defect: defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)

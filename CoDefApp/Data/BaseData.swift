@@ -14,46 +14,39 @@ class BaseData: Codable, Hashable, Equatable{
     
     private enum CodingKeys: String, CodingKey {
         case id
-        case localId
+        case isOnServer
         case creationDate
         case creatorId
         case creatorName
         case changeDate
         case changerId
         case changerName
-        case synchronized
     }
     
     var id : Int
-    var localId: Int
+    var isOnServer: Bool
     var creationDate : Date
     var creatorId = 0
     var creatorName = ""
     var changeDate : Date
     var changerId = 0
     var changerName = ""
-    var synchronized: Bool
-    
-    var hasServerId: Bool{
-        id < Statics.minNewId
-    }
     
     init(){
         id = AppState.shared.nextId
-        localId = id
+        isOnServer = false
         creationDate = Date()
         creatorId = AppState.shared.currentUser.id
         creatorName = AppState.shared.currentUser.name
         changeDate = creationDate
         changerId = creatorId
         changerName = creatorName
-        synchronized = false
     }
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)
-        localId = try values.decodeIfPresent(Int.self, forKey: .localId) ?? 0
+        isOnServer = try values.decodeIfPresent(Bool.self, forKey: .isOnServer) ?? false
         var date = try values.decodeIfPresent(String.self, forKey: .creationDate)
         creationDate = date?.ISO8601Date() ?? Date()
         creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 0
@@ -62,27 +55,24 @@ class BaseData: Codable, Hashable, Equatable{
         changeDate = date?.ISO8601Date() ?? creationDate
         changerId = try values.decodeIfPresent(Int.self, forKey: .changerId) ?? 0
         changerName = try values.decodeIfPresent(String.self, forKey: .changerName) ?? ""
-        synchronized = try values.decodeIfPresent(Bool.self, forKey: .synchronized) ?? false
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
-        try container.encode(localId, forKey: .localId)
+        try container.encode(isOnServer, forKey: .isOnServer)
         try container.encode(creationDate.isoString(), forKey: .creationDate)
         try container.encode(creatorId, forKey: .creatorId)
         try container.encode(creatorName, forKey: .creatorName)
         try container.encode(changeDate.isoString(), forKey: .changeDate)
         try container.encode(changerId, forKey: .changerId)
         try container.encode(changerName, forKey: .changerName)
-        try container.encode(synchronized, forKey: .synchronized)
     }
     
     func changed(){
         changerId = AppState.shared.currentUser.id
         changerName = AppState.shared.currentUser.name
         changeDate = Date()
-        setSynchronized(false)
     }
     
     func hash(into hasher: inout Hasher) {
@@ -102,10 +92,9 @@ class BaseData: Codable, Hashable, Equatable{
         changeDate = fromData.changeDate
         changerId = fromData.creatorId
         changerName = fromData.changerName
-        setSynchronized(true)
     }
     
-    func uploadParams() -> Dictionary<String,String>{
+    var uploadParams : Dictionary<String,String>{
         var dict = Dictionary<String,String>()
         dict["id"]=String(id)
         dict["creatorId"]=String(creatorId)
@@ -113,10 +102,6 @@ class BaseData: Codable, Hashable, Equatable{
         dict["creationDate"]=creationDate.isoString()
         dict["changeDate"]=changeDate.isoString()
         return dict
-    }
-    
-    func setSynchronized(_ synced: Bool = true,recursive: Bool = false){
-        synchronized = synced
     }
  
 }

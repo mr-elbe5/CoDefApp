@@ -96,7 +96,8 @@ class DefectData : ContentData{
         project.companies
     }
     
-    override init(){
+    init(unit: UnitData){
+        self.unit = unit
         super.init()
         if let approveDate = unit.approveDate{
             projectPhase = approveDate > Date() ? .PREAPPROVAL : .LIABILITY
@@ -237,8 +238,8 @@ class DefectData : ContentData{
     
     // sync
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
+    override var uploadParams: Dictionary<String,String>{
+        var dict = super.uploadParams
         dict["displayId"]=String(displayId)
         dict["status"]=status.rawValue
         dict["projectPhase"]=projectPhase.rawValue
@@ -267,7 +268,6 @@ class DefectData : ContentData{
             else{
                 images.append(image)
                 AppState.shared.downloadedImages += 1
-                image.setSynchronized()
             }
             
         }
@@ -278,7 +278,6 @@ class DefectData : ContentData{
             else{
                 statusChanges.append(statusChange)
                 await AppState.shared.statusChangeDownloaded()
-                statusChange.setSynchronized(true, recursive: true)
             }
             
         }
@@ -287,37 +286,24 @@ class DefectData : ContentData{
         }
     }
     
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            for image in images{
-                image.setSynchronized(synced)
-            }
-            for statusChange in statusChanges{
-                statusChange.setSynchronized(true, recursive: true)
-            }
-        }
-    }
-    
-    func upload() async{
+    func uploadNewItems() async{
         do{
-            let requestUrl = AppState.shared.serverURL+"/api/defect/uploadDefect/" + String(id)
-            let params = uploadParams()
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+            let requestUrl = "\(AppState.shared.serverURL)/api/defect/createDefect/\(id)?unitId=\(unit.id)"
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                 print("defect \(response.id) uploaded")
                 await AppState.shared.defectUploaded()
                 id = response.id
-                displayId = response.id
-                synchronized = true
+                isOnServer = true
+                saveData()
                 await withTaskGroup(of: Void.self){ taskGroup in
                     for image in images{
-                        if !image.synchronized{
+                        if !image.isOnServer{
                             taskGroup.addTask {
                                 await image.upload(contentId: self.id)
                             }
                         }
                     }
-                    await uploadStatusChanges()
+                    await uploadNewStatusChangeItems()
                 }
             }
             else{
@@ -331,16 +317,16 @@ class DefectData : ContentData{
         }
     }
     
-    func uploadStatusChanges() async{
+    func uploadNewStatusChangeItems() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for statusChange in statusChanges{
-                if !statusChange.synchronized{
+                if !statusChange.isOnServer{
                     await statusChange.upload()
                 }
                 else{
                     await withTaskGroup(of: Void.self){ taskGroup in
                         for image in statusChange.images{
-                            if !image.synchronized{
+                            if !image.isOnServer{
                                 taskGroup.addTask {
                                     await image.upload(contentId: statusChange.id)
                                 }

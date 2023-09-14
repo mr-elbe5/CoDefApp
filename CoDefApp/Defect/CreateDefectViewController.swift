@@ -21,8 +21,7 @@ class CreateDefectViewController: EditDefectViewController {
     
     init(unit: UnitData){
         self.unit = unit
-        let defect = DefectData()
-        defect.unit = unit
+        let defect = DefectData(unit: unit)
         super.init(defect: defect)
     }
     
@@ -51,14 +50,18 @@ class CreateDefectViewController: EditDefectViewController {
         assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedCompanyId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
-        notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
-        contentView.addSubviewAtTop(notifiedField, topView: assignField)
+        var lastView : UIView = assignField
+        
+        if (AppState.shared.useNotified){
+            notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
+            contentView.addSubviewAtTop(notifiedField, topView: assignField)
+            lastView = notifiedField
+        }
         
         dueDateField.setupView(labelText: "dueDate".localizeWithColonAsMandatory(), date: Date())
         dueDateField.setMinMaxDate(minDate: Date(), maxDate: Date.distantFuture)
-        contentView.addSubviewAtTop(dueDateField, topView: notifiedField)
-        
-        var lastView : UIView = dueDateField
+        contentView.addSubviewAtTop(dueDateField, topView: lastView)
+        lastView = dueDateField
         
         if let plan = defect.unit?.plan{
             let image = plan.getImage()
@@ -92,6 +95,7 @@ class CreateDefectViewController: EditDefectViewController {
     override func save() -> Bool{
         if !nameField.text.isEmpty{
             defect.name = nameField.text
+            defect.displayName = defect.name
             defect.description = descriptionField.text
             defect.assertDisplayId()
             defect.assignedCompanyId = assignField.selectedCompany?.id ?? 0

@@ -117,7 +117,6 @@ class AppData : Codable{
                         companies.append(company)
                         await AppState.shared.companyDownloaded()
                     }
-                    company.synchronized = true
                 }
                 companies.sortByName()
                 for project in appData.projects{
@@ -127,10 +126,10 @@ class AppData : Codable{
                     else{
                         projects.append(project)
                         await AppState.shared.projectDownloaded()
-                        project.setSynchronized(true, recursive: true)
                     }
+                    project.updateCompanies()
                 }
-                projects.sortByName()
+                projects.sortByDisplayName()
                 print("saving project list")
                 save()
                 try await self.loadAllImages()
@@ -225,41 +224,41 @@ class AppData : Codable{
         }
     }
     
-    func countUnsynchronizedElements() -> Int {
+    func countNewElements() -> Int {
         var count = 0
         for project in projects{
-            if !project.synchronized{
-                print("found unsynchronized project \(project.id)")
+            if !project.isOnServer{
+                print("found new project \(project.id)")
                 count += 1
             }
             for unit in project.units{
-                if !unit.synchronized{
-                    print("found unsynchronized unit \(unit.id)")
+                if !unit.isOnServer{
+                    print("found new unit \(unit.id)")
                     count += 1
                 }
-                if let plan = unit.plan, !plan.synchronized{
-                    print("found unsynchronized unit plan \(plan.id)")
+                if let plan = unit.plan, !plan.isOnServer{
+                    print("found new unit plan \(plan.id)")
                     count += 1
                 }
                 for defect in unit.defects{
-                    if !defect.synchronized{
-                        print("found unsynchronized defect \(defect.id)")
+                    if !defect.isOnServer{
+                        print("found new defect \(defect.id)")
                         count += 1
                     }
                     for image in defect.images{
-                        if !image.synchronized{
-                            print("found unsynchronized defect image \(image.id)")
+                        if !image.isOnServer{
+                            print("found new defect image \(image.id)")
                             count += 1
                         }
                     }
                     for statusChange in defect.statusChanges{
-                        if !statusChange.synchronized{
-                            print("found unsynchronized status change \(statusChange.id)")
+                        if !statusChange.isOnServer{
+                            print("found new status change \(statusChange.id)")
                             count += 1
                         }
                         for image in statusChange.images{
-                            if !image.synchronized{
-                                print("found unsynchronized comment image \(image.id)")
+                            if !image.isOnServer{
+                                print("found new status change image \(image.id)")
                                 count += 1
                             }
                         }
@@ -270,28 +269,20 @@ class AppData : Codable{
         return count
     }
     
-    func upload() async{
+    func uploadNewItems() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
-                if !project.synchronized{
+                if !project.isOnServer{
                     taskGroup.addTask{
-                        await project.upload()
+                        await project.uploadNewItems()
                     }
                 }
                 else{
-                    await project.uploadUnits()
+                    await project.uploadNewUnitItems()
                 }
             }
         }
         AppData.shared.save()
-    }
-    
-    func addTask(taskGroup: inout TaskGroup<Void>){
-        for project in AppData.shared.projects{
-            if !project.synchronized{
-                
-            }
-        }
     }
     
 }

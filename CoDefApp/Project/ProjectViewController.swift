@@ -106,8 +106,7 @@ class ProjectViewController: ScrollViewController {
         }
         let addUnitButton = TextButton(text: "newUnit".localize())
         addUnitButton.addAction(UIAction(){ (action) in
-            let unit = UnitData()
-            unit.project = self.project
+            let unit = UnitData(project: self.project)
             let controller = EditUnitViewController(unit: unit)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)

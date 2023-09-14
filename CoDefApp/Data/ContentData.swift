@@ -10,10 +10,12 @@ class ContentData : BaseData{
     
     enum CodingKeys: String, CodingKey {
         case name
+        case displayName
         case description
     }
     
     var name = ""
+    var displayName = ""
     var description = ""
     
     override init(){
@@ -24,6 +26,7 @@ class ContentData : BaseData{
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         name = try values.decodeIfPresent(String.self, forKey: .name) ?? ""
+        displayName = try values.decodeIfPresent(String.self, forKey: .displayName) ?? name
         description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
     }
 
@@ -31,6 +34,7 @@ class ContentData : BaseData{
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
+        try container.encode(displayName, forKey: .displayName)
         try container.encode(description, forKey: .description)
     }
     
@@ -39,12 +43,14 @@ class ContentData : BaseData{
     func synchronizeFrom(_ fromData: ContentData) async{
         await super.synchronizeFrom(fromData)
         name = fromData.name
+        displayName = fromData.displayName
         description = fromData.description
     }
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
+    override var uploadParams : Dictionary<String,String>{
+        var dict = super.uploadParams
         dict["name"]=name
+        dict["displayName"]=displayName
         dict["description"]=description
         return dict
     }
@@ -81,9 +87,24 @@ extension ContentDataArray{
         return nil
     }
     
+    func getContentData(displayName: String) -> ContentData?{
+        for data in self{
+            if data.displayName == displayName {
+                return data
+            }
+        }
+        return nil
+    }
+    
     mutating func sortByName(){
         self = self.sorted {
             $0.name < $1.name
+        }
+    }
+    
+    mutating func sortByDisplayName(){
+        self = self.sorted {
+            $0.displayName < $1.displayName
         }
     }
     

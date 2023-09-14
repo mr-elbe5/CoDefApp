@@ -56,10 +56,13 @@ class EditDefectViewController: EditViewController {
         assignedView.setupView(labelText: "assignedTo".localizeWithColonAsMandatory(), text: defect.assignedCompanyName)
         contentView.addSubviewAtTop(assignedView, topView: statusView)
         
-        notifiedField.setup(title: "notified".localizeWithColon(), isOn: defect.notified)
-        contentView.addSubviewAtTop(notifiedField, topView: assignedView)
+        var lastView : UIView = assignedView
         
-        var lastView : UIView = notifiedField
+        if AppState.shared.useNotified{
+            notifiedField.setup(title: "notified".localizeWithColon(), isOn: defect.notified)
+            contentView.addSubviewAtTop(notifiedField, topView: lastView)
+            lastView = notifiedField
+        }
         
         if let plan = defect.unit?.plan{
             let image = plan.getImage()

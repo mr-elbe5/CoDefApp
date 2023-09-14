@@ -38,7 +38,8 @@ class UnitData : ContentData{
         return list
     }
     
-    override init(){
+    init(project: ProjectData){
+        self.project = project
         super.init()
     }
     
@@ -156,7 +157,6 @@ class UnitData : ContentData{
             else{
                 defects.append(defect)
                 AppState.shared.downloadedDefects += 1
-                defect.setSynchronized(true, recursive: true)
             }
             
         }
@@ -165,26 +165,21 @@ class UnitData : ContentData{
         }
     }
     
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            plan?.setSynchronized(synced)
-            for defect in defects{
-                defect.setSynchronized(true, recursive: true)
-            }
-        }
+    override var uploadParams: Dictionary<String,String>{
+        var dict = super.uploadParams
+        return dict
     }
     
-    func upload() async{
+    func uploadNewItems() async{
         do{
-            let requestUrl = AppState.shared.serverURL+"/api/unit/uploadUnit/" + String(id)
-            let params = uploadParams()
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+            let requestUrl = "\(AppState.shared.serverURL)/api/unit/createUnit/\(id)?parentId=\(project.id)"
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                 print("unit \(response.id) uploaded")
                 await AppState.shared.unitUploaded()
                 id = response.id
-                synchronized = true
-                await uploadDefects()
+                isOnServer = true
+                saveData()
+                await uploadNewDefectItems()
             }
             else{
                 await AppState.shared.uploadError()
@@ -197,14 +192,14 @@ class UnitData : ContentData{
         }
     }
     
-    func uploadDefects() async{
+    func uploadNewDefectItems() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for defect in defects{
-                if !defect.synchronized{
-                    await defect.upload()
+                if !defect.isOnServer{
+                    await defect.uploadNewItems()
                 }
                 else{
-                    await defect.uploadStatusChanges()
+                    await defect.uploadNewStatusChangeItems()
                 }
             }
         }

@@ -119,23 +119,13 @@ class StatusChangeData : ContentData{
             else{
                 images.append(image)
                 await AppState.shared.imageUploaded()
-                image.setSynchronized()
             }
             
         }
     }
     
-    override func setSynchronized(_ synced: Bool = true, recursive: Bool = false){
-        synchronized = synced
-        if recursive{
-            for image in images{
-                image.setSynchronized(synced)
-            }
-        }
-    }
-    
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
+    override var uploadParams : Dictionary<String,String>{
+        var dict = super.uploadParams
         dict["status"]=status.rawValue
         dict["previousAssignedCompanyId"]=String(previousAssignedCompanyId)
         dict["assignedCompanyId"]=String(assignedCompanyId)
@@ -145,14 +135,14 @@ class StatusChangeData : ContentData{
     func upload() async{
         do{
             let requestUrl = AppState.shared.serverURL+"/api/statuschange/uploadStatusChange/" + String(defect.id)
-            let params = uploadParams()
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {
+            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                 print("status change \(response.id) uploaded")
                 await AppState.shared.statusChangeUploaded()
                 id = response.id
-                synchronized = true
+                isOnServer = true
+                saveData()
                 for image in images{
-                    if !image.synchronized{
+                    if !image.isOnServer{
                         await image.upload(contentId: id)
                     }
                 }

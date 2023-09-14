@@ -27,7 +27,7 @@ class FileData : BaseData{
     }
     
     var serverFileName: String{
-        "file_\(localId)_\(id).\(fileExtension)"
+        "file_\(id).\(fileExtension)"
     }
     
     override init(){
@@ -50,8 +50,8 @@ class FileData : BaseData{
         try container.encode(contentType, forKey: .contentType)
     }
     
-    override func uploadParams() -> Dictionary<String,String>{
-        var dict = super.uploadParams()
+    override var uploadParams: Dictionary<String,String>{
+        var dict = super.uploadParams
         dict["fileName"]=fileName
         dict["extension"]=fileExtension //extension is reserved name
         dict["contentType"]=contentType

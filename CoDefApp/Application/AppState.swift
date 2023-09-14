@@ -67,7 +67,7 @@ class AppState : Codable{
     var downloadedImages : Int = 0
     var downloadErrors : Int = 0
     
-    var unsynchronizedElementsCount: Int = 0
+    var newItemsCount: Int = 0
     
     var delegate: AppStateDelegate? = nil
     
@@ -109,32 +109,32 @@ class AppState : Codable{
     // sync
     
     func imageUploaded() async{
-        unsynchronizedElementsCount -= 1
+        newItemsCount -= 1
         uploadedImages += 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func projectUploaded() async{
-        unsynchronizedElementsCount -= 1
+        newItemsCount -= 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func unitUploaded() async{
-        unsynchronizedElementsCount -= 1
+        newItemsCount -= 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func defectUploaded() async{
-        unsynchronizedElementsCount -= 1
+        newItemsCount -= 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func statusChangeUploaded() async{
-        unsynchronizedElementsCount -= 1
+        newItemsCount -= 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
@@ -209,7 +209,7 @@ class AppState : Codable{
     }
     
     func setUnsynchronizedElementCount(){
-        unsynchronizedElementsCount = AppData.shared.countUnsynchronizedElements()
+        newItemsCount = AppData.shared.countNewElements()
     }
     
     func resetDownload(){
