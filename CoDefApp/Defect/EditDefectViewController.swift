@@ -42,7 +42,7 @@ class EditDefectViewController: EditViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.displayName)
         contentView.addSubviewAtTop(nameField)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
@@ -97,7 +97,7 @@ class EditDefectViewController: EditViewController {
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            defect.name = nameField.text
+            defect.displayName = nameField.text
             defect.description = descriptionField.text
             defect.notified = notifiedField.isOn
             defect.changed()

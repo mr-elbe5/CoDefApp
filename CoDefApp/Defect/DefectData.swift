@@ -37,9 +37,8 @@ class DefectData : ContentData{
     
     enum CodingKeys: String, CodingKey {
         case displayId
-        case status
         case projectPhase
-        case assignedCompanyId
+        case assignedId
         case notified
         case dueDate1
         case dueDate2
@@ -51,9 +50,8 @@ class DefectData : ContentData{
     }
     
     var displayId = 0
-    var status = DefectStatus.open
     var projectPhase = ProjectPhase.PREAPPROVAL
-    var assignedCompanyId: Int = 0
+    var assignedId: Int = 0
     var notified = false
     var dueDate1 = Date()
     var dueDate2: Date? = nil
@@ -80,8 +78,15 @@ class DefectData : ContentData{
         assignedCompany?.name ?? ""
     }
     
+    var status: DefectStatus{
+        if statusChanges.isEmpty{
+            return .OPEN
+        }
+        return statusChanges.last!.status
+    }
+    
     var isOpen: Bool{
-        status == .open
+        status == .OPEN
     }
     
     var isOverdue : Bool{
@@ -111,19 +116,13 @@ class DefectData : ContentData{
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
         displayId = try values.decodeIfPresent(Int.self, forKey: .displayId) ?? 0
-        if let s = try values.decodeIfPresent(String.self, forKey: .status){
-            status = DefectStatus(rawValue: s) ?? DefectStatus.open
-        }
-        else{
-            status = DefectStatus.open
-        }
         if let s = try values.decodeIfPresent(String.self, forKey: .projectPhase){
             projectPhase = ProjectPhase(rawValue: s) ?? ProjectPhase.PREAPPROVAL
         }
         else{
             projectPhase = ProjectPhase.PREAPPROVAL
         }
-        assignedCompanyId = try values.decodeIfPresent(Int.self, forKey: .assignedCompanyId) ?? 0
+        assignedId = try values.decodeIfPresent(Int.self, forKey: .assignedId) ?? 0
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
         var date = try values.decodeIfPresent(String.self, forKey: .dueDate1)
         dueDate1 = date?.ISO8601Date() ?? Date.now
@@ -144,9 +143,8 @@ class DefectData : ContentData{
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(displayId, forKey: .displayId)
-        try container.encode(status.rawValue, forKey: .status)
         try container.encode(projectPhase.rawValue, forKey: .projectPhase)
-        try container.encode(assignedCompanyId, forKey: .assignedCompanyId)
+        try container.encode(assignedId, forKey: .assignedId)
         try container.encode(notified, forKey: .notified)
         try container.encode(dueDate1.isoString(), forKey: .dueDate1)
         try container.encode(dueDate2?.isoString() ?? "", forKey: .dueDate2)
@@ -207,11 +205,11 @@ class DefectData : ContentData{
     }
     
     func canRemoveCompany(companyId: Int) -> Bool{
-        if assignedCompanyId == companyId{
+        if assignedId == companyId{
             return false
         }
         for statusChange in statusChanges{
-            if statusChange.assignedCompanyId == companyId{
+            if statusChange.assignedId == companyId{
                 return false
             }
         }
@@ -219,7 +217,7 @@ class DefectData : ContentData{
     }
     
     func isInFilter() -> Bool{
-        if AppState.shared.filter.companyIds.contains(assignedCompanyId){
+        if AppState.shared.filter.companyIds.contains(assignedId){
             return false
         }
         return true
@@ -241,7 +239,6 @@ class DefectData : ContentData{
     override var uploadParams: Dictionary<String,String>{
         var dict = super.uploadParams
         dict["displayId"]=String(displayId)
-        dict["status"]=status.rawValue
         dict["projectPhase"]=projectPhase.rawValue
         dict["dueDate1"]=dueDate1.isoString()
         dict["positionX"]=String(Double(position.x))
@@ -253,9 +250,8 @@ class DefectData : ContentData{
     func synchronizeFrom(_ fromData: DefectData) async{
         await super.synchronizeFrom(fromData)
         displayId = fromData.displayId
-        status = fromData.status
         projectPhase = fromData.projectPhase
-        assignedCompanyId = fromData.assignedCompanyId
+        assignedId = fromData.assignedId
         notified = fromData.notified
         dueDate1 = fromData.dueDate1
         position.x = fromData.position.x
@@ -286,55 +282,40 @@ class DefectData : ContentData{
         }
     }
     
-    func uploadNewItems() async{
-        do{
-            let requestUrl = "\(AppState.shared.serverURL)/api/defect/createDefect/\(id)?unitId=\(unit.id)"
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
-                print("defect \(response.id) uploaded")
-                await AppState.shared.defectUploaded()
-                id = response.id
-                isOnServer = true
-                saveData()
-                await withTaskGroup(of: Void.self){ taskGroup in
-                    for image in images{
-                        if !image.isOnServer{
-                            taskGroup.addTask {
-                                await image.upload(contentId: self.id)
-                            }
-                        }
-                    }
-                    await uploadNewStatusChangeItems()
+    func uploadToServer() async{
+        if !isOnServer{
+            do{
+                let requestUrl = "\(AppState.shared.serverURL)/api/defect/createDefect/\(id)?unitId=\(unit.id)"
+                if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
+                    print("defect \(id) uploaded with new id \(response.id)")
+                    await AppState.shared.defectUploaded()
+                    id = response.id
+                    isOnServer = true
+                    saveData()
+                    await uploadImages()
+                    await uploadStateChanges()
+                }
+                else{
+                    await AppState.shared.uploadError()
+                    throw "defect upload error"
                 }
             }
-            else{
+            catch let(err){
+                print(err)
                 await AppState.shared.uploadError()
-                throw "defect upload error"
             }
-        }
-        catch let(err){
-            print(err)
-            await AppState.shared.uploadError()
         }
     }
     
-    func uploadNewStatusChangeItems() async{
-        await withTaskGroup(of: Void.self){ taskGroup in
-            for statusChange in statusChanges{
-                if !statusChange.isOnServer{
-                    await statusChange.upload()
-                }
-                else{
-                    await withTaskGroup(of: Void.self){ taskGroup in
-                        for image in statusChange.images{
-                            if !image.isOnServer{
-                                taskGroup.addTask {
-                                    await image.upload(contentId: statusChange.id)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+    func uploadImages() async{
+        for image in images{
+            await image.uploadToServer(contentId: id)
+        }
+    }
+    
+    func uploadStateChanges() async{
+        for statusChange in statusChanges{
+            await statusChange.uploadToServer()
         }
     }
     

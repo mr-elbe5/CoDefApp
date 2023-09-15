@@ -166,40 +166,51 @@ class UnitData : ContentData{
     }
     
     override var uploadParams: Dictionary<String,String>{
-        var dict = super.uploadParams
+        let dict = super.uploadParams
         return dict
     }
     
-    func uploadNewItems() async{
-        do{
-            let requestUrl = "\(AppState.shared.serverURL)/api/unit/createUnit/\(id)?parentId=\(project.id)"
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
-                print("unit \(response.id) uploaded")
-                await AppState.shared.unitUploaded()
-                id = response.id
-                isOnServer = true
-                saveData()
-                await uploadNewDefectItems()
+    func uploadToServer() async{
+        if !isOnServer{
+            do{
+                let requestUrl = "\(AppState.shared.serverURL)/api/unit/createUnit/\(id)?projectId=\(project.id)"
+                if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
+                    print("unit \(id) uploaded with new id \(response.id)")
+                    await AppState.shared.unitUploaded()
+                    id = response.id
+                    isOnServer = true
+                    saveData()
+                    await uploadPlan()
+                    await uploadDefects()
+                }
+                else{
+                    await AppState.shared.uploadError()
+                    throw "unit upload error"
+                }
             }
-            else{
+            catch let(err){
+                print(err)
                 await AppState.shared.uploadError()
-                throw "unit upload error"
             }
         }
-        catch let(err){
-            print(err)
-            await AppState.shared.uploadError()
+        else{
+            await uploadPlan()
+            await uploadDefects()
         }
     }
     
-    func uploadNewDefectItems() async{
+    func uploadPlan() async{
+        await plan?.uploadToServer(contentId: id)
+    }
+    
+    func uploadDefects() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for defect in defects{
                 if !defect.isOnServer{
-                    await defect.uploadNewItems()
+                    await defect.uploadToServer()
                 }
                 else{
-                    await defect.uploadNewStatusChangeItems()
+                    await defect.uploadStateChanges()
                 }
             }
         }

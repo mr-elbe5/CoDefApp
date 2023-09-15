@@ -41,7 +41,7 @@ class AppState : Codable{
         case filter
     }
     
-    var lastId = 1000
+    var lastId = Statics.minNewId
     var currentUser = UserData.anonymousUser
     var standalone = true
     var useDateTime = true
@@ -86,7 +86,7 @@ class AppState : Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        lastId = try values.decodeIfPresent(Int.self, forKey: .lastId) ?? 1000
+        lastId = try values.decodeIfPresent(Int.self, forKey: .lastId) ?? Statics.minNewId
         currentUser = try values.decodeIfPresent(UserData.self, forKey: .currentUser) ?? UserData.anonymousUser
         standalone = try values.decodeIfPresent(Bool.self, forKey: .standalone) ?? true
         useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
@@ -197,6 +197,7 @@ class AppState : Codable{
     }
     
     func resetUpload(){
+        setNewItemsCount()
         uploadedProjects = 0
         uploadedUnits = 0
         uploadedDefects = 0
@@ -208,7 +209,7 @@ class AppState : Codable{
         
     }
     
-    func setUnsynchronizedElementCount(){
+    func setNewItemsCount(){
         newItemsCount = AppData.shared.countNewElements()
     }
     

@@ -38,7 +38,7 @@ class EditUnitViewController: EditViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: unit.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: unit.displayName)
         contentView.addSubviewAtTop(nameField)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: unit.description)
@@ -100,7 +100,7 @@ class EditUnitViewController: EditViewController {
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            unit.name = nameField.text
+            unit.displayName = nameField.text
             unit.description = descriptionField.text
             if let imageView = planContainerView.subviews.first as? ImageFileView{
                 if imageView.imageFile != self.unit.plan{

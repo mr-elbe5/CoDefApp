@@ -35,7 +35,7 @@ class EditProjectViewController: EditViewController{
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: project.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: project.displayName)
         contentView.addSubviewAtTop(nameField)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: project.description)
@@ -55,7 +55,7 @@ class EditProjectViewController: EditViewController{
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            project.name = nameField.text
+            project.displayName = nameField.text
             project.description = descriptionField.text
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
                 if let company = checkbox.data as? CompanyData, !checkbox.isOn, project.companyIds.contains(company.id), !project.canRemoveCompany(companyId: company.id){
@@ -71,7 +71,7 @@ class EditProjectViewController: EditViewController{
             }
             if !AppData.shared.projects.contains(project){
                 AppData.shared.addProject(project)
-                AppData.shared.projects.sortByName()
+                AppData.shared.projects.sortByDisplayName()
             }
             project.updateCompanies()
             project.changed()

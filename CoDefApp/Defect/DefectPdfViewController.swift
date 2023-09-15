@@ -20,7 +20,7 @@ class DefectPdfViewController: PDFViewController {
     }
     
     override func loadView() {
-        title = "\("pdf".localize()) \("for".localize()) \(defect.name)"
+        title = "\("pdf".localize()) \("for".localize()) \(defect.displayName)"
         super.loadView()
         
     }
@@ -36,7 +36,7 @@ extension PDFRenderer {
     func createDefectPDF(defect: DefectData) -> Data{
         let pdfMetaData = [
             kCGPDFContextCreator: "Construction Defect Tracker",
-            kCGPDFContextTitle: defect.name
+            kCGPDFContextTitle: defect.displayName
         ]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
@@ -51,7 +51,7 @@ extension PDFRenderer {
     }
     
     func addDefectContent(defect: DefectData){
-        addLine(label: "name".localize(), text: defect.name)
+        addLine(label: "name".localize(), text: defect.displayName)
         addLine(label: "id".localize(), text: String(defect.displayId))
         if !defect.description.isEmpty{
             addLine(label: "description".localize(), text: defect.description)
@@ -74,14 +74,13 @@ extension PDFRenderer {
         for statusChange in defect.statusChanges{
             addLine()
             addLine(text: "statusChange".localize(), type: .header3)
-            addLine(label: "context".localize(), text: "statusChangeContext".localize(param1: defect.unit?.project?.name ?? "", param2: defect.unit?.name ?? "", param3: defect.name))
+            addLine(label: "context".localize(), text: "statusChangeContext".localize(param1: defect.unit?.project?.displayName ?? "", param2: defect.unit?.displayName ?? "", param3: defect.displayName))
             addStatusChangeContent(statusChange: statusChange)
         }
     }
     
     func addStatusChangeContent(statusChange: StatusChangeData){
         addLine(label: "on".localize(), text: statusChange.creationDate.asString())
-        addLine(label: "previousAssignment".localize(), text: statusChange.previousAssignedCompanyName)
         addLine(label: "description".localize(), text: statusChange.description)
         
         addLine(label: "status".localize(), text: statusChange.status.rawValue.localize())

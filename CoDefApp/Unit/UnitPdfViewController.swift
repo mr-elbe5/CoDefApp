@@ -20,7 +20,7 @@ class UnitPdfViewController: PDFViewController {
     }
     
     override func loadView() {
-        title = "\("pdf".localize()) \("for".localize()) \(unit.name)"
+        title = "\("pdf".localize()) \("for".localize()) \(unit.displayName)"
         super.loadView()
         
     }
@@ -36,7 +36,7 @@ extension PDFRenderer {
     func createUnitPDF(unit: UnitData) -> Data{
         let pdfMetaData = [
             kCGPDFContextCreator: "Construction Defect Tracker",
-            kCGPDFContextTitle: unit.name
+            kCGPDFContextTitle: unit.displayName
         ]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
@@ -51,7 +51,7 @@ extension PDFRenderer {
     }
     
     func addUnitContent(unit: UnitData){
-        addLine(label: "name".localize(), text: unit.name)
+        addLine(label: "name".localize(), text: unit.displayName)
         if !unit.description.isEmpty{
             addLine(label: "description".localize(), text: unit.description)
         }
@@ -62,7 +62,7 @@ extension PDFRenderer {
         for issue in unit.filteredDefects{
             addLine()
             addLine(text: "defect".localize(), type: .header3)
-            addLine(label: "context".localize(), text: "defectContext".localize(param1: unit.project?.name ?? "", param2: unit.name))
+            addLine(label: "context".localize(), text: "defectContext".localize(param1: unit.project?.displayName ?? "", param2: unit.displayName))
             addDefectContent(defect: issue)
         }
     }

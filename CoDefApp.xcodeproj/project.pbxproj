@@ -284,7 +284,6 @@
 				4EA3976B2A855072006053A0 /* IconButton.swift */,
 				4E7D49162A9395B600F73973 /* IconTextButton.swift */,
 				4EA397692A855072006053A0 /* IconView.swift */,
-				4EA397C72A8550AD006053A0 /* IdResponse.swift */,
 				4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */,
 				4EA397B12A85508E006053A0 /* ImageFileView.swift */,
 				4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */,
@@ -429,9 +428,10 @@
 		4EA396F82A854DA9006053A0 /* Server */ = {
 			isa = PBXGroup;
 			children = (
-				4EA397462A855048006053A0 /* ServerViewController.swift */,
-				4EA397472A855048006053A0 /* RequestController.swift */,
+				4EA397C72A8550AD006053A0 /* IdResponse.swift */,
 				4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */,
+				4EA397472A855048006053A0 /* RequestController.swift */,
+				4EA397462A855048006053A0 /* ServerViewController.swift */,
 			);
 			path = Server;
 			sourceTree = "<group>";

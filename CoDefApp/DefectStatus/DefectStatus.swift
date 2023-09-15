@@ -7,8 +7,8 @@
 import UIKit
 
 enum DefectStatus: String, CaseIterable{
-    case open
-    case disputed
-    case rejected
-    case done
+    case OPEN
+    case DISPUTED
+    case REJECTED
+    case DONE
 }

@@ -165,10 +165,6 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         statusLine.setupView(labelText: "status".localizeWithColon(), text: statusData.status.rawValue.localize())
         view.addArrangedSubview(statusLine)
         
-        let previousAssignmentLine = LabeledText()
-        previousAssignmentLine.setupView(labelText: "previousAssignment".localizeWithColon(), text: statusData.previousAssignedCompany?.name ?? "")
-        view.addArrangedSubview(previousAssignmentLine)
-        
         let assignmentLine = LabeledText()
         assignmentLine.setupView(labelText: "assignedTo".localizeWithColon(), text: statusData.assignedCompany?.name ?? "")
         view.addArrangedSubview(assignmentLine)

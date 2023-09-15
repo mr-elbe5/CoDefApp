@@ -163,38 +163,36 @@ class ProjectData : ContentData{
         return dict
     }
     
-    func uploadNewItems() async{
-        do{
-            let requestUrl = "\(AppState.shared.serverURL)/api/project/createProject/\(id)"
-            if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
-                print("project \(response.id) uploaded")
-                await AppState.shared.projectUploaded()
-                id = response.id
-                isOnServer = true
-                saveData()
-                await uploadNewUnitItems()
+    func uploadToServer() async{
+        if !isOnServer{
+            do{
+                let requestUrl = "\(AppState.shared.serverURL)/api/project/createProject/\(id)"
+                if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
+                    print("project \(id) uploaded with new id \(response.id)")
+                    await AppState.shared.projectUploaded()
+                    id = response.id
+                    isOnServer = true
+                    saveData()
+                    await uploadUnits()
+                }
+                else{
+                    await AppState.shared.uploadError()
+                    throw "project upload error"
+                }
             }
-            else{
+            catch let(err){
+                print(err)
                 await AppState.shared.uploadError()
-                throw "project upload error"
             }
         }
-        catch let(err){
-            print(err)
-            await AppState.shared.uploadError()
+        else{
+            await uploadUnits()
         }
     }
     
-    func uploadNewUnitItems() async{
-        await withTaskGroup(of: Void.self){ taskGroup in
-            for unit in units{
-                if !unit.isOnServer{
-                    await unit.uploadNewItems()
-                }
-                else{
-                    await unit.uploadNewDefectItems()
-                }
-            }
+    func uploadUnits() async{
+        for unit in units{
+            await unit.uploadToServer()
         }
     }
 

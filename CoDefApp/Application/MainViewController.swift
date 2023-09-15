@@ -77,7 +77,7 @@ class MainViewController: ScrollViewController {
         var lastView: UIView = headerLabel
         
         for project in AppData.shared.projects{
-            let sectionLine = SectionLine(name: project.name, action: UIAction(){ action in
+            let sectionLine = SectionLine(name: project.displayName, action: UIAction(){ action in
                 let controller = ProjectViewController(project: project)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -157,18 +157,6 @@ class MainViewController: ScrollViewController {
         let documentPickerController = UIDocumentPickerViewController(forOpeningContentTypes: types)
         documentPickerController.delegate = self
         self.present(documentPickerController, animated: true, completion: nil)
-    }
-    
-}
-
-extension MainViewController: ServerDelegate{
-    
-    func loginChanged() {
-        
-    }
-    
-    func synchronized() {
-        
     }
     
 }

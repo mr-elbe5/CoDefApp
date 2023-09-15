@@ -6,10 +6,6 @@
 
 import UIKit
 
-protocol ServerDelegate{
-    func synchronized()
-}
-
 class ServerViewController: ScrollViewController {
     
     var connectionLabel = LabeledText()
@@ -40,13 +36,12 @@ class ServerViewController: ScrollViewController {
     
     var downloadProgressSlider = UISlider()
     
-    var delegate: ServerDelegate? = nil
-    
     override func loadView() {
         title = "server".localize()
+        AppState.shared.resetUpload()
+        AppState.shared.resetDownload()
         super.loadView()
         modalPresentationStyle = .fullScreen
-        AppState.shared.setUnsynchronizedElementCount()
         AppState.shared.delegate = self
     }
     
@@ -152,14 +147,14 @@ class ServerViewController: ScrollViewController {
         syncSection.addSubviewAtTop(downloadProgressSlider, topView: downloadErrorsField)
             .bottom(syncSection.bottomAnchor, inset: -defaultInset)
         
-        loginChanged()
+        checkLoginState()
     }
     
     func upload(){
         AppState.shared.resetUpload()
         uploadStateChanged()
         Task{
-            await AppData.shared.uploadNewItems()
+            await AppData.shared.uploadToServer()
         }
     }
     
@@ -178,14 +173,18 @@ class ServerViewController: ScrollViewController {
         }
     }
     
+    func checkLoginState() {
+        connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
+        uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+        downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+    }
+    
 }
 
 extension ServerViewController: LoginDelegate{
     
     func loginChanged() {
-        connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
-        uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
-        downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+        checkLoginState()
     }
     
 }

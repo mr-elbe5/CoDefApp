@@ -269,16 +269,16 @@ class AppData : Codable{
         return count
     }
     
-    func uploadNewItems() async{
+    func uploadToServer() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
                 if !project.isOnServer{
                     taskGroup.addTask{
-                        await project.uploadNewItems()
+                        await project.uploadToServer()
                     }
                 }
                 else{
-                    await project.uploadNewUnitItems()
+                    await project.uploadUnits()
                 }
             }
         }

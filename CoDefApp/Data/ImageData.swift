@@ -42,24 +42,25 @@ class ImageData : FileData{
         }
     }
     
-    func upload(contentId: Int) async{
-        do{
-            let uiImage = getImage()
-            let requestUrl = isOnServer ?
-            "\(AppState.shared.serverURL)/api/image/updateImage/\(id)?contentId=\(contentId)" :
-            "\(AppState.shared.serverURL)/api/image/createImage/\(id)?contentId=\(contentId)"
-            if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
-                print("image uploaded with id \(response.id)")
-                id = response.id
-                isOnServer = true
-                await AppState.shared.imageUploaded()
+    func uploadToServer(contentId: Int) async{
+        if !isOnServer{
+            do{
+                let uiImage = getImage()
+                let requestUrl = "\(AppState.shared.serverURL)/api/image/createImage/\(id)?contentId=\(contentId)"
+                if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
+                    print("image \(id) uploaded with new id \(response.id)")
+                    id = response.id
+                    isOnServer = true
+                    saveData()
+                    await AppState.shared.imageUploaded()
+                }
+                else{
+                    throw "image upload error"
+                }
             }
-            else{
-                throw "image upload error"
+            catch{
+                await AppState.shared.uploadError()
             }
-        }
-        catch{
-            await AppState.shared.uploadError()
         }
     }
     

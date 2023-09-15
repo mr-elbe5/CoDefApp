@@ -20,7 +20,7 @@ class ProjectPdfViewController: PDFViewController {
     }
     
     override func loadView() {
-        title = "\("report".localize()) \("for".localize()) \(project.name)"
+        title = "\("report".localize()) \("for".localize()) \(project.displayName)"
         super.loadView()
         
     }
@@ -36,7 +36,7 @@ extension PDFRenderer {
     func createProjectPDF(project: ProjectData) -> Data{
         let pdfMetaData = [
             kCGPDFContextCreator: "Construction Defect Tracker",
-            kCGPDFContextTitle: project.name
+            kCGPDFContextTitle: project.displayName
         ]
         let format = UIGraphicsPDFRendererFormat()
         format.documentInfo = pdfMetaData as [String: Any]
@@ -51,7 +51,7 @@ extension PDFRenderer {
     }
     
     func addProjectContent(project: ProjectData){
-        addLine(label: "name".localize(), text: project.name)
+        addLine(label: "name".localize(), text: project.displayName)
         if !project.description.isEmpty{
             addLine(label: "description".localize(), text: project.description)
         }
@@ -59,7 +59,7 @@ extension PDFRenderer {
         for unit in project.filteredUnits{
             addLine()
             addLine(text: "unit".localize(), type: .header2)
-            addLine(label: "context".localize(), text: "unitContext".localize(param: project.name))
+            addLine(label: "context".localize(), text: "unitContext".localize(param: project.displayName))
             addUnitContent(unit: unit)
         }
         addLine()

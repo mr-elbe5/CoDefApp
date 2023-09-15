@@ -74,7 +74,7 @@ class ProjectViewController: ScrollViewController {
     
     func setupDataSection(){
         let nameLabel = LabeledText()
-        nameLabel.setupView(labelText: "name".localizeWithColon(), text: project.name)
+        nameLabel.setupView(labelText: "name".localizeWithColon(), text: project.displayName)
         dataSection.addArrangedSubview(nameLabel)
         
         let descriptionLabel = LabeledText()
@@ -96,7 +96,7 @@ class ProjectViewController: ScrollViewController {
         unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         for unit in project.filteredUnits{
-            let sectionLine = SectionLine(name: unit.name, action: UIAction(){ action in
+            let sectionLine = SectionLine(name: unit.displayName, action: UIAction(){ action in
                 let controller = UnitViewController(unit: unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)

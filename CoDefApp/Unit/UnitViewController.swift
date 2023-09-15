@@ -77,7 +77,7 @@ class UnitViewController: ScrollViewController {
     
     func setupDataSection() {
         let nameView = LabeledText()
-        nameView.setupView(labelText: "name".localizeWithColon(), text: unit.name)
+        nameView.setupView(labelText: "name".localizeWithColon(), text: unit.displayName)
         dataSection.addArrangedSubview(nameView)
         
         let descriptionView = LabeledText()

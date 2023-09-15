@@ -15,7 +15,6 @@ class CreateStatusChangeViewController: EditViewController {
     var delegate: StatusChangeDelegate? = nil
     
     var descriptionField = LabeledTextareaInput()
-    var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledCompanySelectField()
     var notifiedField = LabeledCheckbox()
     
@@ -45,18 +44,18 @@ class CreateStatusChangeViewController: EditViewController {
         descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: statusChange.description)
         contentView.addSubviewAtTop(descriptionField)
         
-        statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
-        statusField.setupStatuses(currentStatus: statusChange.status)
-        contentView.addSubviewAtTop(statusField, topView: descriptionField)
-        
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupCompanies(companies: statusChange.projectCompanies, currentCompanyId: statusChange.assignedCompanyId)
-        contentView.addSubviewAtTop(assignField, topView: statusField)
+        assignField.setupCompanies(companies: statusChange.projectCompanies, currentCompanyId: statusChange.assignedId)
+        contentView.addSubviewAtTop(assignField, topView: descriptionField)
+        var lastView: UIView = assignField
         
-        notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
-        contentView.addSubviewAtTop(notifiedField, topView: assignField)
+        if AppState.shared.useNotified{
+            notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
+            contentView.addSubviewAtTop(notifiedField, topView: assignField)
+            lastView = notifiedField
+        }
         
-        addImageSection(below: notifiedField.bottomAnchor, imageCollectionView: imageCollectionView)
+        addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
         
     }
     
@@ -71,10 +70,8 @@ class CreateStatusChangeViewController: EditViewController {
     override func save() -> Bool{
         if !descriptionField.text.isEmpty{
             statusChange.description = descriptionField.text
-            statusChange.status = statusField.selectedStatus
-            statusChange.assignedCompanyId = assignField.selectedCompany?.id ?? 0
-            defect.status = statusChange.status
-            defect.assignedCompanyId = statusChange.assignedCompanyId
+            statusChange.assignedId = assignField.selectedCompany?.id ?? 0
+            defect.assignedId = statusChange.assignedId
             defect.notified = notifiedField.isOn
             defect.statusChanges.append(statusChange)
             defect.changed()

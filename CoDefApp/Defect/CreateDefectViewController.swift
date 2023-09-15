@@ -36,7 +36,7 @@ class CreateDefectViewController: EditDefectViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.name)
+        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.displayName)
         contentView.addSubviewAtTop(nameField)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
@@ -47,7 +47,7 @@ class CreateDefectViewController: EditDefectViewController {
         contentView.addSubviewAtTop(statusField, topView: descriptionField)
         
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
-        assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedCompanyId)
+        assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedId)
         contentView.addSubviewAtTop(assignField, topView: statusField)
         
         var lastView : UIView = assignField
@@ -94,14 +94,12 @@ class CreateDefectViewController: EditDefectViewController {
     
     override func save() -> Bool{
         if !nameField.text.isEmpty{
-            defect.name = nameField.text
-            defect.displayName = defect.name
+            defect.displayName = nameField.text
             defect.description = descriptionField.text
             defect.assertDisplayId()
-            defect.assignedCompanyId = assignField.selectedCompany?.id ?? 0
+            defect.assignedId = assignField.selectedCompany?.id ?? 0
             defect.notified = notifiedField.isOn
             defect.dueDate1 = dueDateField.date
-            defect.status = statusField.selectedStatus
             unit.defects.append(defect)
             defect.changed()
             unit.changed()
