@@ -61,7 +61,7 @@ class ServerViewController: ScrollViewController {
         let header = UILabel(header: "synchronizeServer".localize())
         syncSection.addSubviewAtTopCentered(header)
         
-        connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize(), inline: true)
+        connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: "", inline: true)
         syncSection.addSubviewAtTop(connectionLabel, topView: header, insets: Insets.horizontalInsets)
         
         openLoginButton.addAction(UIAction(){ action in
@@ -174,7 +174,7 @@ class ServerViewController: ScrollViewController {
     }
     
     func checkLoginState() {
-        connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() : "disconnected".localize()
+        connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() + ": " + AppState.shared.currentUser.name : "disconnected".localize()
         uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
     }
@@ -199,8 +199,8 @@ extension ServerViewController: AppStateDelegate{
         uploadedStatusChangesField.text = String(AppState.shared.uploadedStatusChanges)
         uploadedImagesField.text = String(AppState.shared.uploadedImages)
         uploadErrorsField.text = String(AppState.shared.uploadErrors)
-        if AppState.shared.uploadedItems != 0{
-            uploadProgressSlider.value = uploadProgressSlider.maximumValue / Float(AppState.shared.uploadedItems)
+        if uploadProgressSlider.maximumValue != 0{
+            uploadProgressSlider.value = Float(AppState.shared.uploadedItems) / uploadProgressSlider.maximumValue
         }
     }
     

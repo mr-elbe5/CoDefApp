@@ -36,11 +36,11 @@ class CreateDefectViewController: EditDefectViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.displayName)
-        contentView.addSubviewAtTop(nameField)
+        let nameLabel = UILabel(text: defect.displayName)
+        contentView.addSubviewAtTop(nameLabel)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
-        contentView.addSubviewAtTop(descriptionField, topView: nameField)
+        contentView.addSubviewAtTop(descriptionField, topView: nameLabel)
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
         statusField.setupStatuses(currentStatus: defect.status)
@@ -93,8 +93,7 @@ class CreateDefectViewController: EditDefectViewController {
     }
     
     override func save() -> Bool{
-        if !nameField.text.isEmpty{
-            defect.displayName = nameField.text
+        if !descriptionField.text.isEmpty{
             defect.description = descriptionField.text
             defect.assertDisplayId()
             defect.assignedId = assignField.selectedCompany?.id ?? 0

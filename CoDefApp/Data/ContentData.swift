@@ -13,7 +13,16 @@ class ContentData : BaseData{
         case description
     }
     
-    var displayName = ""
+    private var name = ""
+    
+    var displayName: String{
+        get{
+            name
+        }
+        set{
+            name = newValue
+        }
+    }
     var description = ""
     
     override init(){
@@ -44,6 +53,7 @@ class ContentData : BaseData{
     
     override var uploadParams : Dictionary<String,String>{
         var dict = super.uploadParams
+        dict["name"] = displayName
         dict["displayName"]=displayName
         dict["description"]=description
         return dict

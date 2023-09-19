@@ -66,6 +66,14 @@ class DefectData : ContentData{
     
     var unit: UnitData!
     
+    override var displayName: String{
+        get{
+            "defect".localize() + " " + String(id)
+        }
+        set{
+        }
+    }
+    
     var hasValidPosition : Bool{
         position != .zero
     }
@@ -244,6 +252,8 @@ class DefectData : ContentData{
         dict["positionX"]=String(Double(position.x))
         dict["positionY"]=String(Double(position.y))
         dict["positionComment"]=positionComment
+        dict["assignedId"]=String(assignedId)
+        dict["status"] = status.rawValue
         return dict
     }
     
@@ -317,6 +327,15 @@ class DefectData : ContentData{
         for statusChange in statusChanges{
             await statusChange.uploadToServer()
         }
+    }
+    
+    func indexOf(changeData: StatusChangeData) -> Int{
+        for i in 0..<statusChanges.count{
+            if statusChanges[i] == changeData{
+                return i
+            }
+        }
+        return -1
     }
     
 }

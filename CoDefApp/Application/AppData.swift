@@ -134,11 +134,15 @@ class AppData : Codable{
                 save()
                 try await self.loadAllImages()
             }
+            else{
+                Log.error("error loading projects")
+                await AppState.shared.downloadError()
+            }
         }
         catch (let err){
-            print(err)
+            Log.error(error: err)
             await AppState.shared.downloadError()
-            print("error loading projects")
+            Log.error("error loading projects")
         }
     }
     
@@ -156,12 +160,12 @@ class AppData : Codable{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
-                for location in project.units{
-                    if let plan = location.plan{
+                for unit in project.units{
+                    if let plan = unit.plan{
                         if !plan.fileExists() {
                             taskGroup.addTask{
                                 do{
-                                    try await self.loadImage(image: location.plan!)
+                                    try await self.loadImage(image: unit.plan!)
                                 }
                                 catch (let err){
                                     print(err)
@@ -170,7 +174,7 @@ class AppData : Codable{
                             }
                         }
                     }
-                    for defect in location.defects{
+                    for defect in unit.defects{
                         for image in defect.images{
                             taskGroup.addTask{
                                 if !image.fileExists(){

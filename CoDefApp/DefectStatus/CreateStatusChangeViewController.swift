@@ -16,6 +16,7 @@ class CreateStatusChangeViewController: EditViewController {
     
     var descriptionField = LabeledTextareaInput()
     var assignField = LabeledCompanySelectField()
+    var statusField = LabeledDefectStatusSelectView()
     var notifiedField = LabeledCheckbox()
     
     let imageCollectionView: ImageCollectionView
@@ -47,7 +48,12 @@ class CreateStatusChangeViewController: EditViewController {
         assignField.setupView(labelText: "assignedTo".localizeWithColon())
         assignField.setupCompanies(companies: statusChange.projectCompanies, currentCompanyId: statusChange.assignedId)
         contentView.addSubviewAtTop(assignField, topView: descriptionField)
-        var lastView: UIView = assignField
+        
+        statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
+        statusField.setupStatuses(currentStatus: defect.status)
+        contentView.addSubviewAtTop(statusField, topView: assignField)
+        
+        var lastView: UIView = statusField
         
         if AppState.shared.useNotified{
             notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
@@ -71,6 +77,7 @@ class CreateStatusChangeViewController: EditViewController {
         if !descriptionField.text.isEmpty{
             statusChange.description = descriptionField.text
             statusChange.assignedId = assignField.selectedCompany?.id ?? 0
+            statusChange.status = statusField.selectedStatus
             defect.assignedId = statusChange.assignedId
             defect.notified = notifiedField.isOn
             defect.statusChanges.append(statusChange)

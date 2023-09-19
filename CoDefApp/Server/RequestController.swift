@@ -97,7 +97,13 @@ struct RequestController {
     }
     
     private func launchJsonRequest<T : Decodable>(with request : URLRequest) async throws -> T?{
-        let (data, _) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if let response = response as? HTTPURLResponse{
+            if response.statusCode != 200{
+                Log.error("got status code \(response.statusCode)")
+                return nil
+            }
+        }
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .millisecondsSince1970
@@ -110,7 +116,13 @@ struct RequestController {
     }
     
     private func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
-        let (data, _) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.data(for: request)
+        if let response = response as? HTTPURLResponse{
+            if response.statusCode != 200{
+                Log.error("code status code \(response.statusCode)")
+                return nil
+            }
+        }
         if let image = UIImage(data: data){
             print("image received from server")
             return image

@@ -157,7 +157,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     
     func setupProcessingStatusView(view: ArrangedSectionView, statusData: StatusChangeData){
         let createdLine = LabeledText()
-        let txt = "\("on".localize()) \(statusData.creationDate.asString()) \("by".localize()) \(statusData.creator?.name ?? "")"
+        let txt = "\("on".localize()) \(statusData.creationDate.asString()) \("by".localize()) \(statusData.creatorName)"
         createdLine.setupView(labelText: "created".localizeWithColon(), text: txt)
         view.addArrangedSubview(createdLine)
         

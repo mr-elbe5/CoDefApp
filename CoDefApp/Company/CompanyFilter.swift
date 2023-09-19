@@ -51,6 +51,9 @@ class CompanyFilter: NSObject, Codable{
                 companyIds.remove(obj: id)
             }
         }
+        if companyIds.isEmpty{
+            companyIds.append(contentsOf: allCompanyIds)
+        }
     }
     
 }

@@ -31,16 +31,20 @@ class StatusChangeData : ContentData{
         project.companies
     }
     
-    var creator: CompanyData?{
-        return projectCompanies.getCompanyData(id: creatorId)
-    }
-    
     var assignedCompany: CompanyData?{
         return projectCompanies.getCompanyData(id: assignedId)
     }
     
     var assignedCompanyName : String{
         assignedCompany?.name ?? ""
+    }
+    
+    override var displayName: String{
+        get{
+            "statusChange".localize() + " " + String(defect.indexOf(changeData: self) + 1)
+        }
+        set{
+        }
     }
     
     init(defect: DefectData){

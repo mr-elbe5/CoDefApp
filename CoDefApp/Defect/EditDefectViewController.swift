@@ -13,7 +13,6 @@ class EditDefectViewController: EditViewController {
     
     var delegate: DefectDelegate? = nil
     
-    var nameField = LabeledTextInput()
     var descriptionField = LabeledTextareaInput()
     var notifiedField = LabeledCheckbox()
     
@@ -42,11 +41,12 @@ class EditDefectViewController: EditViewController {
     }
     
     override func setupContentView() {
-        nameField.setupView(labelText: "name".localizeWithColonAsMandatory(), text: defect.displayName)
-        contentView.addSubviewAtTop(nameField)
+        
+        let nameLabel = UILabel(text: defect.displayName)
+        contentView.addSubviewAtTop(nameLabel)
         
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
-        contentView.addSubviewAtTop(descriptionField, topView: nameField)
+        contentView.addSubviewAtTop(descriptionField, topView: nameLabel)
         
         let statusView = LabeledText()
         statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
@@ -96,8 +96,7 @@ class EditDefectViewController: EditViewController {
     }
     
     override func save() -> Bool{
-        if !nameField.text.isEmpty{
-            defect.displayName = nameField.text
+        if !descriptionField.text.isEmpty{
             defect.description = descriptionField.text
             defect.notified = notifiedField.isOn
             defect.changed()

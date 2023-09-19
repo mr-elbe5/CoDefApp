@@ -176,7 +176,7 @@ class AppState : Codable{
     
     func downloadError() async {
         downloadErrors += 1
-        await uploadStateChanged()
+        await downloadStateChanged()
     }
     
     
@@ -206,7 +206,6 @@ class AppState : Codable{
         uploadErrors = 0
         uploadErrors = 0
         uploadedItems = 0.0
-        
     }
     
     func setNewItemsCount(){
