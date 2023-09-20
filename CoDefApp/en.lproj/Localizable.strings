@@ -121,6 +121,7 @@ With the following companies: Only defects which one of the selected companies i
 "units"="Units";
 "unit"="Unit";
 "newUnit"="New Unit";
+"approveDate"="Approve Date";
 "plan"="Plan";
 "planReplaceInfo"="Replacing the plan invalidates all defect positions.
 Do want to proceed?";

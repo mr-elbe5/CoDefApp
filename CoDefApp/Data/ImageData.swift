@@ -14,10 +14,6 @@ class ImageData : FileData{
         super.init()
     }
     
-    override var serverFileName: String{
-        "img_\(id).\(fileExtension)"
-    }
-    
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
     }
@@ -47,7 +43,7 @@ class ImageData : FileData{
             do{
                 let uiImage = getImage()
                 let requestUrl = "\(AppState.shared.serverURL)/api/image/createImage/\(id)?contentId=\(contentId)"
-                if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: serverFileName) {
+                if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: fileName) {
                     print("image \(id) uploaded with new id \(response.id)")
                     id = response.id
                     isOnServer = true

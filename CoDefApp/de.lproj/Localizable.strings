@@ -126,6 +126,7 @@ Nur mit den folgenden Firmen: Nur Mängel, die einer der markierten Firmen zugeo
 "units"="Projekteinheiten";
 "unit"="Projekteinheit";
 "newUnit"="Neue Projekteinheit";
+"approveDate"="Abnahmedatum";
 "plan"="Plan";
 "planReplaceInfo"="Das Ersetzen des Plans macht alle Mangelpositionen ungültig.
 Wollen Sie fortfahren?";

@@ -119,6 +119,7 @@ class EditDefectViewController: EditViewController {
             imageCollectionView.images.append(image)
             defect.changed()
             defect.saveData()
+            imageCollectionView.updateHeightConstraint()
             imageCollectionView.reloadData()
         }
         picker.dismiss(animated: false)
@@ -129,6 +130,7 @@ class EditDefectViewController: EditViewController {
         imageCollectionView.images.append(photo)
         defect.changed()
         defect.saveData()
+        imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()
     }
     

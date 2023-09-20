@@ -26,10 +26,6 @@ class FileData : BaseData{
         FileController.fileDirURL.appendingPathComponent(fileName)
     }
     
-    var serverFileName: String{
-        "file_\(id).\(fileExtension)"
-    }
-    
     override init(){
         super.init()
     }
