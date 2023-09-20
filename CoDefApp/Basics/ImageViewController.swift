@@ -51,10 +51,10 @@ class ImageViewController: BaseViewController {
         
         if deleteDelegate != nil{
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
-                self.showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteInfo".localize()){
+                self.showDestructiveApprove(title: "confirmDeleteImage".localize(), text: "deleteInfo".localize(), onApprove: {
                     self.deleteDelegate?.deleteImage(image: self.imageFile)
                     self.navigationController?.popViewController(animated: true)
-                }
+                })
             }))
         }
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))

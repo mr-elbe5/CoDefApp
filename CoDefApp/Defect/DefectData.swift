@@ -79,7 +79,10 @@ class DefectData : ContentData{
     }
     
     var assignedCompany : CompanyData?{
-        statusChanges.last?.assignedCompany
+        if let company = statusChanges.last?.assignedCompany{
+            return company
+        }
+        return AppData.shared.getCompany(id: assignedId)
     }
     
     var assignedCompanyName : String{
@@ -225,10 +228,7 @@ class DefectData : ContentData{
     }
     
     func isInFilter() -> Bool{
-        if AppState.shared.filter.companyIds.contains(assignedId){
-            return false
-        }
-        return true
+        AppState.shared.companyFilter.companyIds.contains(assignedId)
     }
     
     func getUsedImageNames() -> Array<String>{

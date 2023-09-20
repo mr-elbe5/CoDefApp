@@ -22,7 +22,7 @@ class MainViewController: ScrollViewController {
     func updateNavigationItems() {
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
             let controller = CompanyFilterViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }))
@@ -37,9 +37,9 @@ class MainViewController: ScrollViewController {
                 self.backup()
             }
             let restoreAction = UIAction(title: "restoreBackup".localize()){ action in
-                self.showAccept(title: "restoreBackup".localize(), text: "restoreHint".localize()){
+                self.showAccept(title: "restoreBackup".localize(), text: "restoreHint".localize(), onAccept: {
                     self.restore()
-                }
+                })
             }
             let zipItem = UIBarButtonItem(title: "".localize(), image: UIImage(systemName: "doc.zipper"))
             zipItem.menu = UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [backupAction, restoreAction])
@@ -77,7 +77,7 @@ class MainViewController: ScrollViewController {
         var lastView: UIView = headerLabel
         
         for project in AppData.shared.projects{
-            let sectionLine = SectionLine(name: project.displayName, action: UIAction(){ action in
+            let sectionLine = FilteredSectionLine(name: project.displayName, inFilter: project.isInFilter(), action: UIAction(){ action in
                 let controller = ProjectViewController(project: project)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -140,8 +140,8 @@ class MainViewController: ScrollViewController {
     }
     
     func backup(){
-        let fileName = "issuetracker_backup_\(Date().shortFileDate()).zip"
-        if let url = FileController.createBackupFile(name: fileName){
+        let fileName = "codeftracker_backup_\(Date().shortFileDate()).zip"
+        if let url = Backup.createBackupFile(name: fileName){
             var urls = [URL]()
             urls.append(url)
             let documentPickerController = UIDocumentPickerViewController(
@@ -192,8 +192,8 @@ extension MainViewController: UIDocumentPickerDelegate{
         guard let url = urls.first else {
             return
         }
-        if FileController.unzipBackupFile(zipFileURL: url){
-            if FileController.restoreBackup(){
+        if Backup.unzipBackupFile(zipFileURL: url){
+            if Backup.restoreBackup(){
                 showDone(title: "success".localize(), text: "restoreDone".localize()){
                     self.updateProjectSection()
                     self.updateUserSection()
@@ -217,6 +217,7 @@ class MainInfoViewController: InfoViewController {
         stackView.addSpacer()
         block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "companyFilterSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "cloud", text: "cloudSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "doc.zipper", text: "backupSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "gear", text: "settingsSymbolText".localize(), iconColor: .systemBlue))
@@ -225,10 +226,12 @@ class MainInfoViewController: InfoViewController {
         block = addBlock()
         block.addArrangedSubview(InfoHeader("mainProjectsInfoHeader".localize()))
         block.addArrangedSubview(InfoText("mainProjectsInfoText".localize()))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "filterCheckmarkSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.xmark", text: "filterXmarkSymbolText".localize(), iconColor: .lightGray))
         stackView.addSpacer()
         block = addBlock()
-        block.addArrangedSubview(InfoHeader("mainUsersInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("mainUsersInfoText".localize()))
+        block.addArrangedSubview(InfoHeader("mainCompaniesInfoHeader".localize()))
+        block.addArrangedSubview(InfoText("mainCompaniesInfoText".localize()))
     }
     
 }

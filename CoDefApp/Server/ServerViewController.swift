@@ -8,8 +8,12 @@ import UIKit
 
 class ServerViewController: ScrollViewController {
     
+    var connectionSection = SectionView()
+    
     var connectionLabel = LabeledText()
     var openLoginButton = TextButton(text: "openLogin".localize(), withBorder: false)
+    
+    var uploadSection = SectionView()
     
     var newElementsField = LabeledText()
     
@@ -24,6 +28,8 @@ class ServerViewController: ScrollViewController {
     
     var uploadProgressSlider = UISlider()
     
+    var downloadSection = SectionView()
+    
     var downloadButton = TextButton(text: "synchronizeFromServer".localize(), withBorder: true)
     
     var downloadedCompaniesField = LabeledText()
@@ -35,6 +41,8 @@ class ServerViewController: ScrollViewController {
     var downloadErrorsField = LabeledText()
     
     var downloadProgressSlider = UISlider()
+    
+    var cleanupSection = SectionView()
     
     override func loadView() {
         title = "server".localize()
@@ -53,26 +61,45 @@ class ServerViewController: ScrollViewController {
         })
         navigationItem.rightBarButtonItem = item
         
-        let syncSection = SectionView()
-        syncSection.setGrayRoundedBorders()
-        contentView.addSubviewAtTop(syncSection)
-            .bottom(contentView.bottomAnchor, inset: -defaultInset)
+        connectionSection.setGrayRoundedBorders()
+        contentView.addSubviewAtTop(connectionSection)
+        setupConnectionSection()
         
+        uploadSection.setGrayRoundedBorders()
+        contentView.addSubviewAtTop(uploadSection, topView: connectionSection)
+        setupUploadSection()
+        
+        downloadSection.setGrayRoundedBorders()
+        contentView.addSubviewAtTop(downloadSection, topView: uploadSection)
+        setupDownloadSection()
+        
+        cleanupSection.setGrayRoundedBorders()
+        contentView.addSubviewAtTop(cleanupSection, topView: downloadSection)
+            .bottom(contentView.bottomAnchor, inset: -defaultInset)
+        setupCleanupSection()
+        
+        checkLoginState()
+    }
+    
+    func setupConnectionSection(){
         let header = UILabel(header: "synchronizeServer".localize())
-        syncSection.addSubviewAtTopCentered(header)
+        connectionSection.addSubviewAtTopCentered(header)
         
         connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: "", inline: true)
-        syncSection.addSubviewAtTop(connectionLabel, topView: header, insets: Insets.horizontalInsets)
+        connectionSection.addSubviewAtTop(connectionLabel, topView: header, insets: Insets.horizontalInsets)
         
         openLoginButton.addAction(UIAction(){ action in
             let loginController = LoginViewController()
             loginController.delegate = self
             self.navigationController?.pushViewController(loginController, animated: true)
         }, for: .touchDown)
-        syncSection.addSubviewAtTop(openLoginButton, topView: connectionLabel)
-        
+        connectionSection.addSubviewAtTop(openLoginButton, topView: connectionLabel)
+            .bottom(connectionSection.bottomAnchor, inset: -Insets.defaultInset)
+    }
+    
+    func setupUploadSection(){
         newElementsField.setupView(labelText: "newElements".localizeWithColon(), text: String(AppState.shared.newItemsCount), inline: true)
-        syncSection.addSubviewAtTop(newElementsField, topView: openLoginButton, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(newElementsField, insets: Insets.horizontalInsets)
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
@@ -80,74 +107,95 @@ class ServerViewController: ScrollViewController {
             self.uploadProgressSlider.maximumValue = Float(AppState.shared.newItemsCount)
             self.upload()
         }, for: .touchDown)
-        syncSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
+        uploadSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
         uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
         var label = UILabel(header: "uploaded".localize())
-        syncSection.addSubviewAtTop(label, topView: uploadButton)
+        uploadSection.addSubviewAtTop(label, topView: uploadButton)
         
         uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.uploadedProjects), inline: true)
-        syncSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
         
         uploadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(AppState.shared.uploadedUnits), inline: true)
-        syncSection.addSubviewAtTop(uploadedUnitsField, topView: uploadedProjectsField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedUnitsField, topView: uploadedProjectsField, insets: Insets.horizontalInsets)
         
         uploadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(AppState.shared.uploadedDefects), inline: true)
-        syncSection.addSubviewAtTop(uploadedDefectsField, topView: uploadedUnitsField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedDefectsField, topView: uploadedUnitsField, insets: Insets.horizontalInsets)
         
         uploadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(AppState.shared.uploadedStatusChanges), inline: true)
-        syncSection.addSubviewAtTop(uploadedStatusChangesField, topView: uploadedDefectsField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedStatusChangesField, topView: uploadedDefectsField, insets: Insets.horizontalInsets)
         
         uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.uploadedImages), inline: true)
-        syncSection.addSubviewAtTop(uploadedImagesField, topView: uploadedStatusChangesField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedImagesField, topView: uploadedStatusChangesField, insets: Insets.horizontalInsets)
         
         uploadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.uploadErrors), inline: true)
-        syncSection.addSubviewAtTop(uploadErrorsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadErrorsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
         
         uploadProgressSlider.minimumValue = 0
         uploadProgressSlider.maximumValue = 1
         uploadProgressSlider.value = 0
-        syncSection.addSubviewAtTop(uploadProgressSlider, topView: uploadErrorsField)
-        
-        label = UILabel(header: "downloaded".localize())
-        syncSection.addSubviewAtTop(label, topView: uploadProgressSlider)
+        uploadSection.addSubviewAtTop(uploadProgressSlider, topView: uploadErrorsField)
+            .bottom(uploadSection.bottomAnchor, inset: -Insets.defaultInset)
+    }
+    
+    func setupDownloadSection(){
+        var label = UILabel(header: "downloaded".localize())
+        downloadSection.addSubviewAtTop(label)
         
         downloadButton.setTitleColor(.systemGray, for: .disabled)
         downloadButton.addAction(UIAction(){ action in
             self.downloadProgressSlider.value = 0
             self.download()
         }, for: .touchDown)
-        syncSection.addSubviewAtTopCentered(downloadButton, topView: label)
+        downloadSection.addSubviewAtTopCentered(downloadButton, topView: label)
         downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
         downloadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(AppState.shared.downloadedCompanies), inline: true)
-        syncSection.addSubviewAtTop(downloadedCompaniesField, topView: downloadButton, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedCompaniesField, topView: downloadButton, insets: Insets.horizontalInsets)
         
         downloadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.downloadedProjects), inline: true)
-        syncSection.addSubviewAtTop(downloadedProjectsField, topView: downloadedCompaniesField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedProjectsField, topView: downloadedCompaniesField, insets: Insets.horizontalInsets)
         
         downloadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(AppState.shared.downloadedUnits), inline: true)
-        syncSection.addSubviewAtTop(downloadedUnitsField, topView: downloadedProjectsField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedUnitsField, topView: downloadedProjectsField, insets: Insets.horizontalInsets)
         
         downloadedDefectsField.setupView(labelText: "defects".localizeWithColon(), text: String(AppState.shared.downloadedDefects), inline: true)
-        syncSection.addSubviewAtTop(downloadedDefectsField, topView: downloadedUnitsField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedDefectsField, topView: downloadedUnitsField, insets: Insets.horizontalInsets)
         
         downloadedStatusChangesField.setupView(labelText: "statusChanges".localizeWithColon(), text: String(AppState.shared.downloadedStatusChanges), inline: true)
-        syncSection.addSubviewAtTop(downloadedStatusChangesField, topView: downloadedDefectsField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedStatusChangesField, topView: downloadedDefectsField, insets: Insets.horizontalInsets)
         
         downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.downloadedImages), inline: true)
-        syncSection.addSubviewAtTop(downloadedImagesField, topView: downloadedStatusChangesField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadedImagesField, topView: downloadedStatusChangesField, insets: Insets.horizontalInsets)
         
         downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.downloadErrors), inline: true)
-        syncSection.addSubviewAtTop(downloadErrorsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadErrorsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
         
         downloadProgressSlider.minimumValue = 0
         downloadProgressSlider.maximumValue = 1
         downloadProgressSlider.value = 0
-        syncSection.addSubviewAtTop(downloadProgressSlider, topView: downloadErrorsField)
-            .bottom(syncSection.bottomAnchor, inset: -defaultInset)
+        downloadSection.addSubviewAtTop(downloadProgressSlider, topView: downloadErrorsField)
+            .bottom(downloadSection.bottomAnchor, inset: -defaultInset)
+    }
+    
+    func setupCleanupSection(){
+        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize())
+        cleanupSection.addSubviewAtTopCentered(label)
         
-        checkLoginState()
+        let deleteButton = TextButton(text: "deleteData".localize(), withBorder: true)
+        deleteButton.addAction(UIAction(){ action in
+            self.deleteData()
+        }, for: .touchDown)
+        cleanupSection.addSubviewAtTopCentered(deleteButton, topView: label)
+        label  = UILabel(header: "images".localize())
+        cleanupSection.addSubviewAtTopCentered(label, topView: deleteButton)
+        
+        let cleanupButton = TextButton(text: "cleanup".localize(), withBorder: true)
+        cleanupButton.addAction(UIAction(){ action in
+            self.cleanup()
+        }, for: .touchDown)
+        cleanupSection.addSubviewAtTopCentered(cleanupButton, topView: label)
+            .bottom(cleanupSection.bottomAnchor, inset: -defaultInset)
     }
     
     func upload(){
@@ -177,6 +225,23 @@ class ServerViewController: ScrollViewController {
         connectionLabel.text = AppState.shared.currentUser.isLoggedIn ? "connected".localize() + ": " + AppState.shared.currentUser.name : "disconnected".localize()
         uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         downloadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
+    }
+    
+    func deleteData(){
+        showApprove(text: "deleteDataHint".localize(), onApprove:{
+            AppData.shared.deleteAllData()
+            self.showDone(title: "success".localize(), text: "dataDeleted".localize())
+            if let mainController = self.navigationController?.previousViewController as? MainViewController{
+                mainController.updateProjectSection()
+                mainController.updateUserSection()
+            }
+        })
+    }
+    
+    func cleanup(){
+        let usedImageNames = AppData.shared.usedImageNames
+        let count = FileController.cleanupFiles(usedNames: usedImageNames)
+        showDone(title: "result".localize(), text: "filesDeleted".localizeWithColon() + " " + String(count))
     }
     
 }

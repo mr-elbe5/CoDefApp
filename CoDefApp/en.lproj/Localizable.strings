@@ -57,6 +57,9 @@
 "symbolHeader"="Symbols";
 "menuSymbolHeader"="Menu Symbols";
 "infoSymbolText"="Show informations about the current view.";
+"companyFilterSymbolText"="Filter items by assigned company.";
+"filterCheckmarkSymbolText"="The element containes filtered subelements";
+"filterXmarkSymbolText"="The element containes no filtered subelements";
 
 /*Main*/
 "overview"="Overview";
@@ -64,11 +67,11 @@
 "mainInfoHeader"="About this App";
 "mainInfoGeneral"="This app has been created for tracking defects like e.g. construction defects or maintenance tasks.
     The server software is available as open source at Github under the name 'Bandika Issue Tracker'.
-    The app can be connected to a dedicated cloud server. Yet this is only needed if you want to store your data at a central
-    location. You can get support for creating and running a dedicated cloud server at www.elbe5.de.";
-"cloudSymbolText"="Open cloud synchronization (only if cloud has been connected).";
+    The app can be connected to a dedicated server. Yet this is only needed if you want to store your data at a central
+    location. You can get support for creating and running a dedicated server at www.elbe5.de.";
+"cloudSymbolText"="Open server synchronization (not for standalone operation).";
 "backupSymbolText"="Backup all data as a zip file or restore (and replace) all data from a backup zip file.";
-"settingsSymbolText"="Open settings like cloud connection and others.";
+"settingsSymbolText"="Open settings like standalone or server usage and others.";
 "mainInfoStructureHeader"="Structure";
 "mainInfoStructureText"="The structure includes projects, units and defects.
 Additionally it includes a pool of companies for assigning them to one or more projects and to their defects.
@@ -93,9 +96,8 @@ All of them make a pool of companies, which can each be attached to a project.";
 "selectCompanies"="Select Companies";
 "projectReport"="Project Report";
 
-"projectFilterSymbolText"="Filter project items.";
-"projectReportInfoText"="Create a report of the project (PDF)";
-"projectEditSymbolText"="Change data of a project.";
+"projectReportSymbolText"="Create a report of the project (PDF)";
+"projectEditSymbolText"="Change data of a project (standalone only).";
 "projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
 "projectEditInfoHeader"="Edit a project";
 "projectEditInfoText"="The name is mandatory.
@@ -108,12 +110,12 @@ Units can have a (ground) plan, where defects can be marked on.";
 "projectXmarkSealSymbolText"="This marks a unit when it has no filtered items. You cannot select it.";
 
 /*Filter*/
-"companyFilter"="Company filter for viewing defects";
-"onlyForCompanies"="With the following companies only";
+"companyFilter"="Company filter";
+"companyFilterText"="With the following companies";
 
 "companyFilterInfoHeader"="Company Filter";
 "companyFilterInfoText"="The filter restricts views of projects, units and defects and their reports.
-With the following companies only: Only defects where the checked companies are assigned to";
+With the following companies: Only defects which one of the selected companies is assigned to";
 
 /*Units*/
 "units"="Units";
@@ -125,8 +127,8 @@ Do want to proceed?";
 "unitReport"="Unit Report";
 "unitContext"="Project: %@";
 
-"unitEditSymbolText"="Change data of a unit.";
-"unitReportInfoText"="Create a report of the unit (PDF)";
+"unitEditSymbolText"="Change data of a unit (standalone only).";
+"unitReportSymbolText"="Create a report of the unit (PDF)";
 "unitDeleteSymbolText"="Delete a unit. This will also delete all subelements.";
 "unitPlanInfoHeader"="Unit plan";
 "unitPlanInfoText"="If a unit has a plan, the positions of the defects of that unit are marked with red arrows. Selecting an arrow opens the respective defect.";
@@ -166,11 +168,11 @@ Do want to proceed?";
 "defectReport"="Defect Report";
 "defectContext"="Project: %@, Unit: %@";
 
-"defectEditSymbolText"="Change data of an defect.";
+"defectEditSymbolText"="Change data of this defect (standalone only).";
 "defectReportSymbolText"="Create a report of this defect (PDF)";
 "defectDeleteSymbolText"="Delete a defect. This will also delete all images and status changes.";
-"statusChangesInfoHeader"="Status Changes";
-"statusChangesInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
+"statusChangeInfoHeader"="Status Changes";
+"statusChangeInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
 
 "defectEditInfoHeader"="Document or change a defect";
 "defectEditInfoText"="The name is mandatory. It should be a short description.";
@@ -241,8 +243,11 @@ All other data are for addressing or information.";
 /*Settings*/
 "settings"="Settings";
 "appMode"="App mode";
-"appModeText"="This app can be used standalone or with a cloud connection. During a server connection all editing rights will be changed according to the login. Changing the mode will clear all current data!";
+"appModeText"="This app can be used standalone or with a cloud connection. During a server connection elements existing on the server can only be extended. Deletions take place only locally. Changing the mode will clear all local data!";
 "useServer"="With Server Connection";
+"settingsText"="This app can show some fields in different ways.";
+"useDateTime"="Show time in date texts";
+"useNotified"="Show a notitification flag for defects";
 "deleteData"="Delete all Data";
 "deleteDataHint"="All current data will be deleted from the app.";
 "dataDeleted"="Data has been deleted";

@@ -93,14 +93,14 @@ class SettingsViewController: ScrollViewController {
     }
     
     func deleteData(){
-        showApprove(text: "deleteDataHint".localize()){
+        showApprove(text: "deleteDataHint".localize(), onApprove: {
             AppData.shared.deleteAllData()
             self.showDone(title: "success".localize(), text: "dataDeleted".localize())
             if let mainController = self.navigationController?.previousViewController as? MainViewController{
                 mainController.updateProjectSection()
                 mainController.updateUserSection()
             }
-        }
+        })
     }
     
     func cleanup(){
@@ -115,9 +115,13 @@ extension SettingsViewController: CheckboxDelegate{
     
     func checkboxIsSelected(index: Int, value: String) {
         if index == -1{
-            AppState.shared.standalone = !useServerSwitch.isOn
-            AppState.shared.save()
-            delegate?.standaloneChanged()
+            showApprove(text: "deleteDataHint".localize(), onApprove: {
+                AppState.shared.standalone = !self.useServerSwitch.isOn
+                AppState.shared.save()
+                self.delegate?.standaloneChanged()
+            }, onDecline: {
+                self.useServerSwitch.isOn = !AppState.shared.standalone
+            })
         }
         else if index == -2{
             AppState.shared.useDateTime = usedateTimeSwitch.isOn

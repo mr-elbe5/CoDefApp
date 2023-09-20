@@ -26,7 +26,7 @@ class UnitData : ContentData{
     }
     
     var filteredDefects: Array<DefectData>{
-        if !AppState.shared.filter.active{
+        if !AppState.shared.companyFilter.active{
             return defects
         }
         var list = Array<DefectData>()
@@ -123,7 +123,7 @@ class UnitData : ContentData{
     
     func isInFilter() -> Bool{
         if defects.isEmpty{
-            return true
+            return false
         }
         for defect in defects {
             if defect.isInFilter(){

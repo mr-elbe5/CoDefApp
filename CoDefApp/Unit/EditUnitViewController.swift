@@ -124,13 +124,13 @@ class EditUnitViewController: EditViewController {
     
     private func updatePlanImage(image: ImageData){
         if unit.plan != nil{
-            self.showDestructiveApprove(text: "planReplaceInfo".localize()){
+            self.showDestructiveApprove(text: "planReplaceInfo".localize(),onApprove: {
                 for issue in self.unit.defects{
                     issue.position = .zero
                     issue.planImage = nil
                 }
                 self.setPlanImage(image: image)
-            }
+            })
         }
         else{
             setPlanImage(image: image)

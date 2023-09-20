@@ -30,7 +30,7 @@ class UnitViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
             let controller = CompanyFilterViewController()
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
@@ -48,13 +48,13 @@ class UnitViewController: ScrollViewController {
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             if let project = self.unit.project{
-                self.showDestructiveApprove(text: "deleteInfo".localize()){
+                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
                     project.removeUnit(self.unit)
                     project.changed()
                     project.saveData()
                     self.navigationController?.popViewController(animated: true)
                     self.delegate?.unitChanged()
-                }
+                })
             }
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
@@ -179,6 +179,7 @@ class UnitInfoViewController: InfoViewController {
     override func setupInfos(){
         var block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "companyFilterSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "pencil", text: "unitEditSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "unitReportSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "trash", text: "unitDeleteSymbolText".localize(), iconColor: .systemRed))
@@ -191,9 +192,6 @@ class UnitInfoViewController: InfoViewController {
         block = addBlock()
         block.addArrangedSubview(InfoHeader("unitDefectsHeader".localize()))
         block.addArrangedSubview(InfoText("unitDefectsInfoText".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "seal", text: "unitSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "unitCheckmarkSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "xmark.seal", text: "unitXmarkSealSymbolText".localize(), iconColor: .systemBlue))
     }
     
 }

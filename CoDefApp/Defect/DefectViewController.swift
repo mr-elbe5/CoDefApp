@@ -44,13 +44,13 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             if let unit = self.defect.unit{
-                self.showDestructiveApprove(text: "deleteInfo".localize()){
+                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
                     unit.removeDefect(self.defect)
                     unit.changed()
                     unit.saveData()
                     self.delegate?.defectChanged()
                     self.navigationController?.popViewController(animated: true)
-                }
+                })
             }
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))

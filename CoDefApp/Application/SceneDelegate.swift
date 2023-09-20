@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //FileController.logFileInfo()
         AppState.load()
         AppData.load()
-        AppState.shared.filter.initFilter()
+        AppState.shared.companyFilter.initFilter()
         guard let windowScene = (scene as? UIWindowScene) else { return }
         mainWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window = mainWindow

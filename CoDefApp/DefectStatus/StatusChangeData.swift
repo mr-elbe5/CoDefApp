@@ -32,7 +32,7 @@ class StatusChangeData : ContentData{
     }
     
     var assignedCompany: CompanyData?{
-        return projectCompanies.getCompanyData(id: assignedId)
+        return AppData.shared.getCompany(id: assignedId)
     }
     
     var assignedCompanyName : String{

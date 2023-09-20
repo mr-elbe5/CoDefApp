@@ -61,6 +61,9 @@ Wollen Sie fortfahren?";
 "symbolHeader"="Symbole";
 "menuSymbolHeader"="Menüsymbole";
 "infoSymbolText"="Informationen zu der aktuellen Ansicht anzeigen.";
+"companyFilterSymbolText"="Elemente nach zugeordneten Firmen filtern.";
+"filterCheckmarkSymbolText"="Element enthält gefilterte Unterelemente.";
+"filterXmarkSymbolText"="Element enthält keine gefilterten Unterelemente.";
 
 /*Main*/
 "overview"="Übersicht";
@@ -68,11 +71,11 @@ Wollen Sie fortfahren?";
 "mainInfoHeader"="Über diese App";
 "mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Baumängeln oder Hausmeisteraufgaben konzipiert.
 Die Software steht als Open Source bei Github unter dem Namen 'CoDefApp' zur Verfügung.
-Die App kann mit einem zugehörigen Cloudserver verbunden werden. Notwendig ist das allerdings nur, wenn Sie Ihre Daten zentral speichern wollen.
-Unterstützung für die Einrichtung und Nutzung eines zugehörigen Cloud-Servers können Sie bei www.elbe5.de erhalten.";
-"cloudSymbolText"="Einstellungen für eine Cloud-Verbindung und Synchronisation öffnen (nur bei erfolgter Cloud-Verbindung).";
+Die App kann mit einem zugehörigen Server verbunden werden. Notwendig ist das allerdings nur, wenn Sie Ihre Daten zentral speichern wollen.
+Unterstützung für die Einrichtung und Nutzung eines zugehörigen Servers können Sie bei www.elbe5.de erhalten.";
+"cloudSymbolText"="Einstellungen für eine Server-Verbindung und Synchronisation öffnen (nur bei Server-Nutzung).";
 "backupSymbolText"="Alle Daten als Zip-Datei sichern oder alle Daten von einer Sicherungs-Zip-Datei wiederherstellen (ersetzen).";
-"settingsSymbolText"="Einstellungen wie die Cloud-Verbindung und andere öffnen.";
+"settingsSymbolText"="Einstellungen wie die Server-Nutzung und andere öffnen.";
 "mainInfoStructureHeader"="Struktur";
 "mainInfoStructureText"="Die Struktur umfasst Projekte, Einheiten und Mängel.
 Weiterhin existiert ein Pool von Firmen, die einem oder mehreren Projekten und dort einem Mangel zugeordnet werden können.
@@ -98,9 +101,9 @@ Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet we
 "selectCompanies"="Firmen zuordnen";
 "projectReport"="Projektbericht";
 
-"projectFilterSymbolText"="Projektelemente filtern.";
-"projectReportInfoText"="Einen Report des Projekts erstellen (PDF).";
-"projectEditSymbolText"="Die Daten eines Projekts ändern.";
+"companyFilterSymbolText"="Elemente nach zugeordneten Firmen filtern.";
+"projectReportSymbolText"="Einen Report des Projekts erstellen (PDF).";
+"projectEditSymbolText"="Die Daten eines Projekts ändern (nur ohne Serveranbindung).";
 "projectDeleteSymbolText"="Ein Projekt löschen. Dies ist löscht auch sämtliche Unterelemente.";
 "projectEditInfoHeader"="Ein Projekt erstellen oder ändern";
 "projectEditInfoText"="Der Name ist ein Pflichtfeld.
@@ -112,12 +115,12 @@ Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werde
 "projectXmarkSealSymbolText"="Dies markiert eine Einheit, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
 
 /*Filter*/
-"companyFilter"="Firmenfilter für die Anzeige von Mängeln";
-"onlyForCompanies"="Nur mit den folgenden Firmen";
+"companyFilter"="Firmenfilter";
+"companyFilterText"="Nur mit den folgenden Firmen";
 
 "companyFilterInfoHeader"="Firmenfilter";
-"companyFilterInfoText"=" Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
-Nur mit den folgenden Firmen: Nur Mängel, die den markierten Firmen zugeordnet sind";
+"companyFilterInfoText"="Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
+Nur mit den folgenden Firmen: Nur Mängel, die einer der markierten Firmen zugeordnet sind";
 
 /*Units*/
 "units"="Projekteinheiten";
@@ -129,8 +132,8 @@ Wollen Sie fortfahren?";
 "unitReport"="Bericht für die Einheit";
 "unitContext"="Projekt: %@";
 
-"unitEditSymbolText"="Die Daten einer Einheit ändern.";
-"unitReportInfoText"="Einen Report der Einheit erstellen (PDF).";
+"unitEditSymbolText"="Die Daten einer Einheit ändern (nur ohne Serveranbindung).";
+"unitReportSymbolText"="Einen Report der Einheit erstellen (PDF).";
 "unitDeleteSymbolText"="Eine Einheit löschen. Dies ist löscht auch sämtliche Unterelemente.";
 "unitPlanInfoHeader"="Grundriss";
 "unitPlanInfoText"="Wenn eine Einheit einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
@@ -172,8 +175,8 @@ Wollen Sie fortfahren?";
 "defectEditSymbolText"="Die Daten eines Mangels ändern.";
 "defectReportSymbolText"="Einen Report des Mangels erstellen (PDF).";
 "defectDeleteSymbolText"="Einen Mangel löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen.";
-"defectFeedbacksInfoHeader"="Statusänderungen";
-"defectFeedbacksInfoText"="Statusänderungen sind Folgeeinträge für einen Mangel, wenn jemand einen Fortschritt erzielt hat oder sich der Status anderweitig geändert hat. Sie enthalten einen Kommentar, einen neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
+"statusChangeInfoHeader"="Statusänderungen";
+"statusChangeInfoText"="Statusänderungen sind Folgeeinträge für einen Mangel, wenn jemand einen Fortschritt erzielt hat oder sich der Status anderweitig geändert hat. Sie enthalten einen Kommentar, einen neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
 
 "defectEditInfoHeader"="Einen Mangel dokumentieren oder ändern";
 "defectEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
@@ -244,8 +247,11 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 /*Settings*/
 "settings"="Einstellungen";
 "appMode"="App-Modus";
-"appModeText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung werden die Bearbeitungsrechte an die Rechte durch die Anmeldung angepasst. Ein Wechsel löscht alle lokalen Daten!";
+"appModeText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung können auf dem Server existierende Elemente nur erweitert werden. Löschungen werden nur lokal durchgeführt. Ein Wechsel zwischen den Modi löscht alle lokalen Daten!";
 "useServer"="Mit Serververbindung";
+"settingsText"="Diese App kann einige Felder in unterschiedlicher Weise darstellen.";
+"useDateTime"="Datum mit Zeitangabe anzeigen";
+"useNotified"="Benachrichtigungsschalter anzeigen";
 "deleteData"="Alle Daten löschen";
 "deleteDataHint"="Alle lokalen Daten werden gelöscht!";
 "dataDeleted"="Die Daten wurden gelöscht.";

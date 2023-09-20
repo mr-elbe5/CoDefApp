@@ -30,7 +30,7 @@ class ProjectViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.fill.viewfinder"), primaryAction: UIAction(){ action in
+        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
             let controller = CompanyFilterViewController()
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
@@ -47,12 +47,12 @@ class ProjectViewController: ScrollViewController {
             }))
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-            self.showDestructiveApprove(text: "deleteInfo".localize()){
+            self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
                 AppData.shared.removeProject(self.project)
                 AppData.shared.save()
                 self.delegate?.projectChanged()
                 self.navigationController?.popViewController(animated: true)
-            }
+            })
         }))
         groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         items = Array<UIBarButtonItem>()
@@ -96,7 +96,7 @@ class ProjectViewController: ScrollViewController {
         unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         for unit in project.filteredUnits{
-            let sectionLine = SectionLine(name: unit.displayName, action: UIAction(){ action in
+            let sectionLine = FilteredSectionLine(name: unit.displayName, inFilter: unit.isInFilter(),action: UIAction(){ action in
                 let controller = UnitViewController(unit: unit)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -153,7 +153,7 @@ class ProjectInfoViewController: InfoViewController {
     override func setupInfos(){
         var block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "projectFilterSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "companyFilterSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "doc.text", text: "projectReportSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "pencil", text: "projectEditSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "trash", text: "projectDeleteSymbolText".localize(), iconColor: .systemRed))
@@ -162,9 +162,8 @@ class ProjectInfoViewController: InfoViewController {
         block = addBlock()
         block.addArrangedSubview(InfoHeader("projectUnitsInfoHeader".localize()))
         block.addArrangedSubview(InfoText("projectUnitsInfoText".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "seal", text: "projectSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "checkmark.seal", text: "projectCheckmarkSealSymbolText".localize(), iconColor: .systemBlue))
-        block.addArrangedSubview(IconInfoText(icon: "xmark.seal", text: "projectXmarkSealSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "filterCheckmarkSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.xmark", text: "filterXmarkSymbolText".localize(), iconColor: .lightGray))
     }
     
 }

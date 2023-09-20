@@ -32,23 +32,23 @@ class CompanyFilterViewController: EditViewController {
     }
     
     override func setupContentView() {
-        labeledCheckboxGroup.setupView(labelText: "onlyForCompanies".localizeWithColon())
+        labeledCheckboxGroup.setupView(labelText: "companyFilterText".localizeWithColon())
         contentView.addSubviewAtTop(labeledCheckboxGroup, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
         
         for company in AppData.shared.companies{
             let checkbox = Checkbox()
-            checkbox.setup(title: company.name, data: company, isOn: AppState.shared.filter.companyIds.contains(company.id))
+            checkbox.setup(title: company.name, data: company, isOn: AppState.shared.companyFilter.companyIds.contains(company.id))
             labeledCheckboxGroup.addCheckbox(cb: checkbox)
         }
         
     }
     
     override func save() -> Bool{
-        AppState.shared.filter.companyIds.removeAll()
+        AppState.shared.companyFilter.companyIds.removeAll()
         for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
             if let company = checkbox.data as? CompanyData, checkbox.isOn{
-                AppState.shared.filter.companyIds.append(company.id)
+                AppState.shared.companyFilter.companyIds.append(company.id)
             }
         }
         AppState.shared.save()

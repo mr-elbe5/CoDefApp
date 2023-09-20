@@ -20,30 +20,36 @@ extension UIViewController{
         self.present(alertController, animated: true)
     }
     
-    func showDestructiveApprove(title: String = "pleaseApprove".localize(), text: String, onApprove: (() -> Void)? = nil){
+    func showDestructiveApprove(title: String = "pleaseApprove".localize(), text: String, onApprove: (() -> Void)? = nil, onDecline: (() -> Void)? = nil){
         let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "yes".localize(), style: .destructive) { action in
             onApprove?()
         })
-        alertController.addAction(UIAlertAction(title: "no".localize(), style: .cancel))
+        alertController.addAction(UIAlertAction(title: "no".localize(), style: .cancel){ action in
+            onDecline?()
+        })
         self.present(alertController, animated: true)
     }
     
-    func showApprove(title: String = "pleaseApprove".localize(), text: String, onApprove: (() -> Void)? = nil){
+    func showApprove(title: String = "pleaseApprove".localize(), text: String, onApprove: (() -> Void)? = nil, onDecline: (() -> Void)? = nil){
         let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "yes".localize(), style: .default) { action in
             onApprove?()
         })
-        alertController.addAction(UIAlertAction(title: "no".localize(), style: .cancel))
+        alertController.addAction(UIAlertAction(title: "no".localize(), style: .cancel){ action in
+            onDecline?()
+        })
         self.present(alertController, animated: true)
     }
     
-    func showAccept(title: String, text: String, onAccept: (() -> Void)? = nil){
+    func showAccept(title: String, text: String, onAccept: (() -> Void)? = nil, onDecline: (() -> Void)? = nil){
         let alertController = UIAlertController(title: title, message: text, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "ok".localize(), style: .default) { action in
             onAccept?()
         })
-        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel))
+        alertController.addAction(UIAlertAction(title: "cancel".localize(), style: .cancel){ action in
+            onDecline?()
+        })
         self.present(alertController, animated: true)
     }
     

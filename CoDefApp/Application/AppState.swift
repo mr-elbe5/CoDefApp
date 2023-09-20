@@ -38,7 +38,7 @@ class AppState : Codable{
         case useDateTime
         case useNotified
         case serverURL
-        case filter
+        case companyFilter
     }
     
     var lastId = Statics.minNewId
@@ -47,7 +47,7 @@ class AppState : Codable{
     var useDateTime = true
     var useNotified = true
     var serverURL = ""
-    var filter = CompanyFilter()
+    var companyFilter = CompanyFilter()
     
     // sync
     
@@ -92,7 +92,7 @@ class AppState : Codable{
         useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
         useNotified = try values.decodeIfPresent(Bool.self, forKey: .useNotified) ?? true
         serverURL = try values.decodeIfPresent(String.self, forKey: .serverURL) ?? ""
-        filter = try values.decodeIfPresent(CompanyFilter.self, forKey: .filter) ?? CompanyFilter()
+        companyFilter = try values.decodeIfPresent(CompanyFilter.self, forKey: .companyFilter) ?? CompanyFilter()
     }
 
     func encode(to encoder: Encoder) throws {
@@ -103,7 +103,7 @@ class AppState : Codable{
         try container.encode(useDateTime, forKey: .useDateTime)
         try container.encode(useNotified, forKey: .useNotified)
         try container.encode(serverURL, forKey: .serverURL)
-        try container.encode(filter, forKey: .filter)
+        try container.encode(companyFilter, forKey: .companyFilter)
     }
     
     // sync

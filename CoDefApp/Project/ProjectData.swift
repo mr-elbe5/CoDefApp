@@ -20,7 +20,7 @@ class ProjectData : ContentData{
     var companies = CompanyList()
     
     var filteredUnits: Array<UnitData>{
-        if !AppState.shared.filter.active{
+        if !AppState.shared.companyFilter.active{
             return units
         }
         var list = Array<UnitData>()
@@ -96,7 +96,7 @@ class ProjectData : ContentData{
         if canRemoveCompany(companyId: companyId){
             companyIds.remove(obj: companyId)
             updateCompanies()
-            AppState.shared.filter.updateCompanyIds(allCompanyIds: companyIds)
+            AppState.shared.companyFilter.updateCompanyIds(allCompanyIds: companyIds)
             saveData()
             AppState.shared.save()
             return true
@@ -127,6 +127,18 @@ class ProjectData : ContentData{
             names.append(contentsOf: unit.getUsedImageNames())
         }
         return names
+    }
+    
+    func isInFilter() -> Bool{
+        if units.isEmpty{
+            return false
+        }
+        for unit in units {
+            if unit.isInFilter(){
+                return true
+            }
+        }
+        return false
     }
     
     // sync

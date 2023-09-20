@@ -29,9 +29,9 @@ class PDFViewController: BaseViewController {
         
         let saveButton = TextButton(text: "save".localize())
         saveButton.addAction(UIAction(){ action in
-            self.showAccept(title: "saveReport".localize(),text: "selectReportFile".localize()){
+            self.showAccept(title: "saveReport".localize(),text: "selectReportFile".localize(), onAccept: {
                 self.save(data: data)
-            }
+            })
         }, for: .touchDown)
         view.addSubviewAtTopCentered(saveButton, topView: pdfView, insets: defaultInsets)
         

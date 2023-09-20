@@ -34,7 +34,7 @@ class CompanyViewController: ScrollViewController {
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
-                self.showDestructiveApprove(text: "deleteInfo".localize()){
+                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
                     if AppData.shared.removeCompany(self.company){
                         AppData.shared.save()
                         self.delegate?.companyChanged()
@@ -43,7 +43,7 @@ class CompanyViewController: ScrollViewController {
                     else{
                         self.showError("deleteUserError")
                     }
-                }
+                })
             }))
             groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
         }
