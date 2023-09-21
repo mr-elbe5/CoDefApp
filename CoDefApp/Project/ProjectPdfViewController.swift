@@ -56,7 +56,7 @@ extension PDFRenderer {
             addLine(label: "description".localize(), text: project.description)
         }
         addSpacer()
-        for unit in project.filteredUnits{
+        for unit in project.units{
             addLine()
             addLine(text: "unit".localize(), type: .header2)
             addLine(label: "context".localize(), text: "unitContext".localize(param: project.displayName))

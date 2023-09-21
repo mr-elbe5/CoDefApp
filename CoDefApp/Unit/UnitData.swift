@@ -46,7 +46,8 @@ class UnitData : ContentData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        approveDate = try values.decodeIfPresent(Date.self, forKey: .approveDate)
+        let date = try values.decodeIfPresent(String.self, forKey: .approveDate)
+        approveDate = date?.ISO8601Date()
         plan = try values.decodeIfPresent(ImageData.self, forKey: .plan)
         defects = try values.decodeIfPresent(Array<DefectData>.self, forKey: .defects) ?? Array<DefectData>()
         for defect in defects{

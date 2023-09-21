@@ -95,7 +95,7 @@ class ProjectViewController: ScrollViewController {
         let headerLabel = UILabel(header: "units".localizeWithColon())
         unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
-        for unit in project.filteredUnits{
+        for unit in project.units{
             let sectionLine = FilteredSectionLine(name: unit.displayName, inFilter: unit.isInFilter(),action: UIAction(){ action in
                 let controller = UnitViewController(unit: unit)
                 controller.delegate = self

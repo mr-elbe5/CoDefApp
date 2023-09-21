@@ -19,19 +19,6 @@ class ProjectData : ContentData{
     //runtime
     var companies = CompanyList()
     
-    var filteredUnits: Array<UnitData>{
-        if !AppState.shared.companyFilter.active{
-            return units
-        }
-        var list = Array<UnitData>()
-        for unit in units {
-            if  !unit.filteredDefects.isEmpty{
-                list.append(unit)
-            }
-        }
-        return list
-    }
-    
     var companiesText: String{
         var s = "";
         for company in companies{
