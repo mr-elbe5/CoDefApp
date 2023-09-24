@@ -10,7 +10,7 @@ import UniformTypeIdentifiers
 class MainViewController: ScrollViewController {
     
     var projectSection = UIView()
-    var userSection = UIView()
+    var companySection = UIView()
     
     override func loadView() {
         title = "overview".localize()
@@ -64,10 +64,10 @@ class MainViewController: ScrollViewController {
     override func setupContentView(){
         contentView.addSubviewAtTop(projectSection)
         setupProjectSection()
-        contentView.addSubviewAtTop(userSection, topView: projectSection)
+        contentView.addSubviewAtTop(companySection, topView: projectSection)
             .bottom(contentView.bottomAnchor)
         if AppState.shared.currentUser.hasSystemRight{
-            setupUserSection()
+            setupCompanySection()
         }
     }
     
@@ -98,33 +98,52 @@ class MainViewController: ScrollViewController {
         setupProjectSection()
     }
     
-    func setupUserSection(){
+    func setupCompanySection(){
         let headerLabel = UILabel(header: "companies".localizeWithColon())
-        userSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        companySection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         
         for company in AppData.shared.companies{
-            let sectionLine = SectionLine(name: company.name, action: UIAction(){ action in
-                let controller = CompanyViewController(company: company)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
-            userSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: userSection.leadingAnchor, trailing: userSection.trailingAnchor, insets: verticalInsets)
+            let sectionLine = getCompanySectionLine(company: company)
+            companySection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: companySection.leadingAnchor, trailing: companySection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
         if AppState.shared.standalone{
-            let addUserButton = TextButton(text: "newCompany".localize(), withBorder: true)
-            addUserButton.addAction(UIAction(){ action in
-                self.openAddUser()
+            let addCompanyButton = TextButton(text: "newCompany".localize(), withBorder: true)
+            addCompanyButton.addAction(UIAction(){ action in
+                self.openAddCompany()
             }, for: .touchDown)
-            userSection.addSubviewAtTopCentered(addUserButton, topView: lastView, insets: doubleInsets)
+            companySection.addSubviewAtTopCentered(addCompanyButton, topView: lastView, insets: doubleInsets)
+            lastView = addCompanyButton
         }
-        lastView.bottom(userSection.bottomAnchor, inset: -2*defaultInset)
+        lastView.bottom(companySection.bottomAnchor, inset: -2*defaultInset)
     }
     
-    func updateUserSection(){
-        userSection.removeAllSubviews()
-        setupUserSection()
+    func getCompanySectionLine(company: CompanyData) -> UIView{
+        let line = UIView()
+        line.setGrayRoundedBorders(radius: 10)
+        line.setBackground(.systemBackground)
+        let label = UILabel(text: company.name)
+        label.textColor = .systemBlue
+        line.addSubviewAtLeft(label)
+        let selectButton = IconButton(icon: "person.crop.circle.badge.checkmark", tintColor: .systemBlue)
+        selectButton.addAction(UIAction(){ action in
+            
+        }, for: .touchDown)
+        line.addSubviewWithAnchors(selectButton, leading: label.trailingAnchor, insets: wideInsets).centerY(line.centerYAnchor)
+        let linkButton = IconButton(icon: "chevron.right", tintColor: .systemBlue)
+        linkButton.addAction(UIAction(){ action in
+            let controller = CompanyViewController(company: company)
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }, for: .touchDown)
+        line.addSubviewWithAnchors(linkButton, trailing: line.trailingAnchor, insets: wideInsets).centerY(line.centerYAnchor)
+        return line
+    }
+    
+    func updateCompanySection(){
+        companySection.removeAllSubviews()
+        setupCompanySection()
     }
     
     func openAddProject(){
@@ -133,7 +152,7 @@ class MainViewController: ScrollViewController {
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-    func openAddUser(){
+    func openAddCompany(){
         let controller = EditCompanyViewController(company: CompanyData())
         controller.delegate = self
         self.navigationController?.pushViewController(controller, animated: true)
@@ -165,6 +184,7 @@ extension MainViewController: SettingsDelegate{
     
     func standaloneChanged() {
         updateNavigationItems()
+        updateCompanySection()
     }
     
     
@@ -181,7 +201,7 @@ extension MainViewController: ProjectDelegate{
 extension MainViewController: CompanyDelegate{
     
     func companyChanged() {
-        updateUserSection()
+        updateCompanySection()
     }
     
 }
@@ -196,7 +216,7 @@ extension MainViewController: UIDocumentPickerDelegate{
             if Backup.restoreBackup(){
                 showDone(title: "success".localize(), text: "restoreDone".localize()){
                     self.updateProjectSection()
-                    self.updateUserSection()
+                    self.updateCompanySection()
                     return
                 }
             }

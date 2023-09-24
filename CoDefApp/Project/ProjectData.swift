@@ -165,7 +165,7 @@ class ProjectData : ContentData{
     func uploadToServer() async{
         if !isOnServer{
             do{
-                let requestUrl = "\(AppState.shared.serverURL)/api/project/createProject/\(id)"
+                let requestUrl = "\(AppState.shared.serverURL)/api/project/uploadProject/\(id)"
                 if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                     print("project \(id) uploaded with new id \(response.id)")
                     await AppState.shared.projectUploaded()

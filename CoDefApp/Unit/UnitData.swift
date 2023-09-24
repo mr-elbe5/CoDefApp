@@ -174,7 +174,7 @@ class UnitData : ContentData{
     func uploadToServer() async{
         if !isOnServer{
             do{
-                let requestUrl = "\(AppState.shared.serverURL)/api/unit/createUnit/\(id)?projectId=\(project.id)"
+                let requestUrl = "\(AppState.shared.serverURL)/api/unit/uploadUnit/\(id)?projectId=\(project.id)"
                 if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                     print("unit \(id) uploaded with new id \(response.id)")
                     await AppState.shared.unitUploaded()

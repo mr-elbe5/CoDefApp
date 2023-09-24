@@ -36,7 +36,7 @@
 		4EA3972E2A85502C006053A0 /* EditDefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397232A85502C006053A0 /* EditDefectViewController.swift */; };
 		4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397242A85502C006053A0 /* DefectStatus.swift */; };
 		4EA397302A85502C006053A0 /* DefectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397252A85502C006053A0 /* DefectData.swift */; };
-		4EA397312A85502C006053A0 /* StatusChangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* StatusChangeData.swift */; };
+		4EA397312A85502C006053A0 /* DefectStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397262A85502C006053A0 /* DefectStatusData.swift */; };
 		4EA397322A85502C006053A0 /* DefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397272A85502C006053A0 /* DefectViewController.swift */; };
 		4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */; };
 		4EA397342A85502C006053A0 /* CreateStatusChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */; };
@@ -165,7 +165,7 @@
 		4EA397232A85502C006053A0 /* EditDefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectViewController.swift; sourceTree = "<group>"; };
 		4EA397242A85502C006053A0 /* DefectStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectStatus.swift; sourceTree = "<group>"; };
 		4EA397252A85502C006053A0 /* DefectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectData.swift; sourceTree = "<group>"; };
-		4EA397262A85502C006053A0 /* StatusChangeData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusChangeData.swift; sourceTree = "<group>"; };
+		4EA397262A85502C006053A0 /* DefectStatusData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectStatusData.swift; sourceTree = "<group>"; };
 		4EA397272A85502C006053A0 /* DefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectViewController.swift; sourceTree = "<group>"; };
 		4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDefectPositionViewController.swift; sourceTree = "<group>"; };
 		4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateStatusChangeViewController.swift; sourceTree = "<group>"; };
@@ -499,7 +499,7 @@
 			children = (
 				4EA397242A85502C006053A0 /* DefectStatus.swift */,
 				4EA397292A85502C006053A0 /* CreateStatusChangeViewController.swift */,
-				4EA397262A85502C006053A0 /* StatusChangeData.swift */,
+				4EA397262A85502C006053A0 /* DefectStatusData.swift */,
 			);
 			path = DefectStatus;
 			sourceTree = "<group>";
@@ -645,7 +645,7 @@
 				4EA397E02A8550AD006053A0 /* BaseData.swift in Sources */,
 				4EA397952A855072006053A0 /* UILabel.swift in Sources */,
 				4EA397942A855072006053A0 /* TextareaInput.swift in Sources */,
-				4EA397312A85502C006053A0 /* StatusChangeData.swift in Sources */,
+				4EA397312A85502C006053A0 /* DefectStatusData.swift in Sources */,
 				4EA397E22A8550AD006053A0 /* AsyncOperation.swift in Sources */,
 				4EA397972A855072006053A0 /* UIStackView.swift in Sources */,
 				4EA397862A855072006053A0 /* SectionLine.swift in Sources */,

@@ -172,7 +172,7 @@ class DefectData : ContentData{
         }
     }
     
-    func removeStatusChange(_ stausChange: StatusChangeData){
+    func removeStatusChange(_ stausChange: DefectStatusData){
         stausChange.removeAll()
         statusChanges.remove(obj: stausChange)
     }
@@ -295,7 +295,7 @@ class DefectData : ContentData{
     func uploadToServer() async{
         if !isOnServer{
             do{
-                let requestUrl = "\(AppState.shared.serverURL)/api/defect/createDefect/\(id)?unitId=\(unit.id)"
+                let requestUrl = "\(AppState.shared.serverURL)/api/defect/uploadDefect/\(id)?unitId=\(unit.id)"
                 if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
                     print("defect \(id) uploaded with new id \(response.id)")
                     await AppState.shared.defectUploaded()
@@ -329,7 +329,7 @@ class DefectData : ContentData{
         }
     }
     
-    func indexOf(changeData: StatusChangeData) -> Int{
+    func indexOf(changeData: DefectStatusData) -> Int{
         for i in 0..<statusChanges.count{
             if statusChanges[i] == changeData{
                 return i

@@ -98,7 +98,7 @@ class SettingsViewController: ScrollViewController {
             self.showDone(title: "success".localize(), text: "dataDeleted".localize())
             if let mainController = self.navigationController?.previousViewController as? MainViewController{
                 mainController.updateProjectSection()
-                mainController.updateUserSection()
+                mainController.updateCompanySection()
             }
         })
     }
@@ -115,13 +115,9 @@ extension SettingsViewController: CheckboxDelegate{
     
     func checkboxIsSelected(index: Int, value: String) {
         if index == -1{
-            showApprove(text: "deleteDataHint".localize(), onApprove: {
-                AppState.shared.standalone = !self.useServerSwitch.isOn
-                AppState.shared.save()
-                self.delegate?.standaloneChanged()
-            }, onDecline: {
-                self.useServerSwitch.isOn = !AppState.shared.standalone
-            })
+            AppState.shared.standalone = !self.useServerSwitch.isOn
+            AppState.shared.save()
+            self.delegate?.standaloneChanged()
         }
         else if index == -2{
             AppState.shared.useDateTime = usedateTimeSwitch.isOn

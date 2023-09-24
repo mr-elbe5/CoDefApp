@@ -104,7 +104,7 @@ class AppData : Codable{
     }
     
     func loadServerData() async{
-        let requestUrl = AppState.shared.serverURL+"/api/root/getData"
+        let requestUrl = AppState.shared.serverURL+"/api/root/getAllDataAsJson"
         let params = Dictionary<String,String>()
         do{
             if let appData: AppData = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: params) {

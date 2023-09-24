@@ -53,7 +53,6 @@ class ContentData : BaseData{
     
     override var uploadParams : Dictionary<String,String>{
         var dict = super.uploadParams
-        dict["name"] = displayName
         dict["displayName"]=displayName
         dict["description"]=description
         return dict

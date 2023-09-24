@@ -6,7 +6,7 @@
 
 import Foundation
 
-class StatusChangeData : ContentData{
+class DefectStatusData : ContentData{
     
     enum CodingKeys: String, CodingKey {
         case status
@@ -96,7 +96,7 @@ class StatusChangeData : ContentData{
     
     // sync
     
-    func synchronizeFrom(_ fromData: StatusChangeData) async{
+    func synchronizeFrom(_ fromData: DefectStatusData) async{
         await super.synchronizeFrom(fromData)
         status = fromData.status
         assignedId = fromData.assignedId
@@ -123,9 +123,9 @@ class StatusChangeData : ContentData{
     func uploadToServer() async{
         if !isOnServer{
             do{
-                let requestUrl = "\(AppState.shared.serverURL)/api/defectstatus/createStatusChange/\(id)?defectId=\(defect.id)"
+                let requestUrl = "\(AppState.shared.serverURL)/api/defectstatus/uploadStatusData/\(id)?defectId=\(defect.id)"
                 if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
-                    print("status change \(id) uploaded with new id \(response.id)")
+                    print("status data \(id) uploaded with new id \(response.id)")
                     await AppState.shared.statusChangeUploaded()
                     id = response.id
                     isOnServer = true
@@ -154,11 +154,11 @@ class StatusChangeData : ContentData{
     
 }
 
-typealias StatusChangeList = ContentDataArray<StatusChangeData>
+typealias StatusChangeList = ContentDataArray<DefectStatusData>
 
 extension StatusChangeList{
     
-    func getStatusChangeData(id: Int) -> StatusChangeData?{
+    func getStatusChangeData(id: Int) -> DefectStatusData?{
         for data in self{
             if data.id == id {
                 return data

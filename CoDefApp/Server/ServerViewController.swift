@@ -215,7 +215,7 @@ class ServerViewController: ScrollViewController {
                 downloadProgressSlider.value = 1
                 if let mainController = self.navigationController?.previousViewController as? MainViewController{
                     mainController.updateProjectSection()
-                    mainController.updateUserSection()
+                    mainController.updateCompanySection()
                 }
             }
         }
@@ -233,7 +233,7 @@ class ServerViewController: ScrollViewController {
             self.showDone(title: "success".localize(), text: "dataDeleted".localize())
             if let mainController = self.navigationController?.previousViewController as? MainViewController{
                 mainController.updateProjectSection()
-                mainController.updateUserSection()
+                mainController.updateCompanySection()
             }
         })
     }

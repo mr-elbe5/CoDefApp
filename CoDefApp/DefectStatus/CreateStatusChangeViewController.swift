@@ -10,7 +10,7 @@ import AVFoundation
 class CreateStatusChangeViewController: EditViewController {
     
     var defect: DefectData
-    var statusChange : StatusChangeData
+    var statusChange : DefectStatusData
     
     var delegate: StatusChangeDelegate? = nil
     
@@ -26,7 +26,7 @@ class CreateStatusChangeViewController: EditViewController {
     }
     
     init(defect: DefectData){
-        statusChange = StatusChangeData(defect: defect)
+        statusChange = DefectStatusData(defect: defect)
         self.defect = defect
         imageCollectionView = ImageCollectionView(images: statusChange.images, enableDelete: true)
         super.init()
