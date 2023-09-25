@@ -64,7 +64,7 @@ class Backup {
         FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileController.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)
         AppState.load()
         AppData.load()
-        AppState.shared.companyFilter.initFilter()
+        AppState.shared.initFilter()
         let fileNames = FileController.listAllFiles(dirPath: FileController.tmpDirURL.appendingPathComponent("files").path)
         for name in fileNames{
             FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent("files").appendingPathComponent(name), toURL: FileController.fileDirURL.appendingPathComponent(name), replace: true)

@@ -83,7 +83,7 @@ class ProjectData : ContentData{
         if canRemoveCompany(companyId: companyId){
             companyIds.remove(obj: companyId)
             updateCompanies()
-            AppState.shared.companyFilter.updateCompanyIds(allCompanyIds: companyIds)
+            AppState.shared.updateFilterCompanyIds(allCompanyIds: companyIds)
             saveData()
             AppState.shared.save()
             return true

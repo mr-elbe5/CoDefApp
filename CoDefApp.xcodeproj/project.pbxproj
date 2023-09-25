@@ -19,10 +19,8 @@
 		4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397012A854E33006053A0 /* Localizable.strings */; };
 		4EA397052A854E76006053A0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397072A854E76006053A0 /* InfoPlist.strings */; };
 		4EA3970F2A854F96006053A0 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397092A854F96006053A0 /* EditProjectViewController.swift */; };
-		4EA397102A854F96006053A0 /* CompanyFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970A2A854F96006053A0 /* CompanyFilter.swift */; };
 		4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */; };
 		4EA397122A854F96006053A0 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970C2A854F96006053A0 /* ProjectViewController.swift */; };
-		4EA397132A854F96006053A0 /* CompanyFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */; };
 		4EA397142A854F96006053A0 /* ProjectData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970E2A854F96006053A0 /* ProjectData.swift */; };
 		4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397152A85501D006053A0 /* UnitViewController.swift */; };
 		4EA3971B2A85501D006053A0 /* UnitData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397162A85501D006053A0 /* UnitData.swift */; };
@@ -128,7 +126,6 @@
 		4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F52A8B69A7006053A0 /* AppState.swift */; };
 		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
-		4EE8BFD72ABAFC1500A98628 /* FilteredSectionLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD62ABAFC1500A98628 /* FilteredSectionLine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,10 +145,8 @@
 		4EA397062A854E76006053A0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EA397082A854E7A006053A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EA397092A854F96006053A0 /* EditProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
-		4EA3970A2A854F96006053A0 /* CompanyFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyFilter.swift; sourceTree = "<group>"; };
 		4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectPdfViewController.swift; sourceTree = "<group>"; };
 		4EA3970C2A854F96006053A0 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
-		4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyFilterViewController.swift; sourceTree = "<group>"; };
 		4EA3970E2A854F96006053A0 /* ProjectData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectData.swift; sourceTree = "<group>"; };
 		4EA397152A85501D006053A0 /* UnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitViewController.swift; sourceTree = "<group>"; };
 		4EA397162A85501D006053A0 /* UnitData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitData.swift; sourceTree = "<group>"; };
@@ -256,7 +251,6 @@
 		4EA397F52A8B69A7006053A0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
-		4EE8BFD62ABAFC1500A98628 /* FilteredSectionLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredSectionLine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,7 +310,6 @@
 				4EA397652A855072006053A0 /* RadioGroupButton.swift */,
 				4EA397502A855061006053A0 /* ScrollViewController.swift */,
 				4EA397642A855072006053A0 /* SectionLine.swift */,
-				4EE8BFD62ABAFC1500A98628 /* FilteredSectionLine.swift */,
 				4EA397602A855072006053A0 /* SectionView.swift */,
 				4EA397722A855072006053A0 /* TextareaInput.swift */,
 				4EA3976C2A855072006053A0 /* TextButton.swift */,
@@ -449,8 +442,6 @@
 				4EA397372A85503A006053A0 /* LabeledCompanySelectField.swift */,
 				4EA397382A85503A006053A0 /* CompanyData.swift */,
 				4EA397392A85503A006053A0 /* CompanyViewController.swift */,
-				4EA3970A2A854F96006053A0 /* CompanyFilter.swift */,
-				4EA3970D2A854F96006053A0 /* CompanyFilterViewController.swift */,
 			);
 			path = Company;
 			sourceTree = "<group>";
@@ -608,10 +599,8 @@
 				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,
 				4EA397DF2A8550AD006053A0 /* Insets.swift in Sources */,
 				4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */,
-				4EA397102A854F96006053A0 /* CompanyFilter.swift in Sources */,
 				4EA397A52A855080006053A0 /* PDFRenderer.swift in Sources */,
 				4EA397982A855072006053A0 /* UITextView.swift in Sources */,
-				4EA397132A854F96006053A0 /* CompanyFilterViewController.swift in Sources */,
 				4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */,
 				4EA397992A855072006053A0 /* UIView.swift in Sources */,
 				4EA397D62A8550AD006053A0 /* IdResponse.swift in Sources */,
@@ -693,7 +682,6 @@
 				4EA3977F2A855072006053A0 /* UIImageView.swift in Sources */,
 				4EA397812A855072006053A0 /* OnOffIcon.swift in Sources */,
 				4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */,
-				4EE8BFD72ABAFC1500A98628 /* FilteredSectionLine.swift in Sources */,
 				4EA397822A855072006053A0 /* SectionView.swift in Sources */,
 				4EA3971D2A85501D006053A0 /* UnitPlanView.swift in Sources */,
 				4EA3971E2A85501D006053A0 /* EditUnitViewController.swift in Sources */,

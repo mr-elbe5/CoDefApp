@@ -30,11 +30,6 @@ class ProjectViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
-            let controller = CompanyFilterViewController()
-            controller.delegate = self
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
             let controller = ProjectPdfViewController(project: self.project)
             self.navigationController?.pushViewController(controller, animated: true)
@@ -96,11 +91,7 @@ class ProjectViewController: ScrollViewController {
         unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         var lastView: UIView = headerLabel
         for unit in project.units{
-            let sectionLine = FilteredSectionLine(name: unit.displayName, inFilter: unit.isInFilter(),action: UIAction(){ action in
-                let controller = UnitViewController(unit: unit)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
+            let sectionLine = getUnitSectionLine(unit: unit)
             unitSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: unitSection.leadingAnchor, trailing: unitSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
@@ -113,6 +104,18 @@ class ProjectViewController: ScrollViewController {
         }, for: .touchDown)
         unitSection.addSubviewAtTopCentered(addUnitButton, topView: lastView, insets: doubleInsets)
             .bottom(unitSection.bottomAnchor, inset: -2*defaultInset)
+    }
+    
+    func getUnitSectionLine(unit: UnitData) -> UIView{
+        let line = SectionLine(name: unit.displayName, action: UIAction(){action in
+            let controller = UnitViewController(unit: unit)
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+        let inFilter = unit.isInFilter()
+        let filterIcon = IconView(icon: inFilter ? "person.crop.circle.badge.checkmark" : "person.crop.circle.badge.xmark", tintColor: inFilter ? .gray : .lightGray)
+        line.addSubviewAtLeft(filterIcon, leadingView: line.label, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: 0))
+        return line
     }
     
     func updateUnitSection(){
@@ -138,15 +141,6 @@ extension ProjectViewController: UnitDelegate{
     }
     
 }
-
-extension ProjectViewController: FilterDelegate{
-    
-    func filterChanged() {
-        updateUnitSection()
-    }
-    
-}
-
 
 class ProjectInfoViewController: InfoViewController {
     

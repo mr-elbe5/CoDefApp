@@ -26,9 +26,6 @@ class UnitData : ContentData{
     }
     
     var filteredDefects: Array<DefectData>{
-        if !AppState.shared.companyFilter.active{
-            return defects
-        }
         var list = Array<DefectData>()
         for defect in defects {
             if  defect.isInFilter(){

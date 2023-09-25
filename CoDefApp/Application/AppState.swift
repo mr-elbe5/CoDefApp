@@ -38,7 +38,7 @@ class AppState : Codable{
         case useDateTime
         case useNotified
         case serverURL
-        case companyFilter
+        case filterCompanyIds
     }
     
     var lastId = Statics.minNewId
@@ -47,7 +47,7 @@ class AppState : Codable{
     var useDateTime = true
     var useNotified = true
     var serverURL = ""
-    var companyFilter = CompanyFilter()
+    var filterCompanyIds : Array<Int>
     
     // sync
     
@@ -82,6 +82,7 @@ class AppState : Codable{
     }
     
     init(){
+        self.filterCompanyIds = Array<Int>()
     }
     
     required init(from decoder: Decoder) throws {
@@ -92,7 +93,7 @@ class AppState : Codable{
         useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
         useNotified = try values.decodeIfPresent(Bool.self, forKey: .useNotified) ?? true
         serverURL = try values.decodeIfPresent(String.self, forKey: .serverURL) ?? ""
-        companyFilter = try values.decodeIfPresent(CompanyFilter.self, forKey: .companyFilter) ?? CompanyFilter()
+        filterCompanyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .filterCompanyIds) ?? Array<Int>()
     }
 
     func encode(to encoder: Encoder) throws {
@@ -103,7 +104,46 @@ class AppState : Codable{
         try container.encode(useDateTime, forKey: .useDateTime)
         try container.encode(useNotified, forKey: .useNotified)
         try container.encode(serverURL, forKey: .serverURL)
-        try container.encode(companyFilter, forKey: .companyFilter)
+        try container.encode(filterCompanyIds, forKey: .filterCompanyIds)
+    }
+    
+    func initFilter(){
+        if filterCompanyIds.isEmpty{
+            for company in AppData.shared.companies{
+                filterCompanyIds.append(company.id)
+            }
+            save()
+        }
+    }
+    
+    func isInFilter(id: Int) -> Bool{
+        return filterCompanyIds.contains(id)
+    }
+    
+    func addToFilter(id: Int){
+        if !filterCompanyIds.contains(id){
+            filterCompanyIds.append(id)
+            save()
+        }
+    }
+    
+    func removeFromFilter(id: Int){
+        if filterCompanyIds.contains(id){
+            filterCompanyIds.remove(obj: id)
+            save()
+        }
+    }
+    
+    func updateFilterCompanyIds(allCompanyIds: Array<Int>){
+        for id in filterCompanyIds{
+            if !allCompanyIds.contains(id){
+                filterCompanyIds.remove(obj: id)
+            }
+        }
+        if filterCompanyIds.isEmpty{
+            filterCompanyIds.append(contentsOf: allCompanyIds)
+        }
+        save()
     }
     
     // sync

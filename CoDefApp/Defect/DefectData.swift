@@ -228,7 +228,7 @@ class DefectData : ContentData{
     }
     
     func isInFilter() -> Bool{
-        AppState.shared.companyFilter.companyIds.contains(assignedId)
+        AppState.shared.filterCompanyIds.contains(assignedId)
     }
     
     func getUsedImageNames() -> Array<String>{

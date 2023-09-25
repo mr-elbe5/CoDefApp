@@ -15,17 +15,12 @@ class MainViewController: ScrollViewController {
     override func loadView() {
         title = "overview".localize()
         super.loadView()
-        
         updateNavigationItems()
     }
     
     func updateNavigationItems() {
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
-            let controller = CompanyFilterViewController()
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
         if !AppState.shared.standalone{
             items.append(UIBarButtonItem(title: "cloud".localize(), image: UIImage(systemName: "cloud"), primaryAction: UIAction(){ action in
                 let controller = ServerViewController()
@@ -63,12 +58,14 @@ class MainViewController: ScrollViewController {
     
     override func setupContentView(){
         contentView.addSubviewAtTop(projectSection)
-        setupProjectSection()
         contentView.addSubviewAtTop(companySection, topView: projectSection)
             .bottom(contentView.bottomAnchor)
-        if AppState.shared.currentUser.hasSystemRight{
-            setupCompanySection()
-        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateProjectSection()
+        updateCompanySection()
     }
     
     func setupProjectSection(){
@@ -77,11 +74,7 @@ class MainViewController: ScrollViewController {
         var lastView: UIView = headerLabel
         
         for project in AppData.shared.projects{
-            let sectionLine = FilteredSectionLine(name: project.displayName, inFilter: project.isInFilter(), action: UIAction(){ action in
-                let controller = ProjectViewController(project: project)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
+            let sectionLine = getProjectSectionLine(project: project)
             projectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: projectSection.leadingAnchor, trailing: projectSection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
@@ -91,6 +84,18 @@ class MainViewController: ScrollViewController {
         }, for: .touchDown)
         projectSection.addSubviewAtTopCentered(addProjectButton, topView: lastView, insets: doubleInsets)
             .bottom(projectSection.bottomAnchor, inset: -2*defaultInset)
+    }
+    
+    func getProjectSectionLine(project: ProjectData) -> UIView{
+        let line = SectionLine(name: project.displayName, action: UIAction(){action in
+            let controller = ProjectViewController(project: project)
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+        let inFilter = project.isInFilter()
+        let filterIcon = IconView(icon: project.isInFilter() ? "person.crop.circle.badge.checkmark" : "person.crop.circle.badge.xmark", tintColor: inFilter ? .gray : .lightGray)
+        line.addSubviewAtLeft(filterIcon, leadingView: line.label, insets: UIEdgeInsets(top: defaultInset, left: 2*defaultInset, bottom: defaultInset, right: 0))
+        return line
     }
     
     func updateProjectSection(){
@@ -120,24 +125,24 @@ class MainViewController: ScrollViewController {
     }
     
     func getCompanySectionLine(company: CompanyData) -> UIView{
-        let line = UIView()
-        line.setGrayRoundedBorders(radius: 10)
-        line.setBackground(.systemBackground)
-        let label = UILabel(text: company.name)
-        label.textColor = .systemBlue
-        line.addSubviewAtLeft(label)
-        let selectButton = IconButton(icon: "person.crop.circle.badge.checkmark", tintColor: .systemBlue)
-        selectButton.addAction(UIAction(){ action in
-            
-        }, for: .touchDown)
-        line.addSubviewWithAnchors(selectButton, leading: label.trailingAnchor, insets: wideInsets).centerY(line.centerYAnchor)
-        let linkButton = IconButton(icon: "chevron.right", tintColor: .systemBlue)
-        linkButton.addAction(UIAction(){ action in
+        let line = SectionLine(name: company.name, action: UIAction(){action in
             let controller = CompanyViewController(company: company)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
+        })
+        let selectButton = AppState.shared.isInFilter(id: company.id) ? IconButton(icon: "checkmark.circle", tintColor: .systemBlue) : IconButton(icon: "xmark.circle", tintColor: .lightGray)
+        selectButton.addAction(UIAction(){ action in
+            if AppState.shared.isInFilter(id: company.id){
+                AppState.shared.removeFromFilter(id: company.id)
+                selectButton.setIcon(icon: "xmark.circle", tintColor: .lightGray)
+            }
+            else{
+                AppState.shared.addToFilter(id: company.id)
+                selectButton.setIcon(icon: "checkmark.circle", tintColor: .systemBlue)
+            }
+            self.updateProjectSection()
         }, for: .touchDown)
-        line.addSubviewWithAnchors(linkButton, trailing: line.trailingAnchor, insets: wideInsets).centerY(line.centerYAnchor)
+        line.addSubviewWithAnchors(selectButton, leading: line.label.trailingAnchor, insets: wideInsets).centerY(line.centerYAnchor)
         return line
     }
     

@@ -13,7 +13,7 @@ class UnitViewController: ScrollViewController {
     var delegate: UnitDelegate? = nil
     
     var dataSection = ArrangedSectionView()
-    var issueSection = UIView()
+    var defectSection = UIView()
     
     init(unit: UnitData){
         self.unit = unit
@@ -30,11 +30,6 @@ class UnitViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(title: "companyFilter".localize(), image: UIImage(systemName: "person.crop.circle.badge.checkmark"), primaryAction: UIAction(){ action in
-            let controller = CompanyFilterViewController()
-            controller.delegate = self
-            self.navigationController?.pushViewController(controller, animated: true)
-        }))
         items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
             let controller = UnitPdfViewController(unit: self.unit)
             self.navigationController?.pushViewController(controller, animated: true)
@@ -70,7 +65,7 @@ class UnitViewController: ScrollViewController {
     override func setupContentView(){
         contentView.addSubviewAtTop(dataSection)
         setupDataSection()
-        contentView.addSubviewAtTop(issueSection, topView: dataSection)
+        contentView.addSubviewAtTop(defectSection, topView: dataSection)
             .bottom(contentView.bottomAnchor)
         setupDefectSection()
     }
@@ -91,7 +86,7 @@ class UnitViewController: ScrollViewController {
     
     func setupDefectSection(){
         let headerLabel = UILabel(header: "defects".localizeWithColon())
-        issueSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        defectSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         
         let addIssueButton = TextButton(text: "newDefect".localize())
         addIssueButton.addAction(UIAction(){ action in
@@ -104,24 +99,21 @@ class UnitViewController: ScrollViewController {
                 self.showError("noUsersError")
             }
         }, for: .touchDown)
-        issueSection.addSubviewCentered(addIssueButton, centerX: issueSection.centerXAnchor, centerY: headerLabel.centerYAnchor)
+        defectSection.addSubviewCentered(addIssueButton, centerX: defectSection.centerXAnchor, centerY: headerLabel.centerYAnchor)
         
         var lastView: UIView = addIssueButton
-        let filteredDefects = unit.filteredDefects
-        for defect in filteredDefects{
-            let sectionLine = SectionLine(name: defect.displayName, action: UIAction(){ (action) in
-                let controller = DefectViewController(defect: defect)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            })
-            issueSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: issueSection.leadingAnchor, trailing: issueSection.trailingAnchor, insets: verticalInsets)
-            lastView = sectionLine
+        for defect in unit.defects{
+            if defect.isInFilter(){
+                let sectionLine = getDefectSectionLine(defect: defect)
+                defectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: defectSection.leadingAnchor, trailing: defectSection.trailingAnchor, insets: verticalInsets)
+                lastView = sectionLine
+            }
         }
         
         if let plan = unit.plan{
             let planView = UnitPlanView(plan: plan.getImage())
-            for defect in filteredDefects{
-                if defect.position != .zero{
+            for defect in unit.defects{
+                if defect.isInFilter(), defect.position != .zero{
                     let marker = planView.addMarker(defect: defect)
                     marker.addAction(UIAction(){ action in
                         let controller = DefectViewController(defect: defect)
@@ -130,11 +122,20 @@ class UnitViewController: ScrollViewController {
                     }, for: .touchDown)
                 }
             }
-            issueSection.addSubviewAtTop(planView, topView: lastView, insets: verticalInsets)
+            defectSection.addSubviewAtTop(planView, topView: lastView, insets: verticalInsets)
             lastView = planView
         }
         
-        lastView.bottom(issueSection.bottomAnchor, inset: -defaultInset)
+        lastView.bottom(defectSection.bottomAnchor, inset: -defaultInset)
+    }
+    
+    func getDefectSectionLine(defect: DefectData) -> UIView{
+        let line = SectionLine(name: defect.displayName, action: UIAction(){action in
+            let controller = DefectViewController(defect: defect)
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+        return line
     }
     
     func updateDataSection(){
@@ -143,7 +144,7 @@ class UnitViewController: ScrollViewController {
     }
     
     func updateIssueSection(){
-        issueSection.removeAllSubviews()
+        defectSection.removeAllSubviews()
         setupDefectSection()
     }
     
@@ -161,14 +162,6 @@ extension UnitViewController: UnitDelegate{
 extension UnitViewController: DefectDelegate{
     
     func defectChanged() {
-        updateIssueSection()
-    }
-    
-}
-
-extension UnitViewController: FilterDelegate{
-    
-    func filterChanged() {
         updateIssueSection()
     }
     

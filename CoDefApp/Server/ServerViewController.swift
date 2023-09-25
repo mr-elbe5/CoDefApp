@@ -110,7 +110,7 @@ class ServerViewController: ScrollViewController {
         uploadSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
         uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
-        var label = UILabel(header: "uploaded".localize())
+        let label = UILabel(header: "uploaded".localize())
         uploadSection.addSubviewAtTop(label, topView: uploadButton)
         
         uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.uploadedProjects), inline: true)
@@ -139,7 +139,7 @@ class ServerViewController: ScrollViewController {
     }
     
     func setupDownloadSection(){
-        var label = UILabel(header: "downloaded".localize())
+        let label = UILabel(header: "downloaded".localize())
         downloadSection.addSubviewAtTop(label)
         
         downloadButton.setTitleColor(.systemGray, for: .disabled)
@@ -278,7 +278,6 @@ extension ServerViewController: AppStateDelegate{
         downloadedImagesField.text = String(AppState.shared.downloadedImages)
         downloadErrorsField.text = String(AppState.shared.downloadErrors)
     }
-    
     
 }
 

@@ -9,16 +9,17 @@ import UIKit
 
 class SectionLine: UIControl{
     
+    var label: UILabel
+    
     init(name: String, action: UIAction){
+        label = UILabel(text: name)
         super.init(frame: .zero)
-        self.addAction(action, for: .touchDown)
         setGrayRoundedBorders(radius: 10)
         setBackground(.systemBackground)
-        let label = UILabel(text: name)
-        label.textColor = .systemBlue
         addSubviewAtLeft(label)
-        let icon = IconView(icon: "chevron.right", tintColor: .systemBlue)
-        addSubviewWithAnchors(icon, trailing: trailingAnchor, insets: wideInsets).centerY(centerYAnchor)
+        let linkButton = IconButton(icon: "chevron.right", tintColor: .systemBlue)
+        linkButton.addAction(action, for: .touchDown)
+        addSubviewWithAnchors(linkButton, trailing: trailingAnchor, insets: wideInsets).centerY(centerYAnchor)
     }
     
     required init?(coder: NSCoder) {
