@@ -152,6 +152,10 @@ class DefectStatusData : ContentData{
         }
     }
     
+    func sendDownloaded() async{
+        await AppState.shared.statusChangeDownloaded()
+    }
+    
 }
 
 typealias StatusChangeList = ContentDataArray<DefectStatusData>

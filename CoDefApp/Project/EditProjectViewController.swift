@@ -54,7 +54,7 @@ class EditProjectViewController: EditViewController{
     }
     
     override func save() -> Bool{
-        if !nameField.text.isEmpty{
+        if !nameField.text.isEmpty && labeledCheckboxGroup.checkboxGroup.hasSelection{
             project.displayName = nameField.text
             project.description = descriptionField.text
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{

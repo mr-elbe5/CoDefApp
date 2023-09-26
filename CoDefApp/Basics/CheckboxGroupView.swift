@@ -20,6 +20,15 @@ class CheckboxGroupView: UIView{
     var checkboxViews = Array<Checkbox>()
     var stackView = UIStackView()
     
+    var hasSelection: Bool{
+        for checkboxView in checkboxViews{
+            if checkboxView.isOn{
+                return true
+            }
+        }
+        return false
+    }
+    
     init(){
         super.init(frame: .zero)
         backgroundColor = .systemBackground
@@ -46,8 +55,8 @@ class CheckboxGroupView: UIView{
     
     func select(index: Int){
         selectedIndex = index
-        for radioView in checkboxViews{
-            radioView.isOn = radioView.index == index
+        for checkboxView in checkboxViews{
+            checkboxView.isOn = checkboxView.index == index
         }
     }
     

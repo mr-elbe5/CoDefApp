@@ -157,24 +157,28 @@ class AppState : Codable{
     
     func projectUploaded() async{
         newItemsCount -= 1
+        uploadedProjects += 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func unitUploaded() async{
         newItemsCount -= 1
+        uploadedUnits += 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func defectUploaded() async{
         newItemsCount -= 1
+        uploadedDefects += 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }
     
     func statusChangeUploaded() async{
         newItemsCount -= 1
+        uploadedStatusChanges += 1
         uploadedItems += 1.0
         await uploadStateChanged()
     }

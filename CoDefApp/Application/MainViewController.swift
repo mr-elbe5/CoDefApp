@@ -242,7 +242,6 @@ class MainInfoViewController: InfoViewController {
         stackView.addSpacer()
         block = addBlock()
         block.addArrangedSubview(InfoHeader("menuSymbolHeader".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "companyFilterSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "cloud", text: "cloudSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "doc.zipper", text: "backupSymbolText".localize(), iconColor: .systemBlue))
         block.addArrangedSubview(IconInfoText(icon: "gear", text: "settingsSymbolText".localize(), iconColor: .systemBlue))
@@ -251,12 +250,14 @@ class MainInfoViewController: InfoViewController {
         block = addBlock()
         block.addArrangedSubview(InfoHeader("mainProjectsInfoHeader".localize()))
         block.addArrangedSubview(InfoText("mainProjectsInfoText".localize()))
-        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "filterCheckmarkSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.checkmark", text: "filterCheckmarkSymbolText".localize(), iconColor: .gray))
         block.addArrangedSubview(IconInfoText(icon: "person.crop.circle.badge.xmark", text: "filterXmarkSymbolText".localize(), iconColor: .lightGray))
         stackView.addSpacer()
         block = addBlock()
         block.addArrangedSubview(InfoHeader("mainCompaniesInfoHeader".localize()))
         block.addArrangedSubview(InfoText("mainCompaniesInfoText".localize()))
+        block.addArrangedSubview(IconInfoText(icon: "checkmark.circle", text: "companyCheckmarkSymbolText".localize(), iconColor: .systemBlue))
+        block.addArrangedSubview(IconInfoText(icon: "xmark.circle", text: "companyXmarkSymbolText".localize(), iconColor: .lightGray))
     }
     
 }

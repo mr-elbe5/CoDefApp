@@ -40,7 +40,7 @@ class ServerViewController: ScrollViewController {
     var downloadedImagesField = LabeledText()
     var downloadErrorsField = LabeledText()
     
-    var downloadProgressSlider = UISlider()
+    var downloadResult = IconTextButton(icon: "checkmark", text: "done".localize(), tintColor: UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0))
     
     var cleanupSection = SectionView()
     
@@ -103,8 +103,6 @@ class ServerViewController: ScrollViewController {
         
         uploadButton.setTitleColor(.systemGray, for: .disabled)
         uploadButton.addAction(UIAction(){ action in
-            self.uploadProgressSlider.value = 0
-            self.uploadProgressSlider.maximumValue = Float(AppState.shared.newItemsCount)
             self.upload()
         }, for: .touchDown)
         uploadSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
@@ -144,7 +142,6 @@ class ServerViewController: ScrollViewController {
         
         downloadButton.setTitleColor(.systemGray, for: .disabled)
         downloadButton.addAction(UIAction(){ action in
-            self.downloadProgressSlider.value = 0
             self.download()
         }, for: .touchDown)
         downloadSection.addSubviewAtTopCentered(downloadButton, topView: label)
@@ -171,11 +168,15 @@ class ServerViewController: ScrollViewController {
         downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.downloadErrors), inline: true)
         downloadSection.addSubviewAtTop(downloadErrorsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
         
-        downloadProgressSlider.minimumValue = 0
-        downloadProgressSlider.maximumValue = 1
-        downloadProgressSlider.value = 0
-        downloadSection.addSubviewAtTop(downloadProgressSlider, topView: downloadErrorsField)
+        downloadResult.addAction(UIAction(){ action in
+            self.downloadResult.isHidden = true
+            AppState.shared.resetDownload()
+            self.downloadStateChanged()
+        }, for: .touchDown)
+        downloadSection.addSubviewAtTopCentered(downloadResult, topView: downloadErrorsField, insets: Insets.defaultInsets)
             .bottom(downloadSection.bottomAnchor, inset: -defaultInset)
+        downloadResult.isHidden = true
+        
     }
     
     func setupCleanupSection(){
@@ -201,6 +202,7 @@ class ServerViewController: ScrollViewController {
     func upload(){
         AppState.shared.resetUpload()
         uploadStateChanged()
+        self.uploadProgressSlider.maximumValue = Float(AppState.shared.newItemsCount)
         Task{
             await AppData.shared.uploadToServer()
         }
@@ -212,7 +214,7 @@ class ServerViewController: ScrollViewController {
         Task{
             await AppData.shared.loadServerData()
             await MainActor.run{
-                downloadProgressSlider.value = 1
+                downloadResult.isHidden = false
                 if let mainController = self.navigationController?.previousViewController as? MainViewController{
                     mainController.updateProjectSection()
                     mainController.updateCompanySection()
@@ -264,9 +266,7 @@ extension ServerViewController: AppStateDelegate{
         uploadedStatusChangesField.text = String(AppState.shared.uploadedStatusChanges)
         uploadedImagesField.text = String(AppState.shared.uploadedImages)
         uploadErrorsField.text = String(AppState.shared.uploadErrors)
-        if uploadProgressSlider.maximumValue != 0{
-            uploadProgressSlider.value = Float(AppState.shared.uploadedItems) / uploadProgressSlider.maximumValue
-        }
+        uploadProgressSlider.value = Float(AppState.shared.uploadedItems)
     }
     
     func downloadStateChanged() {
@@ -288,6 +288,10 @@ class ServerInfoViewController: InfoViewController {
         stackView.addArrangedSubview(block)
         block.stackView.addArrangedSubview(InfoHeader("serverInfoHeader".localize()))
         block.stackView.addArrangedSubview(InfoText("serverInfoText".localize()))
+        block.stackView.addArrangedSubview(InfoHeader("serverUploadInfoHeader".localize()))
+        block.stackView.addArrangedSubview(InfoText("serverUploadInfoText".localize()))
+        block.stackView.addArrangedSubview(InfoHeader("serverDownloadInfoHeader".localize()))
+        block.stackView.addArrangedSubview(InfoText("serverDownloadInfoText".localize()))
     }
     
 }

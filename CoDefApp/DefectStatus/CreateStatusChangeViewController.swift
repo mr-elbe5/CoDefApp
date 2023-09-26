@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import AVFoundation
 
 class CreateStatusChangeViewController: EditViewController {
     
@@ -57,7 +56,7 @@ class CreateStatusChangeViewController: EditViewController {
         
         if AppState.shared.useNotified{
             notifiedField.setup(title: "notified".localizeWithColon(), isOn: false)
-            contentView.addSubviewAtTop(notifiedField, topView: assignField)
+            contentView.addSubviewAtTop(notifiedField, topView: lastView)
             lastView = notifiedField
         }
         

@@ -154,7 +154,7 @@ class UnitData : ContentData{
             }
             else{
                 defects.append(defect)
-                AppState.shared.downloadedDefects += 1
+                await defect.sendDownloaded()
             }
             
         }
@@ -211,6 +211,13 @@ class UnitData : ContentData{
                     await defect.uploadStateChanges()
                 }
             }
+        }
+    }
+    
+    func sendDownloaded() async{
+        await AppState.shared.unitDownloaded()
+        for defect in defects{
+            await defect.sendDownloaded()
         }
     }
     

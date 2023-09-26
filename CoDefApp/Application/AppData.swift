@@ -125,7 +125,7 @@ class AppData : Codable{
                     }
                     else{
                         projects.append(project)
-                        await AppState.shared.projectDownloaded()
+                        await project.sendDownloaded()
                     }
                     project.updateCompanies()
                 }

@@ -42,8 +42,8 @@ class ImageData : FileData{
         if !isOnServer{
             do{
                 let uiImage = getImage()
-                let requestUrl = "\(AppState.shared.serverURL)/api/image/uploadImage/\(id)?contentId=\(contentId)"
-                if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: fileName) {
+                let requestUrl = "\(AppState.shared.serverURL)/api/image/uploadImage/\(id)?contentId=\(contentId)&creatorId=\(creatorId)&changerId=\(changerId)&creationDate=\(creationDate.isoString())"
+                if let response = try await RequestController.shared.uploadAuthorizedImage(url: requestUrl, withImage: uiImage, fileName: fileName, contentType: contentType) {
                     print("image \(id) uploaded with new id \(response.id)")
                     id = response.id
                     isOnServer = true

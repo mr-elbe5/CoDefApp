@@ -61,17 +61,19 @@ Wollen Sie fortfahren?";
 "symbolHeader"="Symbole";
 "menuSymbolHeader"="Menüsymbole";
 "infoSymbolText"="Informationen zu der aktuellen Ansicht anzeigen.";
-"companyFilterSymbolText"="Elemente nach zugeordneten Firmen filtern.";
 "filterCheckmarkSymbolText"="Element enthält gefilterte Unterelemente.";
 "filterXmarkSymbolText"="Element enthält keine gefilterten Unterelemente.";
+"companyCheckmarkSymbolText"="Mängel dieser Firma werden angezeigt.";
+"companyXmarkSymbolText"="Mängel dieser Firma werden nicht angezeigt.";
 
 /*Main*/
 "overview"="Übersicht";
 
 "mainInfoHeader"="Über diese App";
 "mainInfoGeneral"="Diese App ist für das Erfassen und Verfolgen von Baumängeln oder Hausmeisteraufgaben konzipiert.
-Die Software steht als Open Source bei Github unter dem Namen 'CoDefApp' zur Verfügung.
+Die Software steht als Open Source unter https://git.elbe5cloud.de/miro/CodefApp zur Verfügung.
 Die App kann mit einem zugehörigen Server verbunden werden. Notwendig ist das allerdings nur, wenn Sie Ihre Daten zentral speichern wollen.
+Der Server ist ebenfalls Open Source und unter https://git.elbe5cloud.de/miro/CodefServer verfügbar.
 Unterstützung für die Einrichtung und Nutzung eines zugehörigen Servers können Sie bei www.elbe5.de erhalten.";
 "cloudSymbolText"="Einstellungen für eine Server-Verbindung und Synchronisation öffnen (nur bei Server-Nutzung).";
 "backupSymbolText"="Alle Daten als Zip-Datei sichern oder alle Daten von einer Sicherungs-Zip-Datei wiederherstellen (ersetzen).";
@@ -92,7 +94,8 @@ Die Bearbeitung von Problemen erfolgt als Statusänderung mit Kommentar, neuem S
 "mainProjectsInfoText"="Hier können Sie Projekte auswählen oder neue Projekte erstellen.";
 "mainCompaniesInfoHeader"="Firmen";
 "mainCompaniesInfoText"="Hier können Sie Firmen auswählen oder neue erstellen.
-Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet werden können.";
+Alle zusammen bilden einen Pool, aus dem sie jeweils einem Projekt zugeordnet werden können.
+Antippen der folgenden Symbole ändert die Sichtbarkeit der Mängel nach Zuordnung.";
 
 /*Projects*/
 "projects"="Projekte";
@@ -231,7 +234,12 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "downloaded"="Vom Server heruntergeladen";
 "presentImages"="Vorhandene Bilder";
 "serverInfoHeader"="Synchronisation mit dem Server";
-"serverInfoText"="todo";
+"serverInfoText"="Hier können Sie Daten mit dem Server synchronisieren.Der aktuelle Verbindungsstatus wird mit dem verbundenen Benutzer angezeigt. Wenn Sie die Verbindung ändern oder erneuern wollen, tippen Sie auf 'Anmelden'.";
+"serverUploadInfoHeader"="Elemente hochladen";
+"serverUploadInfoText"="Wenn 'neue Elemente' angezeigt werden, können Sie diese durch Antippen von 'Auf den Server synchronisieren' auf den Server laden. Der Vorgang wird über Elementtypen und den Regler angezigt. Wenn Fehler auftreten (z.B. bei Verbindungsabbruch), kann der Vorgang mit den restlichen Elementen wiederholt werden.";
+"serverDownloadInfoHeader"="Elemente herunterladen";
+"serverDownloadInfoText"="Sie können Elemente von Server durch Tippen auf 'Vom Server synchronisieren' herunterladen. Der Vorgang wird über die Elementtypen und den Regeler angezeigt. Wenn Fehler auftreten (z.B. bei Verbindungsabbruch), kann der Vorgang mit den restlichen Elementen wiederholt werden.";
+
 
 /*Login*/
 "openLogin"="Anmelden";
@@ -248,7 +256,7 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 /*Settings*/
 "settings"="Einstellungen";
 "appMode"="App-Modus";
-"appModeText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung können auf dem Server existierende Elemente nur erweitert werden. Löschungen werden nur lokal durchgeführt. Ein Wechsel zwischen den Modi löscht alle lokalen Daten!";
+"appModeText"="Diese App kann mit oder ohne eine Serververbindung benutzt werden. Bei einer Serververbindung können auf dem Server existierende Elemente nur erweitert werden. Löschungen werden nur lokal durchgeführt.";
 "useServer"="Mit Serververbindung";
 "settingsText"="Diese App kann einige Felder in unterschiedlicher Weise darstellen.";
 "useDateTime"="Datum mit Zeitangabe anzeigen";

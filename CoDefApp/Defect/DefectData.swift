@@ -329,6 +329,13 @@ class DefectData : ContentData{
         }
     }
     
+    func sendDownloaded() async{
+        await AppState.shared.defectDownloaded()
+        for statusChange in statusChanges{
+            await statusChange.sendDownloaded()
+        }
+    }
+    
     func indexOf(changeData: DefectStatusData) -> Int{
         for i in 0..<statusChanges.count{
             if statusChanges[i] == changeData{

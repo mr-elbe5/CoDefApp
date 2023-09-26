@@ -194,6 +194,13 @@ class ProjectData : ContentData{
             await unit.uploadToServer()
         }
     }
+    
+    func sendDownloaded() async {
+        await AppState.shared.projectDownloaded()
+        for unit in units{
+            await unit.sendDownloaded()
+        }
+    }
 
 }
 

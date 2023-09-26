@@ -81,11 +81,11 @@ struct RequestController {
         return nil
     }
     
-    func uploadAuthorizedImage(url : String, withImage uiImage : UIImage,fileName: String ) async throws -> IdResponse?{
+    func uploadAuthorizedImage(url : String, withImage uiImage : UIImage,fileName: String, contentType: String ) async throws -> IdResponse?{
         if let data = uiImage.jpegData(compressionQuality: 0.8) {
             if let urlRequest = createRequest(url: url, method: "POST", headerFields: [
                 "Content-Type" : "application/octet-stream",
-                "contentType" : "image/jpeg",
+                "contentType" : contentType,
                 "fileName" : fileName,
                 "Accept" : "application/json",
                 "Authentication" : AppState.shared.currentUser.token ?? ""

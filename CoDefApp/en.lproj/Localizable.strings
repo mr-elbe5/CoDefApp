@@ -57,18 +57,19 @@
 "symbolHeader"="Symbols";
 "menuSymbolHeader"="Menu Symbols";
 "infoSymbolText"="Show informations about the current view.";
-"companyFilterSymbolText"="Filter items by assigned company.";
-"filterCheckmarkSymbolText"="The element containes filtered subelements";
-"filterXmarkSymbolText"="The element containes no filtered subelements";
+"filterCheckmarkSymbolText"="The element containes filtered subelements.";
+"filterXmarkSymbolText"="The element containes no filtered subelements.";
+"companyCheckmarkSymbolText"="Defects of this company are visible.";
+"companyXmarkSymbolText"="Defects of this company are not visible.";
 
 /*Main*/
 "overview"="Overview";
 
 "mainInfoHeader"="About this App";
 "mainInfoGeneral"="This app has been created for tracking defects like e.g. construction defects or maintenance tasks.
-    The server software is available as open source at Github under the name 'Bandika Issue Tracker'.
-    The app can be connected to a dedicated server. Yet this is only needed if you want to store your data at a central
-    location. You can get support for creating and running a dedicated server at www.elbe5.de.";
+The server software is available as open source at https://git.elbe5cloud.de/miro/CodefApp.
+The server is also open source available at https://git.elbe5cloud.de/miro/CodefServer.
+The app can be connected to a dedicated server. Yet this is only needed if you want to store your data at a central location. You can get support for creating and running a dedicated server at www.elbe5.de.";
 "cloudSymbolText"="Open server synchronization (not for standalone operation).";
 "backupSymbolText"="Backup all data as a zip file or restore (and replace) all data from a backup zip file.";
 "settingsSymbolText"="Open settings like standalone or server usage and others.";
@@ -87,7 +88,8 @@ Defects are processed using status changes with comment, new status, new assignm
 "mainProjectsInfoText"="Here you can select a project or create a new project.";
 "mainCompaniesInfoHeader"="Companies";
 "mainCompaniesInfoText"="Here you can select a company or create a new one.
-All of them make a pool of companies, which can each be attached to a project.";
+All of them make a pool of companies, which can each be attached to a project.
+Touching the following icons changes the visibility of defects by assignment.";
 
 /*Projects*/
 "projects"="Projects";
@@ -220,14 +222,20 @@ All other data are for addressing or information.";
 "disconnected"="Not logged in";
 "synchronizeServer"="Synchronization with the Server";
 "newElements"="New Items";
+"synchronizeToServer"="Synchronize to Server";
 "upload"="Upload to Server";
 "uploaded"="Uploaded to Server";
+"synchronizeFromServer"="Synchronize from Server";
 "download"="Download from Server";
 "downloaded"="Downloaded from Server";
 "presentImages"="Present Images";
 
 "serverInfoHeader"="Synchronization with the Server";
-"serverInfoText"="todo";
+"serverInfoText"="Here you can synchronize local data with the server. The current connection state is shown with the currently connected user.  If you want to change or refresh the connection, go to 'Log in'.";
+"serverUploadInfoHeader"="Uploading Items";
+"serverUploadInfoText"="If 'New Items' has more than one item, you can upload them to the server by tapping 'Synchronize to server'. The current upload progress is shown by item types and the slider. If errors occur (e.g. when disconnected), you can try again with the remaining items.";
+"serverDownloadInfoHeader"="Downloading Items";
+"serverDownloadInfoText"="You can download items from the server by tapping 'Synchronize from server'. The current download progress is shown by item types and the slider. If errors occur (e.g. when disconnected), you can try again with the remaining items.";
 
 /*Login*/
 "openLogin"="Log in";
@@ -244,7 +252,7 @@ All other data are for addressing or information.";
 /*Settings*/
 "settings"="Settings";
 "appMode"="App mode";
-"appModeText"="This app can be used standalone or with a cloud connection. During a server connection elements existing on the server can only be extended. Deletions take place only locally. Changing the mode will clear all local data!";
+"appModeText"="This app can be used standalone or with a cloud connection. During a server connection elements existing on the server can only be extended. Deletions take place only locally.";
 "useServer"="With Server Connection";
 "settingsText"="This app can show some fields in different ways.";
 "useDateTime"="Show time in date texts";
