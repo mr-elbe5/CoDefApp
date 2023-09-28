@@ -27,7 +27,7 @@ class CompanyViewController: ScrollViewController {
         
         var groups = Array<UIBarButtonItemGroup>()
         var items = Array<UIBarButtonItem>()
-        if AppState.shared.standalone{
+        if AppState.shared.standalone || !company.isOnServer{
             items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
                 let controller = EditCompanyViewController(company: self.company)
                 controller.delegate = self
