@@ -169,6 +169,7 @@ Wollen Sie fortfahren?";
 "LIABILITY"="Gewährleistung";
 "selectPosition"="Position markieren";
 "savePosition"="Position speichern";
+"positionComment"="Lagekommentar";
 "open"="offen";
 "disputed"="strittig";
 "rejected"="abgelehnt";

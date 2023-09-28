@@ -19,6 +19,7 @@ class EditDefectViewController: EditViewController {
     var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledCompanySelectField()
     var dueDateField = LabeledDatePicker()
+    var positionCommentField = LabeledTextareaInput()
     
     var planView : UnitPlanView? = nil
     
@@ -92,7 +93,10 @@ class EditDefectViewController: EditViewController {
             lastView = planView
         }
         
-        addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
+        positionCommentField.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        contentView.addSubviewAtTop(positionCommentField, topView: lastView)
+        
+        addImageSection(below: positionCommentField.bottomAnchor, imageCollectionView: imageCollectionView)
         
     }
     
@@ -108,10 +112,10 @@ class EditDefectViewController: EditViewController {
         if !descriptionField.text.isEmpty, let assignedCompany = assignField.selectedCompany {
             defect.description = descriptionField.text
             defect.projectPhase = phaseField.selectedPhase
-            defect.assertDisplayId()
             defect.assignedId = assignedCompany.id
             defect.notified = notifiedField.isOn
             defect.dueDate1 = dueDateField.date
+            defect.positionComment = positionCommentField.text
             if let unit = defect.unit, !unit.defects.contains(defect){
                 unit.defects.append(defect)
                 unit.changed()

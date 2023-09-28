@@ -52,7 +52,7 @@ extension PDFRenderer {
     
     func addDefectContent(defect: DefectData){
         addLine(label: "name".localize(), text: defect.displayName)
-        addLine(label: "id".localize(), text: String(defect.displayId))
+        addLine(label: "id".localize(), text: String(defect.id))
         if !defect.description.isEmpty{
             addLine(label: "description".localize(), text: defect.description)
         }

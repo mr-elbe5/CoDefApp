@@ -113,15 +113,12 @@ class MainViewController: ScrollViewController {
             companySection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: companySection.leadingAnchor, trailing: companySection.trailingAnchor, insets: verticalInsets)
             lastView = sectionLine
         }
-        if AppState.shared.standalone{
-            let addCompanyButton = TextButton(text: "newCompany".localize(), withBorder: true)
-            addCompanyButton.addAction(UIAction(){ action in
-                self.openAddCompany()
-            }, for: .touchDown)
-            companySection.addSubviewAtTopCentered(addCompanyButton, topView: lastView, insets: doubleInsets)
-            lastView = addCompanyButton
-        }
-        lastView.bottom(companySection.bottomAnchor, inset: -2*defaultInset)
+        let addCompanyButton = TextButton(text: "newCompany".localize(), withBorder: true)
+        addCompanyButton.addAction(UIAction(){ action in
+            self.openAddCompany()
+        }, for: .touchDown)
+        companySection.addSubviewAtTopCentered(addCompanyButton, topView: lastView, insets: doubleInsets)
+        addCompanyButton.bottom(companySection.bottomAnchor, inset: -2*defaultInset)
     }
     
     func getCompanySectionLine(company: CompanyData) -> UIView{

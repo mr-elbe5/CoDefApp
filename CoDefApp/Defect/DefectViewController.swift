@@ -77,7 +77,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         dataSection.addArrangedSubview(nameView)
         
         let idView = LabeledText()
-        idView.setupView(labelText: "id".localizeWithColon(), text: String(defect.displayId))
+        idView.setupView(labelText: "id".localizeWithColon(), text: String(defect.id))
         dataSection.addArrangedSubview(idView)
         
         let descriptionView = LabeledText()
@@ -118,6 +118,10 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
                 .height(DefectData.planCropSize.height)
             dataSection.addArrangedSubview(planView)
         }
+        
+        let positionCommentView = LabeledText()
+        positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        dataSection.addArrangedSubview(positionCommentView)
         
         let label = UILabel(header: "images".localizeWithColon())
         dataSection.addArrangedSubview(label)

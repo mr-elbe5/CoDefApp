@@ -26,7 +26,6 @@ class Backup {
             paths.append(FileController.fileDirURL)
             paths.append(FileController.privateURL.appendingPathComponent(AppData.storeKey + ".json"))
             paths.append(FileController.privateURL.appendingPathComponent(AppState.storeKey + ".json"))
-            paths.append(DefectData.storeDisplayIdURL)
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
                 print(progress)
             })
@@ -58,8 +57,6 @@ class Backup {
     
     static func restoreBackup() -> Bool{
         FileController.deleteImageFiles()
-        FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(DefectData.storeDisplayIdName), toURL: DefectData.storeDisplayIdURL, replace: true)
-        DefectData.loadNextDisplayId()
         FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: FileController.privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
         FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileController.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)
         AppState.load()

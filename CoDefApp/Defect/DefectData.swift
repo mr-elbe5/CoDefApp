@@ -10,33 +10,7 @@ class DefectData : ContentData{
     
     public static let planCropSize = CGSize(width: 400, height: 400)
     
-    public static let storeDisplayIdName = "nextDisplayId.txt"
-    public static let storeDisplayIdURL = FileController.privateURL.appendingPathComponent(storeDisplayIdName)
-    
-    private static var nextDisplayId: Int = 0
-    
-    static func loadNextDisplayId(){
-        if let str = FileController.readTextFile(url: storeDisplayIdURL), let id = Int(str){
-            nextDisplayId = id
-        }
-        else{
-            nextDisplayId = 0
-            saveNextDisplayId()
-        }
-    }
-    
-    private static func saveNextDisplayId(){
-        FileController.saveFile(text: String(nextDisplayId), url: storeDisplayIdURL)
-    }
-    
-    static public func getNextDisplayId() -> Int{
-        nextDisplayId = nextDisplayId + 1
-        saveNextDisplayId()
-        return nextDisplayId
-    }
-    
     enum CodingKeys: String, CodingKey {
-        case displayId
         case projectPhase
         case assignedId
         case notified
@@ -49,7 +23,6 @@ class DefectData : ContentData{
         case statusChanges
     }
     
-    var displayId = 0
     var projectPhase = ProjectPhase.PREAPPROVAL
     var assignedId: Int = 0
     var notified = false
@@ -126,7 +99,6 @@ class DefectData : ContentData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        displayId = try values.decodeIfPresent(Int.self, forKey: .displayId) ?? 0
         if let s = try values.decodeIfPresent(String.self, forKey: .projectPhase){
             projectPhase = ProjectPhase(rawValue: s) ?? ProjectPhase.PREAPPROVAL
         }
@@ -153,7 +125,6 @@ class DefectData : ContentData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(displayId, forKey: .displayId)
         try container.encode(projectPhase.rawValue, forKey: .projectPhase)
         try container.encode(assignedId, forKey: .assignedId)
         try container.encode(notified, forKey: .notified)
@@ -164,12 +135,6 @@ class DefectData : ContentData{
         try container.encode(positionComment, forKey: .positionComment)
         try container.encode(images, forKey: .images)
         try container.encode(statusChanges, forKey: .statusChanges)
-    }
-    
-    func assertDisplayId(){
-        if displayId == 0{
-            displayId = DefectData.getNextDisplayId()
-        }
     }
     
     func removeStatusChange(_ stausChange: DefectStatusData){
@@ -246,7 +211,6 @@ class DefectData : ContentData{
     
     override var uploadParams: Dictionary<String,String>{
         var dict = super.uploadParams
-        dict["displayId"]=String(displayId)
         dict["projectPhase"]=projectPhase.rawValue
         dict["dueDate1"]=dueDate1.isoString()
         dict["positionX"]=String(Double(position.x))
@@ -259,7 +223,6 @@ class DefectData : ContentData{
     
     func synchronizeFrom(_ fromData: DefectData) async{
         await super.synchronizeFrom(fromData)
-        displayId = fromData.displayId
         projectPhase = fromData.projectPhase
         assignedId = fromData.assignedId
         notified = fromData.notified

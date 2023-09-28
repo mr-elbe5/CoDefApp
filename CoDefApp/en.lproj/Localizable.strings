@@ -164,6 +164,7 @@ Do want to proceed?";
 "LIABILITY"="Liability";
 "selectPosition"="Select Position";
 "savePosition"="Save Position";
+"positionComment"="Position Comment";
 "open"="open";
 "disputed"="disputed";
 "rejected"="rejected";
