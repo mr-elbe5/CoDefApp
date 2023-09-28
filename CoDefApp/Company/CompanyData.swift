@@ -79,6 +79,31 @@ class CompanyData: BaseData{
         return dict
     }
     
+    func uploadToServer() async{
+        if !isOnServer{
+            do{
+                let requestUrl = "\(AppState.shared.serverURL)/api/company/uploadCompany/\(id)"
+                if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
+                    print("company \(id) uploaded with new id \(response.id)")
+                    await AppState.shared.companyUploaded()
+                    let oldId = id
+                    id = response.id
+                    AppData.shared.updateCompanyId(from: oldId, to: id)
+                    isOnServer = true
+                    saveData()
+                }
+                else{
+                    await AppState.shared.uploadError()
+                    throw "company upload error"
+                }
+            }
+            catch let(err){
+                print(err)
+                await AppState.shared.uploadError()
+            }
+        }
+    }
+    
 }
 
 typealias CompanyList = BaseDataArray<CompanyData>

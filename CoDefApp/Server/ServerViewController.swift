@@ -19,6 +19,7 @@ class ServerViewController: ScrollViewController {
     
     var uploadButton = TextButton(text: "synchronizeToServer".localize(), withBorder: true)
     
+    var uploadedCompaniesField = LabeledText()
     var uploadedProjectsField = LabeledText()
     var uploadedUnitsField = LabeledText()
     var uploadedDefectsField = LabeledText()
@@ -110,6 +111,10 @@ class ServerViewController: ScrollViewController {
         
         let label = UILabel(header: "uploaded".localize())
         uploadSection.addSubviewAtTop(label, topView: uploadButton)
+        
+        uploadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(AppState.shared.uploadedCompanies), inline: true)
+        uploadSection.addSubviewAtTop(uploadedCompaniesField, topView: label, insets: Insets.horizontalInsets)
+        
         
         uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.uploadedProjects), inline: true)
         uploadSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
@@ -260,6 +265,7 @@ extension ServerViewController: AppStateDelegate{
     
     func uploadStateChanged() {
         newElementsField.text = String(AppState.shared.newItemsCount)
+        uploadedCompaniesField.text = String(AppState.shared.uploadedCompanies)
         uploadedProjectsField.text = String(AppState.shared.uploadedProjects)
         uploadedUnitsField.text = String(AppState.shared.uploadedUnits)
         uploadedDefectsField.text = String(AppState.shared.uploadedDefects)

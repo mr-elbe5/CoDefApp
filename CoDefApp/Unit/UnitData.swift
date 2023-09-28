@@ -142,6 +142,12 @@ class UnitData : ContentData{
         return names
     }
     
+    func updateCompanyId(from: Int, to: Int){
+        for defect in defects {
+            defect.updateCompanyId(from: from, to: to)
+        }
+    }
+    
     // sync
     
     func synchronizeFrom(_ fromData: UnitData) async{

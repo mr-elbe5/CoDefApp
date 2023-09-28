@@ -207,6 +207,15 @@ class DefectData : ContentData{
         return names
     }
     
+    func updateCompanyId(from: Int, to: Int){
+        if assignedId == from{
+            assignedId = to
+        }
+        for statusChange in statusChanges {
+            statusChange.updateCompanyId(from: from, to: to)
+        }
+    }
+    
     // sync
     
     override var uploadParams: Dictionary<String,String>{

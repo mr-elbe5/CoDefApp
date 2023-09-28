@@ -94,6 +94,12 @@ class AppData : Codable{
         return false
     }
     
+    func updateCompanyId(from: Int, to: Int){
+        for project in projects {
+            project.updateCompanyId(from: from, to: to)
+        }
+    }
+    
     func canRemoveUser(userId: Int) -> Bool{
         for project in projects {
             if project.companyIds.contains(userId){
@@ -230,6 +236,12 @@ class AppData : Codable{
     
     func countNewElements() -> Int {
         var count = 0
+        for company in companies{
+            if !company.isOnServer{
+                print("found new company \(company.id)")
+                count += 1
+            }
+        }
         for project in projects{
             if !project.isOnServer{
                 print("found new project \(project.id)")

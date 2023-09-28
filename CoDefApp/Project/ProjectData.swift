@@ -128,6 +128,12 @@ class ProjectData : ContentData{
         return false
     }
     
+    func updateCompanyId(from: Int, to: Int){
+        for unit in units {
+            unit.updateCompanyId(from: from, to: to)
+        }
+    }
+    
     // sync
     
     func synchronizeFrom(_ fromData: ProjectData) async{

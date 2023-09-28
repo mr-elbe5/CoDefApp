@@ -94,6 +94,12 @@ class DefectStatusData : ContentData{
         return names
     }
     
+    func updateCompanyId(from: Int, to: Int){
+        if assignedId == from{
+            assignedId = to
+        }
+    }
+    
     // sync
     
     func synchronizeFrom(_ fromData: DefectStatusData) async{

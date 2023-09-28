@@ -51,6 +51,7 @@ class AppState : Codable{
     
     // sync
     
+    var uploadedCompanies : Int = 0
     var uploadedProjects : Int = 0
     var uploadedUnits : Int = 0
     var uploadedDefects : Int = 0
@@ -147,6 +148,13 @@ class AppState : Codable{
     }
     
     // sync
+    
+    func companyUploaded() async{
+        newItemsCount -= 1
+        uploadedCompanies += 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
     
     func imageUploaded() async{
         newItemsCount -= 1
@@ -247,6 +255,7 @@ class AppState : Codable{
         uploadedDefects = 0
         uploadedStatusChanges = 0
         uploadedImages = 0
+        uploadedCompanies = 0
         uploadErrors = 0
         uploadErrors = 0
         uploadedItems = 0.0
