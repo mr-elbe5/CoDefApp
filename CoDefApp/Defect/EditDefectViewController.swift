@@ -15,6 +15,10 @@ class EditDefectViewController: EditViewController {
     
     var descriptionField = LabeledTextareaInput()
     var notifiedField = LabeledCheckbox()
+    var phaseField = LabeledPhaseSelectField()
+    var statusField = LabeledDefectStatusSelectView()
+    var assignField = LabeledCompanySelectField()
+    var dueDateField = LabeledDatePicker()
     
     var planView : UnitPlanView? = nil
     
@@ -35,34 +39,39 @@ class EditDefectViewController: EditViewController {
     }
     
     override func loadView() {
-        title = "defect".localize()
+        title = defect.displayName
         modalPresentationStyle = .fullScreen
         super.loadView()
     }
     
     override func setupContentView() {
         
-        let nameLabel = UILabel(text: defect.displayName)
-        contentView.addSubviewAtTop(nameLabel)
-        
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: defect.description)
-        contentView.addSubviewAtTop(descriptionField, topView: nameLabel)
+        contentView.addSubviewAtTop(descriptionField)
         
-        let statusView = LabeledText()
-        statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
-        contentView.addSubviewAtTop(statusView, topView: descriptionField)
+        phaseField.setup(labelText: "projectPhase".localizeWithColon(), currentPhase: defect.projectPhase)
+        contentView.addSubviewAtTop(phaseField, topView: descriptionField)
         
-        let assignedView = LabeledText()
-        assignedView.setupView(labelText: "assignedTo".localizeWithColonAsMandatory(), text: defect.assignedCompanyName)
-        contentView.addSubviewAtTop(assignedView, topView: statusView)
+        statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
+        statusField.setupStatuses(currentStatus: defect.status)
+        contentView.addSubviewAtTop(statusField, topView: phaseField)
         
-        var lastView : UIView = assignedView
+        assignField.setupView(labelText: "assignedTo".localizeWithColon())
+        assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedId)
+        contentView.addSubviewAtTop(assignField, topView: statusField)
+        
+        var lastView : UIView = assignField
         
         if AppState.shared.useNotified{
             notifiedField.setup(title: "notified".localizeWithColon(), isOn: defect.notified)
             contentView.addSubviewAtTop(notifiedField, topView: lastView)
             lastView = notifiedField
         }
+        
+        dueDateField.setupView(labelText: "dueDate".localizeWithColonAsMandatory(), date: defect.dueDate1)
+        dueDateField.setMinMaxDate(minDate: Date(), maxDate: Date.distantFuture)
+        contentView.addSubviewAtTop(dueDateField, topView: lastView)
+        lastView = dueDateField
         
         if let plan = defect.unit?.plan{
             let image = plan.getImage()
@@ -98,7 +107,15 @@ class EditDefectViewController: EditViewController {
     override func save() -> Bool{
         if !descriptionField.text.isEmpty{
             defect.description = descriptionField.text
+            defect.projectPhase = phaseField.selectedPhase
+            defect.assertDisplayId()
+            defect.assignedId = assignField.selectedCompany?.id ?? 0
             defect.notified = notifiedField.isOn
+            defect.dueDate1 = dueDateField.date
+            if let unit = defect.unit, !unit.defects.contains(defect){
+                unit.defects.append(defect)
+                unit.changed()
+            }
             defect.changed()
             defect.saveData()
             delegate?.defectChanged()

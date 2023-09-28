@@ -27,7 +27,6 @@
 		4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397172A85501D006053A0 /* UnitPdfViewController.swift */; };
 		4EA3971D2A85501D006053A0 /* UnitPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397182A85501D006053A0 /* UnitPlanView.swift */; };
 		4EA3971E2A85501D006053A0 /* EditUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397192A85501D006053A0 /* EditUnitViewController.swift */; };
-		4EA3972A2A85502C006053A0 /* CreateDefectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */; };
 		4EA3972B2A85502C006053A0 /* DefectMarkerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397202A85502C006053A0 /* DefectMarkerButton.swift */; };
 		4EA3972C2A85502C006053A0 /* DefectPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397212A85502C006053A0 /* DefectPdfViewController.swift */; };
 		4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */; };
@@ -125,6 +124,7 @@
 		4EA397F32A855197006053A0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA397F22A855197006053A0 /* Zip */; };
 		4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F52A8B69A7006053A0 /* AppState.swift */; };
 		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
+		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 /* End PBXBuildFile section */
 
@@ -153,7 +153,6 @@
 		4EA397172A85501D006053A0 /* UnitPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPdfViewController.swift; sourceTree = "<group>"; };
 		4EA397182A85501D006053A0 /* UnitPlanView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitPlanView.swift; sourceTree = "<group>"; };
 		4EA397192A85501D006053A0 /* EditUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditUnitViewController.swift; sourceTree = "<group>"; };
-		4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDefectViewController.swift; sourceTree = "<group>"; };
 		4EA397202A85502C006053A0 /* DefectMarkerButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectMarkerButton.swift; sourceTree = "<group>"; };
 		4EA397212A85502C006053A0 /* DefectPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefectPdfViewController.swift; sourceTree = "<group>"; };
 		4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabeldDefectStateSelectField.swift; sourceTree = "<group>"; };
@@ -250,6 +249,7 @@
 		4EA397E92A8550BB006053A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4EA397F52A8B69A7006053A0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -449,7 +449,6 @@
 		4EA396FA2A854DBB006053A0 /* Defect */ = {
 			isa = PBXGroup;
 			children = (
-				4EA3971F2A85502C006053A0 /* CreateDefectViewController.swift */,
 				4EA397282A85502C006053A0 /* EditDefectPositionViewController.swift */,
 				4EA397232A85502C006053A0 /* EditDefectViewController.swift */,
 				4EA397252A85502C006053A0 /* DefectData.swift */,
@@ -457,6 +456,7 @@
 				4EA397212A85502C006053A0 /* DefectPdfViewController.swift */,
 				4EA397272A85502C006053A0 /* DefectViewController.swift */,
 				4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */,
+				4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */,
 			);
 			path = Defect;
 			sourceTree = "<group>";
@@ -526,7 +526,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					4EA396D82A854CAD006053A0 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -594,6 +594,7 @@
 				4EA397D72A8550AD006053A0 /* Codable.swift in Sources */,
 				4EA397D52A8550AD006053A0 /* TimeInterval.swift in Sources */,
 				4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */,
+				4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */,
 				4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */,
 				4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */,
 				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,
@@ -640,7 +641,6 @@
 				4EA397862A855072006053A0 /* SectionLine.swift in Sources */,
 				4EA397C32A85509E006053A0 /* FileController.swift in Sources */,
 				4EA397B62A85508E006053A0 /* AVCaptureVideoOrientation.swift in Sources */,
-				4EA3972A2A85502C006053A0 /* CreateDefectViewController.swift in Sources */,
 				4EA3972B2A85502C006053A0 /* DefectMarkerButton.swift in Sources */,
 				4EA3979E2A855072006053A0 /* LabeledCheckbox.swift in Sources */,
 				4EA397B72A85508E006053A0 /* ImageInfoViewController.swift in Sources */,
@@ -760,6 +760,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -821,6 +822,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -845,7 +847,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -860,7 +862,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -875,7 +877,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -890,7 +892,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

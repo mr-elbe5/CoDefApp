@@ -91,7 +91,8 @@ class UnitViewController: ScrollViewController {
         let addIssueButton = TextButton(text: "newDefect".localize())
         addIssueButton.addAction(UIAction(){ action in
             if !self.unit.projectCompanies.isEmpty{
-                let controller = CreateDefectViewController(unit: self.unit)
+                let defect = DefectData(unit: self.unit)
+                let controller = EditDefectViewController(defect: defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
             }

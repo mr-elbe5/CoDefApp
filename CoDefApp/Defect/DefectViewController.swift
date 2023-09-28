@@ -84,17 +84,21 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
         
-        let statusView = LabeledText()
-        statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
-        dataSection.addArrangedSubview(statusView)
-        
         let phaseView = LabeledText()
         phaseView.setupView(labelText: "projectPhase".localizeWithColon(), text: defect.projectPhase.rawValue.localize())
         dataSection.addArrangedSubview(phaseView)
         
+        let statusView = LabeledText()
+        statusView.setupView(labelText: "status".localizeWithColon(), text: defect.status.rawValue.localize())
+        dataSection.addArrangedSubview(statusView)
+        
         let assignedView = LabeledText()
         assignedView.setupView(labelText: "assignedTo".localizeWithColon(), text: defect.assignedCompanyName)
         dataSection.addArrangedSubview(assignedView)
+        
+        let dueDateView = LabeledText()
+        dueDateView.setupView(labelText: "dueDate".localizeWithColon(), text: defect.dueDate1.dateString())
+        dataSection.addArrangedSubview(dueDateView)
         
         if AppState.shared.useNotified{
             let notifiedView = LabeledText()
