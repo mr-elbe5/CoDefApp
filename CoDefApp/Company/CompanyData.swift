@@ -88,8 +88,9 @@ class CompanyData: BaseData{
                     await AppState.shared.companyUploaded()
                     let oldId = id
                     id = response.id
-                    AppData.shared.updateCompanyId(from: oldId, to: id)
                     isOnServer = true
+                    AppData.shared.updateCompanyId(from: oldId, to: id)
+                    AppState.shared.updateFilterCompanyId(from: oldId, to: id)
                     saveData()
                 }
                 else{

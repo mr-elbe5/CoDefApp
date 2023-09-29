@@ -97,7 +97,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         dataSection.addArrangedSubview(assignedView)
         
         let dueDateView = LabeledText()
-        dueDateView.setupView(labelText: "dueDate".localizeWithColon(), text: defect.dueDate1.dateString())
+        dueDateView.setupView(labelText: "dueDate".localizeWithColon(), text: defect.dueDate.dateString())
         dataSection.addArrangedSubview(dueDateView)
         
         if AppState.shared.useNotified{

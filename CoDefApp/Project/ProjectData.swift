@@ -129,6 +129,13 @@ class ProjectData : ContentData{
     }
     
     func updateCompanyId(from: Int, to: Int){
+        for companyId in companyIds {
+            if companyId == from{
+                companyIds.remove(obj: companyId)
+                companyIds.append(to)
+                updateCompanies()
+            }
+        }
         for unit in units {
             unit.updateCompanyId(from: from, to: to)
         }

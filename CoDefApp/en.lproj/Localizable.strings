@@ -83,6 +83,8 @@ Units are parts of the project like a floor or a room. Units can have a (ground 
 
 Defects include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.
 
+Defects have an ID. If created here they get a temporary ID above 10000000. After submitting to the server they get their final ID from the server.
+
 Defects are processed using status changes with comment, new status, new assignment and new images or photos.";
 "mainProjectsInfoHeader"="Projects";
 "mainProjectsInfoText"="Here you can select a project or create a new project.";
@@ -99,7 +101,7 @@ Touching the following icons changes the visibility of defects by assignment.";
 "projectReport"="Project Report";
 
 "projectReportSymbolText"="Create a report of the project (PDF)";
-"projectEditSymbolText"="Change data of a project (standalone only).";
+"projectEditSymbolText"="Change data of a project (only standalone or not yet submitted to server).";
 "projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
 "projectEditInfoHeader"="Edit a project";
 "projectEditInfoText"="The name is mandatory.
@@ -110,14 +112,6 @@ Units can have a (ground) plan, where defects can be marked on.";
 "projectSealSymbolText"="This marks a unit when no filter is active.";
 "projectCheckmarkSealSymbolText"="This marks a unit when it has filtered items.";
 "projectXmarkSealSymbolText"="This marks a unit when it has no filtered items. You cannot select it.";
-
-/*Filter*/
-"companyFilter"="Company filter";
-"companyFilterText"="With the following companies";
-
-"companyFilterInfoHeader"="Company Filter";
-"companyFilterInfoText"="The filter restricts views of projects, units and defects and their reports.
-With the following companies: Only defects which one of the selected companies is assigned to";
 
 /*Units*/
 "units"="Units";
@@ -130,7 +124,7 @@ Do want to proceed?";
 "unitReport"="Unit Report";
 "unitContext"="Project: %@";
 
-"unitEditSymbolText"="Change data of a unit (standalone only).";
+"unitEditSymbolText"="Change data of a unit (only standalone or not yet submitted to server).";
 "unitReportSymbolText"="Create a report of the unit (PDF)";
 "unitDeleteSymbolText"="Delete a unit. This will also delete all subelements.";
 "unitPlanInfoHeader"="Unit plan";
@@ -172,14 +166,19 @@ Do want to proceed?";
 "defectReport"="Defect Report";
 "defectContext"="Project: %@, Unit: %@";
 
-"defectEditSymbolText"="Change data of this defect (standalone only).";
+"defectEditSymbolText"="Change data of this defect (only standalone or not yet submitted to server).";
 "defectReportSymbolText"="Create a report of this defect (PDF)";
 "defectDeleteSymbolText"="Delete a defect. This will also delete all images and status changes.";
 "statusChangeInfoHeader"="Status Changes";
 "statusChangeInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
 
 "defectEditInfoHeader"="Document or change a defect";
-"defectEditInfoText"="The name is mandatory. It should be a short description.";
+"defectEditInfoText"="Entries marked with * are mandatory.
+
+For changing dates, click on the date field.
+
+For changing the position, click on the pencil symbol above the plan.
+";
 "defectPositionInfoHeader"="Mark a position";
 "defectPositionInfoText"="Tap on the plan until the red arrow marks the position correctly.";
 

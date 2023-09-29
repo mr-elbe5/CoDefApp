@@ -115,9 +115,8 @@ class ServerViewController: ScrollViewController {
         uploadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(AppState.shared.uploadedCompanies), inline: true)
         uploadSection.addSubviewAtTop(uploadedCompaniesField, topView: label, insets: Insets.horizontalInsets)
         
-        
         uploadedProjectsField.setupView(labelText: "projects".localizeWithColon(), text: String(AppState.shared.uploadedProjects), inline: true)
-        uploadSection.addSubviewAtTop(uploadedProjectsField, topView: label, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadedProjectsField, topView: uploadedCompaniesField, insets: Insets.horizontalInsets)
         
         uploadedUnitsField.setupView(labelText: "units".localizeWithColon(), text: String(AppState.shared.uploadedUnits), inline: true)
         uploadSection.addSubviewAtTop(uploadedUnitsField, topView: uploadedProjectsField, insets: Insets.horizontalInsets)

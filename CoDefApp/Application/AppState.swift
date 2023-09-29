@@ -147,6 +147,15 @@ class AppState : Codable{
         save()
     }
     
+    func updateFilterCompanyId(from: Int, to: Int){
+        for companyId in filterCompanyIds {
+            if companyId == from{
+                filterCompanyIds.remove(obj: companyId)
+                filterCompanyIds.append(to)
+            }
+        }
+    }
+    
     // sync
     
     func companyUploaded() async{

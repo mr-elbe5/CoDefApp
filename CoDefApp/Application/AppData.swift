@@ -286,6 +286,24 @@ class AppData : Codable{
     }
     
     func uploadToServer() async{
+        await uploadCompanies()
+        await uploadProjects()
+        AppData.shared.save()
+    }
+    
+    func uploadCompanies() async{
+        await withTaskGroup(of: Void.self){ taskGroup in
+            for company in AppData.shared.companies{
+                if !company.isOnServer{
+                    taskGroup.addTask{
+                        await company.uploadToServer()
+                    }
+                }
+            }
+        }
+    }
+    
+    func uploadProjects() async{
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in AppData.shared.projects{
                 if !project.isOnServer{
@@ -298,7 +316,6 @@ class AppData : Codable{
                 }
             }
         }
-        AppData.shared.save()
     }
     
 }

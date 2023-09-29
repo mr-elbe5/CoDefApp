@@ -88,6 +88,8 @@ Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten
 
 Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
 
+Mängel haben eine eindeutige ID. Wenn sie hier erzeugt werden, bekommen sie eine vorläufige ID über 1000000. Nach der Übermittlung an den Server erhalten sie ihre endgültige ID vom Server.
+
 Die Bearbeitung von Problemen erfolgt als Statusänderung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
 ";
 "mainProjectsInfoHeader"="Projekte";
@@ -106,8 +108,8 @@ Antippen der folgenden Symbole ändert die Sichtbarkeit der Mängel nach Zuordnu
 
 "companyFilterSymbolText"="Elemente nach zugeordneten Firmen filtern.";
 "projectReportSymbolText"="Einen Report des Projekts erstellen (PDF).";
-"projectEditSymbolText"="Die Daten eines Projekts ändern (nur ohne Serveranbindung).";
-"projectDeleteSymbolText"="Ein Projekt löschen. Dies ist löscht auch sämtliche Unterelemente.";
+"projectEditSymbolText"="Die Daten eines Projekts ändern (nur ohne Serveranbindung oder vor der Übermittlung an den Server).";
+"projectDeleteSymbolText"="Ein Projekt löschen. Dies ist löscht auch sämtliche Unterelemente (auf dem Server werden keine Elemente gelöscht).";
 "projectEditInfoHeader"="Ein Projekt erstellen oder ändern";
 "projectEditInfoText"="Der Name ist ein Pflichtfeld.
 Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werden. Mindestens eine/r  ist Pflicht.";
@@ -116,14 +118,6 @@ Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werde
 "projectSealSymbolText"="Dies markiert eine Einheit, wenn kein Filter aktiv ist.";
 "projectCheckmarkSealSymbolText"="Dies markiert eine Einheit, wenn er gefilterte Elemente enthält.";
 "projectXmarkSealSymbolText"="Dies markiert eine Einheit, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
-
-/*Filter*/
-"companyFilter"="Firmenfilter";
-"companyFilterText"="Nur mit den folgenden Firmen";
-
-"companyFilterInfoHeader"="Firmenfilter";
-"companyFilterInfoText"="Der Filter beschränkt Ansichten und Berichte von Projekten, Bereichen und Mängeln.
-Nur mit den folgenden Firmen: Nur Mängel, die einer der markierten Firmen zugeordnet sind";
 
 /*Units*/
 "units"="Projekteinheiten";
@@ -136,9 +130,9 @@ Wollen Sie fortfahren?";
 "unitReport"="Bericht für die Einheit";
 "unitContext"="Projekt: %@";
 
-"unitEditSymbolText"="Die Daten einer Einheit ändern (nur ohne Serveranbindung).";
+"unitEditSymbolText"="Die Daten einer Einheit ändern (nur ohne Serveranbindung oder vor der Übermittlung an den Server).";
 "unitReportSymbolText"="Einen Report der Einheit erstellen (PDF).";
-"unitDeleteSymbolText"="Eine Einheit löschen. Dies ist löscht auch sämtliche Unterelemente.";
+"unitDeleteSymbolText"="Eine Einheit löschen. Dies ist löscht auch sämtliche Unterelemente (auf dem Server werden keine Elemente gelöscht).";
 "unitPlanInfoHeader"="Grundriss";
 "unitPlanInfoText"="Wenn eine Einheit einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
 "unitDefectsHeader"="Mängel";
@@ -177,14 +171,18 @@ Wollen Sie fortfahren?";
 "defectReport"="Mängelbericht";
 "defectContext"="Projekt: %@, Einheit: %@";
 
-"defectEditSymbolText"="Die Daten eines Mangels ändern.";
+"defectEditSymbolText"="Die Daten eines Mangels ändern (nur ohne Serveranbindung oder vor der Übermittlung an den Server).";
 "defectReportSymbolText"="Einen Report des Mangels erstellen (PDF).";
-"defectDeleteSymbolText"="Einen Mangel löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen.";
+"defectDeleteSymbolText"="Einen Mangel löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen (auf dem Server werden keine Elemente gelöscht).";
 "statusChangeInfoHeader"="Statusänderungen";
 "statusChangeInfoText"="Statusänderungen sind Folgeeinträge für einen Mangel, wenn jemand einen Fortschritt erzielt hat oder sich der Status anderweitig geändert hat. Sie enthalten einen Kommentar, einen neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
 
 "defectEditInfoHeader"="Einen Mangel dokumentieren oder ändern";
-"defectEditInfoText"="Der Name ist ein Pflichtfeld. Er sollte eine Kurzbeschreibung sein.";
+"defectEditInfoText"="Alle mit * gekennzeichneten Felder sind Pflichtfelder.
+
+Zum Ändern eines Datums tippen Sie auf das Datum.
+
+Zum Ändern der Position tippen Sie auf das Bleistiftsymbol über dem Grundriss.";
 "defectPositionInfoHeader"="Eine Position markieren";
 "defectPositionInfoText"="Tippen Sie auf den Grundriss, bis der rote Pfeil die Position richtiog markiert.";
 

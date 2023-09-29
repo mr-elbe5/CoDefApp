@@ -73,6 +73,13 @@ class DefectData : ContentData{
         status == .OPEN
     }
     
+    var dueDate: Date{
+        if let date = dueDate2{
+            return date
+        }
+        return dueDate1
+    }
+    
     var isOverdue : Bool{
         dueDate1 < Date()
     }
