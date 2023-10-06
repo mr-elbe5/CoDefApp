@@ -15,7 +15,7 @@ class DefectMarkerButton: UIButton{
         self.defect = defect
         let img = UIImage(named: "redArrow")!
         super.init(frame: CGRect(x: -img.size.width/2, y: 0, width: img.size.width, height: img.size.height))
-        setImage(UIImage(named: "redArrow"), for: .normal)
+        setImage(img, for: .normal)
     }
     
     required init?(coder: NSCoder) {
