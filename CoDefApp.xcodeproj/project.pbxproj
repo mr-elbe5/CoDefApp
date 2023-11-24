@@ -90,13 +90,10 @@
 		4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397A32A855080006053A0 /* PDFViewController.swift */; };
 		4EA397B32A85508E006053A0 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397A72A85508E006053A0 /* ImageScrollView.swift */; };
 		4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397A82A85508E006053A0 /* ImageViewController.swift */; };
-		4EA397B52A85508E006053A0 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397A92A85508E006053A0 /* CameraViewController.swift */; };
 		4EA397B62A85508E006053A0 /* AVCaptureVideoOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AA2A85508E006053A0 /* AVCaptureVideoOrientation.swift */; };
 		4EA397B72A85508E006053A0 /* ImageInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */; };
 		4EA397B82A85508E006053A0 /* ImageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */; };
 		4EA397B92A85508E006053A0 /* AVCaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AD2A85508E006053A0 /* AVCaptureDevice.swift */; };
-		4EA397BA2A85508E006053A0 /* PhotoCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AE2A85508E006053A0 /* PhotoCaptureViewController.swift */; };
-		4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397AF2A85508E006053A0 /* CaptureButton.swift */; };
 		4EA397BC2A85508E006053A0 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B02A85508E006053A0 /* CGImage.swift */; };
 		4EA397BD2A85508E006053A0 /* ImageFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B12A85508E006053A0 /* ImageFileView.swift */; };
 		4EA397BE2A85508E006053A0 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397B22A85508E006053A0 /* ImageData.swift */; };
@@ -216,13 +213,10 @@
 		4EA397A32A855080006053A0 /* PDFViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFViewController.swift; sourceTree = "<group>"; };
 		4EA397A72A85508E006053A0 /* ImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
 		4EA397A82A85508E006053A0 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		4EA397A92A85508E006053A0 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		4EA397AA2A85508E006053A0 /* AVCaptureVideoOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureVideoOrientation.swift; sourceTree = "<group>"; };
 		4EA397AB2A85508E006053A0 /* ImageInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageInfoViewController.swift; sourceTree = "<group>"; };
 		4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionView.swift; sourceTree = "<group>"; };
 		4EA397AD2A85508E006053A0 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
-		4EA397AE2A85508E006053A0 /* PhotoCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCaptureViewController.swift; sourceTree = "<group>"; };
-		4EA397AF2A85508E006053A0 /* CaptureButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
 		4EA397B02A85508E006053A0 /* CGImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImage.swift; sourceTree = "<group>"; };
 		4EA397B12A85508E006053A0 /* ImageFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFileView.swift; sourceTree = "<group>"; };
 		4EA397B22A85508E006053A0 /* ImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
@@ -271,8 +265,6 @@
 				4EA397D32A8550AD006053A0 /* AsyncOperation.swift */,
 				4EA397D22A8550AD006053A0 /* AuthorizationError.swift */,
 				4EA397552A855061006053A0 /* BaseViewController.swift */,
-				4EA397A92A85508E006053A0 /* CameraViewController.swift */,
-				4EA397AF2A85508E006053A0 /* CaptureButton.swift */,
 				4EA397742A855072006053A0 /* Checkbox.swift */,
 				4EA397702A855072006053A0 /* CheckboxGroupView.swift */,
 				4EA397622A855072006053A0 /* DatePicker.swift */,
@@ -305,7 +297,6 @@
 				4EA397A22A855080006053A0 /* PDFRenderer.swift */,
 				4EA397A12A855080006053A0 /* PDFTextType.swift */,
 				4EA397A32A855080006053A0 /* PDFViewController.swift */,
-				4EA397AE2A85508E006053A0 /* PhotoCaptureViewController.swift */,
 				4EA397712A855072006053A0 /* RadioGroup.swift */,
 				4EA397652A855072006053A0 /* RadioGroupButton.swift */,
 				4EA397502A855061006053A0 /* ScrollViewController.swift */,
@@ -595,7 +586,6 @@
 				4EA397D52A8550AD006053A0 /* TimeInterval.swift in Sources */,
 				4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */,
 				4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */,
-				4EA397BB2A85508E006053A0 /* CaptureButton.swift in Sources */,
 				4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */,
 				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,
 				4EA397DF2A8550AD006053A0 /* Insets.swift in Sources */,
@@ -646,7 +636,6 @@
 				4EA397B72A85508E006053A0 /* ImageInfoViewController.swift in Sources */,
 				4EA397572A855061006053A0 /* ScrollViewController.swift in Sources */,
 				4EA3978F2A855072006053A0 /* LabeledTextareaInput.swift in Sources */,
-				4EA397BA2A85508E006053A0 /* PhotoCaptureViewController.swift in Sources */,
 				4EA397F92A8CCE99006053A0 /* Log.swift in Sources */,
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
 				4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */,
@@ -674,7 +663,6 @@
 				4EA397332A85502C006053A0 /* EditDefectPositionViewController.swift in Sources */,
 				4EA3975B2A855061006053A0 /* UIViewController+Insets.swift in Sources */,
 				4EA397BE2A85508E006053A0 /* ImageData.swift in Sources */,
-				4EA397B52A85508E006053A0 /* CameraViewController.swift in Sources */,
 				4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */,
 				4EA3978D2A855072006053A0 /* IconButton.swift in Sources */,
 				4EA3978B2A855072006053A0 /* IconView.swift in Sources */,

@@ -7,7 +7,7 @@
 import UIKit
 import AVFoundation
 
-class EditViewController: ScrollViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PhotoCaptureDelegate, ImageCollectionDelegate{
+class EditViewController: ScrollViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageCollectionDelegate{
     
     var infoViewController: InfoViewController?{
         nil
@@ -69,10 +69,11 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
                 switch result{
                 case .success(()):
                     DispatchQueue.main.async {
-                        let imageCaptureController = PhotoCaptureViewController()
-                        imageCaptureController.modalPresentationStyle = .fullScreen
-                        imageCaptureController.delegate = self
-                        self.present(imageCaptureController, animated: true)
+                        let pickerController = UIImagePickerController()
+                        pickerController.delegate = self
+                        pickerController.sourceType = .camera
+                        pickerController.modalPresentationStyle = .fullScreen
+                        self.present(pickerController, animated: true, completion: nil)
                     }
                     return
                 case .failure:
@@ -94,7 +95,27 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         
     }
     
-    func photoCaptured(photo: ImageData) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        if picker.sourceType == .camera{
+            guard let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return}
+            let image = ImageData()
+            image.setJpegFileName()
+            if image.saveImage(uiImage: img){
+                imagePicked(image: image)
+            }
+        }
+        else{
+            guard let imageURL = info[.imageURL] as? URL else {return}
+            let image = ImageData()
+            image.setFileNameFromURL(imageURL)
+            if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+                imagePicked(image: image)
+            }
+        }
+        picker.dismiss(animated: false)
+    }
+    
+    func imagePicked(image: ImageData){
     }
     
 }

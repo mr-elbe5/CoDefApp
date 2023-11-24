@@ -131,24 +131,9 @@ class EditDefectViewController: EditViewController {
         return false
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageData()
-        image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            defect.images.append(image)
-            imageCollectionView.images.append(image)
-            defect.changed()
-            defect.saveData()
-            imageCollectionView.updateHeightConstraint()
-            imageCollectionView.reloadData()
-        }
-        picker.dismiss(animated: false)
-    }
-    
-    override func photoCaptured(photo: ImageData) {
-        defect.images.append(photo)
-        imageCollectionView.images.append(photo)
+    override func imagePicked(image: ImageData) {
+        defect.images.append(image)
+        imageCollectionView.images.append(image)
         defect.changed()
         defect.saveData()
         imageCollectionView.updateHeightConstraint()

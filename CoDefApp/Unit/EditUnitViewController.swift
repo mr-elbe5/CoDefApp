@@ -68,10 +68,11 @@ class EditUnitViewController: EditViewController {
                 switch result{
                 case .success(()):
                     DispatchQueue.main.async {
-                        let imageCaptureController = PhotoCaptureViewController()
-                        imageCaptureController.modalPresentationStyle = .fullScreen
-                        imageCaptureController.delegate = self
-                        self.present(imageCaptureController, animated: true)
+                        let pickerController = UIImagePickerController()
+                        pickerController.delegate = self
+                        pickerController.sourceType = .camera
+                        pickerController.modalPresentationStyle = .fullScreen
+                        self.present(pickerController, animated: true, completion: nil)
                     }
                     return
                 case .failure:
@@ -152,18 +153,8 @@ class EditUnitViewController: EditViewController {
         self.setupPlanContainerView()
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageData()
-        image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            updatePlanImage(image: image)
-        }
-        picker.dismiss(animated: false)
-    }
-    
-    override func photoCaptured(photo: ImageData) {
-        updatePlanImage(image: photo)
+    override func imagePicked(image: ImageData) {
+        updatePlanImage(image: image)
     }
     
 }

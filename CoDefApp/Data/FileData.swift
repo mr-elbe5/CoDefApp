@@ -82,14 +82,15 @@ class FileData : BaseData{
         return FileController.readFile(url: url)
     }
     
-    func saveFile(data: Data){
+    func saveFile(data: Data) -> Bool{
         if !fileExists(){
             let url = FileController.getURL(dirURL: FileController.fileDirURL,fileName: fileName)
-            _ = FileController.saveFile(data: data, url: url)
+            return FileController.saveFile(data: data, url: url)
         }
         else{
             Log.error("File exists \(fileName)")
         }
+        return false
     }
     
     func deleteFile(){

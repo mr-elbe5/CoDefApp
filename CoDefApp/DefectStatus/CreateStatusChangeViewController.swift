@@ -91,25 +91,10 @@ class CreateStatusChangeViewController: EditViewController {
         return false
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let imageURL = info[.imageURL] as? URL else {return}
-        let image = ImageData()
-        image.setFileNameFromURL(imageURL)
-        if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
-            statusChange.images.append(image)
-            statusChange.changed()
-            imageCollectionView.images.append(image)
-            statusChange.saveData()
-            imageCollectionView.updateHeightConstraint()
-            imageCollectionView.reloadData()
-        }
-        picker.dismiss(animated: false)
-    }
-    
-    override func photoCaptured(photo: ImageData) {
-        statusChange.images.append(photo)
+    override func imagePicked(image: ImageData) {
+        statusChange.images.append(image)
         statusChange.changed()
-        imageCollectionView.images.append(photo)
+        imageCollectionView.images.append(image)
         statusChange.saveData()
         imageCollectionView.updateHeightConstraint()
         imageCollectionView.reloadData()

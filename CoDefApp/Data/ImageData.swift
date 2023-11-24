@@ -32,10 +32,11 @@ class ImageData : FileData{
         }
     }
     
-    func saveImage(uiImage: UIImage){
+    func saveImage(uiImage: UIImage) -> Bool{
         if let data = uiImage.jpegData(compressionQuality: 0.8){
-            saveFile(data: data)
+            return saveFile(data: data)
         }
+        return false
     }
     
     func uploadToServer(contentId: Int) async{
