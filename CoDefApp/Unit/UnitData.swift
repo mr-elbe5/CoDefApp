@@ -87,11 +87,11 @@ class UnitData : ContentData{
             let image = plan.getImage()
             let rect = CGRect(x: 0 , y: 0, width: image.size.width, height: image.size.height)
             if let imageRef = image.cgImage{
-                if let context = imageRef.copyContext(), let arrow = UIImage(named: "redArrow")?.cgImage{
+                if let context = imageRef.copyContext(), let redArrow = UIImage(named: "redArrow")?.cgImage, let blueArrow = UIImage(named: "blueArrow")?.cgImage{
                     for defect in filteredDefects{
                         let x = rect.width * defect.position.x
                         let y = rect.height - rect.height * defect.position.y
-                        context.draw(arrow, in: CGRect(x: Int(x) - arrow.width/2, y: Int(y) - arrow.height, width: arrow.width, height: arrow.height))
+                        context.draw(defect.remainingWork ? blueArrow : redArrow, in: CGRect(x: Int(x) - redArrow.width/2, y: Int(y) - redArrow.height, width: redArrow.width, height: redArrow.height))
                     }
                     if let img = context.makeImage(){
                         return UIImage(cgImage: img)

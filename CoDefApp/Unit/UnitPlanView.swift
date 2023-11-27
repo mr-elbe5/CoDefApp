@@ -51,6 +51,7 @@ class UnitPlanView: UIView{
         for subview in subviews {
             if let marker = subview as? DefectMarkerButton{
                 marker.updateFrame(in: imageView.bounds.size)
+                marker.updateImage()
             }
         }
     }

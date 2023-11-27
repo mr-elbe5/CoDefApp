@@ -19,6 +19,7 @@ class SettingsViewController: ScrollViewController {
     var settingsSection = SectionView()
     var usedateTimeSwitch = LabeledCheckbox()
     var useNotifiedSwitch = LabeledCheckbox()
+    var useRemainingWorkSwitch = LabeledCheckbox()
     
     var cleanupSection = SectionView()
     
@@ -67,9 +68,12 @@ class SettingsViewController: ScrollViewController {
         usedateTimeSwitch.setup(title: "useDateTime".localize(), index: -2, isOn: AppState.shared.useDateTime)
         usedateTimeSwitch.delegate = self
         settingsSection.addSubviewAtTop(useNotifiedSwitch, topView: usedateTimeSwitch)
-            .bottom(settingsSection.bottomAnchor)
         useNotifiedSwitch.setup(title: "useNotified".localize(), index: -3, isOn: AppState.shared.useNotified)
         useNotifiedSwitch.delegate = self
+        settingsSection.addSubviewAtTop(useRemainingWorkSwitch, topView: useNotifiedSwitch)
+            .bottom(settingsSection.bottomAnchor)
+        useRemainingWorkSwitch.setup(title: "useRemainingWork".localize(), index: -4, isOn: AppState.shared.useRemainingWork)
+        useRemainingWorkSwitch.delegate = self
     }
     
     func setupCleanupSection(){
@@ -125,6 +129,10 @@ extension SettingsViewController: CheckboxDelegate{
         }
         else if index == -3{
             AppState.shared.useNotified = useNotifiedSwitch.isOn
+            AppState.shared.save()
+        }
+        else if index == -4{
+            AppState.shared.useRemainingWork = useRemainingWorkSwitch.isOn
             AppState.shared.save()
         }
     }

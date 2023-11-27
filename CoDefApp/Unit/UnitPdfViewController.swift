@@ -59,11 +59,11 @@ extension PDFRenderer {
             addLine(label: "defects".localize(), image: img, maxHeight: 0)
         }
         addSpacer()
-        for issue in unit.filteredDefects{
+        for defect in unit.filteredDefects{
             addLine()
-            addLine(text: "defect".localize(), type: .header3)
+            addLine(text: defect.remainingWork ? "remainingWork".localize() : "defect".localize(), type: .header3)
             addLine(label: "context".localize(), text: "defectContext".localize(param1: unit.project?.displayName ?? "", param2: unit.displayName))
-            addDefectContent(defect: issue)
+            addDefectContent(defect: defect)
         }
     }
     

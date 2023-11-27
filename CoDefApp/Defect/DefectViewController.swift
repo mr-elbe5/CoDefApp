@@ -84,6 +84,15 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
         
+        if AppState.shared.useRemainingWork, defect.remainingWork{
+            let remainingWorkView = UILabel(text: "remainingWork".localize())
+            dataSection.addArrangedSubview(remainingWorkView)
+        }
+        
+        let positionCommentView = LabeledText()
+        positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        dataSection.addArrangedSubview(positionCommentView)
+        
         let phaseView = LabeledText()
         phaseView.setupView(labelText: "projectPhase".localizeWithColon(), text: defect.projectPhase.rawValue.localize())
         dataSection.addArrangedSubview(phaseView)
@@ -118,10 +127,6 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
                 .height(DefectData.planCropSize.height)
             dataSection.addArrangedSubview(planView)
         }
-        
-        let positionCommentView = LabeledText()
-        positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
-        dataSection.addArrangedSubview(positionCommentView)
         
         let label = UILabel(header: "images".localizeWithColon())
         dataSection.addArrangedSubview(label)

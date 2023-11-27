@@ -144,7 +144,7 @@ class UnitViewController: ScrollViewController {
         setupDataSection()
     }
     
-    func updateIssueSection(){
+    func updateDefectSection(){
         defectSection.removeAllSubviews()
         setupDefectSection()
     }
@@ -163,7 +163,7 @@ extension UnitViewController: UnitDelegate{
 extension UnitViewController: DefectDelegate{
     
     func defectChanged() {
-        updateIssueSection()
+        updateDefectSection()
     }
     
 }

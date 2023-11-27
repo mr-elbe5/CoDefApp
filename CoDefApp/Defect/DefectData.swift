@@ -12,6 +12,7 @@ class DefectData : ContentData{
     
     enum CodingKeys: String, CodingKey {
         case projectPhase
+        case remainingWork
         case assignedId
         case notified
         case dueDate1
@@ -24,6 +25,7 @@ class DefectData : ContentData{
     }
     
     var projectPhase = ProjectPhase.PREAPPROVAL
+    var remainingWork = false
     var assignedId: Int = 0
     var notified = false
     var dueDate1 = Date()
@@ -41,7 +43,7 @@ class DefectData : ContentData{
     
     override var displayName: String{
         get{
-            "defect".localize() + " " + String(id)
+            (remainingWork ? "remainingWork".localize() : "defect".localize()) + " " + String(id)
         }
         set{
         }
@@ -112,6 +114,7 @@ class DefectData : ContentData{
         else{
             projectPhase = ProjectPhase.PREAPPROVAL
         }
+        remainingWork = try values.decodeIfPresent(Bool.self, forKey: .remainingWork) ?? false
         assignedId = try values.decodeIfPresent(Int.self, forKey: .assignedId) ?? 0
         notified = try values.decodeIfPresent(Bool.self, forKey: .notified) ?? false
         var date = try values.decodeIfPresent(String.self, forKey: .dueDate1)
@@ -133,6 +136,7 @@ class DefectData : ContentData{
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(projectPhase.rawValue, forKey: .projectPhase)
+        try container.encode(remainingWork, forKey: .remainingWork)
         try container.encode(assignedId, forKey: .assignedId)
         try container.encode(notified, forKey: .notified)
         try container.encode(dueDate1.isoString(), forKey: .dueDate1)
@@ -171,7 +175,7 @@ class DefectData : ContentData{
             let dy = Int(posY - origPosY)
             let rect = CGRect(x: posX - DefectData.planCropSize.width/2, y: posY - DefectData.planCropSize.height/2, width: DefectData.planCropSize.width, height: DefectData.planCropSize.height)
             if let cutImageRef = image.cgImage?.cropping(to:rect){
-                if let context = cutImageRef.copyContext(), let arrow = UIImage(named: "redArrow")?.cgImage{
+                if let context = cutImageRef.copyContext(), let arrow = UIImage(named: remainingWork ? "blueArrow" : "redArrow")?.cgImage{
                     context.draw(arrow, in: CGRect(x: Int(rect.width/2) - arrow.width/2 + dx, y: Int(rect.height/2) - arrow.height  + dy, width: arrow.width, height: arrow.height))
                     if let img = context.makeImage(){
                         planImage = UIImage(cgImage: img)
@@ -233,6 +237,7 @@ class DefectData : ContentData{
         dict["positionY"]=String(Double(position.y))
         dict["positionComment"]=positionComment
         dict["assignedId"]=String(assignedId)
+        dict["remainingWork"]=String(remainingWork)
         dict["status"] = status.rawValue
         return dict
     }
@@ -240,6 +245,7 @@ class DefectData : ContentData{
     func synchronizeFrom(_ fromData: DefectData) async{
         await super.synchronizeFrom(fromData)
         projectPhase = fromData.projectPhase
+        remainingWork = fromData.remainingWork
         assignedId = fromData.assignedId
         notified = fromData.notified
         dueDate1 = fromData.dueDate1

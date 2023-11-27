@@ -14,12 +14,14 @@ class EditDefectViewController: EditViewController {
     var delegate: DefectDelegate? = nil
     
     var descriptionField = LabeledTextareaInput()
+    var positionCommentField = LabeledTextareaInput()
+    var remainingWorkField = LabeledCheckbox()
     var notifiedField = LabeledCheckbox()
     var phaseField = LabeledPhaseSelectField()
     var statusField = LabeledDefectStatusSelectView()
     var assignField = LabeledCompanySelectField()
     var dueDateField = LabeledDatePicker()
-    var positionCommentField = LabeledTextareaInput()
+    
     
     var planView : UnitPlanView? = nil
     
@@ -50,18 +52,30 @@ class EditDefectViewController: EditViewController {
         descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: defect.description)
         contentView.addSubviewAtTop(descriptionField)
         
+        positionCommentField.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        contentView.addSubviewAtTop(positionCommentField, topView: descriptionField)
+        
+        var lastView : UIView = positionCommentField
+        
+        if AppState.shared.useRemainingWork{
+            remainingWorkField.setup(title: "remainingWork".localizeWithColon(), isOn: defect.remainingWork)
+            contentView.addSubviewAtTop(remainingWorkField, topView: lastView)
+            lastView = remainingWorkField
+        }
+        
         phaseField.setup(labelText: "projectPhase".localizeWithColonAsMandatory(), currentPhase: defect.projectPhase)
-        contentView.addSubviewAtTop(phaseField, topView: descriptionField)
+        contentView.addSubviewAtTop(phaseField, topView: lastView)
+        lastView = phaseField
         
         statusField.setupView(labelText: "status".localizeWithColonAsMandatory())
         statusField.setupStatuses(currentStatus: defect.status)
-        contentView.addSubviewAtTop(statusField, topView: phaseField)
+        contentView.addSubviewAtTop(statusField, topView: lastView)
+        lastView = statusField
         
         assignField.setupView(labelText: "assignedTo".localizeWithColonAsMandatory())
         assignField.setupCompanies(companies: defect.unit.projectCompanies, currentCompanyId: defect.assignedId)
-        contentView.addSubviewAtTop(assignField, topView: statusField)
-        
-        var lastView : UIView = assignField
+        contentView.addSubviewAtTop(assignField, topView: lastView)
+        lastView = assignField
         
         if AppState.shared.useNotified{
             notifiedField.setup(title: "notified".localizeWithColon(), isOn: defect.notified)
@@ -80,6 +94,7 @@ class EditDefectViewController: EditViewController {
             contentView.addSubviewWithAnchors(label, top: lastView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             let planButton = IconButton(icon: "pencil", backgroundColor: .systemBackground, withBorder: true)
             planButton.addAction(UIAction(){ action in
+                self.defect.remainingWork = self.remainingWorkField.isOn
                 let controller = EditDefectPositionViewController(defect: self.defect, plan: plan)
                 controller.positionDelegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -93,10 +108,7 @@ class EditDefectViewController: EditViewController {
             lastView = planView
         }
         
-        positionCommentField.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
-        contentView.addSubviewAtTop(positionCommentField, topView: lastView)
-        
-        addImageSection(below: positionCommentField.bottomAnchor, imageCollectionView: imageCollectionView)
+        addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
         
     }
     
@@ -111,11 +123,12 @@ class EditDefectViewController: EditViewController {
     override func save() -> Bool{
         if !descriptionField.text.isEmpty, let assignedCompany = assignField.selectedCompany {
             defect.description = descriptionField.text
+            defect.positionComment = positionCommentField.text
+            defect.remainingWork = remainingWorkField.isOn
             defect.projectPhase = phaseField.selectedPhase
             defect.assignedId = assignedCompany.id
             defect.notified = notifiedField.isOn
             defect.dueDate1 = dueDateField.date
-            defect.positionComment = positionCommentField.text
             if let unit = defect.unit, !unit.defects.contains(defect){
                 unit.defects.append(defect)
                 unit.changed()

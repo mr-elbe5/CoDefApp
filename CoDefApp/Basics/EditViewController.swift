@@ -48,8 +48,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         
         let addImageButton = IconButton(icon: "photo".localize(),tintColor: .systemBlue, backgroundColor: .systemBackground, withBorder: true)
         addImageButton.setGrayRoundedBorders()
-        contentView.addSubviewWithAnchors(addImageButton, trailing: contentView.centerXAnchor, insets: doubleInsets)
-            .centerY(label.centerYAnchor)
+        contentView.addSubviewWithAnchors(addImageButton,top: label.bottomAnchor, trailing: contentView.centerXAnchor, insets: doubleInsets)
         addImageButton.addAction(UIAction(){ action in
             let pickerController = UIImagePickerController()
             pickerController.delegate = self
@@ -62,8 +61,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         
         let addPhotoButton = IconButton(icon: "camera",tintColor: .systemBlue, backgroundColor: .systemBackground, withBorder: true)
         addPhotoButton.setGrayRoundedBorders()
-        contentView.addSubviewWithAnchors(addPhotoButton, leading: contentView.centerXAnchor, insets: doubleInsets)
-            .centerY(label.centerYAnchor)
+        contentView.addSubviewWithAnchors(addPhotoButton,top: label.bottomAnchor, leading: contentView.centerXAnchor, insets: doubleInsets)
         addPhotoButton.addAction(UIAction(){ action in
             AVCaptureDevice.askCameraAuthorization(){ result in
                 switch result{
@@ -87,10 +85,11 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         addPhotoButton.isEnabled = AVCaptureDevice.isCameraAvailable
         
         let addLabel = UILabel(text: "add".localizeWithColon())
-        contentView.addSubviewWithAnchors(addLabel, top: previousAnchor, trailing: addImageButton.leadingAnchor, insets: doubleInsets)
+        contentView.addSubviewWithAnchors(addLabel, leading: contentView.leadingAnchor, insets: defaultInsets)
+            .centerY(addImageButton.centerYAnchor)
         
         imageCollectionView.imageDelegate = self
-        contentView.addSubviewAtTop(imageCollectionView, topView: addImageButton)
+        contentView.addSubviewAtTop(imageCollectionView, topView: addLabel)
             .bottom(contentView.bottomAnchor, inset: -defaultInset)
         
     }

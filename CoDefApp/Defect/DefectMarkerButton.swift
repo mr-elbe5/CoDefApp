@@ -13,7 +13,7 @@ class DefectMarkerButton: UIButton{
     
     init(defect: DefectData){
         self.defect = defect
-        let img = UIImage(named: "redArrow")!
+        let img = UIImage(named: defect.remainingWork ? "blueArrow" : "redArrow")!
         super.init(frame: CGRect(x: -img.size.width/2, y: 0, width: img.size.width, height: img.size.height))
         setImage(img, for: .normal)
     }
@@ -31,6 +31,10 @@ class DefectMarkerButton: UIButton{
         let x : CGFloat = defect.position.x * unitSize.width - frame.width/2
         let y : CGFloat = defect.position.y * unitSize.height
         frame = CGRect(x: x, y: y, width: frame.width, height: frame.height)
+    }
+    
+    func updateImage(){
+        setImage(UIImage(named: defect.remainingWork ? "blueArrow" : "redArrow")!, for: .normal)
     }
     
     func updateDefect(in unitSize: CGSize){

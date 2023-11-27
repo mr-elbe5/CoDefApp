@@ -56,6 +56,9 @@ extension PDFRenderer {
         if !defect.description.isEmpty{
             addLine(label: "description".localize(), text: defect.description)
         }
+        if !defect.positionComment.isEmpty{
+            addLine(label: "positionComment".localize(), text: defect.positionComment)
+        }
         addLine(label: "creator".localize(), text: defect.creatorName)
         addLine(label: "creationDate".localize(), text: defect.creationDate.asString())
         addLine(label: "projectPhase".localize(), text: defect.projectPhase.rawValue.localize())
@@ -66,7 +69,6 @@ extension PDFRenderer {
         if let img = defect.planImage{
             addLine(label: "position".localize(), image: img, maxHeight: pageRect.height * 0.2)
         }
-        addLine(label: "positionComment".localize(), text: defect.positionComment)
         addSpacer()
         if !defect.images.isEmpty{
             addLine(label: "images".localize(), text: "")
