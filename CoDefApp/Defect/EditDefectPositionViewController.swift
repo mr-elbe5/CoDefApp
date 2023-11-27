@@ -19,7 +19,7 @@ class EditDefectPositionViewController: ImageViewController {
         self.defect = defect
         self.defect.position = defect.position
         marker = DefectMarkerButton(defect: self.defect)
-        super.init(imageFile: plan, fitImage: false)
+        super.init(imageFile: plan, fitImage: true)
     }
     
     override func setupNavigationBar(){
