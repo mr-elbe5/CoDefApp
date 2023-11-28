@@ -101,7 +101,7 @@ class UnitViewController: ScrollViewController {
                 self.showError("noUsersError")
             }
         }, for: .touchDown)
-        defectSection.addSubviewWithAnchors(addDefectButton, top: headerLabel.bottomAnchor, trailing: defectSection.centerXAnchor, insets: Insets.defaultInsets)
+        defectSection.addSubviewWithAnchors(addDefectButton, top: headerLabel.bottomAnchor, leading: defectSection.leadingAnchor, insets: Insets.defaultInsets)
         
         let addRemainingWorkButton = TextButton(text: "newRemainingWork".localize())
         addRemainingWorkButton.addAction(UIAction(){ action in
@@ -116,7 +116,7 @@ class UnitViewController: ScrollViewController {
                 self.showError("noUsersError")
             }
         }, for: .touchDown)
-        defectSection.addSubviewWithAnchors(addRemainingWorkButton, top: headerLabel.bottomAnchor, leading: defectSection.centerXAnchor, insets: Insets.defaultInsets)
+        defectSection.addSubviewWithAnchors(addRemainingWorkButton, top: headerLabel.bottomAnchor, trailing: defectSection.trailingAnchor, insets: Insets.defaultInsets)
         
         var lastView: UIView = addRemainingWorkButton
         for defect in unit.defects{
