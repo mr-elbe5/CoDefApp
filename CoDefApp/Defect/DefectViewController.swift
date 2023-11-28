@@ -84,10 +84,8 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
         
-        if AppState.shared.useRemainingWork, defect.remainingWork{
-            let remainingWorkView = UILabel(text: "remainingWork".localize())
-            dataSection.addArrangedSubview(remainingWorkView)
-        }
+        let remainingWorkView = UILabel(text: "remainingWork".localize())
+        dataSection.addArrangedSubview(remainingWorkView)
         
         let positionCommentView = LabeledText()
         positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)

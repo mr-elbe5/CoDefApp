@@ -37,7 +37,6 @@ class AppState : Codable{
         case standalone
         case useDateTime
         case useNotified
-        case useRemainingWork
         case serverURL
         case filterCompanyIds
     }
@@ -47,7 +46,6 @@ class AppState : Codable{
     var standalone = true
     var useDateTime = true
     var useNotified = true
-    var useRemainingWork = true
     var serverURL = ""
     var filterCompanyIds : Array<Int>
     
@@ -95,7 +93,6 @@ class AppState : Codable{
         standalone = try values.decodeIfPresent(Bool.self, forKey: .standalone) ?? true
         useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
         useNotified = try values.decodeIfPresent(Bool.self, forKey: .useNotified) ?? true
-        useRemainingWork = try values.decodeIfPresent(Bool.self, forKey: .useRemainingWork) ?? true
         serverURL = try values.decodeIfPresent(String.self, forKey: .serverURL) ?? ""
         filterCompanyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .filterCompanyIds) ?? Array<Int>()
     }
@@ -107,7 +104,6 @@ class AppState : Codable{
         try container.encode(standalone, forKey: .standalone)
         try container.encode(useDateTime, forKey: .useDateTime)
         try container.encode(useNotified, forKey: .useNotified)
-        try container.encode(useRemainingWork, forKey: .useRemainingWork)
         try container.encode(serverURL, forKey: .serverURL)
         try container.encode(filterCompanyIds, forKey: .filterCompanyIds)
     }

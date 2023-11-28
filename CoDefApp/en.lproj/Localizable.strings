@@ -139,9 +139,11 @@ Do want to proceed?";
 "unitEditInfoText"="The name is mandatory.";
 
 /*Defects*/
-"defects"="Defects";
+"defectsAndRemainingWork"="Defects and Remaining Work";
 "defect"="Defect";
+"remainingWork"="Remaining Work";
 "newDefect"="New Defect";
+"newRemainingWork"="New Remaining Work";
 "note"="Note";
 "status"="Status";
 "OPEN"="Open";
@@ -258,7 +260,6 @@ All other data are for addressing or information.";
 "settingsText"="This app can show some fields in different ways.";
 "useDateTime"="Show time in date texts";
 "useNotified"="Show a notitification flag for defects";
-"useRemainingWork"="Show a flag for defects to categorize as remaining work";
 "deleteData"="Delete all Data";
 "deleteDataHint"="All current data will be deleted from the app.";
 "dataDeleted"="Data has been deleted";

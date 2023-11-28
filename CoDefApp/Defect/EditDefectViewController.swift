@@ -57,11 +57,9 @@ class EditDefectViewController: EditViewController {
         
         var lastView : UIView = positionCommentField
         
-        if AppState.shared.useRemainingWork{
-            remainingWorkField.setup(title: "remainingWork".localizeWithColon(), isOn: defect.remainingWork)
-            contentView.addSubviewAtTop(remainingWorkField, topView: lastView)
-            lastView = remainingWorkField
-        }
+        remainingWorkField.setup(title: "remainingWork".localizeWithColon(), isOn: defect.remainingWork)
+        contentView.addSubviewAtTop(remainingWorkField, topView: lastView)
+        lastView = remainingWorkField
         
         phaseField.setup(labelText: "projectPhase".localizeWithColonAsMandatory(), currentPhase: defect.projectPhase)
         contentView.addSubviewAtTop(phaseField, topView: lastView)

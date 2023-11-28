@@ -145,9 +145,11 @@ Wollen Sie fortfahren?";
 "unitEditInfoText"="Der Name ist ein Pflichtfeld.";
 
 /*Defects*/
-"defects"="Mängel";
+"defectsAndRemainingWork"="Mängel und Restleistungen";
 "defect"="Mangel";
+"remainingWork"="Restleistung";
 "newDefect"="Neuer Mangel";
+"newRemainingWork"="Neue Restleistung";
 "status"="Status";
 "OPEN"="Offen";
 "DISPUTED"="Strittig";
@@ -169,7 +171,7 @@ Wollen Sie fortfahren?";
 "disputed"="strittig";
 "rejected"="abgelehnt";
 "done"="erledigt";
-"defectReport"="Mängelbericht";
+"defectReport"="Bericht";
 "defectContext"="Projekt: %@, Einheit: %@";
 
 "defectEditSymbolText"="Die Daten eines Mangels ändern (nur ohne Serveranbindung oder vor der Übermittlung an den Server).";
@@ -261,7 +263,6 @@ Alle anderen Daten dienen der Adressierung oder Information.";
 "settingsText"="Diese App kann einige Felder in unterschiedlicher Weise darstellen.";
 "useDateTime"="Datum mit Zeitangabe anzeigen";
 "useNotified"="Benachrichtigungsschalter anzeigen";
-"useRemainingWork"="Schalter für Kategorisierung als Restleistung anzeigen";
 "deleteData"="Alle Daten löschen";
 "deleteDataHint"="Alle lokalen Daten werden gelöscht!";
 "dataDeleted"="Die Daten wurden gelöscht.";

@@ -56,7 +56,7 @@ extension PDFRenderer {
             addLine(label: "description".localize(), text: unit.description)
         }
         if let img = unit.getPlanImage(){
-            addLine(label: "defects".localize(), image: img, maxHeight: 0)
+            addLine(label: "defectsAndRemainingWork".localize(), image: img, maxHeight: 0)
         }
         addSpacer()
         for defect in unit.filteredDefects{
