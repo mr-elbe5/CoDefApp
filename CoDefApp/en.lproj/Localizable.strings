@@ -47,7 +47,7 @@
 "report"="Report";
 "context"="Context";
 "send"="Send by Email";
-"reportSubject"="Report from Bandika Issue Tracker";
+"reportSubject"="Report from Codef Defect Tracker";
 "reportAttached"="The report is attached as PDF file.";
 "saveReport"="Save Report";
 "selectReportFile"="Select a file name for this report";
@@ -74,18 +74,18 @@ The app can be connected to a dedicated server. Yet this is only needed if you w
 "backupSymbolText"="Backup all data as a zip file or restore (and replace) all data from a backup zip file.";
 "settingsSymbolText"="Open settings like standalone or server usage and others.";
 "mainInfoStructureHeader"="Structure";
-"mainInfoStructureText"="The structure includes projects, units and defects.
+"mainInfoStructureText"="The structure includes projects, units and defects as well as remeining works.
 Additionally it includes a pool of companies for assigning them to one or more projects and to their defects.
 
 Projects can be e.g. construction tasks or buildings. From the pool of all companies the relevant ones are assigned to each project.
 
 Units are parts of the project like a floor or a room. Units can have a (ground )plan, where defects can be marked on.
 
-Defects include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.
+Defects and remeining works include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.
 
-Defects have an ID. If created here they get a temporary ID above 10000000. After submitting to the server they get their final ID from the server.
+Defects and remaining works have an ID. If created here they get a temporary ID above 10000000. After submitting to the server they get their final ID from the server.
 
-Defects are processed using status changes with comment, new status, new assignment and new images or photos.";
+Defects and remaining works are processed using status changes with comment, new status, new assignment and new images or photos.";
 "mainProjectsInfoHeader"="Projects";
 "mainProjectsInfoText"="Here you can select a project or create a new project.";
 "mainCompaniesInfoHeader"="Companies";
@@ -105,10 +105,10 @@ Touching the following icons changes the visibility of defects by assignment.";
 "projectDeleteSymbolText"="Delete a project. This will also delete all subelements.";
 "projectEditInfoHeader"="Edit a project";
 "projectEditInfoText"="The name is mandatory.
-Selected companies are part of this project and can be assigned to defects. At least one is mandatory.";
+Selected companies are part of this project and can be assigned to defects rsp. remeinung works. At least one is mandatory.";
 "projectUnitsInfoHeader"="Project Units";
 "projectUnitsInfoText"="Units are parts of the project like a floor or a room.
-Units can have a (ground) plan, where defects can be marked on.";
+Units can have a (ground) plan, where defects and remeining works can be marked on.";
 "projectSealSymbolText"="This marks a unit when no filter is active.";
 "projectCheckmarkSealSymbolText"="This marks a unit when it has filtered items.";
 "projectXmarkSealSymbolText"="This marks a unit when it has no filtered items. You cannot select it.";
@@ -130,7 +130,7 @@ Do want to proceed?";
 "unitPlanInfoHeader"="Unit plan";
 "unitPlanInfoText"="If a unit has a plan, the positions of the defects of that unit are marked with red arrows. Selecting an arrow opens the respective defect.";
 "unitDefectsHeader"="Defects";
-"unitDefectsInfoText"="Defects include a name or short description, a description of the defect, a status, an assignment to a company, a target date, a position and images and/or photos.";
+"unitDefectsInfoText"="Defects include a name or short description, a description of the defect or remaining work, a status, an assignment to a company, a target date, a position and images and/or photos.";
 "unitSealSymbolText"="This marks a defect when no filter is active.";
 "unitCheckmarkSealSymbolText"="This marks a defect when it has been selected by the filter.";
 "unitXmarkSealSymbolText"="This marks a defect when it has been deselected by the filter. You cannot select it.";
@@ -139,7 +139,7 @@ Do want to proceed?";
 "unitEditInfoText"="The name is mandatory.";
 
 /*Defects*/
-"defectsAndRemainingWork"="Defects and Remaining Work";
+"defectsAndRemainingWork"="Defects and Remaining Works";
 "defect"="Defect";
 "remainingWork"="Remaining Work";
 "newDefect"="New Defect";
@@ -169,13 +169,13 @@ Do want to proceed?";
 "defectReport"="Defect Report";
 "defectContext"="Project: %@, Unit: %@";
 
-"defectEditSymbolText"="Change data of this defect (only standalone or not yet submitted to server).";
-"defectReportSymbolText"="Create a report of this defect (PDF)";
-"defectDeleteSymbolText"="Delete a defect. This will also delete all images and status changes.";
+"defectEditSymbolText"="Change data of this defect/remaining work (only standalone or not yet submitted to server).";
+"defectReportSymbolText"="Create a report of this defect/remaining work (PDF)";
+"defectDeleteSymbolText"="Delete a defect/remaining work. This will also delete all images and status changes.";
 "statusChangeInfoHeader"="Status Changes";
-"statusChangeInfoText"="Status changes are follow-ups of defects when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
+"statusChangeInfoText"="Status changes are follow-ups of defects and remaining works when somebody made some progress. They include comment, new status, new assignment and new images or photos.";
 
-"defectEditInfoHeader"="Document or change a defect";
+"defectEditInfoHeader"="Document or change a defect/remaining work";
 "defectEditInfoText"="Entries marked with * are mandatory.
 
 For changing dates, click on the date field.

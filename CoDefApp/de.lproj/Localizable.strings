@@ -79,18 +79,18 @@ Unterstützung für die Einrichtung und Nutzung eines zugehörigen Servers könn
 "backupSymbolText"="Alle Daten als Zip-Datei sichern oder alle Daten von einer Sicherungs-Zip-Datei wiederherstellen (ersetzen).";
 "settingsSymbolText"="Einstellungen wie die Server-Nutzung und andere öffnen.";
 "mainInfoStructureHeader"="Struktur";
-"mainInfoStructureText"="Die Struktur umfasst Projekte, Einheiten und Mängel.
-Weiterhin existiert ein Pool von Firmen, die einem oder mehreren Projekten und dort einem Mangel zugeordnet werden können.
+"mainInfoStructureText"="Die Struktur umfasst Projekte, Einheiten und Mängel sowie Restleistungen.
+Weiterhin existiert ein Pool von Firmen, die einem oder mehreren Projekten und dort einem Mangel bzw. einer Restleistung zugeordnet werden können.
 
 Projekte können z.B. Bauvorhaben oder Gebäude sein. Ihnen werden aus dem Pool aller die für dieses Projekt relevanten Firmen zugeordnet.
 
 Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Grundriss haben, auf dem die Mängel markiert werden.
 
-Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
+Mängel und Restleistungen beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.
 
-Mängel haben eine eindeutige ID. Wenn sie hier erzeugt werden, bekommen sie eine vorläufige ID über 1000000. Nach der Übermittlung an den Server erhalten sie ihre endgültige ID vom Server.
+Mängel und Restleistungen haben eine eindeutige ID. Wenn sie hier erzeugt werden, bekommen sie eine vorläufige ID über 1000000. Nach der Übermittlung an den Server erhalten sie ihre endgültige ID vom Server.
 
-Die Bearbeitung von Problemen erfolgt als Statusänderung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
+Die Bearbeitung von Mängeln und Restleistungen erfolgt als Statusänderung mit Kommentar, neuem Status, ggf. neuer Zuordnung und neuen Bildern oder Fotos.
 ";
 "mainProjectsInfoHeader"="Projekte";
 "mainProjectsInfoText"="Hier können Sie Projekte auswählen oder neue Projekte erstellen.";
@@ -114,7 +114,7 @@ Antippen der folgenden Symbole ändert die Sichtbarkeit der Mängel nach Zuordnu
 "projectEditInfoText"="Der Name ist ein Pflichtfeld.
 Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werden. Mindestens eine/r  ist Pflicht.";
 "projectUnitsInfoHeader"="Projekteinheiten";
-"projectUnitsInfoText"="Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Plan/Grundriss haben, auf dem die Mängel markiert werden.";
+"projectUnitsInfoText"="Einheiten sind Teile des Projekts wie z.B. eine Etage oder ein Zimmer. Einheiten können einen Plan/Grundriss haben, auf dem die Mängel und Restleistungen markiert werden.";
 "projectSealSymbolText"="Dies markiert eine Einheit, wenn kein Filter aktiv ist.";
 "projectCheckmarkSealSymbolText"="Dies markiert eine Einheit, wenn er gefilterte Elemente enthält.";
 "projectXmarkSealSymbolText"="Dies markiert eine Einheit, wenn er keine gefilterten Elemente enthält. Er Kann nicht ausgewählt werden.";
@@ -125,7 +125,7 @@ Ausgewählte Firmen sind Teil des Projekts und können Mängeln zugeordnet werde
 "newUnit"="Neue Projekteinheit";
 "approveDate"="Abnahmedatum";
 "plan"="Plan";
-"planReplaceInfo"="Das Ersetzen des Plans macht alle Mangelpositionen ungültig.
+"planReplaceInfo"="Das Ersetzen des Plans macht alle Positionen ungültig.
 Wollen Sie fortfahren?";
 "unitReport"="Bericht für die Einheit";
 "unitContext"="Projekt: %@";
@@ -134,12 +134,12 @@ Wollen Sie fortfahren?";
 "unitReportSymbolText"="Einen Report der Einheit erstellen (PDF).";
 "unitDeleteSymbolText"="Eine Einheit löschen. Dies ist löscht auch sämtliche Unterelemente (auf dem Server werden keine Elemente gelöscht).";
 "unitPlanInfoHeader"="Grundriss";
-"unitPlanInfoText"="Wenn eine Einheit einen Plan enthält, werden die Positionenen der Mängel auf dem Plan mit einem roten Pfeil markiert. Auswählen öffnet den jeweiligen Mangel.";
+"unitPlanInfoText"="Wenn eine Einheit einen Plan enthält, werden die Positionenen der Mängel und Restleistungen auf dem Plan mit einem roten bzw. blauen Pfeil markiert. Auswählen öffnet den jeweiligen Mangel oder die jeweilige Restleistung.";
 "unitDefectsHeader"="Mängel";
-"unitDefectsInfoText"="Mängel beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.";
-"unitSealSymbolText"="Dies markiert einen Mangel, wenn kein Filter aktiv ist.";
-"unitCheckmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter ausgewählt ist.";
-"unitXmarkSealSymbolText"="Dies markiert einen Mangel, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
+"unitDefectsInfoText"="Mängel und Restleistung beinhalten einen Namen bzw. Kurzbeschreibung, eine Beschreibung des Problems oder der Leistung, einen Bearbeitungsstatus, eine Zuordnung zu einer Firma, ein Zieldatum, ggf. eine Position sowie Bilder und/oder Fotos.";
+"unitSealSymbolText"="Dies markiert einen Mangel/eine Restleistung, wenn kein Filter aktiv ist.";
+"unitCheckmarkSealSymbolText"="Dies markiert einen Mangel/eine Restleistung, wenn er durch den Filter ausgewählt ist.";
+"unitXmarkSealSymbolText"="Dies markiert einen Mangel/eine Restleistung, wenn er durch den Filter nicht ausgewählt ist. Er Kann nicht ausgewählt werden.";
 
 "unitEditInfoHeader"="Eine Projekteinheit erstellen oder ändern";
 "unitEditInfoText"="Der Name ist ein Pflichtfeld.";
@@ -175,12 +175,12 @@ Wollen Sie fortfahren?";
 "defectContext"="Projekt: %@, Einheit: %@";
 
 "defectEditSymbolText"="Die Daten eines Mangels ändern (nur ohne Serveranbindung oder vor der Übermittlung an den Server).";
-"defectReportSymbolText"="Einen Report des Mangels erstellen (PDF).";
-"defectDeleteSymbolText"="Einen Mangel löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen (auf dem Server werden keine Elemente gelöscht).";
+"defectReportSymbolText"="Einen Report des Mangels bzw. der Restleistung erstellen (PDF).";
+"defectDeleteSymbolText"="Einen Mangel/eine Restleistung löschen. Dies ist löscht auch sämtliche Bilder und Statusänderungen (auf dem Server werden keine Elemente gelöscht).";
 "statusChangeInfoHeader"="Statusänderungen";
 "statusChangeInfoText"="Statusänderungen sind Folgeeinträge für einen Mangel, wenn jemand einen Fortschritt erzielt hat oder sich der Status anderweitig geändert hat. Sie enthalten einen Kommentar, einen neuen Status, ggf. eine neue Zuordnung und neue Bilder oder Fotos";
 
-"defectEditInfoHeader"="Einen Mangel dokumentieren oder ändern";
+"defectEditInfoHeader"="Einen Mangel/eine Restleistung dokumentieren oder ändern";
 "defectEditInfoText"="Alle mit * gekennzeichneten Felder sind Pflichtfelder.
 
 Zum Ändern eines Datums tippen Sie auf das Datum.

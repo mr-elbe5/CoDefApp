@@ -89,6 +89,9 @@ class AppState : Codable{
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         lastId = try values.decodeIfPresent(Int.self, forKey: .lastId) ?? Statics.minNewId
+        if lastId < Statics.minNewId{
+            lastId = Statics.minNewId
+        }
         currentUser = try values.decodeIfPresent(UserData.self, forKey: .currentUser) ?? UserData.anonymousUser
         standalone = try values.decodeIfPresent(Bool.self, forKey: .standalone) ?? true
         useDateTime = try values.decodeIfPresent(Bool.self, forKey: .useDateTime) ?? true
