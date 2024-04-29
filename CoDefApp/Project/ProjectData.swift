@@ -11,10 +11,12 @@ class ProjectData : ContentData{
     enum CodingKeys: String, CodingKey {
         case units
         case companyIds
+        case dailyReports
     }
     
     var units = Array<UnitData>()
     var companyIds = Array<Int>()
+    var dailyReports = ProjectDailyReportList()
     
     //runtime
     var companies = CompanyList()
@@ -42,6 +44,10 @@ class ProjectData : ContentData{
             unit.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
+        dailyReports = try values.decodeIfPresent(ProjectDailyReportList.self, forKey: .companyIds) ?? ProjectDailyReportList()
+        for dailyReport in dailyReports{
+            dailyReport.project = self
+        }
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -49,6 +55,7 @@ class ProjectData : ContentData{
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
+        try container.encode(dailyReports, forKey: .dailyReports)
     }
     
     func updateCompanies(){
@@ -154,6 +161,19 @@ class ProjectData : ContentData{
             else{
                 units.append(unit)
                 await AppState.shared.unitDownloaded()
+            }
+            
+        }
+        for unit in units{
+            unit.project = self
+        }
+        for dailyReport in fromData.dailyReports{
+            if let presentReport = dailyReports.getContentData(id: dailyReport.id){
+                await presentReport.synchronizeFrom(dailyReport)
+            }
+            else{
+                dailyReports.append(dailyReport)
+                await AppState.shared.dailyReportDownloaded()
             }
             
         }

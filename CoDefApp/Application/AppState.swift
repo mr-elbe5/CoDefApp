@@ -53,6 +53,7 @@ class AppState : Codable{
     
     var uploadedCompanies : Int = 0
     var uploadedProjects : Int = 0
+    var uploadedReports : Int = 0
     var uploadedUnits : Int = 0
     var uploadedDefects : Int = 0
     var uploadedStatusChanges : Int = 0
@@ -62,6 +63,7 @@ class AppState : Codable{
     
     var downloadedCompanies : Int = 0
     var downloadedProjects : Int = 0
+    var downloadedReports : Int = 0
     var downloadedUnits : Int = 0
     var downloadedDefects : Int = 0
     var downloadedStatusChanges : Int = 0
@@ -182,6 +184,13 @@ class AppState : Codable{
         await uploadStateChanged()
     }
     
+    func dailyReportUploaded() async{
+        newItemsCount -= 1
+        uploadedReports += 1
+        uploadedItems += 1.0
+        await uploadStateChanged()
+    }
+    
     func unitUploaded() async{
         newItemsCount -= 1
         uploadedUnits += 1
@@ -220,6 +229,11 @@ class AppState : Codable{
     
     func projectDownloaded() async{
         downloadedProjects += 1
+        await downloadStateChanged()
+    }
+    
+    func dailyReportDownloaded() async{
+        downloadedReports += 1
         await downloadStateChanged()
     }
     
@@ -263,6 +277,7 @@ class AppState : Codable{
     func resetUpload(){
         setNewItemsCount()
         uploadedProjects = 0
+        uploadedReports = 0
         uploadedUnits = 0
         uploadedDefects = 0
         uploadedStatusChanges = 0
@@ -280,6 +295,7 @@ class AppState : Codable{
     func resetDownload(){
         downloadedCompanies = 0
         downloadedProjects = 0
+        downloadedReports = 0
         downloadedUnits = 0
         downloadedDefects = 0
         downloadedStatusChanges = 0

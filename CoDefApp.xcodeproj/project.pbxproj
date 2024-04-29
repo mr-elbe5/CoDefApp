@@ -122,6 +122,8 @@
 		4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F52A8B69A7006053A0 /* AppState.swift */; };
 		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
 		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
+		4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */; };
+		4ED8E4F22BE0216F00F28AAA /* CompanyDailyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +246,8 @@
 		4EA397F52A8B69A7006053A0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
+		4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDailyReport.swift; sourceTree = "<group>"; };
+		4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDailyBriefing.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +289,7 @@
 				4EA3977C2A855072006053A0 /* LabeledCheckbox.swift */,
 				4EA397792A855072006053A0 /* LabeledCheckboxGroup.swift */,
 				4EA3977B2A855072006053A0 /* LabeledDatePicker.swift */,
+				4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */,
 				4EA3975E2A855072006053A0 /* LabeledRadioGroup.swift */,
 				4EA397612A855072006053A0 /* LabeledStepperInput.swift */,
 				4EA3976A2A855072006053A0 /* LabeledText.swift */,
@@ -365,6 +370,7 @@
 				4EA396F12A854D5F006053A0 /* Data */,
 				4EA396F92A854DB3006053A0 /* Company */,
 				4EA396FC2A854DE2006053A0 /* Project */,
+				4ED8E4EE2BE0204200F28AAA /* DailyReport */,
 				4EA396FB2A854DD0006053A0 /* Unit */,
 				4EA396FA2A854DBB006053A0 /* Defect */,
 				4EA397F72A8B9153006053A0 /* DefectStatus */,
@@ -446,7 +452,6 @@
 				4EA397202A85502C006053A0 /* DefectMarkerButton.swift */,
 				4EA397212A85502C006053A0 /* DefectPdfViewController.swift */,
 				4EA397272A85502C006053A0 /* DefectViewController.swift */,
-				4EA397222A85502C006053A0 /* LabeldDefectStateSelectField.swift */,
 				4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */,
 			);
 			path = Defect;
@@ -484,6 +489,15 @@
 				4EA397262A85502C006053A0 /* DefectStatusData.swift */,
 			);
 			path = DefectStatus;
+			sourceTree = "<group>";
+		};
+		4ED8E4EE2BE0204200F28AAA /* DailyReport */ = {
+			isa = PBXGroup;
+			children = (
+				4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */,
+				4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */,
+			);
+			path = DailyReport;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -591,6 +605,7 @@
 				4EA397DF2A8550AD006053A0 /* Insets.swift in Sources */,
 				4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */,
 				4EA397A52A855080006053A0 /* PDFRenderer.swift in Sources */,
+				4ED8E4F22BE0216F00F28AAA /* CompanyDailyBriefing.swift in Sources */,
 				4EA397982A855072006053A0 /* UITextView.swift in Sources */,
 				4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */,
 				4EA397992A855072006053A0 /* UIView.swift in Sources */,
@@ -638,6 +653,7 @@
 				4EA3978F2A855072006053A0 /* LabeledTextareaInput.swift in Sources */,
 				4EA397F92A8CCE99006053A0 /* Log.swift in Sources */,
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
+				4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */,
 				4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */,
 				4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */,
 				4EA3978C2A855072006053A0 /* LabeledText.swift in Sources */,
