@@ -12,6 +12,7 @@
 		4E1841452BE11BA300EEECD9 /* DailyReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */; };
 		4E1841472BE120CD00EEECD9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */; };
 		4E1841492BE1217300EEECD9 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */; };
+		4E18414B2BE13CE800EEECD9 /* ServerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */; };
 		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
 		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
@@ -134,6 +135,7 @@
 		4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportViewController.swift; sourceTree = "<group>"; };
 		4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettings.swift; sourceTree = "<group>"; };
 		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				4EA397E32A8550BB006053A0 /* SceneDelegate.swift */,
 				4EA397E52A8550BB006053A0 /* Statics.swift */,
 				4EE8BFD42ABAF54E00A98628 /* Backup.swift */,
+				4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				4EA397D42A8550AD006053A0 /* Date.swift in Sources */,
 				4EA3973E2A85503A006053A0 /* LabeledCompanySelectField.swift in Sources */,
 				4EA397592A855061006053A0 /* EditViewController.swift in Sources */,
+				4E18414B2BE13CE800EEECD9 /* ServerSettings.swift in Sources */,
 				4EA3974C2A855048006053A0 /* RequestController.swift in Sources */,
 				4EA3975A2A855061006053A0 /* ModalViewController.swift in Sources */,
 				4EA397562A855061006053A0 /* UIViewController.swift in Sources */,

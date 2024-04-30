@@ -28,10 +28,12 @@ class AppData : Codable{
     }
     
     enum CodingKeys: String, CodingKey {
+        case serverSettings
         case projects
         case companies
     }
     
+    var serverSettings = ServerSettings()
     var projects = ProjectList()
     var companies = CompanyList()
     
@@ -48,12 +50,14 @@ class AppData : Codable{
     
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        serverSettings = try values.decodeIfPresent(ServerSettings.self, forKey: .serverSettings) ?? ServerSettings()
         companies = try values.decodeIfPresent(CompanyList.self, forKey: .companies) ?? CompanyList()
         projects = try values.decodeIfPresent(ProjectList.self, forKey: .projects) ?? ProjectList()
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(serverSettings, forKey: .serverSettings)
         try container.encode(projects, forKey: .projects)
         try container.encode(companies, forKey: .companies)
     }
