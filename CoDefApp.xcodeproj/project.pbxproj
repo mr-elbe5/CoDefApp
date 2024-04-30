@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4E0DC7E72A91F6BE00ED4F2B /* ContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */; };
 		4E0DC7E92A92063B00ED4F2B /* FileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0DC7E82A92063B00ED4F2B /* FileData.swift */; };
+		4E1841452BE11BA300EEECD9 /* DailyReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */; };
+		4E1841472BE120CD00EEECD9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */; };
+		4E1841492BE1217300EEECD9 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */; };
 		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
 		4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E660E092A9780AB00FF4037 /* NavigationViewController.swift */; };
 		4E7D49172A9395B600F73973 /* IconTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7D49162A9395B600F73973 /* IconTextButton.swift */; };
@@ -16,8 +19,6 @@
 		4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FD0042AADFC4600A66812 /* AppDate.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
 		4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */; };
-		4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397012A854E33006053A0 /* Localizable.strings */; };
-		4EA397052A854E76006053A0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4EA397072A854E76006053A0 /* InfoPlist.strings */; };
 		4EA3970F2A854F96006053A0 /* EditProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397092A854F96006053A0 /* EditProjectViewController.swift */; };
 		4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */; };
 		4EA397122A854F96006053A0 /* ProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA3970C2A854F96006053A0 /* ProjectViewController.swift */; };
@@ -123,13 +124,16 @@
 		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
 		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
 		4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */; };
-		4ED8E4F22BE0216F00F28AAA /* CompanyDailyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */; };
+		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4E0DC7E62A91F6BE00ED4F2B /* ContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentData.swift; sourceTree = "<group>"; };
 		4E0DC7E82A92063B00ED4F2B /* FileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileData.swift; sourceTree = "<group>"; };
+		4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportViewController.swift; sourceTree = "<group>"; };
+		4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E660E092A9780AB00FF4037 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		4E7D49162A9395B600F73973 /* IconTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextButton.swift; sourceTree = "<group>"; };
@@ -139,10 +143,6 @@
 		4EA396E52A854CAE006053A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EA396E82A854CAE006053A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4EA396EA2A854CAE006053A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4EA397002A854E33006053A0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4EA397022A854E4D006053A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		4EA397062A854E76006053A0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4EA397082A854E7A006053A0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4EA397092A854F96006053A0 /* EditProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProjectViewController.swift; sourceTree = "<group>"; };
 		4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectPdfViewController.swift; sourceTree = "<group>"; };
 		4EA3970C2A854F96006053A0 /* ProjectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectViewController.swift; sourceTree = "<group>"; };
@@ -247,7 +247,7 @@
 		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
 		4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDailyReport.swift; sourceTree = "<group>"; };
-		4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyDailyBriefing.swift; sourceTree = "<group>"; };
+		4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyBriefing.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -380,8 +380,8 @@
 				4EA396E52A854CAE006053A0 /* Assets.xcassets */,
 				4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */,
 				4EA396EA2A854CAE006053A0 /* Info.plist */,
-				4EA397012A854E33006053A0 /* Localizable.strings */,
-				4EA397072A854E76006053A0 /* InfoPlist.strings */,
+				4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */,
+				4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */,
 			);
 			path = CoDefApp;
 			sourceTree = "<group>";
@@ -477,6 +477,7 @@
 				4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */,
 				4EA3970C2A854F96006053A0 /* ProjectViewController.swift */,
 				4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */,
+				4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -495,7 +496,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */,
-				4ED8E4F12BE0216F00F28AAA /* CompanyDailyBriefing.swift */,
+				4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */,
 			);
 			path = DailyReport;
 			sourceTree = "<group>";
@@ -566,9 +567,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */,
-				4EA396FF2A854E33006053A0 /* Localizable.strings in Resources */,
+				4E1841492BE1217300EEECD9 /* InfoPlist.xcstrings in Resources */,
+				4E1841472BE120CD00EEECD9 /* Localizable.xcstrings in Resources */,
 				4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */,
-				4EA397052A854E76006053A0 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +606,8 @@
 				4EA397DF2A8550AD006053A0 /* Insets.swift in Sources */,
 				4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */,
 				4EA397A52A855080006053A0 /* PDFRenderer.swift in Sources */,
-				4ED8E4F22BE0216F00F28AAA /* CompanyDailyBriefing.swift in Sources */,
+				4E1841452BE11BA300EEECD9 /* DailyReportViewController.swift in Sources */,
+				4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */,
 				4EA397982A855072006053A0 /* UITextView.swift in Sources */,
 				4EA3971C2A85501D006053A0 /* UnitPdfViewController.swift in Sources */,
 				4EA397992A855072006053A0 /* UIView.swift in Sources */,
@@ -704,24 +706,6 @@
 				4EA396E82A854CAE006053A0 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		4EA397012A854E33006053A0 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EA397002A854E33006053A0 /* en */,
-				4EA397022A854E4D006053A0 /* de */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		4EA397072A854E76006053A0 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4EA397062A854E76006053A0 /* en */,
-				4EA397082A854E7A006053A0 /* de */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

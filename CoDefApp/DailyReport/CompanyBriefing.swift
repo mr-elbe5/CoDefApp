@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class CompanyDailyBriefing: Codable{
+class CompanyBriefing: Codable{
     
     enum CodingKeys: String, CodingKey {
         case companyId
@@ -15,7 +15,7 @@ class CompanyDailyBriefing: Codable{
         case briefing
     }
     
-    var  companyId: Int = 0
+    var companyId: Int = 0
     var activity: String = ""
     var briefing: String = ""
     

@@ -72,6 +72,10 @@ class ProjectViewController: ScrollViewController {
         nameLabel.setupView(labelText: "name".localizeWithColon(), text: project.displayName)
         dataSection.addArrangedSubview(nameLabel)
         
+        let addressLabel = LabeledText()
+        addressLabel.setupView(labelText: "address".localizeWithColon(), text: project.address)
+        dataSection.addArrangedSubview(addressLabel)
+        
         let descriptionLabel = LabeledText()
         descriptionLabel.setupView(labelText: "description".localizeWithColon(), text: project.description)
         dataSection.addArrangedSubview(descriptionLabel)
@@ -103,6 +107,16 @@ class ProjectViewController: ScrollViewController {
             self.navigationController?.pushViewController(controller, animated: true)
         }, for: .touchDown)
         unitSection.addSubviewAtTopCentered(addUnitButton, topView: lastView, insets: doubleInsets)
+        lastView = addUnitButton
+        
+        let addDailyReportButton = TextButton(text: "newDailyReport".localize())
+        addDailyReportButton.addAction(UIAction(){ (action) in
+            let dailyReport = ProjectDailyReport(project: self.project)
+            let controller = DailyReportViewController(report: dailyReport)
+            controller.delegate = self
+            self.navigationController?.pushViewController(controller, animated: true)
+        }, for: .touchDown)
+        unitSection.addSubviewAtTopCentered(addDailyReportButton, topView: lastView, insets: doubleInsets)
             .bottom(unitSection.bottomAnchor, inset: -2*defaultInset)
     }
     
@@ -138,6 +152,14 @@ extension ProjectViewController: UnitDelegate{
     
     func unitChanged() {
         updateUnitSection()
+    }
+    
+}
+
+extension ProjectViewController: DailyReportDelegate{
+    
+    func dailyReportChanged() {
+        //todo
     }
     
 }

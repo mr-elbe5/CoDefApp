@@ -17,6 +17,7 @@ class ProjectDailyReport : ContentData{
         case weatherTemp
         case weatherRhum
         case companyBriefings
+        case images
     }
     
     var idx: Int = 1
@@ -25,7 +26,8 @@ class ProjectDailyReport : ContentData{
     var weatherWdir: String = ""
     var weatherTemp: String = ""
     var weatherRhum: String = ""
-    var companyBriefings = Array<CompanyDailyBriefing>()
+    var companyBriefings = Array<CompanyBriefing>()
+    var images = ImageList()
     
     var project: ProjectData!
     
@@ -47,7 +49,8 @@ class ProjectDailyReport : ContentData{
         weatherWdir = try values.decodeIfPresent(String.self, forKey: .weatherWdir) ?? ""
         weatherTemp = try values.decodeIfPresent(String.self, forKey: .weatherTemp) ?? ""
         weatherRhum = try values.decodeIfPresent(String.self, forKey: .weatherRhum) ?? ""
-        companyBriefings = try values.decodeIfPresent(Array<CompanyDailyBriefing>.self, forKey: .companyBriefings) ?? Array<CompanyDailyBriefing>()
+        companyBriefings = try values.decodeIfPresent(Array<CompanyBriefing>.self, forKey: .companyBriefings) ?? Array<CompanyBriefing>()
+        images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
     }
 
     override func encode(to encoder: Encoder) throws {
@@ -60,6 +63,7 @@ class ProjectDailyReport : ContentData{
         try container.encode(weatherTemp, forKey: .weatherTemp)
         try container.encode(weatherRhum, forKey: .weatherRhum)
         try container.encode(companyBriefings, forKey: .companyBriefings)
+        try container.encode(images, forKey: .images)
     }
     
 }
@@ -79,6 +83,6 @@ extension ProjectDailyReportList{
     
 }
 
-protocol ProjectDailyReportDelegate{
+protocol DailyReportDelegate{
     func dailyReportChanged()
 }

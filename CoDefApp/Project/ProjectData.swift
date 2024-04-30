@@ -9,14 +9,28 @@ import Foundation
 class ProjectData : ContentData{
     
     enum CodingKeys: String, CodingKey {
+        case zipCode
+        case city
+        case street
+        case weatherStation
         case units
         case companyIds
         case dailyReports
     }
     
+    var zipCode = ""
+    var city = ""
+    var street = ""
+    var weatherStation = ""
     var units = Array<UnitData>()
     var companyIds = Array<Int>()
     var dailyReports = ProjectDailyReportList()
+    
+    var address: String{
+        get{
+            "\(zipCode) \(city), \(street)"
+        }
+    }
     
     //runtime
     var companies = CompanyList()
@@ -39,12 +53,16 @@ class ProjectData : ContentData{
     required init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let values = try decoder.container(keyedBy: CodingKeys.self)
+        zipCode = try values.decodeIfPresent(String.self, forKey: .zipCode) ?? ""
+        city = try values.decodeIfPresent(String.self, forKey: .city) ?? ""
+        street = try values.decodeIfPresent(String.self, forKey: .street) ?? ""
+        weatherStation = try values.decodeIfPresent(String.self, forKey: .weatherStation) ?? ""
         units = try values.decodeIfPresent(Array<UnitData>.self, forKey: .units) ?? Array<UnitData>()
         for unit in units{
             unit.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
-        dailyReports = try values.decodeIfPresent(ProjectDailyReportList.self, forKey: .companyIds) ?? ProjectDailyReportList()
+        dailyReports = try values.decodeIfPresent(ProjectDailyReportList.self, forKey: .dailyReports) ?? ProjectDailyReportList()
         for dailyReport in dailyReports{
             dailyReport.project = self
         }
@@ -53,6 +71,10 @@ class ProjectData : ContentData{
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(zipCode, forKey: .zipCode)
+        try container.encode(city, forKey: .city)
+        try container.encode(street, forKey: .street)
+        try container.encode(weatherStation, forKey: .weatherStation)
         try container.encode(units, forKey: .units)
         try container.encode(companyIds, forKey: .companyIds)
         try container.encode(dailyReports, forKey: .dailyReports)
