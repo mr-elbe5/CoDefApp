@@ -399,7 +399,6 @@
 				4EA397E32A8550BB006053A0 /* SceneDelegate.swift */,
 				4EA397E52A8550BB006053A0 /* Statics.swift */,
 				4EE8BFD42ABAF54E00A98628 /* Backup.swift */,
-				4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -419,6 +418,7 @@
 		4EA396F72A854DA0006053A0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */,
 				4EA3974D2A855054006053A0 /* SettingViewController.swift */,
 			);
 			path = Settings;

@@ -20,6 +20,10 @@ class SettingsViewController: ScrollViewController {
     var usedateTimeSwitch = LabeledCheckbox()
     var useNotifiedSwitch = LabeledCheckbox()
     
+    var countryField = LabeledTextInput()
+    var timeZoneField = LabeledTextInput()
+    var meteoStatField = LabeledTextInput()
+    
     var cleanupSection = SectionView()
     
     var delegate: SettingsDelegate? = nil
@@ -67,9 +71,25 @@ class SettingsViewController: ScrollViewController {
         usedateTimeSwitch.setup(title: "useDateTime".localize(), index: -2, isOn: AppState.shared.useDateTime)
         usedateTimeSwitch.delegate = self
         settingsSection.addSubviewAtTop(useNotifiedSwitch, topView: usedateTimeSwitch)
-            .bottom(settingsSection.bottomAnchor)
+            
         useNotifiedSwitch.setup(title: "useNotified".localize(), index: -3, isOn: AppState.shared.useNotified)
         useNotifiedSwitch.delegate = self
+        
+        countryField.setupView(labelText: "countryCode".localizeWithColon(), text: AppData.shared.serverSettings.country)
+        settingsSection.addSubviewAtTop(countryField, topView: useNotifiedSwitch)
+        
+        timeZoneField.setupView(labelText: "timeZone".localizeWithColon(), text: AppData.shared.serverSettings.timeZoneName)
+        settingsSection.addSubviewAtTop(timeZoneField, topView: countryField)
+        
+        meteoStatField.setupView(labelText: "meteoStatKey".localizeWithColon(), text: AppData.shared.serverSettings.meteoStatKey)
+        settingsSection.addSubviewAtTop(meteoStatField, topView: timeZoneField)
+        
+        let saveButton = TextButton(text: "save".localize(), withBorder: true)
+        saveButton.addAction(UIAction(){ action in
+            self.saveSettings()
+        }, for: .touchDown)
+        settingsSection.addSubviewAtTopCentered(saveButton, topView: label)
+            .bottom(settingsSection.bottomAnchor, inset: -defaultInset)
     }
     
     func setupCleanupSection(){
@@ -90,6 +110,13 @@ class SettingsViewController: ScrollViewController {
         }, for: .touchDown)
         cleanupSection.addSubviewAtTopCentered(cleanupButton, topView: label)
             .bottom(cleanupSection.bottomAnchor, inset: -defaultInset)
+    }
+    
+    func saveSettings(){
+        AppData.shared.serverSettings.country = countryField.text
+        AppData.shared.serverSettings.timeZoneName = timeZoneField.text
+        AppData.shared.serverSettings.meteoStatKey = meteoStatField.text
+        AppData.shared.save()
     }
     
     func deleteData(){
