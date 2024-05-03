@@ -18,6 +18,23 @@
         }
       }
     },
+    "activity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tätigkeit"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity"
+          }
+        }
+      }
+    },
     "add" : {
       "comment" : "Construction Defect Tracker\n App for tracking construction defects \n Copyright: Michael Rönnau mr@elbe5.de 2023",
       "extractionState" : "manual",
@@ -221,6 +238,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Backup all data as a zip file or restore (and replace) all data from a backup zip file."
+          }
+        }
+      }
+    },
+    "briefing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anweisung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Briefing"
           }
         }
       }

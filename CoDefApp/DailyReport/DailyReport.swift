@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 
-class ProjectDailyReport : ContentData{
+class DailyReport : ContentData{
     
     enum CodingKeys: String, CodingKey {
         case idx
@@ -76,11 +76,11 @@ class ProjectDailyReport : ContentData{
     
 }
 
-typealias ProjectDailyReportList = ContentDataArray<ProjectDailyReport>
+typealias ProjectDailyReportList = ContentDataArray<DailyReport>
 
 extension ProjectDailyReportList{
     
-    func getProjectDailyReport(id: Int) -> ProjectDailyReport?{
+    func getProjectDailyReport(id: Int) -> DailyReport?{
         for data in self{
             if data.id == id {
                 return data

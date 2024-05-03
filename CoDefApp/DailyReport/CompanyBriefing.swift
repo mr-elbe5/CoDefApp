@@ -19,6 +19,9 @@ class CompanyBriefing: Codable{
     var activity: String = ""
     var briefing: String = ""
     
+    init(){
+    }
+    
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         companyId = try values.decode(Int.self, forKey: .companyId)

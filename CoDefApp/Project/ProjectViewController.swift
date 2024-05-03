@@ -111,7 +111,7 @@ class ProjectViewController: ScrollViewController {
         
         let addDailyReportButton = TextButton(text: "newDailyReport".localize())
         addDailyReportButton.addAction(UIAction(){ (action) in
-            let dailyReport = ProjectDailyReport(project: self.project)
+            let dailyReport = DailyReport(project: self.project)
             let controller = DailyReportViewController(report: dailyReport)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)

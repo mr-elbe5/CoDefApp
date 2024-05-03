@@ -127,7 +127,7 @@
 		4EAD6D6D2BE4D303008DA206 /* NominatimLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD6D6C2BE4D303008DA206 /* NominatimLocation.swift */; };
 		4EAD6D6F2BE4D5E6008DA206 /* WeatherStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD6D6E2BE4D5E6008DA206 /* WeatherStation.swift */; };
 		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
-		4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */; };
+		4ED8E4F02BE0209B00F28AAA /* DailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */; };
 		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 /* End PBXBuildFile section */
@@ -254,7 +254,7 @@
 		4EAD6D6C2BE4D303008DA206 /* NominatimLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominatimLocation.swift; sourceTree = "<group>"; };
 		4EAD6D6E2BE4D5E6008DA206 /* WeatherStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStation.swift; sourceTree = "<group>"; };
 		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
-		4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDailyReport.swift; sourceTree = "<group>"; };
+		4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReport.swift; sourceTree = "<group>"; };
 		4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyBriefing.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -505,7 +505,7 @@
 		4ED8E4EE2BE0204200F28AAA /* DailyReport */ = {
 			isa = PBXGroup;
 			children = (
-				4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */,
+				4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */,
 				4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */,
 				4EAD6D6A2BE4C999008DA206 /* WeatherData.swift */,
 				4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */,
@@ -668,7 +668,7 @@
 				4EA3978F2A855072006053A0 /* LabeledTextareaInput.swift in Sources */,
 				4EA397F92A8CCE99006053A0 /* Log.swift in Sources */,
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
-				4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */,
+				4ED8E4F02BE0209B00F28AAA /* DailyReport.swift in Sources */,
 				4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */,
 				4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */,
 				4EA3978C2A855072006053A0 /* LabeledText.swift in Sources */,
