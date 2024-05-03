@@ -63,6 +63,7 @@ class SettingsViewController: ScrollViewController {
     }
     
     func setupSettingsSection(){
+        Log.debug("controller: \(AppData.shared.serverSettings.country)")
         let label  = UILabel(header: "settings".localize())
         settingsSection.addSubviewAtTopCentered(label)
         let text  = UILabel(text: "settingsText".localize())
@@ -88,7 +89,7 @@ class SettingsViewController: ScrollViewController {
         saveButton.addAction(UIAction(){ action in
             self.saveSettings()
         }, for: .touchDown)
-        settingsSection.addSubviewAtTopCentered(saveButton, topView: label)
+        settingsSection.addSubviewAtTopCentered(saveButton, topView: meteoStatField)
             .bottom(settingsSection.bottomAnchor, inset: -defaultInset)
     }
     

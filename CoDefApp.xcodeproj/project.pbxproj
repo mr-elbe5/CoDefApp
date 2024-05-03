@@ -123,6 +123,9 @@
 		4EA397F32A855197006053A0 /* Zip in Frameworks */ = {isa = PBXBuildFile; productRef = 4EA397F22A855197006053A0 /* Zip */; };
 		4EA397F62A8B69A7006053A0 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F52A8B69A7006053A0 /* AppState.swift */; };
 		4EA397F92A8CCE99006053A0 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA397F82A8CCE99006053A0 /* Log.swift */; };
+		4EAD6D6B2BE4C999008DA206 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD6D6A2BE4C999008DA206 /* WeatherData.swift */; };
+		4EAD6D6D2BE4D303008DA206 /* NominatimLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD6D6C2BE4D303008DA206 /* NominatimLocation.swift */; };
+		4EAD6D6F2BE4D5E6008DA206 /* WeatherStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD6D6E2BE4D5E6008DA206 /* WeatherStation.swift */; };
 		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
 		4ED8E4F02BE0209B00F28AAA /* ProjectDailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */; };
 		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
@@ -247,6 +250,9 @@
 		4EA397E92A8550BB006053A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4EA397F52A8B69A7006053A0 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		4EA397F82A8CCE99006053A0 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		4EAD6D6A2BE4C999008DA206 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		4EAD6D6C2BE4D303008DA206 /* NominatimLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NominatimLocation.swift; sourceTree = "<group>"; };
+		4EAD6D6E2BE4D5E6008DA206 /* WeatherStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherStation.swift; sourceTree = "<group>"; };
 		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
 		4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDailyReport.swift; sourceTree = "<group>"; };
 		4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyBriefing.swift; sourceTree = "<group>"; };
@@ -480,7 +486,8 @@
 				4EA3970B2A854F96006053A0 /* ProjectPdfViewController.swift */,
 				4EA3970C2A854F96006053A0 /* ProjectViewController.swift */,
 				4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */,
-				4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */,
+				4EAD6D6C2BE4D303008DA206 /* NominatimLocation.swift */,
+				4EAD6D6E2BE4D5E6008DA206 /* WeatherStation.swift */,
 			);
 			path = Project;
 			sourceTree = "<group>";
@@ -500,6 +507,8 @@
 			children = (
 				4ED8E4EF2BE0209B00F28AAA /* ProjectDailyReport.swift */,
 				4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */,
+				4EAD6D6A2BE4C999008DA206 /* WeatherData.swift */,
+				4E1841442BE11BA300EEECD9 /* DailyReportViewController.swift */,
 			);
 			path = DailyReport;
 			sourceTree = "<group>";
@@ -671,6 +680,7 @@
 				4E660E0A2A9780AB00FF4037 /* NavigationViewController.swift in Sources */,
 				4EA3979C2A855072006053A0 /* UIImage.swift in Sources */,
 				4EA3974B2A855048006053A0 /* ServerViewController.swift in Sources */,
+				4EAD6D6D2BE4D303008DA206 /* NominatimLocation.swift in Sources */,
 				4EA397E12A8550AD006053A0 /* AuthorizationError.swift in Sources */,
 				4EA397902A855072006053A0 /* Indicator.swift in Sources */,
 				4EA397842A855072006053A0 /* DatePicker.swift in Sources */,
@@ -689,7 +699,9 @@
 				4EA3978D2A855072006053A0 /* IconButton.swift in Sources */,
 				4EA3978B2A855072006053A0 /* IconView.swift in Sources */,
 				4EA3972F2A85502C006053A0 /* DefectStatus.swift in Sources */,
+				4EAD6D6B2BE4C999008DA206 /* WeatherData.swift in Sources */,
 				4EA3977F2A855072006053A0 /* UIImageView.swift in Sources */,
+				4EAD6D6F2BE4D5E6008DA206 /* WeatherStation.swift in Sources */,
 				4EA397812A855072006053A0 /* OnOffIcon.swift in Sources */,
 				4EA3974E2A855054006053A0 /* SettingViewController.swift in Sources */,
 				4EA397822A855072006053A0 /* SectionView.swift in Sources */,

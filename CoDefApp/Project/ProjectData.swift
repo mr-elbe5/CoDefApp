@@ -170,6 +170,52 @@ class ProjectData : ContentData{
         }
     }
     
+    // weather
+    
+    func assertWeatherStation() async throws -> Bool {
+        if !weatherStation.isEmpty{
+            return true
+        }
+        if !weatherStation.isEmpty, !AppData.shared.serverSettings.meteoStatKey.isEmpty{
+            if let nominatimRequest = RequestController.shared.createRequest(url: "https://nominatim.openstreetmap.org/search", method: "GET",
+                                                                             headerFields: [:],
+                                                                             params: ["country" : AppData.shared.serverSettings.country, "city" : city, "street" : street, "format" : "json", "limit" : "1"]){
+                if let location: NominatimLocation = try await RequestController.shared.launchJsonRequest(with: nominatimRequest){
+                    let url = "https://meteostat.p.rapidapi.com/stations/nearby?lat=\(String(location.latitude))&lon=\(String(location.longitude))&limit=1"
+                    if let stationRequest = RequestController.shared.createRequest(url: url, method: "GET",
+                                                                                   headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],
+                                                                                   params: nil){
+                        if let stationList: WeatherStationList = try await RequestController.shared.launchJsonRequest(with: stationRequest), !stationList.data.isEmpty{
+                            let weatherStation = stationList.data[0]
+                            self.weatherStation = weatherStation.id
+                            return true
+                        }
+                    }
+                    Log.debug("\(location.latitude),\(location.longitude)")
+                }
+            }
+            
+        }
+        return false
+    }
+    
+    func getWeatherData() async throws -> WeatherData? {
+        if !AppData.shared.serverSettings.meteoStatKey.isEmpty{
+            if try await assertWeatherStation(){
+                let dateString = Date().simpleDateString()
+                let url = "https://meteostat.p.rapidapi.com/stations/hourly?station=\(weatherStation)&start=\(dateString)&end=\(dateString)&tz=\(AppData.shared.serverSettings.timeZoneName.replacing("/", with: "%2F"))&units=metric"
+                if let request = RequestController.shared.createRequest(url: url, method: "GET",
+                                                                        headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],
+                                                                        params: nil){
+                    if let weatherDataList: WeatherDataList = try await RequestController.shared.launchJsonRequest(with: request), let weatherData = weatherDataList.getWeatherData(date: Date.now){
+                        return weatherData
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
     // sync
     
     func synchronizeFrom(_ fromData: ProjectData) async{

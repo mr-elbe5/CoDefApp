@@ -16,6 +16,10 @@ extension Date{
         DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .short)
     }
     
+    func simpleDateString() -> String{
+        DateFormats.simpleDateFormatter.string(from: self)
+    }
+    
     func fileDate() -> String{
         return DateFormats.fileDateFormatter.string(from: self)
     }
@@ -58,6 +62,13 @@ class DateFormats{
             dateFormatter.dateFormat = "yyyyMMddHHmmss"
             return dateFormatter
         }
+    }
+    
+    static var simpleDateFormatter : DateFormatter{
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = .none
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter
     }
     
     static var shortFileDateFormatter : DateFormatter{

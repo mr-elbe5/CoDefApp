@@ -52,7 +52,7 @@ class ProjectDailyReport : ContentData{
         companyBriefings = try values.decodeIfPresent(Array<CompanyBriefing>.self, forKey: .companyBriefings) ?? Array<CompanyBriefing>()
         images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
     }
-
+    
     override func encode(to encoder: Encoder) throws {
         try super.encode(to: encoder)
         var container = encoder.container(keyedBy: CodingKeys.self)
@@ -64,6 +64,14 @@ class ProjectDailyReport : ContentData{
         try container.encode(weatherRhum, forKey: .weatherRhum)
         try container.encode(companyBriefings, forKey: .companyBriefings)
         try container.encode(images, forKey: .images)
+    }
+    
+    func setWeatherData(from weatherData: WeatherData){
+        weatherCoco = weatherData.getWeatherCoco()
+        weatherWspd = String(Int(weatherData.weatherWspd))
+        weatherWdir = weatherData.getWindDirection()
+        weatherTemp = String(Int(weatherData.weatherTemp))
+        weatherRhum = String(Int(weatherData.weatherRhum))
     }
     
 }

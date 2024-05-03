@@ -15,8 +15,8 @@ struct RequestController {
         return !AppState.shared.serverURL.isEmpty
     }
     
-    private func createRequest(url : String, method: String, headerFields : [String : String]?, params : [String:String]?) -> URLRequest? {
-        var body : Data;
+    public func createRequest(url : String, method: String, headerFields : [String : String]?, params : [String:String]?) -> URLRequest? {
+        var body : Data?;
         if let params = params{
             do {
                 body = try JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
@@ -25,13 +25,10 @@ struct RequestController {
                 return nil
             }
         }
-        else{
-            body = Data();
-        }
         return createRequest(url: url, method: method, headerFields: headerFields, body: body)
     }
     
-    private func createRequest(url : String, method: String, headerFields : [String : String]?, body: Data) -> URLRequest? {
+    public func createRequest(url : String, method: String, headerFields : [String : String]?, body: Data?) -> URLRequest? {
         guard let requestUrl = URL(string : url) else {
             print("could not create URLRequest: URL could not be created")
             return nil
@@ -45,7 +42,9 @@ struct RequestController {
                 }
             }
         }
-        request.httpBody = body;
+        if let body = body{
+            request.httpBody = body;
+        }
         return request
     }
     
@@ -96,7 +95,7 @@ struct RequestController {
         return nil
     }
     
-    private func launchJsonRequest<T : Decodable>(with request : URLRequest) async throws -> T?{
+    public func launchJsonRequest<T : Decodable>(with request : URLRequest) async throws -> T?{
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse{
             if response.statusCode != 200{
@@ -115,7 +114,7 @@ struct RequestController {
         }
     }
     
-    private func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
+    public func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse{
             if response.statusCode != 200{
