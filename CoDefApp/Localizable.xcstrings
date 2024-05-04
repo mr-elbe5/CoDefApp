@@ -2161,6 +2161,23 @@
         }
       }
     },
+    "present" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "anwesend"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "present"
+          }
+        }
+      }
+    },
     "presentImages" : {
       "extractionState" : "manual",
       "localizations" : {

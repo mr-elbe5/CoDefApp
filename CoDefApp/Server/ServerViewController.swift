@@ -25,6 +25,7 @@ class ServerViewController: ScrollViewController {
     var uploadedDefectsField = LabeledText()
     var uploadedStatusChangesField = LabeledText()
     var uploadedImagesField = LabeledText()
+    var uploadedReportsField = LabeledText()
     var uploadErrorsField = LabeledText()
     
     var uploadProgressSlider = UISlider()
@@ -39,6 +40,7 @@ class ServerViewController: ScrollViewController {
     var downloadedDefectsField = LabeledText()
     var downloadedStatusChangesField = LabeledText()
     var downloadedImagesField = LabeledText()
+    var downloadedReportsField = LabeledText()
     var downloadErrorsField = LabeledText()
     
     var downloadResult = IconTextButton(icon: "checkmark", text: "done".localize(), tintColor: UIColor(red: 0.0, green: 0.5, blue: 0.0, alpha: 1.0))
@@ -130,8 +132,11 @@ class ServerViewController: ScrollViewController {
         uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.uploadedImages), inline: true)
         uploadSection.addSubviewAtTop(uploadedImagesField, topView: uploadedStatusChangesField, insets: Insets.horizontalInsets)
         
+        uploadedReportsField.setupView(labelText: "reports".localizeWithColon(), text: String(AppState.shared.uploadedReports), inline: true)
+        uploadSection.addSubviewAtTop(uploadedReportsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
+        
         uploadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.uploadErrors), inline: true)
-        uploadSection.addSubviewAtTop(uploadErrorsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
+        uploadSection.addSubviewAtTop(uploadErrorsField, topView: uploadedReportsField, insets: Insets.horizontalInsets)
         
         uploadProgressSlider.minimumValue = 0
         uploadProgressSlider.maximumValue = 1
@@ -169,8 +174,11 @@ class ServerViewController: ScrollViewController {
         downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.downloadedImages), inline: true)
         downloadSection.addSubviewAtTop(downloadedImagesField, topView: downloadedStatusChangesField, insets: Insets.horizontalInsets)
         
+        downloadedReportsField.setupView(labelText: "reports".localizeWithColon(), text: String(AppState.shared.downloadedReports), inline: true)
+        downloadSection.addSubviewAtTop(downloadedReportsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
+        
         downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.downloadErrors), inline: true)
-        downloadSection.addSubviewAtTop(downloadErrorsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
+        downloadSection.addSubviewAtTop(downloadErrorsField, topView: downloadedReportsField, insets: Insets.horizontalInsets)
         
         downloadResult.addAction(UIAction(){ action in
             self.downloadResult.isHidden = true
@@ -270,6 +278,7 @@ extension ServerViewController: AppStateDelegate{
         uploadedDefectsField.text = String(AppState.shared.uploadedDefects)
         uploadedStatusChangesField.text = String(AppState.shared.uploadedStatusChanges)
         uploadedImagesField.text = String(AppState.shared.uploadedImages)
+        uploadedReportsField.text = String(AppState.shared.uploadedReports)
         uploadErrorsField.text = String(AppState.shared.uploadErrors)
         uploadProgressSlider.value = Float(AppState.shared.uploadedItems)
     }
@@ -281,6 +290,7 @@ extension ServerViewController: AppStateDelegate{
         downloadedDefectsField.text = String(AppState.shared.downloadedDefects)
         downloadedStatusChangesField.text = String(AppState.shared.downloadedStatusChanges)
         downloadedImagesField.text = String(AppState.shared.downloadedImages)
+        downloadedReportsField.text = String(AppState.shared.downloadedReports)
         downloadErrorsField.text = String(AppState.shared.downloadErrors)
     }
     

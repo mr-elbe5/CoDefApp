@@ -172,6 +172,21 @@ class AppData : Codable{
         //print("start loading images")
         await withTaskGroup(of: Void.self){ taskGroup in
             for project in projects{
+                for report in project.dailyReports{
+                    for image in report.images{
+                        if !image.fileExists(){
+                            taskGroup.addTask{
+                                do{
+                                    try await self.loadImage(image: image)
+                                }
+                                catch (let err){
+                                    print(err)
+                                    await AppState.shared.downloadError()
+                                }
+                            }
+                        }
+                    }
+                }
                 for unit in project.units{
                     if let plan = unit.plan{
                         if !plan.fileExists() {
@@ -253,6 +268,12 @@ class AppData : Codable{
                 print("found new project \(project.id)")
                 count += 1
             }
+            for report in project.dailyReports{
+                if !report.isOnServer{
+                    print("found new report \(report.id)")
+                    count += 1
+                }
+            }
             for unit in project.units{
                 if !unit.isOnServer{
                     print("found new unit \(unit.id)")
@@ -318,6 +339,7 @@ class AppData : Codable{
                     }
                 }
                 else{
+                    await project.uploadDailyReports()
                     await project.uploadUnits()
                 }
             }

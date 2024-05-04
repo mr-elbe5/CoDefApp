@@ -24,7 +24,7 @@ class ProjectData : ContentData{
     var weatherStation = ""
     var units = Array<UnitData>()
     var companyIds = Array<Int>()
-    var dailyReports = ProjectDailyReportList()
+    var dailyReports = DailyReportList()
     
     var address: String{
         get{
@@ -46,6 +46,16 @@ class ProjectData : ContentData{
         return s
     }
     
+    var nextReportIdx: Int{
+        var idx = 1
+        for report in dailyReports{
+            if report.idx >= idx{
+                idx = report.idx + 1
+            }
+        }
+        return idx
+    }
+    
     override init(){
         super.init()
     }
@@ -62,7 +72,7 @@ class ProjectData : ContentData{
             unit.project = self
         }
         companyIds = try values.decodeIfPresent(Array<Int>.self, forKey: .companyIds) ?? Array<Int>()
-        dailyReports = try values.decodeIfPresent(ProjectDailyReportList.self, forKey: .dailyReports) ?? ProjectDailyReportList()
+        dailyReports = try values.decodeIfPresent(DailyReportList.self, forKey: .dailyReports) ?? DailyReportList()
         for dailyReport in dailyReports{
             dailyReport.project = self
         }
@@ -170,31 +180,19 @@ class ProjectData : ContentData{
         }
     }
     
+    func addReport(_ report: DailyReport){
+        dailyReports.append(report)
+    }
+    
     // weather
     
     func assertWeatherStation() async throws -> Bool {
         if !weatherStation.isEmpty{
             return true
         }
-        if !weatherStation.isEmpty, !AppData.shared.serverSettings.meteoStatKey.isEmpty{
-            if let nominatimRequest = RequestController.shared.createRequest(url: "https://nominatim.openstreetmap.org/search", method: "GET",
-                                                                             headerFields: [:],
-                                                                             params: ["country" : AppData.shared.serverSettings.country, "city" : city, "street" : street, "format" : "json", "limit" : "1"]){
-                if let location: NominatimLocation = try await RequestController.shared.launchJsonRequest(with: nominatimRequest){
-                    let url = "https://meteostat.p.rapidapi.com/stations/nearby?lat=\(String(location.latitude))&lon=\(String(location.longitude))&limit=1"
-                    if let stationRequest = RequestController.shared.createRequest(url: url, method: "GET",
-                                                                                   headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],
-                                                                                   params: nil){
-                        if let stationList: WeatherStationList = try await RequestController.shared.launchJsonRequest(with: stationRequest), !stationList.data.isEmpty{
-                            let weatherStation = stationList.data[0]
-                            self.weatherStation = weatherStation.id
-                            return true
-                        }
-                    }
-                    Log.debug("\(location.latitude),\(location.longitude)")
-                }
-            }
-            
+        if let weatherStation = try await WeatherStation.getWeatherStation(country: AppData.shared.serverSettings.country, city: city, street: street, meteoStatKey: AppData.shared.serverSettings.meteoStatKey){
+            self.weatherStation = weatherStation.id
+            return true
         }
         return false
     }
@@ -202,15 +200,7 @@ class ProjectData : ContentData{
     func getWeatherData() async throws -> WeatherData? {
         if !AppData.shared.serverSettings.meteoStatKey.isEmpty{
             if try await assertWeatherStation(){
-                let dateString = Date().simpleDateString()
-                let url = "https://meteostat.p.rapidapi.com/stations/hourly?station=\(weatherStation)&start=\(dateString)&end=\(dateString)&tz=\(AppData.shared.serverSettings.timeZoneName.replacing("/", with: "%2F"))&units=metric"
-                if let request = RequestController.shared.createRequest(url: url, method: "GET",
-                                                                        headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],
-                                                                        params: nil){
-                    if let weatherDataList: WeatherDataList = try await RequestController.shared.launchJsonRequest(with: request), let weatherData = weatherDataList.getWeatherData(date: Date.now){
-                        return weatherData
-                    }
-                }
+                return try await WeatherData.getWeatherData(weatherStation: weatherStation)
             }
         }
         return nil
@@ -252,6 +242,10 @@ class ProjectData : ContentData{
     
     override var uploadParams: Dictionary<String,String>{
         var dict = super.uploadParams
+        dict["zipCode"] = city
+        dict["city"] = zipCode
+        dict["street"] = street
+        dict["weatherStation"] = weatherStation
         var s = ""
         for id in companyIds{
             if !s.isEmpty{
@@ -273,6 +267,7 @@ class ProjectData : ContentData{
                     id = response.id
                     isOnServer = true
                     saveData()
+                    await uploadDailyReports()
                     await uploadUnits()
                 }
                 else{
@@ -287,6 +282,12 @@ class ProjectData : ContentData{
         }
         else{
             await uploadUnits()
+        }
+    }
+    
+    func uploadDailyReports() async{
+        for report in dailyReports{
+            await report.uploadToServer()
         }
     }
     

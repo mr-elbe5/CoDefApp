@@ -22,7 +22,6 @@ class EditDefectViewController: EditViewController {
     var assignField = LabeledCompanySelectField()
     var dueDateField = LabeledDatePicker()
     
-    
     var planView : UnitPlanView? = nil
     
     var imageCollectionView: ImageCollectionView

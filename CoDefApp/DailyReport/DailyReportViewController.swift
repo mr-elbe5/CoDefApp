@@ -40,7 +40,7 @@ class DailyReportViewController: EditViewController {
         title = report.displayName
         modalPresentationStyle = .fullScreen
         super.loadView()
-        Task{
+        /*Task{
             if let weatherData = try await report.project.getWeatherData(){
                 DispatchQueue.main.async{
                     self.report.setWeatherData(from: weatherData)
@@ -50,7 +50,7 @@ class DailyReportViewController: EditViewController {
                     self.weatherHumidityLabel.text = "\(self.report.weatherRhum) %"
                 }
             }
-        }
+        }*/
     }
     
     override func setupContentView() {
@@ -104,6 +104,7 @@ class DailyReportViewController: EditViewController {
                 report.companyBriefings.append(briefing)
             }
         }
+        report.project.addReport(report)
         return true
     }
     
@@ -125,6 +126,8 @@ class CompanyBriefingView: UIView{
     var selectSwitch = Checkbox()
     var activityField = LabeledTextareaInput()
     var briefingField = LabeledTextareaInput()
+    var activityConstraint: NSLayoutConstraint!
+    var briefingConstraint:NSLayoutConstraint!
     
     init(company: CompanyData, present: Bool = false, activity: String = "", briefing: String = ""){
         self.company = company
@@ -133,6 +136,8 @@ class CompanyBriefingView: UIView{
         activityField.text = activity
         briefingField.text = briefing
         super.init(frame: .zero)
+        activityConstraint = activityField.heightAnchor.constraint(equalToConstant: 0)
+        briefingConstraint = briefingField.heightAnchor.constraint(equalToConstant: 0)
     }
     
     required init?(coder: NSCoder) {
@@ -140,19 +145,25 @@ class CompanyBriefingView: UIView{
     }
     
     func setupView(){
+        backgroundColor = .white
+        setRoundedBorders()
+        selectSwitch.setup(title: "\(company.name) \("present".localize())")
         selectSwitch.delegate = self
         addSubviewWithAnchors(selectSwitch, top: topAnchor, leading: leadingAnchor, insets: horizontalInsets)
         activityField.setupView(labelText: "activity".localizeWithColon())
         addSubviewWithAnchors(activityField, top: selectSwitch.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: horizontalInsets)
         briefingField.setupView(labelText: "briefing".localizeWithColon())
         addSubviewWithAnchors(briefingField, top: activityField.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: horizontalInsets)
-            .bottom(bottomAnchor)
+            .bottom(bottomAnchor, inset: -defaultInset)
         updateVisibility()
     }
     
     func updateVisibility(){
         self.activityField.isHidden = !selectSwitch.isOn
+        activityConstraint.isActive = !selectSwitch.isOn
         self.briefingField.isHidden = !selectSwitch.isOn
+        briefingConstraint.isActive = !selectSwitch.isOn
+        setNeedsLayout()
     }
 }
 

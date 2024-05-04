@@ -9,6 +9,21 @@ import UIKit
 
 class WeatherData : Decodable{
     
+    static func getWeatherData(weatherStation: String) async throws -> WeatherData? {
+        if !AppData.shared.serverSettings.meteoStatKey.isEmpty{
+            let dateString = Date().simpleDateString()
+            let url = "https://meteostat.p.rapidapi.com/stations/hourly?station=\(weatherStation)&start=\(dateString)&end=\(dateString)&tz=\(AppData.shared.serverSettings.timeZoneName.replacing("/", with: "%2F"))&units=metric"
+            if let request = RequestController.shared.createRequest(url: url, method: "GET",
+                                                                    headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],
+                                                                    params: nil){
+                if let weatherDataList: WeatherDataList = try await RequestController.shared.launchJsonRequest(with: request), let weatherData = weatherDataList.getWeatherData(date: Date.now){
+                    return weatherData
+                }
+            }
+        }
+        return nil
+    }
+    
     enum CodingKeys: String, CodingKey {
         case time
         case coco

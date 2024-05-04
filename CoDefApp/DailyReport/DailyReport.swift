@@ -37,6 +37,7 @@ class DailyReport : ContentData{
     
     init(project: ProjectData){
         self.project = project
+        idx = project.nextReportIdx
         super.init()
     }
     
@@ -74,11 +75,83 @@ class DailyReport : ContentData{
         weatherRhum = String(Int(weatherData.weatherRhum))
     }
     
+    override var uploadParams: Dictionary<String,String>{
+        var dict = super.uploadParams
+        dict["idx"]=String(idx)
+        dict["weatherCoco"]=weatherCoco
+        dict["weatherWspd"]=weatherWspd
+        dict["weatherWdir"]=weatherWdir
+        dict["weatherTemp"]=weatherTemp
+        dict["weatherRhum"]=weatherRhum
+        for briefing in companyBriefings{
+            dict["company_\(briefing.companyId)_present"] = "true"
+            dict["company_\(briefing.companyId)_activity"] = briefing.activity
+            dict["company_\(briefing.companyId)_briefing"] = briefing.briefing
+        }
+        return dict
+    }
+    
+    func synchronizeFrom(_ fromData: DailyReport) async{
+        await super.synchronizeFrom(fromData)
+        idx = fromData.idx
+        weatherCoco = fromData.weatherCoco
+        weatherWspd = fromData.weatherWspd
+        weatherTemp = fromData.weatherTemp
+        weatherRhum = fromData.weatherRhum
+        companyBriefings.removeAll()
+        for briefing in fromData.companyBriefings{
+            companyBriefings.append(briefing)
+        }
+        for image in fromData.images{
+            if let presentImage = images.getImageData(id: image.id){
+                await presentImage.synchronizeFrom(image)
+            }
+            else{
+                images.append(image)
+                AppState.shared.downloadedImages += 1
+            }
+        }
+    }
+    
+    func uploadToServer() async{
+        if !isOnServer{
+            do{
+                let requestUrl = "\(AppState.shared.serverURL)/api/dailyreport/uploadReport/\(id)?projectId=\(project.id)"
+                if let response: IdResponse = try await RequestController.shared.requestAuthorizedJson(url: requestUrl, withParams: uploadParams) {
+                    print("report \(id) uploaded with new id \(response.id)")
+                    await AppState.shared.dailyReportUploaded()
+                    id = response.id
+                    isOnServer = true
+                    saveData()
+                    await uploadImages()
+                }
+                else{
+                    await AppState.shared.uploadError()
+                    throw "report upload error"
+                }
+            }
+            catch let(err){
+                print(err)
+                await AppState.shared.uploadError()
+            }
+        }
+    }
+    
+    func uploadImages() async{
+        for image in images{
+            await image.uploadToServer(contentId: id)
+        }
+    }
+    
+    func sendDownloaded() async{
+        await AppState.shared.dailyReportDownloaded()
+    }
+    
 }
 
-typealias ProjectDailyReportList = ContentDataArray<DailyReport>
+typealias DailyReportList = ContentDataArray<DailyReport>
 
-extension ProjectDailyReportList{
+extension DailyReportList{
     
     func getProjectDailyReport(id: Int) -> DailyReport?{
         for data in self{
