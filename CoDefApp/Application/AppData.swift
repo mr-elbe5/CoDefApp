@@ -273,6 +273,12 @@ class AppData : Codable{
                     print("found new report \(report.id)")
                     count += 1
                 }
+                for image in report.images{
+                    if !image.isOnServer{
+                        print("found new report image \(image.id)")
+                        count += 1
+                    }
+                }
             }
             for unit in project.units{
                 if !unit.isOnServer{

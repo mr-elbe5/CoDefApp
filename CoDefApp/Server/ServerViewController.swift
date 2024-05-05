@@ -132,7 +132,7 @@ class ServerViewController: ScrollViewController {
         uploadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.uploadedImages), inline: true)
         uploadSection.addSubviewAtTop(uploadedImagesField, topView: uploadedStatusChangesField, insets: Insets.horizontalInsets)
         
-        uploadedReportsField.setupView(labelText: "reports".localizeWithColon(), text: String(AppState.shared.uploadedReports), inline: true)
+        uploadedReportsField.setupView(labelText: "dailyReports".localizeWithColon(), text: String(AppState.shared.uploadedReports), inline: true)
         uploadSection.addSubviewAtTop(uploadedReportsField, topView: uploadedImagesField, insets: Insets.horizontalInsets)
         
         uploadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.uploadErrors), inline: true)
@@ -174,7 +174,7 @@ class ServerViewController: ScrollViewController {
         downloadedImagesField.setupView(labelText: "images".localizeWithColon(), text: String(AppState.shared.downloadedImages), inline: true)
         downloadSection.addSubviewAtTop(downloadedImagesField, topView: downloadedStatusChangesField, insets: Insets.horizontalInsets)
         
-        downloadedReportsField.setupView(labelText: "reports".localizeWithColon(), text: String(AppState.shared.downloadedReports), inline: true)
+        downloadedReportsField.setupView(labelText: "dailyReports".localizeWithColon(), text: String(AppState.shared.downloadedReports), inline: true)
         downloadSection.addSubviewAtTop(downloadedReportsField, topView: downloadedImagesField, insets: Insets.horizontalInsets)
         
         downloadErrorsField.setupView(labelText: "errors".localizeWithColon(), text: String(AppState.shared.downloadErrors), inline: true)

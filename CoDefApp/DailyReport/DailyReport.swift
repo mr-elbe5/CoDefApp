@@ -39,6 +39,7 @@ class DailyReport : ContentData{
         self.project = project
         idx = project.nextReportIdx
         super.init()
+        setDisplayName()
     }
     
     required init(from decoder: Decoder) throws {
@@ -52,6 +53,9 @@ class DailyReport : ContentData{
         weatherRhum = try values.decodeIfPresent(String.self, forKey: .weatherRhum) ?? ""
         companyBriefings = try values.decodeIfPresent(Array<CompanyBriefing>.self, forKey: .companyBriefings) ?? Array<CompanyBriefing>()
         images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
+        if displayName.isEmpty{
+            setDisplayName()
+        }
     }
     
     override func encode(to encoder: Encoder) throws {
@@ -65,6 +69,16 @@ class DailyReport : ContentData{
         try container.encode(weatherRhum, forKey: .weatherRhum)
         try container.encode(companyBriefings, forKey: .companyBriefings)
         try container.encode(images, forKey: .images)
+    }
+    
+    func setDisplayName(){
+        displayName = "\(idx) (\(creationDate.dateString()))"
+    }
+    
+    func projectCompany(id: Int) -> CompanyData?{
+        projectCompanies.first(where: {
+            $0.id == id
+        })
     }
     
     func setWeatherData(from weatherData: WeatherData){

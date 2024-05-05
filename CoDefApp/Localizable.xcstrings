@@ -656,6 +656,23 @@
         }
       }
     },
+    "dailyReports" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tagesberichte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily Reports"
+          }
+        }
+      }
+    },
     "dataDeleted" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2447,6 +2464,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "This marks a unit when it has no filtered items. You cannot select it."
+          }
+        }
+      }
+    },
+    "recentReports" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vorige Tagesberichte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Reports"
           }
         }
       }

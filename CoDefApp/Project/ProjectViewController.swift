@@ -14,6 +14,7 @@ class ProjectViewController: ScrollViewController {
     
     var dataSection = ArrangedSectionView()
     var unitSection = UIView()
+    var reportsSection = UIView()
     
     init(project: ProjectData){
         self.project = project
@@ -63,8 +64,10 @@ class ProjectViewController: ScrollViewController {
         contentView.addSubviewAtTop(dataSection)
         setupDataSection()
         contentView.addSubviewAtTop(unitSection, topView: dataSection)
-            .bottom(contentView.bottomAnchor)
         setupUnitSection()
+        contentView.addSubviewAtTop(reportsSection, topView: unitSection)
+            .bottom(contentView.bottomAnchor)
+        setupReportsSection()
     }
     
     func setupDataSection(){
@@ -107,17 +110,29 @@ class ProjectViewController: ScrollViewController {
             self.navigationController?.pushViewController(controller, animated: true)
         }, for: .touchDown)
         unitSection.addSubviewAtTopCentered(addUnitButton, topView: lastView, insets: doubleInsets)
-        lastView = addUnitButton
+            .bottom(unitSection.bottomAnchor, inset: -2*defaultInset)
+        
+    }
+    
+    func setupReportsSection(){
+        let headerLabel = UILabel(header: "dailyReports".localizeWithColon())
+        reportsSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        
+        let sectionLine = SectionLine(name: "recentReports".localize(), action: UIAction(){action in
+            let controller = ReportsListViewController(project: self.project)
+            self.navigationController?.pushViewController(controller, animated: true)
+        })
+        reportsSection.addSubviewWithAnchors(sectionLine, top: headerLabel.bottomAnchor, leading: reportsSection.leadingAnchor, trailing: reportsSection.trailingAnchor, insets: verticalInsets)
         
         let addDailyReportButton = TextButton(text: "newDailyReport".localize())
         addDailyReportButton.addAction(UIAction(){ (action) in
             let dailyReport = DailyReport(project: self.project)
-            let controller = DailyReportViewController(report: dailyReport)
+            let controller = EditDailyReportViewController(report: dailyReport)
             controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         }, for: .touchDown)
-        unitSection.addSubviewAtTopCentered(addDailyReportButton, topView: lastView, insets: doubleInsets)
-            .bottom(unitSection.bottomAnchor, inset: -2*defaultInset)
+        reportsSection.addSubviewAtTopCentered(addDailyReportButton, topView: sectionLine, insets: doubleInsets)
+            .bottom(reportsSection.bottomAnchor, inset: -2*defaultInset)
     }
     
     func getUnitSectionLine(unit: UnitData) -> UIView{
