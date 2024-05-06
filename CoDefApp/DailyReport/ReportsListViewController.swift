@@ -40,6 +40,7 @@ class ReportsListViewController: ScrollViewController {
     func getReportSectionLine(report: DailyReport) -> UIView{
         let line = SectionLine(name: report.displayName, action: UIAction(){action in
             let controller = DailyReportViewController(report: report)
+            controller.delegate = self
             self.navigationController?.pushViewController(controller, animated: true)
         })
         return line
@@ -49,7 +50,8 @@ class ReportsListViewController: ScrollViewController {
 extension ReportsListViewController: DailyReportDelegate{
     
     func dailyReportChanged() {
-        //todo
+        contentView.removeAllSubviews()
+        setupContentView()
     }
     
 }

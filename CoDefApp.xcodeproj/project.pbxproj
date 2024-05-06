@@ -132,6 +132,7 @@
 		4ED8E4F02BE0209B00F28AAA /* DailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */; };
 		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
+		4EEE42722BE8C1F8003A8E21 /* DailyReportPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -261,6 +262,7 @@
 		4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReport.swift; sourceTree = "<group>"; };
 		4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyBriefing.swift; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
+		4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportPdfViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -515,6 +517,7 @@
 				4E1841442BE11BA300EEECD9 /* EditDailyReportViewController.swift */,
 				4E17D8CE2BE6C20A005F8CA2 /* ReportsListViewController.swift */,
 				4E7799072BE773B5002D1D25 /* DailyReportViewController.swift */,
+				4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */,
 			);
 			path = DailyReport;
 			sourceTree = "<group>";
@@ -677,6 +680,7 @@
 				4EA3978A2A855072006053A0 /* UIView+Anchors.swift in Sources */,
 				4ED8E4F02BE0209B00F28AAA /* DailyReport.swift in Sources */,
 				4EA397A62A855080006053A0 /* PDFViewController.swift in Sources */,
+				4EEE42722BE8C1F8003A8E21 /* DailyReportPdfViewController.swift in Sources */,
 				4EA397112A854F96006053A0 /* ProjectPdfViewController.swift in Sources */,
 				4EA3978C2A855072006053A0 /* LabeledText.swift in Sources */,
 				4EA3979B2A855072006053A0 /* LabeledCheckboxGroup.swift in Sources */,
@@ -859,7 +863,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -874,7 +878,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -889,7 +893,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -904,7 +908,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

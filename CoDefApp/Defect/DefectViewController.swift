@@ -72,10 +72,6 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     func setupDataSection(){
-        let nameView = LabeledText()
-        nameView.setupView(labelText: "name".localizeWithColon(), text: defect.displayName)
-        dataSection.addArrangedSubview(nameView)
-        
         let idView = LabeledText()
         idView.setupView(labelText: "id".localizeWithColon(), text: String(defect.id))
         dataSection.addArrangedSubview(idView)
@@ -83,9 +79,6 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         let descriptionView = LabeledText()
         descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
-        
-        let remainingWorkView = UILabel(text: "remainingWork".localize())
-        dataSection.addArrangedSubview(remainingWorkView)
         
         let positionCommentView = LabeledText()
         positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)

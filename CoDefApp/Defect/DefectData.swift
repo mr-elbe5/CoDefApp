@@ -43,7 +43,7 @@ class DefectData : ContentData{
     
     override var displayName: String{
         get{
-            (remainingWork ? "remainingWork".localize() : "defect".localize()) + " " + String(id)
+            remainingWork ? "\("defect".localize()) \(id) (\("remainingWork".localize()))" : "\("defect".localize()) \(id)"
         }
         set{
         }

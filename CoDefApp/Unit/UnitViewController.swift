@@ -85,14 +85,13 @@ class UnitViewController: ScrollViewController {
     }
     
     func setupDefectSection(){
-        let headerLabel = UILabel(header: "defectsAndRemainingWork".localizeWithColon())
+        let headerLabel = UILabel(header: "defects".localizeWithColon())
         defectSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
         
         let addDefectButton = TextButton(text: "newDefect".localize())
         addDefectButton.addAction(UIAction(){ action in
             if !self.unit.projectCompanies.isEmpty{
                 let defect = DefectData(unit: self.unit)
-                defect.remainingWork = false
                 let controller = EditDefectViewController(defect: defect)
                 controller.delegate = self
                 self.navigationController?.pushViewController(controller, animated: true)
@@ -101,24 +100,10 @@ class UnitViewController: ScrollViewController {
                 self.showError("noUsersError")
             }
         }, for: .touchDown)
-        defectSection.addSubviewWithAnchors(addDefectButton, top: headerLabel.bottomAnchor, leading: defectSection.leadingAnchor, insets: Insets.defaultInsets)
+        defectSection.addSubviewWithAnchors(addDefectButton, top: headerLabel.bottomAnchor, insets: Insets.defaultInsets)
+            .centerX(defectSection.centerXAnchor)
         
-        let addRemainingWorkButton = TextButton(text: "newRemainingWork".localize())
-        addRemainingWorkButton.addAction(UIAction(){ action in
-            if !self.unit.projectCompanies.isEmpty{
-                let defect = DefectData(unit: self.unit)
-                defect.remainingWork = true
-                let controller = EditDefectViewController(defect: defect)
-                controller.delegate = self
-                self.navigationController?.pushViewController(controller, animated: true)
-            }
-            else{
-                self.showError("noUsersError")
-            }
-        }, for: .touchDown)
-        defectSection.addSubviewWithAnchors(addRemainingWorkButton, top: headerLabel.bottomAnchor, trailing: defectSection.trailingAnchor, insets: Insets.defaultInsets)
-        
-        var lastView: UIView = addRemainingWorkButton
+        var lastView: UIView = addDefectButton
         for defect in unit.defects{
             if defect.isInFilter(){
                 let sectionLine = getDefectSectionLine(defect: defect)

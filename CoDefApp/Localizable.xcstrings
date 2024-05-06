@@ -248,13 +248,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Anweisung"
+            "value" : "Anweisung/Anmerkung"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Briefing"
+            "value" : "Briefing/Remarks"
           }
         }
       }
@@ -860,20 +860,20 @@
         }
       }
     },
-    "defectsAndRemainingWork" : {
+    "defects" : {
       "comment" : "Defects",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mängel und Restleistungen"
+            "value" : "Mängel"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Defects and Remaining Works"
+            "value" : "Defects"
           }
         }
       }
@@ -1334,6 +1334,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Liability"
+          }
+        }
+      }
+    },
+    "location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ort"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
           }
         }
       }
@@ -2566,6 +2583,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The report is attached as PDF file."
+          }
+        }
+      }
+    },
+    "reportNumber" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Berichtnummer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report number"
           }
         }
       }

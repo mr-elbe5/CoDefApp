@@ -87,6 +87,10 @@ class WeatherData : Decodable{
         }
     }
     
+    public func getWindSpeed() -> String{
+        "\(weatherWspd) km/h"
+    }
+    
     public func getWindDirection() -> String{
         if weatherWdir < 12.25{
             return "N"
@@ -137,6 +141,14 @@ class WeatherData : Decodable{
             return "NNO"
         }
         return "N"
+    }
+    
+    public func getTemperature() -> String{
+        "\(weatherTemp) °C"
+    }
+    
+    public func getHumidity() -> String{
+        "\(weatherRhum) %"
     }
     
 }

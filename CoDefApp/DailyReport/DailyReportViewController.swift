@@ -18,6 +18,8 @@ class DailyReportViewController: ScrollViewController {
     
     var imageCollectionView: ImageCollectionView
     
+    var delegate: DailyReportDelegate? = nil
+    
     init(report: DailyReport){
         self.report = report
         imageCollectionView = ImageCollectionView(images: self.report.images, enableDelete: true)
@@ -32,6 +34,33 @@ class DailyReportViewController: ScrollViewController {
         title = report.displayName
         modalPresentationStyle = .fullScreen
         super.loadView()
+        
+        var groups = Array<UIBarButtonItemGroup>()
+        var items = Array<UIBarButtonItem>()
+        items.append(UIBarButtonItem(title: "report".localize(), image: UIImage(systemName: "doc.text"), primaryAction: UIAction(){ action in
+            let controller = DailyReportPdfViewController(report: self.report)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }))
+        if AppState.shared.standalone || !report.isOnServer{
+            items.append(UIBarButtonItem(title: "edit".localize(), image: UIImage(systemName: "pencil"), primaryAction: UIAction(){ action in
+                let controller = EditDailyReportViewController(report: self.report)
+                controller.delegate = self
+                self.navigationController?.pushViewController(controller, animated: true)
+            }))
+        }
+        items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
+            if let project = self.report.project{
+                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
+                    project.removeDailyReport(self.report)
+                    project.changed()
+                    project.saveData()
+                    self.delegate?.dailyReportChanged()
+                    self.navigationController?.popViewController(animated: true)
+                })
+            }
+        }))
+        groups.append(UIBarButtonItemGroup.fixedGroup(representativeItem: UIBarButtonItem(title: "actions".localize(), image: UIImage(systemName: "filemenu.and.selection")), items: items))
+        navigationItem.trailingItemGroups = groups
     }
     
     override func setupContentView() {
@@ -46,11 +75,11 @@ class DailyReportViewController: ScrollViewController {
         view.addSubviewAtTop(weatherConditionLabel)
         weatherConditionLabel.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
         view.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: horizontalInsets)
-        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) km/h \(report.weatherWdir)", inline: true)
+        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) \(report.weatherWdir)", inline: true)
         view.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: horizontalInsets)
-        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: "\(report.weatherTemp) °C", inline: true)
+        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: report.weatherTemp, inline: true)
         view.addSubviewAtTop(weatherTempLabel, topView: weatherWindLabel, insets: horizontalInsets)
-        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: "\(report.weatherRhum) %", inline: true)
+        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: report.weatherRhum, inline: true)
         view.addSubviewAtTop(weatherHumidityLabel, topView: weatherTempLabel, insets: horizontalInsets)
             .bottom(view.bottomAnchor)
         
@@ -86,4 +115,15 @@ class DailyReportViewController: ScrollViewController {
     
 }
 
+extension DailyReportViewController: DailyReportDelegate{
+    
+    func dailyReportChanged() {
+        contentView.removeAllSubviews()
+        setupContentView()
+    }
+    
+    func dailyReportDeleted() {
+    }
+    
+}
 

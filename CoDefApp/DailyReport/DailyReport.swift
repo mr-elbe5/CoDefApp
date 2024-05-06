@@ -83,10 +83,16 @@ class DailyReport : ContentData{
     
     func setWeatherData(from weatherData: WeatherData){
         weatherCoco = weatherData.getWeatherCoco()
-        weatherWspd = String(Int(weatherData.weatherWspd))
+        weatherWspd = weatherData.getWindSpeed()
         weatherWdir = weatherData.getWindDirection()
-        weatherTemp = String(Int(weatherData.weatherTemp))
-        weatherRhum = String(Int(weatherData.weatherRhum))
+        weatherTemp = weatherData.getTemperature()
+        weatherRhum = weatherData.getHumidity()
+    }
+    
+    func getBriefing(company: CompanyData) -> CompanyBriefing?{
+        companyBriefings.first(where: {
+            $0.companyId == company.id
+        })
     }
     
     override var uploadParams: Dictionary<String,String>{

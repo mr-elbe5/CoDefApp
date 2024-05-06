@@ -25,11 +25,12 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         navigationItem.leftBarButtonItems = items
         
         items = Array<UIBarButtonItem>()
-        items.append(UIBarButtonItem(image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
-            if let controller = self.infoViewController{
+        
+        if let controller = self.infoViewController{
+            items.append(UIBarButtonItem(image: UIImage(systemName: "info"), primaryAction: UIAction(){ action in
                 self.navigationController?.pushViewController(controller, animated: true)
-            }
-        }))
+            }))
+        }
         items.append(UIBarButtonItem(title: "cancel".localize(), primaryAction: UIAction(){ action in
             self.navigationController?.popViewController(animated: true)
         }))

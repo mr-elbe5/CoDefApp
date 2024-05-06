@@ -180,8 +180,14 @@ class ProjectData : ContentData{
         }
     }
     
-    func addReport(_ report: DailyReport){
-        dailyReports.append(report)
+    func addDailyReport(_ report: DailyReport){
+        if !dailyReports.contains(report){
+            dailyReports.append(report)
+        }
+    }
+    
+    func removeDailyReport(_ report: DailyReport){
+        dailyReports.remove(obj: report)
     }
     
     // weather

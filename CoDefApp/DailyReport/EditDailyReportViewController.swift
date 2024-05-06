@@ -13,7 +13,7 @@ class EditDailyReportViewController: EditViewController {
     
     var delegate: DailyReportDelegate? = nil
     
-    var weatherConditionLabel = LabeledText()
+    var weatherConditionField = LabeledTextInput()
     var weatherWindLabel = LabeledText()
     var weatherTempLabel = LabeledText()
     var weatherHumidityLabel = LabeledText()
@@ -21,10 +21,6 @@ class EditDailyReportViewController: EditViewController {
     var briefingViews = Array<EditCompanyBriefingView>()
     
     var imageCollectionView: ImageCollectionView
-    
-    override var infoViewController: InfoViewController?{
-        EditDailyReportInfoViewController()
-    }
     
     init(report: DailyReport){
         self.report = report
@@ -45,7 +41,7 @@ class EditDailyReportViewController: EditViewController {
                 if let weatherData = try await report.project.getWeatherData(){
                     DispatchQueue.main.async{
                         self.report.setWeatherData(from: weatherData)
-                        self.weatherConditionLabel.text = self.report.weatherCoco
+                        self.weatherConditionField.text = self.report.weatherCoco
                         self.weatherWindLabel.text = "\(self.report.weatherWspd) km/h \(self.report.weatherWdir)"
                         self.weatherTempLabel.text = "\(self.report.weatherTemp) °C"
                         self.weatherHumidityLabel.text = "\(self.report.weatherRhum) %"
@@ -59,25 +55,25 @@ class EditDailyReportViewController: EditViewController {
         
         let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))")
         contentView.addSubviewAtTop(nameLabel)
-        contentView.addSubviewAtTop(weatherConditionLabel, topView: nameLabel)
         
-        weatherConditionLabel.setupView(labelText: "weatherConditions".localizeWithColon(), text: "", inline: true)
-        contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: horizontalInsets)
+        weatherConditionField.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
+        contentView.addSubviewAtTop(weatherConditionField, topView: nameLabel)
         
-        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "", inline: true)
-        contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: horizontalInsets)
+        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) km/h \(self.report.weatherWdir)", inline: true)
+        contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionField, insets: horizontalInsets)
         
-        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: "", inline: true)
+        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: "\(self.report.weatherTemp) °C", inline: true)
         contentView.addSubviewAtTop(weatherTempLabel, topView: weatherWindLabel, insets: horizontalInsets)
         
-        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: "", inline: true)
+        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: "\(self.report.weatherRhum) %", inline: true)
         contentView.addSubviewAtTop(weatherHumidityLabel, topView: weatherTempLabel, insets: horizontalInsets)
         
         var lastView : UIView = weatherHumidityLabel
         
         for company in report.projectCompanies{
-            let briefingView = EditCompanyBriefingView(company: company)
-            briefingView.setupView()
+            let briefing = report.getBriefing(company: company)
+            let briefingView =  EditCompanyBriefingView(company: company)
+            briefingView.setupView(present: briefing != nil, activity: briefing?.activity ?? "", briefing: briefing?.briefing ?? "")
             briefingViews.append(briefingView)
             contentView.addSubviewAtTop(briefingView, topView: lastView)
             lastView = briefingView
@@ -96,7 +92,8 @@ class EditDailyReportViewController: EditViewController {
     }
     
     override func save() -> Bool{
-        report .companyBriefings.removeAll()
+        report.weatherCoco = weatherConditionField.text
+        report.companyBriefings.removeAll()
         for briefingView in briefingViews {
             if briefingView.selectSwitch.isOn{
                 let briefing = CompanyBriefing()
@@ -106,7 +103,8 @@ class EditDailyReportViewController: EditViewController {
                 report.companyBriefings.append(briefing)
             }
         }
-        report.project.addReport(report)
+        report.project.addDailyReport(report)
+        delegate?.dailyReportChanged()
         return true
     }
     
@@ -131,12 +129,9 @@ class EditCompanyBriefingView: UIView{
     var activityConstraint: NSLayoutConstraint!
     var briefingConstraint:NSLayoutConstraint!
     
-    init(company: CompanyData, present: Bool = false, activity: String = "", briefing: String = ""){
+    init(company: CompanyData){
         self.company = company
-        selectSwitch.isOn = present
         selectSwitch.title = company.name
-        activityField.text = activity
-        briefingField.text = briefing
         super.init(frame: .zero)
         activityConstraint = activityField.heightAnchor.constraint(equalToConstant: 0)
         briefingConstraint = briefingField.heightAnchor.constraint(equalToConstant: 0)
@@ -146,16 +141,16 @@ class EditCompanyBriefingView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(){
+    func setupView(present: Bool = false, activity: String = "", briefing: String = ""){
         backgroundColor = .white
         setRoundedBorders()
-        selectSwitch.setup(title: "\(company.name) \("present".localize())")
+        selectSwitch.setup(title: "\(company.name) \("present".localize())", isOn: present)
         selectSwitch.delegate = self
         addSubviewWithAnchors(selectSwitch, top: topAnchor, leading: leadingAnchor, insets: horizontalInsets)
-        activityField.setupView(labelText: "activity".localizeWithColon())
+        activityField.setupView(labelText: "activity".localizeWithColon(), text: activity)
         addSubviewWithAnchors(activityField, top: selectSwitch.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: horizontalInsets)
-        briefingField.setupView(labelText: "briefing".localizeWithColon())
-        addSubviewWithAnchors(briefingField, top: activityField.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: horizontalInsets)
+        briefingField.setupView(labelText: "briefing".localizeWithColon(), text: briefing)
+        addSubviewWithAnchors(briefingField, top: activityField.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: horizontalInsets)
             .bottom(bottomAnchor, inset: -defaultInset)
         updateVisibility()
     }
@@ -177,13 +172,4 @@ extension EditCompanyBriefingView: CheckboxDelegate{
     
 }
 
-class EditDailyReportInfoViewController: InfoViewController {
-    
-    override func setupInfos(){
-        let block = addBlock()
-        block.addArrangedSubview(InfoHeader("dailyReportInfoHeader".localize()))
-        block.addArrangedSubview(InfoText("dailyReportInfoText".localize()))
-    }
-    
-}
 

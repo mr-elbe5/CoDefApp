@@ -22,7 +22,7 @@ class LabeledTextInput : UIView, UITextFieldDelegate{
         }
     }
     
-    func setupView(labelText: String, text: String = ""){
+    func setupView(labelText: String, text: String = "", inline: Bool = false){
         label.text = labelText
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)
@@ -35,8 +35,15 @@ class LabeledTextInput : UIView, UITextFieldDelegate{
         textField.autocorrectionType = .no
         addSubview(textField)
         
-        label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor)
-        textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        if inline{
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, bottom: bottomAnchor)
+            textField.setAnchors(top: topAnchor, bottom: bottomAnchor)
+                .leading(label.trailingAnchor, inset: defaultInset)
+        }
+        else{
+            label.setAnchors(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor)
+            textField.setAnchors(top: label.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        }
     }
     
     func setSecureEntry(){

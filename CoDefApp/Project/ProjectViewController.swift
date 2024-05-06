@@ -174,7 +174,6 @@ extension ProjectViewController: UnitDelegate{
 extension ProjectViewController: DailyReportDelegate{
     
     func dailyReportChanged() {
-        //todo
     }
     
 }

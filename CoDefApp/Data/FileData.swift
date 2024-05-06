@@ -64,13 +64,10 @@ class FileData : BaseData{
     func setFileNameFromURL(_ url: URL){
         let originalFileName = url.lastPathComponent
         fileExtension = url.pathExtension
-        print(fileExtension)
         let utType = UTType(filenameExtension: fileExtension)
         contentType = utType?.preferredMIMEType ?? ""
-        print(contentType)
         fileName = "img_\(id).\(fileExtension)"
-        print(fileName)
-        Log.debug("file name from url is \(fileName) from \(originalFileName)")
+        //Log.debug("file name from url is \(fileName) from \(originalFileName)")
     }
     
     func fileExists() -> Bool{

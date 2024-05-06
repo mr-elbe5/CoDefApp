@@ -46,7 +46,6 @@ class AppData : Codable{
     }
     
     init(){
-        Log.debug("init")
     }
     
     required init(from decoder: Decoder) throws {
@@ -54,7 +53,6 @@ class AppData : Codable{
         serverSettings = try values.decodeIfPresent(ServerSettings.self, forKey: .serverSettings) ?? ServerSettings()
         companies = try values.decodeIfPresent(CompanyList.self, forKey: .companies) ?? CompanyList()
         projects = try values.decodeIfPresent(ProjectList.self, forKey: .projects) ?? ProjectList()
-        Log.debug("decoder: \(AppData.shared.serverSettings.country)")
     }
 
     func encode(to encoder: Encoder) throws {
