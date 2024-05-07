@@ -42,9 +42,9 @@ class EditDailyReportViewController: EditViewController {
                     DispatchQueue.main.async{
                         self.report.setWeatherData(from: weatherData)
                         self.weatherConditionField.text = self.report.weatherCoco
-                        self.weatherWindLabel.text = "\(self.report.weatherWspd) km/h \(self.report.weatherWdir)"
-                        self.weatherTempLabel.text = "\(self.report.weatherTemp) °C"
-                        self.weatherHumidityLabel.text = "\(self.report.weatherRhum) %"
+                        self.weatherWindLabel.text = "\(self.report.weatherWspd) \(self.report.weatherWdir)"
+                        self.weatherTempLabel.text = self.report.weatherTemp
+                        self.weatherHumidityLabel.text = self.report.weatherRhum
                     }
                 }
             }
@@ -59,13 +59,13 @@ class EditDailyReportViewController: EditViewController {
         weatherConditionField.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
         contentView.addSubviewAtTop(weatherConditionField, topView: nameLabel)
         
-        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) km/h \(self.report.weatherWdir)", inline: true)
+        weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) \(self.report.weatherWdir)", inline: true)
         contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionField, insets: horizontalInsets)
         
-        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: "\(self.report.weatherTemp) °C", inline: true)
+        weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: self.report.weatherTemp, inline: true)
         contentView.addSubviewAtTop(weatherTempLabel, topView: weatherWindLabel, insets: horizontalInsets)
         
-        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: "\(self.report.weatherRhum) %", inline: true)
+        weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: self.report.weatherRhum, inline: true)
         contentView.addSubviewAtTop(weatherHumidityLabel, topView: weatherTempLabel, insets: horizontalInsets)
         
         var lastView : UIView = weatherHumidityLabel

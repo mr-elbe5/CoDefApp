@@ -14,7 +14,7 @@ class ServerSettings : Codable{
         case meteoStatKey
     }
     
-    var country = ""
+    var country = "de"
     var timeZoneName = ""
     var meteoStatKey = ""
     

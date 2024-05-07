@@ -14,6 +14,10 @@ class EditProjectViewController: EditViewController{
     
     var nameField = LabeledTextInput()
     var descriptionField = LabeledTextareaInput()
+    var zipCodeField = LabeledTextInput()
+    var cityField = LabeledTextInput()
+    var streetField = LabeledTextInput()
+    var weatherStationLabel = LabeledText()
     var labeledCheckboxGroup = LabeledCheckboxGroup()
     
     override var infoViewController: InfoViewController?{
@@ -41,8 +45,20 @@ class EditProjectViewController: EditViewController{
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: project.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
+        zipCodeField.setupView(labelText: "zipCode".localizeWithColon(), text: project.zipCode)
+        contentView.addSubviewAtTop(zipCodeField, topView: descriptionField)
+        
+        cityField.setupView(labelText: "city".localizeWithColonAsMandatory(), text: project.city)
+        contentView.addSubviewAtTop(cityField, topView: zipCodeField)
+        
+        streetField.setupView(labelText: "street".localizeWithColonAsMandatory(), text: project.street)
+        contentView.addSubviewAtTop(streetField, topView: cityField)
+        
+        weatherStationLabel.setupView(labelText: "weatherStation".localizeWithColon(), text: project.weatherStation)
+        contentView.addSubviewAtTop(weatherStationLabel, topView: streetField)
+        
         labeledCheckboxGroup.setupView(labelText: "companies".localizeWithColonAsMandatory())
-        contentView.addSubviewAtTop(labeledCheckboxGroup,topView: descriptionField, insets: defaultInsets)
+        contentView.addSubviewAtTop(labeledCheckboxGroup,topView: weatherStationLabel, insets: defaultInsets)
             .bottom(contentView.bottomAnchor)
         
         for company in AppData.shared.companies{
@@ -54,9 +70,12 @@ class EditProjectViewController: EditViewController{
     }
     
     override func save() -> Bool{
-        if !nameField.text.isEmpty && labeledCheckboxGroup.checkboxGroup.hasSelection{
+        if !nameField.text.isEmpty, !cityField.text.isEmpty, !streetField.text.isEmpty, labeledCheckboxGroup.checkboxGroup.hasSelection{
             project.displayName = nameField.text
             project.description = descriptionField.text
+            project.zipCode = zipCodeField.text
+            project.city = cityField.text
+            project.street = streetField.text
             for checkbox in labeledCheckboxGroup.checkboxGroup.checkboxViews{
                 if let company = checkbox.data as? CompanyData, !checkbox.isOn, project.companyIds.contains(company.id), !project.canRemoveCompany(companyId: company.id){
                     self.showError("companyDeleteError")
@@ -75,8 +94,11 @@ class EditProjectViewController: EditViewController{
             }
             project.updateCompanies()
             project.changed()
-            project.saveData()
-            delegate?.projectChanged()
+            Task{
+                try await self.project.assertWeatherStation()
+                project.saveData()
+                delegate?.projectChanged()
+            }
             return true
         }
         else{

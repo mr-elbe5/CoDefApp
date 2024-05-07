@@ -63,6 +63,10 @@ extension String {
     func ISO8601Date() -> Date?{
         ISO8601DateFormatter().date(from: self.removeTimeStringMilliseconds())
     }
+    
+    func toURL() -> String{
+        self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) ?? self
+    }
 
 }
 

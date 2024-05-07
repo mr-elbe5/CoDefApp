@@ -192,9 +192,13 @@ class ProjectData : ContentData{
     
     // weather
     
+    @discardableResult
     func assertWeatherStation() async throws -> Bool {
         if !weatherStation.isEmpty{
             return true
+        }
+        if AppData.shared.serverSettings.country.isEmpty || city.isEmpty || street.isEmpty || AppData.shared.serverSettings.meteoStatKey.isEmpty{
+            return false
         }
         if let weatherStation = try await WeatherStation.getWeatherStation(country: AppData.shared.serverSettings.country, city: city, street: street, meteoStatKey: AppData.shared.serverSettings.meteoStatKey){
             self.weatherStation = weatherStation.id

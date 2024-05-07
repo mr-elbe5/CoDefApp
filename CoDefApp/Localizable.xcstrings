@@ -571,6 +571,23 @@
         }
       }
     },
+    "countryCode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Landescode"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Country Code"
+          }
+        }
+      }
+    },
     "createBackup" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1668,6 +1685,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Menu Symbols"
+          }
+        }
+      }
+    },
+    "meteoStatKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meteostat X-RapidApi-Key"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meteostat X-RapidApi-Key"
           }
         }
       }
@@ -3338,6 +3372,23 @@
         }
       }
     },
+    "timeZone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeitzone"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time Zone"
+          }
+        }
+      }
+    },
     "true" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4185,6 +4236,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Weather Conditions"
+          }
+        }
+      }
+    },
+    "weatherStation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wetterstation"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weather Station"
           }
         }
       }

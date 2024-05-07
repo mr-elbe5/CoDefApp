@@ -79,6 +79,10 @@ class ProjectViewController: ScrollViewController {
         addressLabel.setupView(labelText: "address".localizeWithColon(), text: project.address)
         dataSection.addArrangedSubview(addressLabel)
         
+        let weatherStationLabel = LabeledText()
+        weatherStationLabel.setupView(labelText: "weatherStation".localizeWithColon(), text: project.weatherStation)
+        dataSection.addArrangedSubview(weatherStationLabel)
+        
         let descriptionLabel = LabeledText()
         descriptionLabel.setupView(labelText: "description".localizeWithColon(), text: project.description)
         dataSection.addArrangedSubview(descriptionLabel)
