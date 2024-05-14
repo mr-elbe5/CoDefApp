@@ -15,6 +15,7 @@ class EditDefectViewController: EditViewController {
     
     var descriptionField = LabeledTextareaInput()
     var positionCommentField = LabeledTextareaInput()
+    var locationField = LabeledTextareaInput()
     var remainingWorkField = LabeledCheckbox()
     var notifiedField = LabeledCheckbox()
     var phaseField = LabeledPhaseSelectField()
@@ -48,13 +49,16 @@ class EditDefectViewController: EditViewController {
     
     override func setupContentView() {
         
-        descriptionField.setupView(labelText: "description".localizeWithColonAsMandatory(), text: defect.description)
+        descriptionField.setupView(labelText: "defect".localizeWithColonAsMandatory(), text: defect.description)
         contentView.addSubviewAtTop(descriptionField)
         
-        positionCommentField.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        positionCommentField.setupView(labelText: "comment".localizeWithColon(), text: defect.comment)
         contentView.addSubviewAtTop(positionCommentField, topView: descriptionField)
         
-        var lastView : UIView = positionCommentField
+        locationField.setupView(labelText: "defectLocation".localizeWithColon(), text: defect.location)
+        contentView.addSubviewAtTop(locationField, topView: positionCommentField)
+        
+        var lastView : UIView = locationField
         
         remainingWorkField.setup(title: "remainingWork".localizeWithColon(), isOn: defect.remainingWork)
         contentView.addSubviewAtTop(remainingWorkField, topView: lastView)
@@ -120,7 +124,8 @@ class EditDefectViewController: EditViewController {
     override func save() -> Bool{
         if !descriptionField.text.isEmpty, let assignedCompany = assignField.selectedCompany {
             defect.description = descriptionField.text
-            defect.positionComment = positionCommentField.text
+            defect.comment = positionCommentField.text
+            defect.location = locationField.text
             defect.remainingWork = remainingWorkField.isOn
             defect.projectPhase = phaseField.selectedPhase
             defect.assignedId = assignedCompany.id

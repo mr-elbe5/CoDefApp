@@ -77,12 +77,16 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         dataSection.addArrangedSubview(idView)
         
         let descriptionView = LabeledText()
-        descriptionView.setupView(labelText: "description".localizeWithColon(), text: defect.description)
+        descriptionView.setupView(labelText: "defect".localizeWithColon(), text: defect.description)
         dataSection.addArrangedSubview(descriptionView)
         
         let positionCommentView = LabeledText()
-        positionCommentView.setupView(labelText: "positionComment".localizeWithColon(), text: defect.positionComment)
+        positionCommentView.setupView(labelText: "comment".localizeWithColon(), text: defect.comment)
         dataSection.addArrangedSubview(positionCommentView)
+        
+        let locationView = LabeledText()
+        locationView.setupView(labelText: "defectLocation".localizeWithColon(), text: defect.location)
+        dataSection.addArrangedSubview(locationView)
         
         let phaseView = LabeledText()
         phaseView.setupView(labelText: "projectPhase".localizeWithColon(), text: defect.projectPhase.rawValue.localize())

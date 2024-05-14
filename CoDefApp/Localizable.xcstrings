@@ -350,7 +350,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Kommentar"
+            "value" : "Kommentar/Beschreibung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment/Description"
           }
         }
       }
@@ -805,6 +811,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Change data of this defect/remaining work (only standalone or not yet submitted to server)."
+          }
+        }
+      }
+    },
+    "defectLocation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wohneinheit/Lage"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unit/Location"
           }
         }
       }
@@ -2201,13 +2224,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lagekommentar"
+            "value" : "Kommentar/Beschreibung"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Position Comment"
+            "value" : "Comment/Description"
           }
         }
       }

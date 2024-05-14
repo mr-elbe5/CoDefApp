@@ -54,10 +54,13 @@ extension PDFRenderer {
         addLine(label: "name".localize(), text: defect.displayName)
         addLine(label: "id".localize(), text: String(defect.id))
         if !defect.description.isEmpty{
-            addLine(label: "description".localize(), text: defect.description)
+            addLine(label: "defect".localize(), text: defect.description)
         }
-        if !defect.positionComment.isEmpty{
-            addLine(label: "positionComment".localize(), text: defect.positionComment)
+        if !defect.comment.isEmpty{
+            addLine(label: "comment".localize(), text: defect.comment)
+        }
+        if !defect.location.isEmpty{
+            addLine(label: "defectLocation".localize(), text: defect.location)
         }
         addLine(label: "creator".localize(), text: defect.creatorName)
         addLine(label: "creationDate".localize(), text: defect.creationDate.asString())

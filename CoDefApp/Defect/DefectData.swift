@@ -20,6 +20,7 @@ class DefectData : ContentData{
         case positionX
         case positionY
         case positionComment
+        case location
         case images
         case statusChanges
     }
@@ -31,7 +32,8 @@ class DefectData : ContentData{
     var dueDate1 = Date()
     var dueDate2: Date? = nil
     var position: CGPoint = .zero
-    var positionComment = ""
+    var comment = ""
+    var location = ""
     
     var images = ImageList()
     
@@ -123,7 +125,8 @@ class DefectData : ContentData{
         dueDate2 = date?.ISO8601Date()
         position.x = try values.decodeIfPresent(Double.self, forKey: .positionX) ?? 0.0
         position.y = try values.decodeIfPresent(Double.self, forKey: .positionY) ?? 0.0
-        positionComment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
+        comment = try values.decodeIfPresent(String.self, forKey: .positionComment) ?? ""
+        location = try values.decodeIfPresent(String.self, forKey: .location) ?? ""
         images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
         statusChanges = try values.decodeIfPresent(StatusChangeList.self, forKey: .statusChanges) ?? StatusChangeList()
         for statusChange in statusChanges{
@@ -143,7 +146,8 @@ class DefectData : ContentData{
         try container.encode(dueDate2?.isoString() ?? "", forKey: .dueDate2)
         try container.encode(position.x, forKey: .positionX)
         try container.encode(position.y, forKey: .positionY)
-        try container.encode(positionComment, forKey: .positionComment)
+        try container.encode(comment, forKey: .positionComment)
+        try container.encode(location, forKey: .location)
         try container.encode(images, forKey: .images)
         try container.encode(statusChanges, forKey: .statusChanges)
     }
@@ -235,7 +239,8 @@ class DefectData : ContentData{
         dict["dueDate1"]=dueDate1.isoString()
         dict["positionX"]=String(Double(position.x))
         dict["positionY"]=String(Double(position.y))
-        dict["positionComment"]=positionComment
+        dict["positionComment"]=comment
+        dict["location"]=location
         dict["assignedId"]=String(assignedId)
         dict["remainingWork"]=String(remainingWork)
         dict["status"] = status.rawValue
@@ -251,7 +256,7 @@ class DefectData : ContentData{
         dueDate1 = fromData.dueDate1
         position.x = fromData.position.x
         position.y = fromData.position.y
-        positionComment = fromData.positionComment
+        comment = fromData.comment
         for image in fromData.images{
             if let presentImage = images.getImageData(id: image.id){
                 await presentImage.synchronizeFrom(image)
