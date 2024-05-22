@@ -35,7 +35,7 @@ class BaseData: Codable, Hashable, Equatable{
     init(){
         id = AppState.shared.nextId
         isOnServer = false
-        creationDate = Date()
+        creationDate = Date.localDate
         creatorId = AppState.shared.currentUser.id
         creatorName = AppState.shared.currentUser.name
         changeDate = creationDate
@@ -48,7 +48,7 @@ class BaseData: Codable, Hashable, Equatable{
         id = try values.decode(Int.self, forKey: .id)
         isOnServer = try values.decodeIfPresent(Bool.self, forKey: .isOnServer) ?? false
         var date = try values.decodeIfPresent(String.self, forKey: .creationDate)
-        creationDate = date?.ISO8601Date() ?? Date()
+        creationDate = date?.ISO8601Date() ?? Date.localDate
         creatorId = try values.decodeIfPresent(Int.self, forKey: .creatorId) ?? 0
         creatorName = try values.decodeIfPresent(String.self, forKey: .creatorName) ?? ""
         date = try values.decodeIfPresent(String.self, forKey: .changeDate)
@@ -72,7 +72,7 @@ class BaseData: Codable, Hashable, Equatable{
     func changed(){
         changerId = AppState.shared.currentUser.id
         changerName = AppState.shared.currentUser.name
-        changeDate = Date()
+        changeDate = Date.localDate
     }
     
     func hash(into hasher: inout Hasher) {

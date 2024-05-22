@@ -124,7 +124,6 @@ class SelectUserButton: UIButton{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
 }
 
 class EditProjectInfoViewController: InfoViewController {

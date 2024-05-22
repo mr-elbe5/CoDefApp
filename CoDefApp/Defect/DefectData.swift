@@ -29,7 +29,7 @@ class DefectData : ContentData{
     var remainingWork = false
     var assignedId: Int = 0
     var notified = false
-    var dueDate1 = Date()
+    var dueDate1 = Date.localDate
     var dueDate2: Date? = nil
     var position: CGPoint = .zero
     var comment = ""
@@ -85,7 +85,7 @@ class DefectData : ContentData{
     }
     
     var isOverdue : Bool{
-        dueDate1 < Date()
+        dueDate1 < Date.localDate
     }
     
     var project: ProjectData{
@@ -100,7 +100,7 @@ class DefectData : ContentData{
         self.unit = unit
         super.init()
         if let approveDate = unit.approveDate{
-            projectPhase = approveDate > Date() ? .PREAPPROVAL : .LIABILITY
+            projectPhase = approveDate > Date.localDate ? .PREAPPROVAL : .LIABILITY
         }
         else{
             projectPhase = .PREAPPROVAL

@@ -62,7 +62,6 @@ class FileData : BaseData{
     }
     
     func setFileNameFromURL(_ url: URL){
-        let originalFileName = url.lastPathComponent
         fileExtension = url.pathExtension
         let utType = UTType(filenameExtension: fileExtension)
         contentType = utType?.preferredMIMEType ?? ""

@@ -85,7 +85,7 @@ class EditDefectViewController: EditViewController {
         }
         
         dueDateField.setupView(labelText: "dueDate".localizeWithColonAsMandatory(), date: defect.dueDate1)
-        dueDateField.setMinMaxDate(minDate: Date(), maxDate: Date.distantFuture)
+        dueDateField.setMinMaxDate(minDate: Date.localDate, maxDate: Date.distantFuture)
         contentView.addSubviewAtTop(dueDateField, topView: lastView)
         lastView = dueDateField
         

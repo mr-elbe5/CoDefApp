@@ -161,7 +161,7 @@ class MainViewController: ScrollViewController {
     }
     
     func backup(){
-        let fileName = "codeftracker_backup_\(Date().shortFileDate()).zip"
+        let fileName = "codeftracker_backup_\(Date.localDate.shortFileDate()).zip"
         if let url = Backup.createBackupFile(name: fileName){
             var urls = [URL]()
             urls.append(url)

@@ -23,7 +23,7 @@ class LabeledDatePicker : UIView{
         }
     }
     
-    func setupView(labelText: String, date: Date = Date()){
+    func setupView(labelText: String, date: Date = Date.localDate){
         label.text = labelText
         label.textAlignment = .left
         label.font = .preferredFont(forTextStyle: .headline)

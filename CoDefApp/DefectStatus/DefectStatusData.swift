@@ -17,7 +17,7 @@ class DefectStatusData : ContentData{
     
     var status = DefectStatus.OPEN
     var assignedId: Int = 0
-    var dueDate = Date()
+    var dueDate = Date.localDate
     
     var images = ImageList()
     

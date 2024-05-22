@@ -11,7 +11,7 @@ class WeatherData : Decodable{
     
     static func getWeatherData(weatherStation: String) async throws -> WeatherData? {
         if !AppData.shared.serverSettings.meteoStatKey.isEmpty{
-            let dateString = Date().simpleDateString()
+            let dateString = Date.localDate.simpleDateString()
             let url = "https://meteostat.p.rapidapi.com/stations/hourly?station=\(weatherStation)&start=\(dateString)&end=\(dateString)&tz=\(AppData.shared.serverSettings.timeZoneName.toURL().replacing("/", with: "%2F"))&units=metric"
             if let request = RequestController.shared.createRequest(url: url, method: "GET",
                                                                     headerFields: ["X-RapidApi-Key" : AppData.shared.serverSettings.meteoStatKey],

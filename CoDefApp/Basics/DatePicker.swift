@@ -25,10 +25,10 @@ class DatePicker : UIView{
         if let date = date{
             datePicker.date = date
         } else{
-            datePicker.date = Date()
+            datePicker.date = Date.localDate
         }
         datePicker.minimumDate = minimumDate
-        datePicker.maximumDate = Date()
+        datePicker.maximumDate = Date.localDate
         datePicker.datePickerMode = .date
         datePicker.addAction(UIAction(){ action in
             self.delegate?.dateValueDidChange(sender: self,date: self.datePicker.date)

@@ -49,7 +49,7 @@ class PDFViewController: BaseViewController {
     }
     
     func getFileName() -> String{
-        "\(title!)_\(Date().shortFileDate()).pdf"
+        "\(title!)_\(Date.localDate.shortFileDate()).pdf"
     }
     
     func save(data: Data){
