@@ -54,7 +54,7 @@ extension PDFRenderer {
         addLine(label: "name".localize(), text: report.displayName)
         addLine(label: "location".localize(), text: report.project.address)
         addLine(label: "reportNumber".localize(), text: String(report.idx))
-        addLine(label: "creationDate".localize(), text: report.creationDate.asString())
+        addLine(label: "reportDate".localize(), text: report.creationDate.asString())
         addLine(label: "creator".localize(), text: report.creatorName)
         addSpacer()
         addLine(label: "weatherConditions".localize(), text: report.weatherCoco)

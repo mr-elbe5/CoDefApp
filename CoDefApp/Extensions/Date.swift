@@ -10,18 +10,32 @@ extension Date{
     
     static var localDate: Date{
         get{
-            var secs = Date().timeIntervalSince1970
-            secs += Double(TimeZone.current.secondsFromGMT())
-            return Date(timeIntervalSince1970: secs)
+            Date().toLocalDate()
         }
     }
     
+    func toLocalDate() -> Date{
+        var secs = self.timeIntervalSince1970
+        secs += Double(TimeZone.current.secondsFromGMT())
+        return Date(timeIntervalSince1970: secs)
+    }
+    
+    func toUTCDate() -> Date{
+        var secs = self.timeIntervalSince1970
+        secs -= Double(TimeZone.current.secondsFromGMT())
+        return Date(timeIntervalSince1970: secs)
+    }
+    
     func dateString() -> String{
-        DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .none)
+        DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .medium, timeStyle: .none)
     }
     
     func dateTimeString() -> String{
-        DateFormatter.localizedString(from: self, dateStyle: .medium, timeStyle: .short)
+        return DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .medium, timeStyle: .short)
+    }
+    
+    func timeString() -> String{
+        return DateFormatter.localizedString(from: self.toUTCDate(), dateStyle: .none, timeStyle: .short)
     }
     
     func simpleDateString() -> String{

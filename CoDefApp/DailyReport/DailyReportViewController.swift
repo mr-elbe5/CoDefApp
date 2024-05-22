@@ -11,6 +11,7 @@ class DailyReportViewController: ScrollViewController {
     
     var report: DailyReport
     
+    var timeLabel = LabeledText()
     var weatherConditionLabel = LabeledText()
     var weatherWindLabel = LabeledText()
     var weatherTempLabel = LabeledText()
@@ -72,7 +73,9 @@ class DailyReportViewController: ScrollViewController {
         view.backgroundColor = .white
         view.setRoundedBorders()
         
-        view.addSubviewAtTop(weatherConditionLabel)
+        view.addSubviewAtTop(timeLabel)
+        timeLabel.setupView(labelText: "time".localizeWithColon(), text: report.creationDate.timeString(), inline: true)
+        view.addSubviewAtTop(weatherConditionLabel, topView: timeLabel, insets: horizontalInsets)
         weatherConditionLabel.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
         view.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: horizontalInsets)
         weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) \(report.weatherWdir)", inline: true)
