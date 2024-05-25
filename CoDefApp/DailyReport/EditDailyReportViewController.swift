@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import E5IOSUI
 
 class EditDailyReportViewController: EditViewController {
     
@@ -60,13 +61,13 @@ class EditDailyReportViewController: EditViewController {
         contentView.addSubviewAtTop(weatherConditionField, topView: nameLabel)
         
         weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) \(self.report.weatherWdir)", inline: true)
-        contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionField, insets: horizontalInsets)
+        contentView.addSubviewAtTop(weatherWindLabel, topView: weatherConditionField, insets: flatInsets)
         
         weatherTempLabel.setupView(labelText: "temperature".localizeWithColon(), text: self.report.weatherTemp, inline: true)
-        contentView.addSubviewAtTop(weatherTempLabel, topView: weatherWindLabel, insets: horizontalInsets)
+        contentView.addSubviewAtTop(weatherTempLabel, topView: weatherWindLabel, insets: flatInsets)
         
         weatherHumidityLabel.setupView(labelText: "humidity".localizeWithColon(), text: self.report.weatherRhum, inline: true)
-        contentView.addSubviewAtTop(weatherHumidityLabel, topView: weatherTempLabel, insets: horizontalInsets)
+        contentView.addSubviewAtTop(weatherHumidityLabel, topView: weatherTempLabel, insets: flatInsets)
         
         var lastView : UIView = weatherHumidityLabel
         
@@ -146,11 +147,11 @@ class EditCompanyBriefingView: UIView{
         setRoundedBorders()
         selectSwitch.setup(title: "\(company.name) \("present".localize())", isOn: present)
         selectSwitch.delegate = self
-        addSubviewWithAnchors(selectSwitch, top: topAnchor, leading: leadingAnchor, insets: horizontalInsets)
+        addSubviewWithAnchors(selectSwitch, top: topAnchor, leading: leadingAnchor, insets: flatInsets)
         activityField.setupView(labelText: "activity".localizeWithColon(), text: activity)
-        addSubviewWithAnchors(activityField, top: selectSwitch.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: horizontalInsets)
+        addSubviewWithAnchors(activityField, top: selectSwitch.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: flatInsets)
         briefingField.setupView(labelText: "briefing".localizeWithColon(), text: briefing)
-        addSubviewWithAnchors(briefingField, top: activityField.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: horizontalInsets)
+        addSubviewWithAnchors(briefingField, top: activityField.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, insets: flatInsets)
             .bottom(bottomAnchor, inset: -defaultInset)
         updateVisibility()
     }

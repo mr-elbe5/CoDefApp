@@ -6,6 +6,8 @@
 
 import UIKit
 import StoreKit
+import E5Data
+import E5IOSUI
 
 protocol SettingsDelegate{
     func standaloneChanged()
@@ -121,7 +123,7 @@ class SettingsViewController: ScrollViewController {
     }
     
     func deleteData(){
-        showApprove(text: "deleteDataHint".localize(), onApprove: {
+        showApprove(title: "delete".localize(), text: "deleteDataHint".localize(), onApprove: {
             AppData.shared.deleteAllData()
             self.showDone(title: "success".localize(), text: "dataDeleted".localize())
             if let mainController = self.navigationController?.previousViewController as? MainViewController{
@@ -133,7 +135,7 @@ class SettingsViewController: ScrollViewController {
     
     func cleanup(){
         let usedImageNames = AppData.shared.usedImageNames
-        let count = FileController.cleanupFiles(usedNames: usedImageNames)
+        let count = FileManager.default.cleanupFiles(usedNames: usedImageNames)
         showDone(title: "result".localize(), text: "filesDeleted".localizeWithColon() + " " + String(count))
     }
     

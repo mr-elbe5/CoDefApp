@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import E5Data
 
 class DefectStatusData : ContentData{
     
@@ -140,7 +141,7 @@ class DefectStatusData : ContentData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "status change upload error"
+                    throw GenericError("status change upload error")
                 }
             }
             catch{

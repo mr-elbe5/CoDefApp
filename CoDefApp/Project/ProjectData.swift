@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import E5Data
 
 class ProjectData : ContentData{
     
@@ -282,7 +283,7 @@ class ProjectData : ContentData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "project upload error"
+                    throw GenericError("project upload error")
                 }
             }
             catch let(err){

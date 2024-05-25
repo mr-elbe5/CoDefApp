@@ -1,5 +1,42 @@
 {
+  "originHash" : "1bcbd771ebc4191ab1c625383ea804d87227735cb5ea52339967f820e861b4a1",
   "pins" : [
+    {
+      "identity" : "e5data",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5Data",
+      "state" : {
+        "revision" : "0c58a75443fc7fd957da80c257ec81f23fa7b818",
+        "version" : "1.0.7"
+      }
+    },
+    {
+      "identity" : "e5iosav",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
+      "state" : {
+        "revision" : "9985b3e6416e1d8c1471e2f339a9efc53b21e38d",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "e5iosui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5IOSUI",
+      "state" : {
+        "revision" : "4a363497177b03b09c2d7bb03c69e438a5e0f8e1",
+        "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "e5photolib",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.elbe5cloud.de/miro/E5PhotoLib",
+      "state" : {
+        "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
+        "version" : "1.0.0"
+      }
+    },
     {
       "identity" : "zip",
       "kind" : "remoteSourceControl",
@@ -10,5 +47,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import E5Data
 
 class DailyReport : ContentData{
     
@@ -147,7 +148,7 @@ class DailyReport : ContentData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "report upload error"
+                    throw GenericError("report upload error")
                 }
             }
             catch let(err){

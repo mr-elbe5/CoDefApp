@@ -6,6 +6,8 @@
 
 import UIKit
 import AVFoundation
+import E5IOSUI
+import E5IOSAV
 
 class EditViewController: ScrollViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ImageCollectionDelegate{
     
@@ -108,7 +110,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
             guard let imageURL = info[.imageURL] as? URL else {return}
             let image = ImageData()
             image.setFileNameFromURL(imageURL)
-            if FileController.copyFile(fromURL: imageURL, toURL: image.fileURL){
+            if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
                 imagePicked(image: image)
             }
         }

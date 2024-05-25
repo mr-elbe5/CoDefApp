@@ -6,6 +6,7 @@
 
 import UIKit
 import StoreKit
+import E5IOSUI
 
 protocol LoginDelegate{
     func loginChanged()

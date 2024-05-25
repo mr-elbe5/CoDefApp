@@ -5,6 +5,9 @@
  */
 
 import UIKit
+import AVFoundation
+import E5PhotoLib
+import E5IOSUI
 
 class BaseViewController: UIViewController {
     
@@ -28,8 +31,15 @@ class BaseViewController: UIViewController {
         let alertController = UIAlertController(title: title, message: "shareImage".localize(), preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "imageLibrary".localize(), style: .default) { action in
             Task{
-                if await FileController.copyImageToLibrary(name: image.fileName, fromDir: FileController.privateURL){
-                    self.showAlert(title: "success".localize(), text: "imageShared".localize())
+                if let data = FileManager.default.readFile(url: image.fileURL){
+                    PhotoLibrary.savePhoto(photoData: data, fileType: .jpg, location: nil){ result in
+                        if !result.isEmpty{
+                            self.showAlert(title: "success".localize(), text: "imageShared".localize())
+                        }
+                        else{
+                            self.showAlert(title: "error".localize(), text: "todo")
+                        }
+                    }
                 }
                 else{
                     self.showAlert(title: "error".localize(), text: "todo")

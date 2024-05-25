@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import E5Data
 
 class CompanyData: BaseData{
     
@@ -95,7 +96,7 @@ class CompanyData: BaseData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "company upload error"
+                    throw GenericError("company upload error")
                 }
             }
             catch let(err){

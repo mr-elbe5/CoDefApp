@@ -7,6 +7,7 @@
 import Foundation
 import UIKit
 import UniformTypeIdentifiers
+import E5Data
 
 class FileData : BaseData{
     
@@ -23,7 +24,7 @@ class FileData : BaseData{
     var contentType = ""
     
     var fileURL : URL{
-        FileController.fileDirURL.appendingPathComponent(fileName)
+        FileManager.fileDirURL.appendingPathComponent(fileName)
     }
     
     override init(){
@@ -70,18 +71,18 @@ class FileData : BaseData{
     }
     
     func fileExists() -> Bool{
-        return FileController.fileExists(dirPath: FileController.fileDirURL.path, fileName: fileName)
+        return FileManager.default.fileExists(dirPath: FileManager.fileDirURL.path, fileName: fileName)
     }
     
     func getFile() -> Data?{
-        let url = FileController.getURL(dirURL: FileController.fileDirURL,fileName: fileName)
-        return FileController.readFile(url: url)
+        let url = FileManager.fileDirURL.appendingPathComponent(fileName)
+        return FileManager.default.readFile(url: url)
     }
     
     func saveFile(data: Data) -> Bool{
         if !fileExists(){
-            let url = FileController.getURL(dirURL: FileController.fileDirURL,fileName: fileName)
-            return FileController.saveFile(data: data, url: url)
+            let url = FileManager.fileDirURL.appendingPathComponent(fileName)
+            return FileManager.default.saveFile(data: data, url: url)
         }
         else{
             Log.error("File exists \(fileName)")
@@ -90,8 +91,8 @@ class FileData : BaseData{
     }
     
     func deleteFile(){
-        if FileController.fileExists(dirPath: FileController.fileDirURL.path, fileName: fileName){
-            if !FileController.deleteFile(dirURL: FileController.fileDirURL, fileName: fileName){
+        if FileManager.default.fileExists(dirPath: FileManager.fileDirURL.path, fileName: fileName){
+            if !FileManager.default.deleteFile(dirURL: FileManager.fileDirURL, fileName: fileName){
                 Log.error("FileData could not delete file: \(fileName)")
             }
         }

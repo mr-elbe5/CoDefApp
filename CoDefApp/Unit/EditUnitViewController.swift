@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import E5IOSUI
 
 class EditUnitViewController: EditViewController {
     
@@ -125,7 +126,7 @@ class EditUnitViewController: EditViewController {
     
     private func updatePlanImage(image: ImageData){
         if unit.plan != nil{
-            self.showDestructiveApprove(text: "planReplaceInfo".localize(),onApprove: {
+            self.showDestructiveApprove(title: "warning".localize(), text: "planReplaceInfo".localize(),onApprove: {
                 for issue in self.unit.defects{
                     issue.position = .zero
                     issue.planImage = nil

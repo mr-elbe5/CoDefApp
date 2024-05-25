@@ -7,6 +7,7 @@
 import UIKit
 import PDFKit
 import MessageUI
+import E5IOSUI
 
 class PDFViewController: BaseViewController {
     
@@ -29,7 +30,7 @@ class PDFViewController: BaseViewController {
         
         let saveButton = TextButton(text: "save".localize())
         saveButton.addAction(UIAction(){ action in
-            self.showAccept(title: "saveReport".localize(),text: "selectReportFile".localize(), onAccept: {
+            self.showApprove(title: "saveReport".localize(),text: "selectReportFile".localize(), onApprove: {
                 self.save(data: data)
             })
         }, for: .touchDown)
@@ -53,8 +54,8 @@ class PDFViewController: BaseViewController {
     }
     
     func save(data: Data){
-        let url = FileController.tmpDirURL.appendingPathComponent(getFileName())
-        FileController.saveFile(data: data, url: url)
+        let url = FileManager.tmpDirURL.appendingPathComponent(getFileName())
+        FileManager.default.saveFile(data: data, url: url)
         var urls = [URL]()
         urls.append(url)
         let documentPickerController = UIDocumentPickerViewController(

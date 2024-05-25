@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import E5Data
 
 class DefectData : ContentData{
     
@@ -297,7 +298,7 @@ class DefectData : ContentData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "defect upload error"
+                    throw GenericError("defect upload error")
                 }
             }
             catch let(err){
