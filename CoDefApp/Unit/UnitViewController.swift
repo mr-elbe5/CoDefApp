@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import E5IOSUI
 
 class UnitViewController: ScrollViewController {
     
@@ -43,7 +44,7 @@ class UnitViewController: ScrollViewController {
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             if let project = self.unit.project{
-                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
+                self.showDestructiveApprove(title: "delete".localize(), text: "deleteInfo".localize(), onApprove: {
                     project.removeUnit(self.unit)
                     project.changed()
                     project.saveData()
@@ -85,8 +86,8 @@ class UnitViewController: ScrollViewController {
     }
     
     func setupDefectSection(){
-        let headerLabel = UILabel(header: "defects".localizeWithColon())
-        defectSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        let headerLabel = UILabel(header: "defects".localizeWithColon()).withTextColor(.black)
+        defectSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         
         let addDefectButton = TextButton(text: "newDefect".localize())
         addDefectButton.addAction(UIAction(){ action in
@@ -107,7 +108,7 @@ class UnitViewController: ScrollViewController {
         for defect in unit.defects{
             if defect.isInFilter(){
                 let sectionLine = getDefectSectionLine(defect: defect)
-                defectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: defectSection.leadingAnchor, trailing: defectSection.trailingAnchor, insets: verticalInsets)
+                defectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: defectSection.leadingAnchor, trailing: defectSection.trailingAnchor, insets: narrowInsets)
                 lastView = sectionLine
             }
         }
@@ -124,7 +125,7 @@ class UnitViewController: ScrollViewController {
                     }, for: .touchDown)
                 }
             }
-            defectSection.addSubviewAtTop(planView, topView: lastView, insets: verticalInsets)
+            defectSection.addSubviewAtTop(planView, topView: lastView, insets: narrowInsets)
             lastView = planView
         }
         

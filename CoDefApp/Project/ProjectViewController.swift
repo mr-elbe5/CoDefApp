@@ -5,6 +5,8 @@
  */
 
 import UIKit
+import E5Data
+import E5IOSUI
 
 class ProjectViewController: ScrollViewController {
     
@@ -43,7 +45,7 @@ class ProjectViewController: ScrollViewController {
             }))
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
-            self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
+            self.showDestructiveApprove(title: "delete".localize(), text: "deleteInfo".localize(), onApprove: {
                 AppData.shared.removeProject(self.project)
                 AppData.shared.save()
                 self.delegate?.projectChanged()
@@ -98,12 +100,12 @@ class ProjectViewController: ScrollViewController {
     }
     
     func setupUnitSection(){
-        let headerLabel = UILabel(header: "units".localizeWithColon())
-        unitSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        let headerLabel = UILabel(header: "units".localizeWithColon()).withTextColor(.black)
+        unitSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         for unit in project.units{
             let sectionLine = getUnitSectionLine(unit: unit)
-            unitSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: unitSection.leadingAnchor, trailing: unitSection.trailingAnchor, insets: verticalInsets)
+            unitSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: unitSection.leadingAnchor, trailing: unitSection.trailingAnchor, insets: narrowInsets)
             lastView = sectionLine
         }
         let addUnitButton = TextButton(text: "newUnit".localize())
@@ -119,14 +121,14 @@ class ProjectViewController: ScrollViewController {
     }
     
     func setupReportsSection(){
-        let headerLabel = UILabel(header: "dailyReports".localizeWithColon())
-        reportsSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        let headerLabel = UILabel(header: "dailyReports".localizeWithColon()).withTextColor(.black)
+        reportsSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         
         let sectionLine = SectionLine(name: "recentReports".localize(), action: UIAction(){action in
             let controller = ReportsListViewController(project: self.project)
             self.navigationController?.pushViewController(controller, animated: true)
         })
-        reportsSection.addSubviewWithAnchors(sectionLine, top: headerLabel.bottomAnchor, leading: reportsSection.leadingAnchor, trailing: reportsSection.trailingAnchor, insets: verticalInsets)
+        reportsSection.addSubviewWithAnchors(sectionLine, top: headerLabel.bottomAnchor, leading: reportsSection.leadingAnchor, trailing: reportsSection.trailingAnchor, insets: narrowInsets)
         
         let addDailyReportButton = TextButton(text: "newDailyReport".localize())
         addDailyReportButton.addAction(UIAction(){ (action) in

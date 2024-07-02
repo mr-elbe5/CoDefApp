@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import E5IOSUI
 
 protocol ImageCollectionDelegate: ImageFileViewDelegate, ImageFileDeleteDelegate{
     
@@ -55,7 +56,7 @@ class ImageCollectionView : UICollectionView, UICollectionViewDataSource, UIColl
         super.init(frame: .zero, collectionViewLayout: layout)
         backgroundColor = .clear
         setGrayRoundedBorders()
-        enableAnchors()
+        setAnchors()
         heightConstraint = heightAnchor.constraint(equalToConstant: defaultHeight)
         heightConstraint?.isActive = true
         delegate = self

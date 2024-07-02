@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import E5IOSUI
 
 class CreateStatusChangeViewController: EditViewController {
     
@@ -13,10 +14,10 @@ class CreateStatusChangeViewController: EditViewController {
     
     var delegate: StatusChangeDelegate? = nil
     
-    var descriptionField = LabeledTextareaInput()
-    var assignField = LabeledCompanySelectField()
-    var statusField = LabeledDefectStatusSelectView()
-    var notifiedField = LabeledCheckbox()
+    var descriptionField = LabeledTextareaInput().withTextColor(.black)
+    var assignField = LabeledCompanySelectField().withTextColor(.black) as! LabeledCompanySelectField
+    var statusField = LabeledDefectStatusSelectView().withTextColor(.black) as! LabeledDefectStatusSelectView
+    var notifiedField = LabeledCheckbox().withTextColor(.black)
     
     let imageCollectionView: ImageCollectionView
     

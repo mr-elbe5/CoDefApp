@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import E5Data
 
 class BaseData: Codable, Hashable, Equatable{
     

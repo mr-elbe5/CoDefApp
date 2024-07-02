@@ -6,6 +6,7 @@
 
 import UIKit
 import UniformTypeIdentifiers
+import E5IOSUI
 
 class MainViewController: ScrollViewController {
     
@@ -32,7 +33,7 @@ class MainViewController: ScrollViewController {
                 self.backup()
             }
             let restoreAction = UIAction(title: "restoreBackup".localize()){ action in
-                self.showAccept(title: "restoreBackup".localize(), text: "restoreHint".localize(), onAccept: {
+                self.showApprove(title: "restoreBackup".localize(), text: "restoreHint".localize(), onApprove: {
                     self.restore()
                 })
             }
@@ -69,13 +70,13 @@ class MainViewController: ScrollViewController {
     }
     
     func setupProjectSection(){
-        let headerLabel = UILabel(header: "projects".localizeWithColon())
-        projectSection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        let headerLabel = UILabel(header: "projects".localizeWithColon()).withTextColor(.black)
+        projectSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         
         for project in AppData.shared.projects{
             let sectionLine = getProjectSectionLine(project: project)
-            projectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: projectSection.leadingAnchor, trailing: projectSection.trailingAnchor, insets: verticalInsets)
+            projectSection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: projectSection.leadingAnchor, trailing: projectSection.trailingAnchor, insets: narrowInsets)
             lastView = sectionLine
         }
         let addProjectButton = TextButton(text: "newProject".localize(), withBorder: true)
@@ -104,13 +105,13 @@ class MainViewController: ScrollViewController {
     }
     
     func setupCompanySection(){
-        let headerLabel = UILabel(header: "companies".localizeWithColon())
-        companySection.addSubviewAtTop(headerLabel, insets: verticalInsets)
+        let headerLabel = UILabel(header: "companies".localizeWithColon()).withTextColor(.black)
+        companySection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         
         for company in AppData.shared.companies{
             let sectionLine = getCompanySectionLine(company: company)
-            companySection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: companySection.leadingAnchor, trailing: companySection.trailingAnchor, insets: verticalInsets)
+            companySection.addSubviewWithAnchors(sectionLine, top: lastView.bottomAnchor, leading: companySection.leadingAnchor, trailing: companySection.trailingAnchor, insets: narrowInsets)
             lastView = sectionLine
         }
         let addCompanyButton = TextButton(text: "newCompany".localize(), withBorder: true)

@@ -5,6 +5,7 @@
  */
 
 import Foundation
+import E5Data
 
 class AppData : Codable{
     
@@ -13,7 +14,7 @@ class AppData : Codable{
     static var shared = AppData()
     
     static func load(){
-        if let data : AppData = FileController.readJsonFile(storeKey: AppData.storeKey){
+        if let data : AppData = FileManager.default.readJsonFile(storeKey: AppData.storeKey, from: FileManager.privateURL){
             shared = data
         }
         else{
@@ -24,7 +25,7 @@ class AppData : Codable{
     }
     
     func save(){
-        FileController.saveJsonFile(data: self, storeKey: AppData.storeKey)
+        FileManager.default.saveJsonFile(data: self, storeKey: AppData.storeKey, to: FileManager.privateURL)
     }
     
     enum CodingKeys: String, CodingKey {

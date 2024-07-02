@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import E5IOSUI
 
 class EditDefectViewController: EditViewController {
     
@@ -13,15 +14,15 @@ class EditDefectViewController: EditViewController {
     
     var delegate: DefectDelegate? = nil
     
-    var descriptionField = LabeledTextareaInput()
-    var positionCommentField = LabeledTextareaInput()
-    var locationField = LabeledTextareaInput()
-    var remainingWorkField = LabeledCheckbox()
-    var notifiedField = LabeledCheckbox()
-    var phaseField = LabeledPhaseSelectField()
-    var statusField = LabeledDefectStatusSelectView()
-    var assignField = LabeledCompanySelectField()
-    var dueDateField = LabeledDatePicker()
+    var descriptionField = LabeledTextareaInput().withTextColor(.black)
+    var positionCommentField = LabeledTextareaInput().withTextColor(.black)
+    var locationField = LabeledTextareaInput().withTextColor(.black)
+    var remainingWorkField = LabeledCheckbox().withTextColor(.black)
+    var notifiedField = LabeledCheckbox().withTextColor(.black)
+    var phaseField = LabeledPhaseSelectField().withTextColor(.black) as! LabeledPhaseSelectField
+    var statusField = LabeledDefectStatusSelectView().withTextColor(.black) as! LabeledDefectStatusSelectView
+    var assignField = LabeledCompanySelectField().withTextColor(.black) as! LabeledCompanySelectField
+    var dueDateField = LabeledDatePicker().withTextColor(.black)
     
     var planView : UnitPlanView? = nil
     
@@ -91,7 +92,7 @@ class EditDefectViewController: EditViewController {
         
         if let plan = defect.unit?.plan{
             let image = plan.getImage()
-            let label = UILabel(header: "position".localizeWithColon())
+            let label = UILabel(header: "position".localizeWithColon()).withTextColor(.black)
             contentView.addSubviewWithAnchors(label, top: lastView.bottomAnchor, leading: contentView.leadingAnchor, insets: defaultInsets)
             let planButton = IconButton(icon: "pencil", backgroundColor: .systemBackground, withBorder: true)
             planButton.addAction(UIAction(){ action in

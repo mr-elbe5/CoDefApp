@@ -18,7 +18,7 @@ class AppState : Codable{
     static var shared = AppState()
     
     static func load(){
-        if let data : AppState = FileController.readJsonFile(storeKey: AppState.storeKey){
+        if let data : AppState = FileManager.default.readJsonFile(storeKey: AppState.storeKey, from: FileManager.privateURL){
             shared = data
         }
         else{
@@ -28,7 +28,7 @@ class AppState : Codable{
     }
     
     func save(){
-        FileController.saveJsonFile(data: self, storeKey: AppState.storeKey)
+        FileManager.default.saveJsonFile(data: self, storeKey: AppState.storeKey, to: FileManager.privateURL)
     }
     
     enum CodingKeys: String, CodingKey {

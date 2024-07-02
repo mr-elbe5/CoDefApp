@@ -6,6 +6,8 @@
 
 import Foundation
 import UIKit
+import E5Data
+import E5IOSUI
 
 class UnitData : ContentData{
     
@@ -189,7 +191,7 @@ class UnitData : ContentData{
                 }
                 else{
                     await AppState.shared.uploadError()
-                    throw "unit upload error"
+                    throw GenericError("unit upload error")
                 }
             }
             catch let(err){

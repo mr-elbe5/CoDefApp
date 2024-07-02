@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import E5IOSUI
 
 class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     
@@ -44,7 +45,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         }
         items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal), primaryAction: UIAction(){ action in
             if let unit = self.defect.unit{
-                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
+                self.showDestructiveApprove(title: "delete".localize(), text: "deleteInfo".localize(), onApprove: {
                     unit.removeDefect(self.defect)
                     unit.changed()
                     unit.saveData()
@@ -112,7 +113,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         
         defect.assertPlanImage()
         if let plan = defect.planImage{
-            let label = UILabel(header: "position".localizeWithColon())
+            let label = UILabel(header: "position".localizeWithColon()).withTextColor(.black)
             dataSection.addArrangedSubview(label)
             dataSection.addSpacer()
             let planView = UIView()
@@ -123,7 +124,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             dataSection.addArrangedSubview(planView)
         }
         
-        let label = UILabel(header: "images".localizeWithColon())
+        let label = UILabel(header: "images".localizeWithColon()).withTextColor(.black)
         dataSection.addArrangedSubview(label)
         
         let imageCollectionView = ImageCollectionView(images: defect.images, enableDelete: true)
@@ -138,13 +139,13 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     func setupProcessingSection(){
-        let headerLabel = UILabel(header: "statusChanges".localize())
+        let headerLabel = UILabel(header: "statusChanges".localize()).withTextColor(.black)
         processingSection.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
         
         for feedback in defect.statusChanges{
             let feeedbackView = ArrangedSectionView()
-            processingSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: processingSection.leadingAnchor, trailing: processingSection.trailingAnchor, insets: verticalInsets)
+            processingSection.addSubviewWithAnchors(feeedbackView, top: lastView.bottomAnchor, leading: processingSection.leadingAnchor, trailing: processingSection.trailingAnchor, insets: narrowInsets)
             setupProcessingStatusView(view: feeedbackView, statusData: feedback);
             lastView = feeedbackView
         }
@@ -186,7 +187,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         view.addArrangedSubview(commentLine)
         
         if !statusData.images.isEmpty{
-            let label = UILabel(header: "images".localizeWithColon())
+            let label = UILabel(header: "images".localizeWithColon()).withTextColor(.black)
             view.addArrangedSubview(label)
             
             let imageCollectionView = ImageCollectionView(images: statusData.images, enableDelete: false)

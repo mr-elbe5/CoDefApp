@@ -8,12 +8,13 @@ import Foundation
 import UIKit
 import Photos
 import Zip
+import E5Data
 
 class Backup {
     
     static func logRestoreInfo(){
         print("files to restore:")
-        let names = FileController.listAllFiles(dirPath: FileController.tmpPath)
+        let names = FileManager.default.listAllFiles(dirPath: FileManager.tempURL.path)
         for name in names{
             print(name)
         }
@@ -22,10 +23,10 @@ class Backup {
     static func createBackupFile(name: String) -> URL?{
         do {
             var paths = Array<URL>()
-            let zipFileURL = FileController.tmpDirURL.appendingPathComponent(name)
-            paths.append(FileController.fileDirURL)
-            paths.append(FileController.privateURL.appendingPathComponent(AppData.storeKey + ".json"))
-            paths.append(FileController.privateURL.appendingPathComponent(AppState.storeKey + ".json"))
+            let zipFileURL = FileManager.tempURL.appendingPathComponent(name)
+            paths.append(FileManager.fileDirURL)
+            paths.append(FileManager.privateURL.appendingPathComponent(AppData.storeKey + ".json"))
+            paths.append(FileManager.privateURL.appendingPathComponent(AppState.storeKey + ".json"))
             try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
                 print(progress)
             })
@@ -40,8 +41,8 @@ class Backup {
     
     static func unzipBackupFile(zipFileURL: URL) -> Bool{
         do {
-            FileController.deleteTemporaryFiles()
-            let destDirectory = FileController.tmpDirURL
+            _ = FileManager.default.deleteTemporaryFiles()
+            let destDirectory = FileManager.tempURL
             try FileManager.default.createDirectory(at: destDirectory, withIntermediateDirectories: true)
             try Zip.unzipFile(zipFileURL, destination: destDirectory, overwrite: true, password: nil, progress: { (progress) -> () in
                 print(progress)
@@ -56,17 +57,17 @@ class Backup {
     }
     
     static func restoreBackup() -> Bool{
-        FileController.deleteImageFiles()
-        FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: FileController.privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
-        FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileController.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)
+        _ = FileManager.default.deleteImageFiles()
+        FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
+        FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)
         AppState.load()
         AppData.load()
         AppState.shared.initFilter()
-        let fileNames = FileController.listAllFiles(dirPath: FileController.tmpDirURL.appendingPathComponent("files").path)
+        let fileNames = FileManager.default.listAllFiles(dirPath: FileManager.tempURL.appendingPathComponent("files").path)
         for name in fileNames{
-            FileController.copyFile(fromURL: FileController.tmpDirURL.appendingPathComponent("files").appendingPathComponent(name), toURL: FileController.fileDirURL.appendingPathComponent(name), replace: true)
+            FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent("files").appendingPathComponent(name), toURL: FileManager.fileDirURL.appendingPathComponent(name), replace: true)
         }
-        FileController.deleteTemporaryFiles()
+        _ = FileManager.default.deleteTemporaryFiles()
         return true
     }
     

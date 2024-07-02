@@ -6,6 +6,8 @@
 
 import UIKit
 import PDFKit
+import E5Data
+import E5IOSUI
 
 class PDFRenderer {
     

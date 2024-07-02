@@ -5,6 +5,7 @@
  */
 
 import UIKit
+import E5IOSUI
 
 class CompanyViewController: ScrollViewController {
     
@@ -34,7 +35,7 @@ class CompanyViewController: ScrollViewController {
                 self.navigationController?.pushViewController(controller, animated: true)
             }))
             items.append(UIBarButtonItem(title: "delete".localize(), image: UIImage(systemName: "trash"), primaryAction: UIAction(){ action in
-                self.showDestructiveApprove(text: "deleteInfo".localize(), onApprove: {
+                self.showDestructiveApprove(title: "delete".localize(), text: "deleteInfo".localize(), onApprove: {
                     if AppData.shared.removeCompany(self.company){
                         AppData.shared.save()
                         self.delegate?.companyChanged()

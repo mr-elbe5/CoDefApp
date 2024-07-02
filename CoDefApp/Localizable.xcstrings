@@ -1140,7 +1140,6 @@
       }
     },
     "error" : {
-      "comment" : "Èrror",
       "extractionState" : "manual",
       "localizations" : {
         "de" : {

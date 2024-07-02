@@ -7,6 +7,7 @@
 import Foundation
 import UIKit
 import UniformTypeIdentifiers
+import E5Data
 
 class ImageData : FileData{
     
@@ -52,7 +53,7 @@ class ImageData : FileData{
                     await AppState.shared.imageUploaded()
                 }
                 else{
-                    throw "image upload error"
+                    throw GenericError("image upload error")
                 }
             }
             catch{

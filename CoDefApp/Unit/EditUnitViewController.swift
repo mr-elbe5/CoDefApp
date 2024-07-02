@@ -6,6 +6,7 @@
 
 import UIKit
 import AVFoundation
+import E5IOSUI
 
 class EditUnitViewController: EditViewController {
     
@@ -13,8 +14,8 @@ class EditUnitViewController: EditViewController {
     
     var delegate: UnitDelegate? = nil
     
-    var nameField = LabeledTextInput()
-    var descriptionField = LabeledTextareaInput()
+    var nameField = LabeledTextInput().withTextColor(.black)
+    var descriptionField = LabeledTextareaInput().withTextColor(.black)
     
     var planContainerView = UIView()
     
@@ -44,7 +45,7 @@ class EditUnitViewController: EditViewController {
         descriptionField.setupView(labelText: "description".localizeWithColon(), text: unit.description)
         contentView.addSubviewAtTop(descriptionField, topView: nameField)
         
-        let label = UILabel(header: "plan".localizeWithColon())
+        let label = UILabel(header: "plan".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewWithAnchors(label, top: descriptionField.bottomAnchor, leading: contentView.leadingAnchor, insets: UIEdgeInsets(top: 2*defaultInset, left: defaultInset, bottom: 0, right: 0))
         
         let addImageButton = IconButton(icon: "photo".localize(), tintColor: .systemBlue)
@@ -125,7 +126,7 @@ class EditUnitViewController: EditViewController {
     
     private func updatePlanImage(image: ImageData){
         if unit.plan != nil{
-            self.showDestructiveApprove(text: "planReplaceInfo".localize(),onApprove: {
+            self.showDestructiveApprove(title: "warning".localize(), text: "planReplaceInfo".localize(),onApprove: {
                 for issue in self.unit.defects{
                     issue.position = .zero
                     issue.planImage = nil

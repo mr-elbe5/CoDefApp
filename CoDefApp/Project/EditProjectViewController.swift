@@ -5,6 +5,8 @@
  */
 
 import UIKit
+import E5Data
+import E5IOSUI
 
 class EditProjectViewController: EditViewController{
     
@@ -12,13 +14,13 @@ class EditProjectViewController: EditViewController{
     
     var delegate: ProjectDelegate? = nil
     
-    var nameField = LabeledTextInput()
-    var descriptionField = LabeledTextareaInput()
-    var zipCodeField = LabeledTextInput()
-    var cityField = LabeledTextInput()
-    var streetField = LabeledTextInput()
-    var weatherStationLabel = LabeledText()
-    var labeledCheckboxGroup = LabeledCheckboxGroup()
+    var nameField = LabeledTextInput().withTextColor(.black)
+    var descriptionField = LabeledTextareaInput().withTextColor(.black)
+    var zipCodeField = LabeledTextInput().withTextColor(.black)
+    var cityField = LabeledTextInput().withTextColor(.black)
+    var streetField = LabeledTextInput().withTextColor(.black)
+    var weatherStationLabel = LabeledText().withTextColor(.black)
+    var labeledCheckboxGroup = LabeledCheckboxGroup().withTextColor(.black)
     
     override var infoViewController: InfoViewController?{
         EditProjectInfoViewController()

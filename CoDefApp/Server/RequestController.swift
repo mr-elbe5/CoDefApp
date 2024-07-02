@@ -6,6 +6,7 @@
 
 import Foundation
 import UIKit
+import E5Data
 
 struct RequestController {
     
