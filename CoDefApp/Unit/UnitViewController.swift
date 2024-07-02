@@ -86,7 +86,7 @@ class UnitViewController: ScrollViewController {
     }
     
     func setupDefectSection(){
-        let headerLabel = UILabel(header: "defects".localizeWithColon())
+        let headerLabel = UILabel(header: "defects".localizeWithColon()).withTextColor(.black)
         defectSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         
         let addDefectButton = TextButton(text: "newDefect".localize())

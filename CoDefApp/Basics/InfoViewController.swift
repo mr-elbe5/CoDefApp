@@ -41,7 +41,6 @@ class InfoHeader : UIView{
     init(_ text: String, paddingTop: CGFloat = Insets.defaultInset){
         super.init(frame: .zero)
         label.text = text
-        label.textColor = .label
         label.font = .preferredFont(forTextStyle: .headline)
         addSubview(label)
         label.setAnchors(leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor, insets: defaultInsets)
@@ -63,7 +62,6 @@ class InfoText : UIView{
         label.text = text
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.textColor = .label
         addSubview(label)
         label.fillView(view: self, insets: defaultInsets)
     }
@@ -104,7 +102,7 @@ class IconInfoText : UIView{
     
     private func commonInit(){
         iconText.numberOfLines = 0
-        iconText.textColor = .label
+        //iconText.textColor = .black
         iconContainer.addSubview(iconView)
         iconView.setAnchors(top: topAnchor, leading: leadingAnchor, insets: defaultInsets)
         addSubview(iconText)

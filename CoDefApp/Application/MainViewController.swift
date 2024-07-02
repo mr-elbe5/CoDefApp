@@ -70,7 +70,7 @@ class MainViewController: ScrollViewController {
     }
     
     func setupProjectSection(){
-        let headerLabel = UILabel(header: "projects".localizeWithColon())
+        let headerLabel = UILabel(header: "projects".localizeWithColon()).withTextColor(.black)
         projectSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         
@@ -105,7 +105,7 @@ class MainViewController: ScrollViewController {
     }
     
     func setupCompanySection(){
-        let headerLabel = UILabel(header: "companies".localizeWithColon())
+        let headerLabel = UILabel(header: "companies".localizeWithColon()).withTextColor(.black)
         companySection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         

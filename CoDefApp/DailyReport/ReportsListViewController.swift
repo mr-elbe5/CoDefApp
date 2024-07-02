@@ -27,7 +27,7 @@ class ReportsListViewController: ScrollViewController {
     }
     
     override func setupContentView(){
-        let headerLabel = UILabel(header: "dailyReports".localizeWithColon())
+        let headerLabel = UILabel(header: "dailyReports".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
         for report in project.dailyReports{

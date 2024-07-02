@@ -32,7 +32,7 @@ class ModalViewController: BaseViewController {
     func setupMenu(){
         menuView.backgroundColor = UIColor.systemBackground
         if let title = title{
-            let titleLabel = UILabel(header: title)
+            let titleLabel = UILabel(header: title).withTextColor(.black)
             menuView.addSubviewWithAnchors(titleLabel, top: menuView.topAnchor, bottom: menuView.bottomAnchor).centerX(menuView.centerXAnchor)
         }
         let closeButton = IconButton(icon: "xmark.circle")

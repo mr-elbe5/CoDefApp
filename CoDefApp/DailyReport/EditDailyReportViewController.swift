@@ -14,10 +14,10 @@ class EditDailyReportViewController: EditViewController {
     
     var delegate: DailyReportDelegate? = nil
     
-    var weatherConditionField = LabeledTextInput()
-    var weatherWindLabel = LabeledText()
-    var weatherTempLabel = LabeledText()
-    var weatherHumidityLabel = LabeledText()
+    var weatherConditionField = LabeledTextInput().withTextColor(.black)
+    var weatherWindLabel = LabeledText().withTextColor(.black)
+    var weatherTempLabel = LabeledText().withTextColor(.black)
+    var weatherHumidityLabel = LabeledText().withTextColor(.black)
     
     var briefingViews = Array<EditCompanyBriefingView>()
     
@@ -54,7 +54,7 @@ class EditDailyReportViewController: EditViewController {
     
     override func setupContentView() {
         
-        let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))")
+        let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))").withTextColor(.black)
         contentView.addSubviewAtTop(nameLabel)
         
         weatherConditionField.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
@@ -124,9 +124,9 @@ class EditCompanyBriefingView: UIView{
     
     var company: CompanyData
     
-    var selectSwitch = Checkbox()
-    var activityField = LabeledTextareaInput()
-    var briefingField = LabeledTextareaInput()
+    var selectSwitch = Checkbox().withTextColor(.black).withIconColor(.black)
+    var activityField = LabeledTextareaInput().withTextColor(.black)
+    var briefingField = LabeledTextareaInput().withTextColor(.black)
     var activityConstraint: NSLayoutConstraint!
     var briefingConstraint:NSLayoutConstraint!
     
@@ -143,7 +143,6 @@ class EditCompanyBriefingView: UIView{
     }
     
     func setupView(present: Bool = false, activity: String = "", briefing: String = ""){
-        backgroundColor = .white
         setRoundedBorders()
         selectSwitch.setup(title: "\(company.name) \("present".localize())", isOn: present)
         selectSwitch.delegate = self

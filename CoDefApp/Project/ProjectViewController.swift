@@ -100,7 +100,7 @@ class ProjectViewController: ScrollViewController {
     }
     
     func setupUnitSection(){
-        let headerLabel = UILabel(header: "units".localizeWithColon())
+        let headerLabel = UILabel(header: "units".localizeWithColon()).withTextColor(.black)
         unitSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         var lastView: UIView = headerLabel
         for unit in project.units{
@@ -121,7 +121,7 @@ class ProjectViewController: ScrollViewController {
     }
     
     func setupReportsSection(){
-        let headerLabel = UILabel(header: "dailyReports".localizeWithColon())
+        let headerLabel = UILabel(header: "dailyReports".localizeWithColon()).withTextColor(.black)
         reportsSection.addSubviewAtTop(headerLabel, insets: narrowInsets)
         
         let sectionLine = SectionLine(name: "recentReports".localize(), action: UIAction(){action in

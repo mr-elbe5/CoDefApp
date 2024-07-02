@@ -10,13 +10,11 @@ extension FileManager {
     
     public static var fileDirURL : URL = privateURL.appendingPathComponent("files")
     public static var logDirURL = documentURL.appendingPathComponent("logs")
-    public static var tmpDirURL = URL(fileURLWithPath: tempDir, isDirectory: true).appendingPathComponent("tmp")
     public static var logFileURL = logDirURL.appendingPathComponent("log.txt")
     
     public func initialize() {
         try! createDirectory(at: FileManager.privateURL, withIntermediateDirectories: true, attributes: nil)
         try! createDirectory(at: FileManager.logDirURL, withIntermediateDirectories: true, attributes: nil)
-        try! createDirectory(at: FileManager.tmpDirURL, withIntermediateDirectories: true, attributes: nil)
         try! createDirectory(at: FileManager.fileDirURL, withIntermediateDirectories: true, attributes: nil)
     }
     

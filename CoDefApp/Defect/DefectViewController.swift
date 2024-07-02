@@ -113,7 +113,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         
         defect.assertPlanImage()
         if let plan = defect.planImage{
-            let label = UILabel(header: "position".localizeWithColon())
+            let label = UILabel(header: "position".localizeWithColon()).withTextColor(.black)
             dataSection.addArrangedSubview(label)
             dataSection.addSpacer()
             let planView = UIView()
@@ -124,7 +124,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
             dataSection.addArrangedSubview(planView)
         }
         
-        let label = UILabel(header: "images".localizeWithColon())
+        let label = UILabel(header: "images".localizeWithColon()).withTextColor(.black)
         dataSection.addArrangedSubview(label)
         
         let imageCollectionView = ImageCollectionView(images: defect.images, enableDelete: true)
@@ -139,7 +139,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     }
     
     func setupProcessingSection(){
-        let headerLabel = UILabel(header: "statusChanges".localize())
+        let headerLabel = UILabel(header: "statusChanges".localize()).withTextColor(.black)
         processingSection.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
         
@@ -187,7 +187,7 @@ class DefectViewController: ScrollViewController, ImageCollectionDelegate {
         view.addArrangedSubview(commentLine)
         
         if !statusData.images.isEmpty{
-            let label = UILabel(header: "images".localizeWithColon())
+            let label = UILabel(header: "images".localizeWithColon()).withTextColor(.black)
             view.addArrangedSubview(label)
             
             let imageCollectionView = ImageCollectionView(images: statusData.images, enableDelete: false)

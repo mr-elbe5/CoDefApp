@@ -86,7 +86,7 @@ class ServerViewController: ScrollViewController {
     }
     
     func setupConnectionSection(){
-        let header = UILabel(header: "synchronizeServer".localize())
+        let header = UILabel(header: "synchronizeServer".localize()).withTextColor(.black)
         connectionSection.addSubviewAtTopCentered(header)
         
         connectionLabel.setupView(labelText: "connectionState".localizeWithColon(), text: "", inline: true)
@@ -112,7 +112,7 @@ class ServerViewController: ScrollViewController {
         uploadSection.addSubviewAtTopCentered(uploadButton, topView: newElementsField)
         uploadButton.isEnabled = AppState.shared.currentUser.isLoggedIn
         
-        let label = UILabel(header: "uploaded".localize())
+        let label = UILabel(header: "uploaded".localize()).withTextColor(.black)
         uploadSection.addSubviewAtTop(label, topView: uploadButton)
         
         uploadedCompaniesField.setupView(labelText: "companies".localizeWithColon(), text: String(AppState.shared.uploadedCompanies), inline: true)
@@ -147,7 +147,7 @@ class ServerViewController: ScrollViewController {
     }
     
     func setupDownloadSection(){
-        let label = UILabel(header: "downloaded".localize())
+        let label = UILabel(header: "downloaded".localize()).withTextColor(.black)
         downloadSection.addSubviewAtTop(label)
         
         downloadButton.setTitleColor(.systemGray, for: .disabled)
@@ -193,7 +193,7 @@ class ServerViewController: ScrollViewController {
     }
     
     func setupCleanupSection(){
-        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize())
+        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize()).withTextColor(.black)
         cleanupSection.addSubviewAtTopCentered(label)
         
         let deleteButton = TextButton(text: "deleteData".localize(), withBorder: true)
@@ -201,7 +201,7 @@ class ServerViewController: ScrollViewController {
             self.deleteData()
         }, for: .touchDown)
         cleanupSection.addSubviewAtTopCentered(deleteButton, topView: label)
-        label  = UILabel(header: "images".localize())
+        label  = UILabel(header: "images".localize()).withTextColor(.black)
         cleanupSection.addSubviewAtTopCentered(label, topView: deleteButton)
         
         let cleanupButton = TextButton(text: "cleanup".localize(), withBorder: true)

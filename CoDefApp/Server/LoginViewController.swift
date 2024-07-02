@@ -47,7 +47,7 @@ class LoginViewController: ScrollViewController {
     
     func setupLoginSection(){
         
-        let label  = UILabel(header: "server".localize())
+        let label  = UILabel(header: "server".localize()).withTextColor(.black)
         loginSection.addSubviewAtTopCentered(label)
         
         serverUrlField.setupView(labelText: "serverURL".localize(), text: AppState.shared.serverURL)

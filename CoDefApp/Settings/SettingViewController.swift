@@ -96,7 +96,7 @@ class SettingsViewController: ScrollViewController {
     }
     
     func setupCleanupSection(){
-        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize())
+        var label  = UILabel(header: "projects".localize() + "/" + "companies".localize()).withTextColor(.black)
         cleanupSection.addSubviewAtTopCentered(label)
         
         let deleteButton = TextButton(text: "deleteData".localize(), withBorder: true)

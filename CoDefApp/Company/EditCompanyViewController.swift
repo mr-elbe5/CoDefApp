@@ -13,13 +13,13 @@ class EditCompanyViewController: EditViewController {
     
     var delegate: CompanyDelegate? = nil
     
-    var nameField = LabeledTextInput()
-    var streetField = LabeledTextInput()
-    var zipCodeField = LabeledTextInput()
-    var cityField = LabeledTextInput()
-    var emailField = LabeledTextInput()
-    var phoneField = LabeledTextInput()
-    var notesField = LabeledTextareaInput()
+    var nameField = LabeledTextInput().withTextColor(.black)
+    var streetField = LabeledTextInput().withTextColor(.black)
+    var zipCodeField = LabeledTextInput().withTextColor(.black)
+    var cityField = LabeledTextInput().withTextColor(.black)
+    var emailField = LabeledTextInput().withTextColor(.black)
+    var phoneField = LabeledTextInput().withTextColor(.black)
+    var notesField = LabeledTextareaInput().withTextColor(.black)
     
     override var infoViewController: InfoViewController?{
         EditUserInfoViewController()

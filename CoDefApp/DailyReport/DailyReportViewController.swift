@@ -12,11 +12,10 @@ class DailyReportViewController: ScrollViewController {
     
     var report: DailyReport
     
-    var timeLabel = LabeledText()
-    var weatherConditionLabel = LabeledText()
-    var weatherWindLabel = LabeledText()
-    var weatherTempLabel = LabeledText()
-    var weatherHumidityLabel = LabeledText()
+    var weatherConditionLabel = LabeledText().withTextColor(.black)
+    var weatherWindLabel = LabeledText().withTextColor(.black)
+    var weatherTempLabel = LabeledText().withTextColor(.black)
+    var weatherHumidityLabel = LabeledText().withTextColor(.black)
     
     var imageCollectionView: ImageCollectionView
     
@@ -67,16 +66,14 @@ class DailyReportViewController: ScrollViewController {
     
     override func setupContentView() {
         
-        let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))")
+        let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))").withTextColor(.black)
         contentView.addSubviewAtTop(nameLabel)
         
         let view = UIView()
         view.backgroundColor = .white
         view.setRoundedBorders()
         
-        view.addSubviewAtTop(timeLabel)
-        timeLabel.setupView(labelText: "time".localizeWithColon(), text: report.creationDate.timeString(), inline: true)
-        view.addSubviewAtTop(weatherConditionLabel, topView: timeLabel, insets: horizontalInsets)
+        view.addSubviewAtTop(weatherConditionLabel)
         weatherConditionLabel.setupView(labelText: "weatherConditions".localizeWithColon(), text: report.weatherCoco, inline: true)
         view.addSubviewAtTop(weatherWindLabel, topView: weatherConditionLabel, insets: flatInsets)
         weatherWindLabel.setupView(labelText: "wind".localizeWithColon(), text: "\(self.report.weatherWspd) \(report.weatherWdir)", inline: true)
@@ -89,7 +86,7 @@ class DailyReportViewController: ScrollViewController {
         
         contentView.addSubviewAtTop(view, topView: nameLabel, insets: defaultInsets)
         
-        let presentLabel = UILabel(header: "present".localizeWithColon())
+        let presentLabel = UILabel(header: "present".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewAtTop(presentLabel, topView: view, insets: defaultInsets)
         
         var lastView : UIView = presentLabel
@@ -98,7 +95,7 @@ class DailyReportViewController: ScrollViewController {
             let view = UIView()
             view.backgroundColor = .white
             view.setRoundedBorders()
-            let nameLabel = UILabel(header: report.projectCompany(id: briefing.companyId)?.name ?? "n/n")
+            let nameLabel = UILabel(header: report.projectCompany(id: briefing.companyId)?.name ?? "n/n").withTextColor(.black)
             view.addSubviewAtTop(nameLabel, insets: defaultInsets)
             let activityLabel = LabeledText()
             activityLabel.setupView(labelText: "activity".localizeWithColon(), text: briefing.activity, inline: true)

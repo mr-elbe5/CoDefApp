@@ -54,7 +54,7 @@ class PDFViewController: BaseViewController {
     }
     
     func save(data: Data){
-        let url = FileManager.tmpDirURL.appendingPathComponent(getFileName())
+        let url = FileManager.tempURL.appendingPathComponent(getFileName())
         FileManager.default.saveFile(data: data, url: url)
         var urls = [URL]()
         urls.append(url)

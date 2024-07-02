@@ -46,7 +46,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
     }
     
     func addImageSection(below previousAnchor: NSLayoutYAxisAnchor, imageCollectionView: ImageCollectionView){
-        let label = UILabel(header: "images".localizeWithColon())
+        let label = UILabel(header: "images".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewWithAnchors(label, top: previousAnchor, leading: contentView.leadingAnchor, insets: UIEdgeInsets(top: 2*defaultInset, left: defaultInset, bottom: 0, right: 0))
         
         let addImageButton = IconButton(icon: "photo".localize(),tintColor: .systemBlue, backgroundColor: .systemBackground, withBorder: true)
@@ -87,7 +87,7 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         }, for: .touchDown)
         addPhotoButton.isEnabled = AVCaptureDevice.isCameraAvailable
         
-        let addLabel = UILabel(text: "add".localizeWithColon())
+        let addLabel = UILabel(text: "add".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewWithAnchors(addLabel, leading: contentView.leadingAnchor, insets: defaultInsets)
             .centerY(addImageButton.centerYAnchor)
         
