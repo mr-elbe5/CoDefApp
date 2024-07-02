@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
-        FileManager.default.deleteTemporaryFiles()
+        _ = FileManager.default.deleteTemporaryFiles()
         //Log.info("SceneDelegate did enter background")
     }
 
