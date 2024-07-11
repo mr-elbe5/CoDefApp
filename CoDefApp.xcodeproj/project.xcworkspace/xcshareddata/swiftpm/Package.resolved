@@ -1,40 +1,40 @@
 {
-  "originHash" : "1bcbd771ebc4191ab1c625383ea804d87227735cb5ea52339967f820e861b4a1",
+  "originHash" : "c888610770c6cca51f66094b0e2918139bf19e2333164f9dbf6cdfb31c3569e7",
   "pins" : [
     {
       "identity" : "e5data",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5Data",
+      "location" : "https://github.com/mr-elbe5/E5Data.git",
       "state" : {
-        "revision" : "a993c1e73c93f9c9ca513fab3f7d204fe8f855d5",
-        "version" : "1.0.25"
+        "revision" : "c1a53b09b7750a1ba6b1356ca9342ab2d531f45e",
+        "version" : "1.0.26"
       }
     },
     {
       "identity" : "e5iosav",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5IOSAV",
+      "location" : "https://github.com/mr-elbe5/E5IOSAV.git",
       "state" : {
-        "revision" : "d9afe7fb8706376394235d4bdc8ebc8042898666",
-        "version" : "1.0.4"
+        "revision" : "b2571747c15cafb2c853b7b6486437005f776d1c",
+        "version" : "1.0.14"
       }
     },
     {
       "identity" : "e5iosui",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5IOSUI",
+      "location" : "https://github.com/mr-elbe5/E5IOSUI.git",
       "state" : {
-        "revision" : "5c518049b6a673cd6bd2c76f1d72b6d2e6f490e4",
-        "version" : "1.0.14"
+        "revision" : "2e4315db863581a4c881e7b80d165f7af872f77a",
+        "version" : "1.0.25"
       }
     },
     {
       "identity" : "e5photolib",
       "kind" : "remoteSourceControl",
-      "location" : "https://git.elbe5cloud.de/miro/E5PhotoLib",
+      "location" : "https://github.com/mr-elbe5/E5PhotoLib",
       "state" : {
-        "revision" : "d568867b6be2bdc5460b809aa62468203b3bc5ec",
-        "version" : "1.0.0"
+        "revision" : "4f7211f70869988eb3ea6aa05c497ad8edb23413",
+        "version" : "1.0.10"
       }
     },
     {

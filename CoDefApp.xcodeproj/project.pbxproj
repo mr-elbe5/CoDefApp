@@ -14,11 +14,8 @@
 		4E1841472BE120CD00EEECD9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841462BE120CD00EEECD9 /* Localizable.xcstrings */; };
 		4E1841492BE1217300EEECD9 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4E1841482BE1217300EEECD9 /* InfoPlist.xcstrings */; };
 		4E18414B2BE13CE800EEECD9 /* ServerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E18414A2BE13CE800EEECD9 /* ServerSettings.swift */; };
-		4E189E392C02277700EBDB21 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4E189E382C02277700EBDB21 /* E5Data */; };
-		4E189E3C2C02278200EBDB21 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4E189E3B2C02278200EBDB21 /* E5IOSUI */; };
 		4E189E3E2C022FDE00EBDB21 /* TextAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E189E3D2C022FDE00EBDB21 /* TextAttributes.swift */; };
 		4E189E402C0231E600EBDB21 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E189E3F2C0231E600EBDB21 /* FileManager.swift */; };
-		4E189E432C023CD100EBDB21 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4E189E422C023CD100EBDB21 /* E5IOSAV */; };
 		4E189E452C02401B00EBDB21 /* CGImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E189E442C02401B00EBDB21 /* CGImage.swift */; };
 		4E189E472C02405A00EBDB21 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E189E462C02405A00EBDB21 /* NSAttributedString.swift */; };
 		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
@@ -85,6 +82,9 @@
 		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 		4EEE42722BE8C1F8003A8E21 /* DailyReportPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */; };
+		4EF56CC42C402F1200B0A0F3 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC32C402F1200B0A0F3 /* E5Data */; };
+		4EF56CC72C402F1D00B0A0F3 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC62C402F1D00B0A0F3 /* E5IOSUI */; };
+		4EF56CCA2C402F2700B0A0F3 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC92C402F2700B0A0F3 /* E5IOSAV */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,10 +171,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E189E3C2C02278200EBDB21 /* E5IOSUI in Frameworks */,
-				4E189E392C02277700EBDB21 /* E5Data in Frameworks */,
+				4EF56CC72C402F1D00B0A0F3 /* E5IOSUI in Frameworks */,
+				4EF56CC42C402F1200B0A0F3 /* E5Data in Frameworks */,
 				4EA397F32A855197006053A0 /* Zip in Frameworks */,
-				4E189E432C023CD100EBDB21 /* E5IOSAV in Frameworks */,
+				4EF56CCA2C402F2700B0A0F3 /* E5IOSAV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,9 +393,9 @@
 			name = CoDefApp;
 			packageProductDependencies = (
 				4EA397F22A855197006053A0 /* Zip */,
-				4E189E382C02277700EBDB21 /* E5Data */,
-				4E189E3B2C02278200EBDB21 /* E5IOSUI */,
-				4E189E422C023CD100EBDB21 /* E5IOSAV */,
+				4EF56CC32C402F1200B0A0F3 /* E5Data */,
+				4EF56CC62C402F1D00B0A0F3 /* E5IOSUI */,
+				4EF56CC92C402F2700B0A0F3 /* E5IOSAV */,
 			);
 			productName = CoDefApp;
 			productReference = 4EA396D92A854CAD006053A0 /* CoDefApp.app */;
@@ -428,9 +428,9 @@
 			mainGroup = 4EA396D02A854CAD006053A0;
 			packageReferences = (
 				4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */,
-				4E189E372C02277700EBDB21 /* XCRemoteSwiftPackageReference "E5Data" */,
-				4E189E3A2C02278200EBDB21 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
-				4E189E412C023CD100EBDB21 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
+				4EF56CC22C402F1200B0A0F3 /* XCRemoteSwiftPackageReference "E5Data" */,
+				4EF56CC52C402F1D00B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
+				4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
 			);
 			productRefGroup = 4EA396DA2A854CAD006053A0 /* Products */;
 			projectDirPath = "";
@@ -751,30 +751,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4E189E372C02277700EBDB21 /* XCRemoteSwiftPackageReference "E5Data" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/E5Data";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.4;
-			};
-		};
-		4E189E3A2C02278200EBDB21 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/E5IOSUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		4E189E412C023CD100EBDB21 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://git.elbe5cloud.de/miro/E5IOSAV";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.2;
-			};
-		};
 		4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip.git";
@@ -783,28 +759,52 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		4EF56CC22C402F1200B0A0F3 /* XCRemoteSwiftPackageReference "E5Data" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5Data.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.26;
+			};
+		};
+		4EF56CC52C402F1D00B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5IOSUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.25;
+			};
+		};
+		4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5IOSAV.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.14;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4E189E382C02277700EBDB21 /* E5Data */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E189E372C02277700EBDB21 /* XCRemoteSwiftPackageReference "E5Data" */;
-			productName = E5Data;
-		};
-		4E189E3B2C02278200EBDB21 /* E5IOSUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E189E3A2C02278200EBDB21 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
-			productName = E5IOSUI;
-		};
-		4E189E422C023CD100EBDB21 /* E5IOSAV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4E189E412C023CD100EBDB21 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
-			productName = E5IOSAV;
-		};
 		4EA397F22A855197006053A0 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */;
 			productName = Zip;
+		};
+		4EF56CC32C402F1200B0A0F3 /* E5Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF56CC22C402F1200B0A0F3 /* XCRemoteSwiftPackageReference "E5Data" */;
+			productName = E5Data;
+		};
+		4EF56CC62C402F1D00B0A0F3 /* E5IOSUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF56CC52C402F1D00B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
+			productName = E5IOSUI;
+		};
+		4EF56CC92C402F2700B0A0F3 /* E5IOSAV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
+			productName = E5IOSAV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
