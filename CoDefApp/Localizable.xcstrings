@@ -1190,6 +1190,23 @@
         }
       }
     },
+    "fileNotSaved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Die Datei konnte nicht gespeichert werden."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file could not be saved."
+          }
+        }
+      }
+    },
     "filesDeleted" : {
       "extractionState" : "manual",
       "localizations" : {

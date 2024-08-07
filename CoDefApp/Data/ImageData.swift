@@ -33,8 +33,8 @@ class ImageData : FileData{
         }
     }
     
-    func saveImage(uiImage: UIImage) -> Bool{
-        if let data = uiImage.jpegData(compressionQuality: 0.8){
+    func saveJpegImage(uiImage: UIImage) -> Bool{
+        if let data = uiImage.jpegData(compressionQuality: 0.85){
             return saveFile(data: data)
         }
         return false

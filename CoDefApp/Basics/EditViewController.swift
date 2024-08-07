@@ -98,12 +98,19 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        var success = false
         if picker.sourceType == .camera{
-            guard let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {return}
-            let image = ImageData()
-            image.setJpegFileName()
-            if image.saveImage(uiImage: img){
-                imagePicked(image: image)
+            if let img = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+                let image = ImageData()
+                image.setJpegFileName()
+                while FileManager.default.fileExists(url: FileManager.fileDirURL.appendingPathComponent(image.fileName)){
+                    image.id = AppState.shared.nextId
+                    image.setJpegFileName()
+                }
+                if image.saveJpegImage(uiImage: img){
+                    imagePicked(image: image)
+                    success = true
+                }
             }
         }
         else{
@@ -112,9 +119,13 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
             image.setFileNameFromURL(imageURL)
             if FileManager.default.copyFile(fromURL: imageURL, toURL: image.fileURL){
                 imagePicked(image: image)
+                success = true
             }
         }
         picker.dismiss(animated: false)
+        if !success{
+            showAlert(title: "error", text: "imageNotSaved")
+        }
     }
     
     func imagePicked(image: ImageData){

@@ -245,7 +245,7 @@ class AppData : Codable{
             "scale" : "100"
         ]
         if let img = try await RequestController.shared.requestAuthorizedImage(url: serverUrl, withParams: params) {
-            _ = image.saveImage(uiImage: img)
+            _ = image.saveJpegImage(uiImage: img)
             await AppState.shared.imageDownloaded()
         }
         else{
