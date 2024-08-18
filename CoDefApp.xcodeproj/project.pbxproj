@@ -20,6 +20,8 @@
 		4E189E472C02405A00EBDB21 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E189E462C02405A00EBDB21 /* NSAttributedString.swift */; };
 		4E5A7C562AA8781B0048AFC5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */; };
 		4E7799082BE773B5002D1D25 /* DailyReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7799072BE773B5002D1D25 /* DailyReportViewController.swift */; };
+		4E7C76912C71EB7A000A66A7 /* AVCaptureDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7C76902C71EB7A000A66A7 /* AVCaptureDevice.swift */; };
+		4E7C76942C71EBC7000A66A7 /* E5PhotoLib in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7C76932C71EBC7000A66A7 /* E5PhotoLib */; };
 		4E9FD0012AACDC1C00A66812 /* ProjectPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */; };
 		4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9FD0042AADFC4600A66812 /* AppDate.swift */; };
 		4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA396E52A854CAE006053A0 /* Assets.xcassets */; };
@@ -84,7 +86,6 @@
 		4EEE42722BE8C1F8003A8E21 /* DailyReportPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */; };
 		4EF56CC42C402F1200B0A0F3 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC32C402F1200B0A0F3 /* E5Data */; };
 		4EF56CC72C402F1D00B0A0F3 /* E5IOSUI in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC62C402F1D00B0A0F3 /* E5IOSUI */; };
-		4EF56CCA2C402F2700B0A0F3 /* E5IOSAV in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC92C402F2700B0A0F3 /* E5IOSAV */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +102,7 @@
 		4E189E462C02405A00EBDB21 /* NSAttributedString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E7799072BE773B5002D1D25 /* DailyReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportViewController.swift; sourceTree = "<group>"; };
+		4E7C76902C71EB7A000A66A7 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
 		4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPhase.swift; sourceTree = "<group>"; };
 		4E9FD0042AADFC4600A66812 /* AppDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDate.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,9 +174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EF56CC72C402F1D00B0A0F3 /* E5IOSUI in Frameworks */,
+				4E7C76942C71EBC7000A66A7 /* E5PhotoLib in Frameworks */,
 				4EF56CC42C402F1200B0A0F3 /* E5Data in Frameworks */,
 				4EA397F32A855197006053A0 /* Zip in Frameworks */,
-				4EF56CCA2C402F2700B0A0F3 /* E5IOSAV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +186,7 @@
 		4E9FD0022AADAB3B00A66812 /* Basics */ = {
 			isa = PBXGroup;
 			children = (
+				4E7C76902C71EB7A000A66A7 /* AVCaptureDevice.swift */,
 				4EA397552A855061006053A0 /* BaseViewController.swift */,
 				4EA397522A855061006053A0 /* EditViewController.swift */,
 				4EA397AC2A85508E006053A0 /* ImageCollectionView.swift */,
@@ -395,7 +398,7 @@
 				4EA397F22A855197006053A0 /* Zip */,
 				4EF56CC32C402F1200B0A0F3 /* E5Data */,
 				4EF56CC62C402F1D00B0A0F3 /* E5IOSUI */,
-				4EF56CC92C402F2700B0A0F3 /* E5IOSAV */,
+				4E7C76932C71EBC7000A66A7 /* E5PhotoLib */,
 			);
 			productName = CoDefApp;
 			productReference = 4EA396D92A854CAD006053A0 /* CoDefApp.app */;
@@ -430,7 +433,7 @@
 				4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */,
 				4EF56CC22C402F1200B0A0F3 /* XCRemoteSwiftPackageReference "E5Data" */,
 				4EF56CC52C402F1D00B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSUI" */,
-				4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */,
+				4E7C76922C71EBC7000A66A7 /* XCRemoteSwiftPackageReference "E5PhotoLib" */,
 			);
 			productRefGroup = 4EA396DA2A854CAD006053A0 /* Products */;
 			projectDirPath = "";
@@ -474,6 +477,7 @@
 				4EA3971B2A85501D006053A0 /* UnitData.swift in Sources */,
 				4E9FD0052AADFC4600A66812 /* AppDate.swift in Sources */,
 				4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */,
+				4E7C76912C71EB7A000A66A7 /* AVCaptureDevice.swift in Sources */,
 				4EA3972D2A85502C006053A0 /* LabeldDefectStateSelectField.swift in Sources */,
 				4EA3971A2A85501D006053A0 /* UnitViewController.swift in Sources */,
 				4EA397B42A85508E006053A0 /* ImageViewController.swift in Sources */,
@@ -673,7 +677,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -688,7 +692,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -703,7 +707,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -718,7 +722,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.6;
+				MARKETING_VERSION = 1.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -751,6 +755,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4E7C76922C71EBC7000A66A7 /* XCRemoteSwiftPackageReference "E5PhotoLib" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mr-elbe5/E5PhotoLib.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.11;
+			};
+		};
 		4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/Zip.git";
@@ -775,17 +787,14 @@
 				minimumVersion = 1.0.25;
 			};
 		};
-		4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mr-elbe5/E5IOSAV.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.14;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4E7C76932C71EBC7000A66A7 /* E5PhotoLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E7C76922C71EBC7000A66A7 /* XCRemoteSwiftPackageReference "E5PhotoLib" */;
+			productName = E5PhotoLib;
+		};
 		4EA397F22A855197006053A0 /* Zip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4EA397F12A855197006053A0 /* XCRemoteSwiftPackageReference "Zip" */;
@@ -800,11 +809,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4EF56CC52C402F1D00B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSUI" */;
 			productName = E5IOSUI;
-		};
-		4EF56CC92C402F2700B0A0F3 /* E5IOSAV */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4EF56CC82C402F2700B0A0F3 /* XCRemoteSwiftPackageReference "E5IOSAV" */;
-			productName = E5IOSAV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

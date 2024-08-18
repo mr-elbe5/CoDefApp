@@ -6,8 +6,8 @@
 
 import UIKit
 import AVFoundation
-import E5PhotoLib
 import E5IOSUI
+import E5PhotoLib
 
 class BaseViewController: UIViewController {
     
