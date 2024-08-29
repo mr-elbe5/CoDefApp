@@ -82,6 +82,8 @@
 		4EC835522AC56A2100CB138C /* LabeledPhaseSelectField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */; };
 		4ED8E4F02BE0209B00F28AAA /* DailyReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */; };
 		4ED8E4F22BE0216F00F28AAA /* CompanyBriefing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */; };
+		4EE481DD2C80C36000BB9B73 /* Camera.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EE481DB2C80C36000BB9B73 /* Camera.xcstrings */; };
+		4EE481DE2C80C36000BB9B73 /* Base.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 4EE481DC2C80C36000BB9B73 /* Base.xcstrings */; };
 		4EE8BFD52ABAF54E00A98628 /* Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE8BFD42ABAF54E00A98628 /* Backup.swift */; };
 		4EEE42722BE8C1F8003A8E21 /* DailyReportPdfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */; };
 		4EF56CC42C402F1200B0A0F3 /* E5Data in Frameworks */ = {isa = PBXBuildFile; productRef = 4EF56CC32C402F1200B0A0F3 /* E5Data */; };
@@ -165,6 +167,8 @@
 		4EC835512AC56A2100CB138C /* LabeledPhaseSelectField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledPhaseSelectField.swift; sourceTree = "<group>"; };
 		4ED8E4EF2BE0209B00F28AAA /* DailyReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReport.swift; sourceTree = "<group>"; };
 		4ED8E4F12BE0216F00F28AAA /* CompanyBriefing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyBriefing.swift; sourceTree = "<group>"; };
+		4EE481DB2C80C36000BB9B73 /* Camera.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Camera.xcstrings; sourceTree = "<group>"; };
+		4EE481DC2C80C36000BB9B73 /* Base.xcstrings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json.xcstrings; path = Base.xcstrings; sourceTree = "<group>"; };
 		4EE8BFD42ABAF54E00A98628 /* Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Backup.swift; sourceTree = "<group>"; };
 		4EEE42712BE8C1F8003A8E21 /* DailyReportPdfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportPdfViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -236,6 +240,8 @@
 		4EA396DB2A854CAD006053A0 /* CoDefApp */ = {
 			isa = PBXGroup;
 			children = (
+				4EE481DC2C80C36000BB9B73 /* Base.xcstrings */,
+				4EE481DB2C80C36000BB9B73 /* Camera.xcstrings */,
 				4E9CE6AF2C80B19D00228D16 /* CoDefApp.entitlements */,
 				4E9FD0022AADAB3B00A66812 /* Basics */,
 				4E9FD0032AADACAF00A66812 /* Extensions */,
@@ -453,6 +459,8 @@
 			files = (
 				4EA396E92A854CAE006053A0 /* LaunchScreen.storyboard in Resources */,
 				4E1841492BE1217300EEECD9 /* InfoPlist.xcstrings in Resources */,
+				4EE481DE2C80C36000BB9B73 /* Base.xcstrings in Resources */,
+				4EE481DD2C80C36000BB9B73 /* Camera.xcstrings in Resources */,
 				4E1841472BE120CD00EEECD9 /* Localizable.xcstrings in Resources */,
 				4EA396E62A854CAE006053A0 /* Assets.xcassets in Resources */,
 			);
@@ -680,7 +688,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoDefApp/CoDefApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
@@ -715,7 +723,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CoDefApp/CoDefApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
