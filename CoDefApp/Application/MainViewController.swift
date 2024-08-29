@@ -163,7 +163,8 @@ class MainViewController: ScrollViewController {
     
     func backup(){
         let fileName = "codeftracker_backup_\(Date.localDate.shortFileDate()).zip"
-        if let url = Backup.createBackupFile(name: fileName){
+        let url = FileManager.tempURL.appendingPathComponent(fileName)
+        if Backup.createBackupFile(at: url){
             var urls = [URL]()
             urls.append(url)
             let documentPickerController = UIDocumentPickerViewController(
@@ -215,13 +216,20 @@ extension MainViewController: UIDocumentPickerDelegate{
         guard let url = urls.first else {
             return
         }
-        if Backup.unzipBackupFile(zipFileURL: url){
-            if Backup.restoreBackup(){
-                showDone(title: "success".localize(), text: "restoreDone".localize()){
-                    self.updateProjectSection()
-                    self.updateCompanySection()
-                    return
+        if url.startAccessingSecurityScopedResource(){
+            DispatchQueue.main.async {
+                let spinner = self.startSpinner()
+                if Backup.unzipBackupFile(zipFileURL: url){
+                    if Backup.restoreBackupFile(){
+                        self.showDone(title: "success".localize(), text: "restoreDone".localize()){
+                            self.updateProjectSection()
+                            self.updateCompanySection()
+                            return
+                        }
+                    }
                 }
+                self.stopSpinner(spinner)
+                url.stopAccessingSecurityScopedResource()
             }
         }
     }

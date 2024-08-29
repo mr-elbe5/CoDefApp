@@ -12,51 +12,46 @@ import E5Data
 
 class Backup {
     
-    static func logRestoreInfo(){
-        print("files to restore:")
-        let names = FileManager.default.listAllFiles(dirPath: FileManager.tempURL.path)
-        for name in names{
-            print(name)
-        }
-    }
-    
-    static func createBackupFile(name: String) -> URL?{
+    public static func createBackupFile(at url: URL) -> Bool{
         do {
+            let count = FileManager.default.deleteTemporaryFiles()
+            if count > 0{
+                Log.info("\(count) temporary files deleted before backup")
+            }
             var paths = Array<URL>()
-            let zipFileURL = FileManager.tempURL.appendingPathComponent(name)
             paths.append(FileManager.fileDirURL)
             paths.append(FileManager.privateURL.appendingPathComponent(AppData.storeKey + ".json"))
             paths.append(FileManager.privateURL.appendingPathComponent(AppState.storeKey + ".json"))
-            try Zip.zipFiles(paths: paths, zipFilePath: zipFileURL, password: nil, progress: { (progress) -> () in
-                print(progress)
+            try Zip.zipFiles(paths: paths, zipFilePath: url, password: nil, progress: { (progress) -> () in
+                //Log.debug(progress)
             })
-            return zipFileURL
-        }
-        catch let err {
-            print(err)
-            Log.error("could not create zip file")
-        }
-        return nil
-    }
-    
-    static func unzipBackupFile(zipFileURL: URL) -> Bool{
-        do {
-            _ = FileManager.default.deleteTemporaryFiles()
-            let destDirectory = FileManager.tempURL
-            try FileManager.default.createDirectory(at: destDirectory, withIntermediateDirectories: true)
-            try Zip.unzipFile(zipFileURL, destination: destDirectory, overwrite: true, password: nil, progress: { (progress) -> () in
-                print(progress)
-            })
-            logRestoreInfo()
             return true
         }
-        catch {
-            Log.error("could not read zip file")
+        catch let err {
+            Log.error("could not create zip file: \(err.localizedDescription)")
         }
         return false
     }
     
-    static func restoreBackup() -> Bool{
+    public static func unzipBackupFile(zipFileURL: URL) -> Bool{
+        do {
+            let count = FileManager.default.deleteTemporaryFiles()
+            if count > 0{
+                Log.info("\(count) temporary files deleted before restore")
+            }
+            try FileManager.default.createDirectory(at: FileManager.tempURL, withIntermediateDirectories: true)
+            try Zip.unzipFile(zipFileURL, destination: FileManager.tempURL, overwrite: true, password: nil, progress: { (progress) -> () in
+                //Log.debug(progress)
+            })
+            return true
+        }
+        catch (let err){
+            Log.error("could not read zip file: \(err.localizedDescription)")
+        }
+        return false
+    }
+    
+    public static func restoreBackupFile() -> Bool{
         _ = FileManager.default.deleteImageFiles()
         FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
         FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)
@@ -69,6 +64,14 @@ class Backup {
         }
         _ = FileManager.default.deleteTemporaryFiles()
         return true
+    }
+    
+    static func logRestoreInfo(){
+        print("files to restore:")
+        let names = FileManager.default.listAllFiles(dirPath: FileManager.tempURL.path)
+        for name in names{
+            print(name)
+        }
     }
     
 }

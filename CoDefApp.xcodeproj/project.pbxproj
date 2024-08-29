@@ -103,6 +103,7 @@
 		4E5A7C552AA8781B0048AFC5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4E7799072BE773B5002D1D25 /* DailyReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyReportViewController.swift; sourceTree = "<group>"; };
 		4E7C76902C71EB7A000A66A7 /* AVCaptureDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVCaptureDevice.swift; sourceTree = "<group>"; };
+		4E9CE6AF2C80B19D00228D16 /* CoDefApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoDefApp.entitlements; sourceTree = "<group>"; };
 		4E9FD0002AACDC1C00A66812 /* ProjectPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectPhase.swift; sourceTree = "<group>"; };
 		4E9FD0042AADFC4600A66812 /* AppDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDate.swift; sourceTree = "<group>"; };
 		4EA396D92A854CAD006053A0 /* CoDefApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoDefApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,6 +236,7 @@
 		4EA396DB2A854CAD006053A0 /* CoDefApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E9CE6AF2C80B19D00228D16 /* CoDefApp.entitlements */,
 				4E9FD0022AADAB3B00A66812 /* Basics */,
 				4E9FD0032AADACAF00A66812 /* Extensions */,
 				4EA396F12A854D5F006053A0 /* Data */,
@@ -676,13 +678,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoDefApp/CoDefApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Construction Defect Tracker";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Access to the camera is needed for taking photos, which will be stored in the app in connection with issues.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Access to the documents folder is needed for export and backups";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to an issue.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -692,7 +699,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -706,13 +713,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoDefApp/CoDefApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 5UG99476V8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CoDefApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Construction Defect Tracker";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Access to the camera is needed for taking photos, which will be stored in the app in connection with issues.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Access to the documents folder is needed for export and backups";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The access to the photo library is needed, when photos from the app are exported to the library or when photos from the library are assigned to an issue.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -722,7 +734,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.7;
+				MARKETING_VERSION = 1.3.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.elbe5.codef;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
