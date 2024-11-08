@@ -6,17 +6,16 @@
 
 import Foundation
 import UIKit
-import E5Data
 
 struct RequestController {
     
-    public static var shared = RequestController()
+    static var shared = RequestController()
     
     func hasServerURL() -> Bool{
         return !AppState.shared.serverURL.isEmpty
     }
     
-    public func createRequest(url : String, method: String, headerFields : [String : String]?, params : [String:String]?) -> URLRequest? {
+    func createRequest(url : String, method: String, headerFields : [String : String]?, params : [String:String]?) -> URLRequest? {
         var body : Data?;
         if let params = params{
             do {
@@ -29,7 +28,7 @@ struct RequestController {
         return createRequest(url: url, method: method, headerFields: headerFields, body: body)
     }
     
-    public func createRequest(url : String, method: String, headerFields : [String : String]?, body: Data?) -> URLRequest? {
+    func createRequest(url : String, method: String, headerFields : [String : String]?, body: Data?) -> URLRequest? {
         guard let requestUrl = URL(string : url) else {
             print("could not create URLRequest: URL could not be created")
             return nil
@@ -96,7 +95,7 @@ struct RequestController {
         return nil
     }
     
-    public func launchJsonRequest<T : Decodable>(with request : URLRequest) async throws -> T?{
+    func launchJsonRequest<T : Decodable>(with request : URLRequest) async throws -> T?{
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse{
             if response.statusCode != 200{
@@ -115,7 +114,7 @@ struct RequestController {
         }
     }
     
-    public func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
+    func launchImageRequest(with request : URLRequest) async throws -> UIImage?{
         let (data, response) = try await URLSession.shared.data(for: request)
         if let response = response as? HTTPURLResponse{
             if response.statusCode != 200{

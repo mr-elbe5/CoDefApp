@@ -6,8 +6,6 @@
 
 import UIKit
 import StoreKit
-import E5Data
-import E5IOSUI
 
 protocol SettingsDelegate{
     func standaloneChanged()

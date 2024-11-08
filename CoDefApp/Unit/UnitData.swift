@@ -6,8 +6,6 @@
 
 import Foundation
 import UIKit
-import E5Data
-import E5IOSUI
 
 class UnitData : ContentData{
     

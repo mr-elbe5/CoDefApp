@@ -6,7 +6,6 @@
 
 import Foundation
 import UIKit
-import E5Data
 
 class WeatherData : Decodable{
     
@@ -55,7 +54,7 @@ class WeatherData : Decodable{
         weatherRhum = try values.decodeIfPresent(Double.self, forKey: .rhum) ?? 0
     }
     
-    public func getWeatherCoco() -> String{
+    func getWeatherCoco() -> String{
         switch weatherCoco {
         case 1 : return "weather.clear".localize()
         case 2 : return  "weather.fair".localize()
@@ -88,11 +87,11 @@ class WeatherData : Decodable{
         }
     }
     
-    public func getWindSpeed() -> String{
+    func getWindSpeed() -> String{
         "\(weatherWspd) km/h"
     }
     
-    public func getWindDirection() -> String{
+    func getWindDirection() -> String{
         if weatherWdir < 12.25{
             return "N"
         }
@@ -144,11 +143,11 @@ class WeatherData : Decodable{
         return "N"
     }
     
-    public func getTemperature() -> String{
+    func getTemperature() -> String{
         "\(weatherTemp) °C"
     }
     
-    public func getHumidity() -> String{
+    func getHumidity() -> String{
         "\(weatherRhum) %"
     }
     

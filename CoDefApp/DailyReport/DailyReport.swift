@@ -6,7 +6,6 @@
 
 import Foundation
 import UIKit
-import E5Data
 
 class DailyReport : ContentData{
     

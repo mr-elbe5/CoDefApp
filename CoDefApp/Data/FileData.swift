@@ -7,7 +7,6 @@
 import Foundation
 import UIKit
 import UniformTypeIdentifiers
-import E5Data
 
 class FileData : BaseData{
     

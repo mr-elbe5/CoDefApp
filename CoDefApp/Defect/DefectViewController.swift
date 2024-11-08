@@ -5,7 +5,6 @@
  */
 
 import UIKit
-import E5IOSUI
 
 class DefectViewController: ScrollViewController, ImageCollectionDelegate {
     

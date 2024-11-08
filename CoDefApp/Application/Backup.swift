@@ -8,11 +8,10 @@ import Foundation
 import UIKit
 import Photos
 import Zip
-import E5Data
 
 class Backup {
     
-    public static func createBackupFile(at url: URL) -> Bool{
+    static func createBackupFile(at url: URL) -> Bool{
         do {
             let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
@@ -33,7 +32,7 @@ class Backup {
         return false
     }
     
-    public static func unzipBackupFile(zipFileURL: URL) -> Bool{
+    static func unzipBackupFile(zipFileURL: URL) -> Bool{
         do {
             let count = FileManager.default.deleteTemporaryFiles()
             if count > 0{
@@ -51,7 +50,7 @@ class Backup {
         return false
     }
     
-    public static func restoreBackupFile() -> Bool{
+    static func restoreBackupFile() -> Bool{
         _ = FileManager.default.deleteImageFiles()
         FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppData.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppData.storeKey + ".json"), replace: true)
         FileManager.default.copyFile(fromURL: FileManager.tempURL.appendingPathComponent(AppState.storeKey + ".json"), toURL: FileManager.privateURL.appendingPathComponent(AppState.storeKey + ".json"), replace: true)

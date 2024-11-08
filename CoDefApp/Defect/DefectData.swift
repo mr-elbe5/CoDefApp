@@ -5,11 +5,10 @@
  */
 
 import UIKit
-import E5Data
 
 class DefectData : ContentData{
     
-    public static let planCropSize = CGSize(width: 400, height: 400)
+    static let planCropSize = CGSize(width: 400, height: 400)
     
     enum CodingKeys: String, CodingKey {
         case projectPhase

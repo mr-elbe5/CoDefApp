@@ -5,7 +5,6 @@
  */
 
 import Foundation
-import E5Data
 
 class ProjectData : ContentData{
     

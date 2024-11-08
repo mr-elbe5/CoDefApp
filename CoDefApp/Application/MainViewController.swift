@@ -6,7 +6,6 @@
 
 import UIKit
 import UniformTypeIdentifiers
-import E5IOSUI
 
 class MainViewController: ScrollViewController {
     
@@ -212,7 +211,7 @@ extension MainViewController: CompanyDelegate{
 
 extension MainViewController: UIDocumentPickerDelegate{
     
-    public func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let url = urls.first else {
             return
         }
