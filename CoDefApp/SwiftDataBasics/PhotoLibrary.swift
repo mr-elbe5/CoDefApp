@@ -6,6 +6,7 @@
 
 import AVFoundation
 import CoreLocation
+#if !os(watchOS)
 import Photos
 
 class PhotoLibrary{
@@ -128,3 +129,4 @@ class PhotoLibrary{
     
     
 }
+#endif
