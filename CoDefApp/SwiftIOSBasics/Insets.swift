@@ -12,6 +12,8 @@ struct Insets{
     
     static var smallInset : CGFloat = 5
     
+    static var keyboardInset : CGFloat = 100
+    
     static var defaultInsets : UIEdgeInsets = .init(top: defaultInset, left: defaultInset, bottom: defaultInset, right: defaultInset)
     
     static var smallInsets : UIEdgeInsets = .init(top: smallInset, left: smallInset, bottom: smallInset, right: smallInset)

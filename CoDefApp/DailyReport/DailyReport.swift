@@ -18,6 +18,7 @@ class DailyReport : ContentData{
         case weatherRhum
         case companyBriefings
         case images
+        case comment
     }
     
     var idx: Int = 1
@@ -28,6 +29,7 @@ class DailyReport : ContentData{
     var weatherRhum: String = ""
     var companyBriefings = Array<CompanyBriefing>()
     var images = ImageList()
+    var comment = ""
     
     var project: ProjectData!
     
@@ -53,6 +55,7 @@ class DailyReport : ContentData{
         weatherRhum = try values.decodeIfPresent(String.self, forKey: .weatherRhum) ?? ""
         companyBriefings = try values.decodeIfPresent(Array<CompanyBriefing>.self, forKey: .companyBriefings) ?? Array<CompanyBriefing>()
         images = try values.decodeIfPresent(ImageList.self, forKey: .images) ?? ImageList()
+        comment = try values.decodeIfPresent(String.self, forKey: .comment) ?? ""
         if displayName.isEmpty{
             setDisplayName()
         }
@@ -69,6 +72,7 @@ class DailyReport : ContentData{
         try container.encode(weatherRhum, forKey: .weatherRhum)
         try container.encode(companyBriefings, forKey: .companyBriefings)
         try container.encode(images, forKey: .images)
+        try container.encode(comment, forKey: .comment)
     }
     
     func setDisplayName(){
@@ -108,6 +112,7 @@ class DailyReport : ContentData{
             dict["company_\(briefing.companyId)_activity"] = briefing.activity
             dict["company_\(briefing.companyId)_briefing"] = briefing.briefing
         }
+        dict["comment"]=comment
         return dict
     }
     
@@ -131,6 +136,7 @@ class DailyReport : ContentData{
                 AppState.shared.downloadedImages += 1
             }
         }
+        comment = fromData.comment
     }
     
     func uploadToServer() async{

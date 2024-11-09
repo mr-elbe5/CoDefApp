@@ -22,6 +22,8 @@ class EditDailyReportViewController: EditViewController {
     
     var imageCollectionView: ImageCollectionView
     
+    var commentField = LabeledTextareaInput().withTextColor(.black)
+    
     init(report: DailyReport){
         self.report = report
         imageCollectionView = ImageCollectionView(images: self.report.images, enableDelete: true)
@@ -81,6 +83,9 @@ class EditDailyReportViewController: EditViewController {
         
         addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
         
+        commentField.setupView(labelText: "generalComment".localizeWithColon(), text: report.comment)
+        contentView.addSubviewWithAnchors(commentField, top: imageCollectionView.bottomAnchor, leading: contentView.leadingAnchor, trailing: contentView.trailingAnchor, insets: defaultInsets)
+            .bottom(contentView.bottomAnchor, inset: -keyboardInset)
     }
     
     override func deleteImageData(image: ImageData) {
@@ -103,6 +108,7 @@ class EditDailyReportViewController: EditViewController {
                 report.companyBriefings.append(briefing)
             }
         }
+        report.comment = commentField.text
         report.project.addDailyReport(report)
         delegate?.dailyReportChanged()
         return true

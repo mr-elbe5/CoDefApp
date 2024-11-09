@@ -36,5 +36,9 @@ extension UIViewController{
         Insets.wideInsets
     }
     
+    var keyboardInset : CGFloat{
+        Insets.keyboardInset
+    }
+    
 }
 

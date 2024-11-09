@@ -1292,6 +1292,23 @@
         }
       }
     },
+    "generalComment" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allgemeiner Kommentar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General Comment"
+          }
+        }
+      }
+    },
     "humidity" : {
       "extractionState" : "manual",
       "localizations" : {

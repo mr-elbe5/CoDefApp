@@ -68,7 +68,7 @@ class DailyReportViewController: ScrollViewController {
         let nameLabel = UILabel(header: "\("dailyReport".localize()) \(report.idx) (\(report.creationDate.dateString()))").withTextColor(.black)
         contentView.addSubviewAtTop(nameLabel)
         
-        let view = UIView()
+        var view = UIView()
         view.backgroundColor = .white
         view.setRoundedBorders()
         
@@ -109,7 +109,21 @@ class DailyReportViewController: ScrollViewController {
         
         let imageCollectionView = ImageCollectionView(images: report.images, enableDelete: false)
         contentView.addSubviewAtTop(imageCollectionView, topView: lastView, insets: defaultInsets)
-            .bottom(contentView.bottomAnchor)
+        
+        if !report.comment.isEmpty{
+            let label = UILabel(header: "generalComment".localizeWithColon())
+            contentView.addSubviewAtTop(label, topView: imageCollectionView, insets: defaultInsets)
+            view = UIView()
+            view.backgroundColor = .white
+            view.setRoundedBorders()
+            contentView.addSubviewAtTop(view, topView: label, insets: defaultInsets)
+                .bottom(contentView.bottomAnchor, inset: -defaultInset)
+            let textLabel = UILabel(text: report.comment)
+            view.addSubviewFilling(textLabel, insets: defaultInsets)
+        }
+        else{
+            imageCollectionView.bottom(contentView.bottomAnchor)
+        }
         
     }
     

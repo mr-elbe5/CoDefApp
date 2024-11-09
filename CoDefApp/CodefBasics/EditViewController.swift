@@ -91,7 +91,6 @@ class EditViewController: ScrollViewController, UIImagePickerControllerDelegate,
         
         imageCollectionView.imageDelegate = self
         contentView.addSubviewAtTop(imageCollectionView, topView: addLabel)
-            .bottom(contentView.bottomAnchor, inset: -defaultInset)
         
     }
     

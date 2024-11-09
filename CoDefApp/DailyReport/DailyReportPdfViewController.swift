@@ -73,6 +73,10 @@ extension PDFRenderer {
             addLine(label: "images".localize(), text: "")
             addLine(label: "", images: report.images, maxHeight: pageRect.height * 0.2)
         }
+        if !report.comment.isEmpty{
+            addLine(label: "generalComment".localize(), text: report.comment)
+        }
+        
     }
     
 }
