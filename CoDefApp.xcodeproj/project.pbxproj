@@ -338,7 +338,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E6CB29C2CDE712400FC1D29 /* BaseIOS */ = {
+		4E6CB29C2CDE712400FC1D29 /* SwiftIOSBasics */ = {
 			isa = PBXGroup;
 			children = (
 				4E6CB3152CDE7B5500FC1D29 /* Data */,
@@ -349,7 +349,7 @@
 				4E6CB2CE2CDE716900FC1D29 /* UIView */,
 				4E6CB2D92CDE716900FC1D29 /* UIViewController */,
 			);
-			path = BaseIOS;
+			path = SwiftIOSBasics;
 			sourceTree = "<group>";
 		};
 		4E6CB2A02CDE716900FC1D29 /* Info */ = {
@@ -440,7 +440,7 @@
 			path = UIViewController;
 			sourceTree = "<group>";
 		};
-		4E6CB3142CDE7AA200FC1D29 /* BaseData */ = {
+		4E6CB3142CDE7AA200FC1D29 /* SwiftDataBasics */ = {
 			isa = PBXGroup;
 			children = (
 				4E6CB3122CDE780B00FC1D29 /* PhotoLibrary.swift */,
@@ -467,7 +467,7 @@
 				4E6CB2832CDE70D900FC1D29 /* UserDefaults.swift */,
 				4E6CB2842CDE70D900FC1D29 /* UUIDObject.swift */,
 			);
-			path = BaseData;
+			path = SwiftDataBasics;
 			sourceTree = "<group>";
 		};
 		4E6CB3152CDE7B5500FC1D29 /* Data */ = {
@@ -481,7 +481,7 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
-		4E9FD0022AADAB3B00A66812 /* BaseCodef */ = {
+		4E9FD0022AADAB3B00A66812 /* CodefBasics */ = {
 			isa = PBXGroup;
 			children = (
 				4E7C76902C71EB7A000A66A7 /* AVCaptureDevice.swift */,
@@ -500,7 +500,7 @@
 				4EA397A32A855080006053A0 /* PDFViewController.swift */,
 				4EA397502A855061006053A0 /* ScrollViewController.swift */,
 			);
-			path = BaseCodef;
+			path = CodefBasics;
 			sourceTree = "<group>";
 		};
 		4EA396D02A854CAD006053A0 = {
@@ -530,9 +530,9 @@
 				4E9CE6AF2C80B19D00228D16 /* CoDefApp.entitlements */,
 				4EA396E72A854CAE006053A0 /* LaunchScreen.storyboard */,
 				4EA396EA2A854CAE006053A0 /* Info.plist */,
-				4E6CB3142CDE7AA200FC1D29 /* BaseData */,
-				4E6CB29C2CDE712400FC1D29 /* BaseIOS */,
-				4E9FD0022AADAB3B00A66812 /* BaseCodef */,
+				4E6CB3142CDE7AA200FC1D29 /* SwiftDataBasics */,
+				4E6CB29C2CDE712400FC1D29 /* SwiftIOSBasics */,
+				4E9FD0022AADAB3B00A66812 /* CodefBasics */,
 				4EA396F12A854D5F006053A0 /* Data */,
 				4EA396F92A854DB3006053A0 /* Company */,
 				4EA396FC2A854DE2006053A0 /* Project */,
