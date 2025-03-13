@@ -62,6 +62,8 @@ class CreateStatusChangeViewController: EditViewController {
         
         addImageSection(below: lastView.bottomAnchor, imageCollectionView: imageCollectionView)
         
+        imageCollectionView.bottom(contentView.bottomAnchor)
+        
     }
     
     override func deleteImageData(image: ImageData) {
