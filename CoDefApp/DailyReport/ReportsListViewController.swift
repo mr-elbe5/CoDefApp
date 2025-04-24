@@ -29,7 +29,7 @@ class ReportsListViewController: ScrollViewController {
         let headerLabel = UILabel(header: "dailyReports".localizeWithColon()).withTextColor(.black)
         contentView.addSubviewAtTop(headerLabel, insets: defaultInsets)
         var lastView: UIView = headerLabel
-        for report in project.dailyReports{
+        for report in project.dailyReports.reversed(){
             let sectionLine = getReportSectionLine(report: report)
             contentView.addSubviewAtTop(sectionLine, topView: lastView, insets: defaultInsets)
             lastView = sectionLine
